@@ -1,0 +1,16 @@
+!! Give future long- and short-term developments
+
+Short-term:
+0) finish MANUAL
+1) cleans the test suite in gen1int_host.F90
+2) tests Cartesian/spherical multipole moment integrals
+3) tests the calculations of expectation values; why calling PR1IN1
+   with expectation values returned gives wrong results
+4) enables London atomic orbitals
+5) uses header files in Gen1Int library?
+
+Long-term:
+1) adds functionality of reading/writing integrals and/or expectation values on file
+2) considers molecular symmetry
+3) works together with other modules, such as geometry optimization and response
+   theory calculations

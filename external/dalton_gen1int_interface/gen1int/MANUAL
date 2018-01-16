@@ -1,0 +1,253 @@
+   5.1 Some limitations:
+   (1) Current Gen1Int interface may only treat molecules by specifying C1 symmetry
+       i.e., you can not use symmetry in MOLECULE.INP.
+   (2) The integrals can not be written on file, you may write them by yourself.
+   (3) The parallelization is a simple manger/worker mode, not sure about the efficiency.
+
+   5.2 There are at least 3 different ways to use the interface:
+
+   (1) If there are some operators defined in Gen1Int library, but not in the interface,
+       i.e., not defined in \fn(Gen1IntAPIPropCreate) in gen1int_api.F90
+
+       ! Gen1Int API
+       use gen1int_api
+
+       ! one-electron operator from Gen1Int library
+       type(one_prop_t) :: prop_operator
+
+       ! non-zero components for the operator, the first dimension is for bra and
+       ! ket sub-shells, the last is the number of non-zero components, which should
+       ! be 1 for non-relativistic calcualtions
+       integer nnz_comp(2,?)
+
+       ! number of property integrals
+       integer num_prop
+       ! symmetry of property integrals
+       integer prop_sym
+
+       ! N-ary tree for geometric derivatives on bra center
+       type(nary_tree_t) nary_tree_bra
+       ! N-ary tree for geometric derivatives on ket center
+       type(nary_tree_t) nary_tree_ket
+       ! N-ary tree for total geometric derivatives
+       type(nary_tree_t) nary_tree_total
+
+       ! error information
+       integer ierr
+
+       ! creates the operator using Gen1Int library subroutine, you could also set
+       ! various derivatives uisng \fn(OnePropSetMag) and \fn(OnePropSetRAM)
+       call OnePropCreate(..., info_prop=ierr)
+       if (ierr/=0) stop "failed to create operator"
+
+       ! gets the number of property integrals and their symmetry
+       call OnePropGetNumProp(one_prop=prop_operator, &
+                              num_prop=num_prop)
+       call OnePropGetSymmetry(one_prop=prop_operator, &
+                               prop_sym=prop_sym)
+
+       ! notice that Gen1Int library arranges the xyz components in a different way,
+       ! for instance, the second geometric derivatives are arranged in memory:
+       !     dxdx, dxdy, dydy, dxdz, dydz, dzdz
+       ! 
+       ! and the third:
+       !     dxdxdx, dxdxdy, dxdydy, dydydy, dxdxdz, dxdydz, dydydz, dxdzdz, dydzdz, dzdzdz
+       !
+       ! briefly, if we put the derivatives in a triangle with dx...dxdx, dy...dydy,
+       ! and dz...dzdz in the three corners, the derivatives in Gen1Int starts from
+       ! dx...dxdx to dy...dydy, followed by dx...dxdz to dy...dydz, ..., the last
+       ! is dz...dzdz, you may generate these derivatives from
+       ! 
+       ! do dz = 0, order_geo
+       !   do dy = 0, order_geo-dz
+       !     dx = order_geo-(dy+dz)
+       !     return (/dx,dy,dz/)
+       !   end do
+       ! end do
+       !
+       ! please refer to the manual of Gen1Int library for more details about the results
+       ! you get, see Section 2.2
+
+       ! initializes the information of N-ary tree for total geometric derivatives
+       call NaryTreeCreate(num_atoms=num_atoms,       &
+                           order_geo=order_geo,       &
+                           max_ncent=max_num_cent,    &
+                           nary_tree=nary_tree_total, &
+                           info_geom=ierr)
+       if (ierr/=0) stop "failed to create N-ary tree"
+
+       ! initializes the information of N-ary trees for partial geometric derivatives
+       ! on bra and ket centers ...
+
+       ! gets the number of all unique geometric derivatives
+       call NaryTreeGetNumGeo(nary_tree=nary_tree_bra, num_unique_geo=num_unique_bgeo)
+       call NaryTreeGetNumGeo(nary_tree=nary_tree_ket, num_unique_geo=num_unique_kgeo)
+       call NaryTreeGetNumGeo(nary_tree=nary_tree_total, num_unique_geo=num_unique_tgeo)
+
+       ! sets the number of integral matrices including property integrals and various derivatives
+       num_matrices = num_prop*num_unique_bgeo*num_unique_kgeo*num_unique_tgeo
+
+       ! allocates memory for integrals
+       call Gen1IntAPIGetNumAO(num_ao=num_ao)  !gets the number of atomic orbitals
+       select case(prop_sym)
+       ! symmetric, or anti-symmetric matrices, we could use triangular storage format
+       case(SYMM_INT_MAT, ANTI_INT_MAT)
+         triangular = .true.
+         symmetric = (prop_sym==SYMM_INT_MAT)
+         size_ints = num_ao*(num_ao+1)/2
+       ! square matrices
+       case default
+         triangular = .false.
+         symmetric = .false.
+         size_ints = num_ao*num_ao
+       end select
+       allocate(Val_Ints(size_ints*num_matrices), stat=ierr)
+       if (ierr/=0) stop "failed to allocate memory for integrals"
+
+       ! associates the matrices due to that Gen1Int interface requires
+       ! the matrix type arguments
+       allocate(Int_Matrix(num_matrices), stat=ierr)
+       if (ierr/=0) stop "failed to allocate matrices"
+       start_elms = 1
+       end_elms = size_ints
+       do imat = 1, num_matrices
+         call MatAssociate(work_alpha=Val_Ints(start_elms:end_elms), &
+                           num_row=num_ao, A=Int_Matrix(imat),       &
+                           info_mat=ierr, triangular=triangular,     &
+                           symmetric=symmetric)
+         if (ierr/=0) stop "failed to associate integral matrices"
+         start_elms = end_elms+1
+         end_elms = end_elms+size_ints
+       end do
+
+       ! sets the non-zero components for the one-electron operator, here we only
+       ! consider the (large,large) part
+       nnz_comp(1,1) = 1
+       nnz_comp(2,1) = 1
+
+       ! calculates the integrals, please refer to the comments in subroutine
+       ! \fn(Gen1IntOnePropGetIntExpt) in gen1int_api.F90
+       !
+       ! NOTE:
+       ! \var(Int_Matrix) contains the upper and diagonal parts if using triangular format,
+       ! \var(val_expt) should be zero before calculations, it is intent(inout)
+       call Gen1IntOnePropGetIntExpt(nnz_comp=nnz_comp,               &
+                                     one_prop=prop_operator,          &
+                                     nary_tree_bra=nary_tree_bra,     &  !geometric derivatives on bra center
+                                     nary_tree_ket=nary_tree_ket,     &  !geometric derivatives on ket center
+                                     nary_tree_total=nary_tree_total, &  !total geometric derivatives
+                                     api_comm=api_comm,               &  !optional
+                                     num_ints=num_ints,               &
+                                     val_ints=val_ints,               &  !optional
+                                     write_ints=write_ints,           &  !optional
+                                     num_dens=num_dens,               &
+                                     ao_dens=ao_dens,                 &  !optional
+                                     val_expt=val_expt,               &  !optional
+                                     write_expt=write_expt,           &  !optional
+                                     io_viewer=io_viewer,             &
+                                     level_print=level_print)
+
+       ! frees the space of information of property integrals
+       call OnePropDestroy(one_prop=prop_operator)
+
+       ! frees space taken by N-ary trees for geometric derivatives
+       call NaryTreeDestroy(nary_tree=nary_tree_bra)
+       call NaryTreeDestroy(nary_tree=nary_tree_ket)
+       call NaryTreeDestroy(nary_tree=nary_tree_total)
+
+       ! frees the space of matrices
+       do imat = 1, num_matrices
+         call MatNullify(A=Int_Matrix(imat))
+       end do
+       deallocate(Int_Matrix)
+
+       ! the results are saved in Val_Ints(:)
+
+   (2) The operator is defined in \fn(Gen1IntAPIPropCreate) in gen1int_api.F90
+
+       ! Gen1Int API
+       use gen1int_api
+
+       ! one-electron operator from Gen1Int interface with non-zero components defined
+       type(prop_comp_t) :: prop_operator
+
+       ! just replace
+       ! call OnePropCreate
+       ! call OnePropGetNumProp
+       ! call OnePropGetSymmetry
+       ! call Gen1IntOnePropGetIntExpt
+       ! call OnePropDestroy
+       ! with (and proper arguments)
+       ! call Gen1IntAPIPropCreate
+       ! call Gen1IntAPIPropGetNumProp
+       ! call Gen1IntAPIPropGetSymmetry
+       ! call Gen1IntAPIPropGetIntExpt
+       ! call Gen1IntAPIPropDestroy
+
+   (3) Dalton/Dirac use manager/worker parallelization mode, you could also by simply
+       calling \fn(gen1int_host_get_int) or \fn(gen1int_host_get_expt) to get the integrals
+       or expectation values in parallel (all processors in MPI_COMM_WORLD will be used),
+       and the results are on manager processor
+
+   5.3 FAQ
+
+   (1) It isn't obvious to me what I can set and what is set in your
+       routines. For instance can I set the triangular and symmetric variables?
+
+   Inside Gen1Int module, it will check if the integral matrices is symmetric,
+   anti-symmetric or square, which you can not change.
+
+   But you could have a triangular integral matrix return if it is symmetric
+   (prop_sym=SYMM_INT_MAT) or anti-symmetric (prop_sym=ANTI_INT_MAT) by
+
+   select case(prop_sym)
+   case(SYMM_INT_MAT,ANTI_INT_MAT)
+     ! if the integral matrices are triangular or square
+     triangular = .true.
+     ! if the integral matrices are symmetric or anti-symmetric
+     symmetric = (prop_sym==SYMM_INT_MAT)
+     ! number of elements in one integral matrix, \var(num_ao) is the number of atomic orbitals
+     num_elms = num_ao*(num_ao+1)/2
+   case default
+     triangular = .false.
+     symmetric = .false.
+     num_elms = num_ao*num_ao
+   end select
+   ! number of different derivatives, set as 1 if you do not have any derivatives
+   num_derv = 1
+   ! allocates integral matrices
+   allocate(Int_Matrix(num_prop*num_derv), stat=ierr)
+   if (ierr/=0) stop "failed to allocate matrices"
+   do imat = 1, num_prop*num_derv
+     ! you could have the returned integrals in a real(8) array
+     ! work_space(1:num_elms*num_prop*num_derv),
+     ! the pointers in matrix Int_Matrix(imat) will be associated to
+     ! work_space(num_elms*(imat-1)+1:num_elms*imat)
+     call MatAssociate(work_alpha=work_space(num_elms*(imat-1)+1:num_elms*imat), &
+                       num_row=num_ao, A=Int_Matrix(imat), info_mat=ierr,        &
+                       triangular=triangular, symmetric=symmetric)
+     if (ierr/=0) stop "failed to associate integral matrices"
+   end do
+
+   after you getting the integrals back, you could free space by
+
+   ! frees space taken by integral matrices
+   do imat = 1, num_prop*num_derv
+     ! de-associates the pointers in matrices
+     call MatNullify(A=Int_Matrix(imat))
+   end do
+   deallocate(Int_Matrix)
+
+   the results are still in work_space(:).
+
+   (2) What is the max_num_cent used for?
+
+   max_num_cent is the maximum number of differentiated centers for total
+   geometric derivatives. The reason of using this parameter is that we may
+   only want, for instance, one-center or two-center fourth order total
+   geometric derivatives. Then Gen1Int only return such total geometric
+   derivatives, it will not return three- and four-center fourth order
+   total geometric derivatives.
+
+   you do not need to provide this argument if you do not calcualte total
+   geometric derivatives.
