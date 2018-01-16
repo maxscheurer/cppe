@@ -1,0 +1,6 @@
+[submodule "external/pelib-public"]
+	path = external/pelib
+	url = https://gitlab.com/pe-software/pelib-public
+[submodule "external/gen1int"]
+	path = external/gen1int
+	url = https://gitlab.com/bingao/gen1int
