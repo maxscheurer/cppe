@@ -135,7 +135,7 @@ module gen1int_api
   !>       arguments if you know, thanks!
   subroutine Gen1IntAPICreate(num_comp, num_atom_type, KATOM, num_sym_atom, &
                               ang_numbers, NBLCK, KANG, num_cgto, KBLOCK,   &
-                              num_prim, num_contr, KPRIM, exponents, ucontr_coefs)
+                              num_prim, num_contr, KPRIM, exponents, ucontr_coefs, NORMAL, SPHERICAL)
     integer, intent(in) :: num_comp
     integer, intent(in) :: num_atom_type
     integer, intent(in) :: KATOM
@@ -150,11 +150,20 @@ module gen1int_api
     integer, intent(in) :: KPRIM
     real(REALK), intent(in) :: exponents(KPRIM,KBLOCK,num_comp)
     real(REALK), intent(in) :: ucontr_coefs(KPRIM,KPRIM,KBLOCK,num_comp)
-#include "mxcent.h"
-#include "maxaqn.h"
-#include "ccom.h"
-#include "nuclei.h"
-#include "orgcom.h"
+    logical , intent(in), optional :: NORMAL
+    logical , intent(in), optional :: SPHERICAL
+    real(REALK) :: CORD(3,KATOM)
+    real(REALK) :: CHARGE(KATOM)
+    real(REALK) :: DIPORG(3)
+    real(REALK) :: GAGORG(3)
+    real(REALK) :: ORIGIN(3)
+
+    integer NUCDEP
+! #include "mxcent.h"
+! #include "maxaqn.h"
+! #include "ccom.h"
+! #include "nuclei.h"
+! #include "orgcom.h"
     integer icomp      !incremental recorder over components
     integer IDX_CENT   !index of symmetry independent center
     integer IDX_BLOCK  !
@@ -169,39 +178,89 @@ module gen1int_api
     integer icontr, iprim                        !incremental recorder over contractions
     integer ierr                                 !error information
     integer iang_sub
+    integer IDDX
+    logical NORMALIZED
+
+    ! MAX:
+    IF( present(NORMAL)) THEN
+      NORMALIZED=NORMAL
+    ELSE
+      NORMALIZED=.false.
+    ENDIF
 
     if (num_comp>NUM_COMPONENTS) then
       call quit("Gen1IntAPICreate>> too many components!")
     end if
     ! terminates previous created interface
     if (api_inited) call Gen1IntAPIDestroy()
+
+    ! write (*,*) "KATOM, KANG, KBLOCK, KPRIM"
+    ! write (*,*) KATOM, KANG, KBLOCK, KPRIM
+    !
+    ! write (*,*) "ang_numbers(KATOM) ---------------------------"
+    ! write (*,*) ang_numbers(1:6,1)
+    !
+    ! write (*,*) "num_cgto(KANG,KATOM) ---------------------------"
+    ! write (*,*) num_cgto(1:3,1,1)
+    !
+    ! write (*,*) "num_prim(KBLOCK) ---------------------------"
+    ! write (*,*) num_prim(1:6,1)
+    !
+    ! write (*,*) "num_contr(KBLOCK) ---------------------"
+    ! write (*,*) num_contr(1:10,1)
+    !
+    ! write (*,*) "num_sym_atom(KATOM) ---------------------"
+    ! write (*,*) num_sym_atom(1:10)
+    !
+    write (*,*) "NBLCK(KATOM) ---------------------"
+    write (*,*) NBLCK(1:10,1)
+
+    ! write (*,*) "exp ----------------"
+    ! write (*,*) exponents(1:3,1,1)
+    !
+    ! write (*,*) "coefs ----------------"
+    ! write (*,*) ucontr_coefs(1:3,1,1,1)
+    ! write (*,*) ucontr_coefs(1:3,1,2,1)
     ! gets the number of AO sub-shells and kind of GTOs
     num_sub_shells = 0
     spher_gto = .false.
     ! loops over components of basis sets
+    ! write (*,*) "Loop over components of basis sets"
     do icomp = 1, num_comp
       ! number of atomic types
       do ITYP = 1, num_atom_type
+        ! write (*,*) "atom type: ", ITYP
         ! number of symmetry independent centers of this type
         do ICENT = 1, num_sym_atom(ITYP)
+          ! write (*,*) "-- num sym atom: ", ICENT
           ! angular momentum 1=s, 2=p, 3=d, etc.
           do IANG = 1, ang_numbers(ITYP,icomp)
+              ! write (*,*) "---- angular momentum: ", IANG
              ! radovan: basis does not have to start with s
              !          the blocks do not have to be s p d f
              !          they can be s p p d f
              num_sub_shells(icomp) = num_sub_shells(icomp) &
                                    + num_cgto(IANG, ITYP, icomp)
+              write (*,*) "----- num_sub_shells: ", num_sub_shells(icomp), "num_cgto: ", num_cgto(IANG, ITYP, icomp)
              if (SPH(IANG)) spher_gto = .true.  !Dalton always marks s and p sub-shells as CGTOs
           end do
          end do
       end do
     end do
+
+    ! MAX:
+    IF( present(SPHERICAL)) THEN
+      spher_gto=SPHERICAL
+    ENDIF
+
+
     ! initializes the AO sub-shells
     allocate(sub_shells(maxval(num_sub_shells),NUM_COMPONENTS), stat=ierr)
     if (ierr/=0) then
       call quit("Gen1IntAPICreate>> failed to allocate sub_shells!")
     end if
     ! loops over components of basis sets
+    ! write (*,*) "Loop over components of basis sets - AO sub-shells"
     do icomp = 1, num_comp
       ishell = 0
       IDX_BLOCK = 0
@@ -209,11 +268,13 @@ module gen1int_api
       ! number of atomic types
       do ITYP = 1, num_atom_type
         ! number of symmetry independent centers of this type
+        ! write (*,*) "atom type: ", ITYP
         do ICENT = 1, num_sym_atom(ITYP)
           IDX_CENT = IDX_CENT+1
           KBCH = IDX_BLOCK
           ! angular momentum 1=s, 2=p, 3=d, etc.
           do IANG = 1, ang_numbers(ITYP,icomp)
+            ! write (*,*) "- angular momentum: ", IANG
 
             ! radovan: basis does not have to start with s
             !          and there can be two consecutive blocks
@@ -223,6 +284,7 @@ module gen1int_api
                ! next block
                KBCH = KBCH+1
                ! gets the contraction coefficients
+               ! write (*,*) "num_prim(KBCH,icomp)", num_prim(KBCH,icomp), KBCH, IDX_CENT
                allocate(contr_coef(num_contr(KBCH,icomp),num_prim(KBCH,icomp)), stat=ierr)
                if (ierr/=0) then
                  call quit("Gen1IntAPICreate>> failed to allocate contr_coef!")
@@ -230,8 +292,10 @@ module gen1int_api
                do iprim = 1, num_prim(KBCH,icomp)
                  do icontr = 1, num_contr(KBCH,icomp)
                    contr_coef(icontr,iprim) = ucontr_coefs(iprim,icontr,KBCH,icomp)
+                   ! write (*,*) "--- coeff: ", icontr, contr_coef(icontr,iprim)
                  end do
                end do
+               ! write (*,*) "--- exp: ", KBCH, " -- ", exponents(1:num_prim(KBCH,icomp),KBCH,icomp)
                ! normalizes the contraction coefficients
                ang_num = IANG-1
                ! Dalton/Dirac do not use mixed CGTOs and SGTOs
@@ -241,15 +305,21 @@ module gen1int_api
                ! Gen1Int library uses HGTOs in recurrence relations, while Dalton uses
                ! CGTOs, so that we need to normalize the contraction coefficients of
                ! SGTOs using Gen1Int subroutines
-               if (spher_gto) then
-                 call norm_contr_sgto(ang_num, num_prim(KBCH,icomp),                &
-                                      exponents(1:num_prim(KBCH,icomp),KBCH,icomp), &
-                                      num_contr(KBCH,icomp), contr_coef)
-               else
-                 call norm_contr_cgto(ang_num, num_prim(KBCH,icomp),                &
-                                      exponents(1:num_prim(KBCH,icomp),KBCH,icomp), &
-                                      num_contr(KBCH,icomp), contr_coef)
+
+               ! MAX: I already normalized the coefficients
+               if (.not. NORMALIZED) then
+                 if (spher_gto) then
+                   call norm_contr_sgto(ang_num, num_prim(KBCH,icomp),                &
+                                        exponents(1:num_prim(KBCH,icomp),KBCH,icomp), &
+                                        num_contr(KBCH,icomp), contr_coef)
+                 else
+                   call norm_contr_cgto(ang_num, num_prim(KBCH,icomp),                &
+                                        exponents(1:num_prim(KBCH,icomp),KBCH,icomp), &
+                                        num_contr(KBCH,icomp), contr_coef)
+                 end if
                end if
+               ! write (*,*) "--- u_coeff: ", ucontr_coefs(1:3,1,KBCH,1)
+               ! write (*,*) "--- coeff: ", contr_coef(1:3,1)
                !-ISTBNU(IDX_CENT)  !stabiliser: basic sym. op. that do not move center
                ishell = ishell+1
                if (ishell>1) then
@@ -269,7 +339,7 @@ module gen1int_api
 #ifdef PRG_DIRAC
                  select case (icomp)
                  case (LARGE_COMP)
-#endif         
+#endif
                    call Gen1IntShellCreate(spher_gto=spher_gto,                        &
                                            idx_cent=IDX_CENT,                          &
                                            coord_cent=CORD(1:3,IDX_CENT),              &
@@ -296,35 +366,57 @@ module gen1int_api
                                                                  LARGE_COMP),                &
                                            sub_shell=sub_shells(ishell,icomp))
                  end select
-#endif         
+#endif
                end if
                deallocate(contr_coef)
             end do
           end do
         end do
         IDX_BLOCK = IDX_BLOCK+NBLCK(ITYP,icomp)
+        ! write (*,*) "IDX_BLOCK: ", IDX_BLOCK, NBLCK(ITYP,icomp)
       end do
     end do
+
+    write (*,*) "Shell create called: ", ishell, spher_gto
     ! number of atoms
     api_num_atoms = NUCDEP
+    write (*,*) "Number of atoms: ", api_num_atoms
     ! coordinates of atoms
     allocate(api_coord_atoms(3,api_num_atoms), stat=ierr)
     if (ierr/=0) then
       call quit("Gen1IntAPICreate>> failed to allocate api_coord_atoms!")
     end if
     api_coord_atoms = CORD(:,1:NUCDEP)
+    write (*,*) "Nuclear coordinates: "
+    DO IDDX = 1, NUCDEP, 1
+       write (*,*) api_coord_atoms(:,IDDX)
+    END DO
     ! charges of atoms
     allocate(api_charge_atoms(api_num_atoms), stat=ierr)
     if (ierr/=0) then
       call quit("Gen1IntAPICreate>> failed to allocate api_charge_atoms!")
     end if
     api_charge_atoms = -CHARGE(1:NUCDEP)
+    write (*,*) "Nuclear charges: "
+    DO IDDX = 1, NUCDEP, 1
+       write (*,*) -api_charge_atoms(IDDX)
+    END DO
     ! coordinates of origins
     api_dipole_origin = DIPORG
     api_gauge_origin = GAGORG
     api_origin_LPF = ORIGIN
     api_inited = .true.
+
+    ! write(6,*) "--Gen1IntAPIShellView--"
+    ! call Gen1IntAPIShellView(6)
+    ! write(6,*) "--End Gen1IntAPIShellView--"
   end subroutine Gen1IntAPICreate
+
+  function SPH(iang)
+    logical SPH
+    integer, intent(in) :: iang
+    SPH = .false.
+  end function SPH
 
 #if defined(VAR_MPI)
   !> \brief broadcasts AO sub-shells
@@ -1255,7 +1347,7 @@ module gen1int_api
                                             write_ints=write_ints,                   &
                                             num_dens=num_dens,                       &
                                             ao_dens=ao_dens,                         &
-                                            val_expt=val_expt,                       & 
+                                            val_expt=val_expt,                       &
                                             write_expt=write_expt)
               end do
             end if

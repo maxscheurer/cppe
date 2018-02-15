@@ -1,12 +1,10 @@
-add_definitions(-DBUILD_GEN1INT)
-
 add_library(
     gen1int_interface
     gen1int_api.F90
     gen1int_cube.F90
-    gen1int_host.F90
     gen1int_matrix.F90
     gen1int_shell.F90
+    quit.F90
     )
 
 set(ExternalProjectCMakeArgs
@@ -20,6 +18,10 @@ set(ExternalProjectCMakeArgs
     -DENABLE_64BIT_INTEGERS=${ENABLE_64BIT_INTEGERS}
     )
 
-add_external(gen1int)
-
+# add_external(gen1int)
+include_directories(
+  ${PROJECT_BINARY_DIR}/modules
+  ${PROJECT_BINARY_DIR}/external/gen1int/modules
+)
+target_link_libraries(gen1int_interface gen1int)
 add_dependencies(gen1int_interface gen1int)

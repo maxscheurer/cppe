@@ -191,7 +191,7 @@ module gen1int_shell
             sub_shell%powers(3,iao) = ang_num-(xpow+ypow)
           end do
         end do
-      end if  
+      end if
     end if
     if (present(last_shell)) then
       sub_shell%base_idx = last_shell%base_idx &
@@ -1132,7 +1132,7 @@ module gen1int_shell
               end do
             end do
           end do
-        end if 
+        end if
         ! decreases the number of remaining pairs
         remaining_jobs = remaining_jobs-1
       end do
@@ -1833,7 +1833,7 @@ module gen1int_shell
               end do
             end do
           end do
-        end if 
+        end if
         ! decreases the number of remaining pairs
         remaining_jobs = remaining_jobs-1
       end do
