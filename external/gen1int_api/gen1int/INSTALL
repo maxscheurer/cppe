@@ -1,0 +1,20 @@
+1. Installation
+
+Gen1Int is installed automatically along with
+the Dalton source code using the Dalton installation
+mechanism. You do not need to download and install
+Gen1Int separately.
+
+In case of problems, please write to Bin Gao at
+bin.gao@uit.no.
+
+2. Test suite
+
+Afterwards, you may need to run the test suite in Gen1Int library (you need
+to compile Gen1Int library and its test suite by yourself if you do not use
+git submodule) and the test of Gen1Int interface at Dalton/Dirac (those
+test/gen1int_*), make sure there is no error. Otherwise, please write to
+Bin Gao with detailed error message.
+
+Bin Gao (bin.gao@uit.no)
+March 30, 2011
