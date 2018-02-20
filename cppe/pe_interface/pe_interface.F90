@@ -14,7 +14,7 @@ subroutine set_coord_nuclei(number_atoms, coordinates, charges)
   ! CHARGE = charges
 end subroutine set_coord_nuclei
 
-subroutine gen1int_api_create(num_atom_types, num_sym_atom, ang_numbers, NBLCK, num_cgto, num_prim, &
+subroutine gen1int_api_create(num_atom_types, natoms, coords, charges, num_sym_atom, ang_numbers, NBLCK, num_cgto, num_prim, &
   num_contr, exponents, ucontr_coefs, pure)
   use gen1int_api
   !> \param num_comp is the number of components
@@ -34,6 +34,9 @@ subroutine gen1int_api_create(num_atom_types, num_sym_atom, ang_numbers, NBLCK, 
   integer :: KBLOCK = 18000
   integer :: KPRIM = 35
   integer, intent(in) :: num_atom_types
+  integer, intent(in) :: natoms
+  real(REALK), intent(in) :: coords(3,num_atom_type)
+  real(REALK), intent(in) :: charges(num_atom_type)
   ! integer, intent(in) :: KATOM ! number of atoms
   integer, intent(in) :: num_sym_atom(KATOM)
   integer, intent(in) :: ang_numbers(KATOM,num_comp) ! at the moment, we are going to pass this as NBLCK
@@ -50,7 +53,7 @@ subroutine gen1int_api_create(num_atom_types, num_sym_atom, ang_numbers, NBLCK, 
   ! num_comp, num_atom_type, KATOM, num_sym_atom, &
   !                             ang_numbers, NBLCK, KANG, num_cgto, KBLOCK,   &
   !                             num_prim, num_contr, KPRIM, exponents, ucontr_coefs
-  call Gen1IntAPICreate(1, num_atom_types, KATOM, num_sym_atom, ang_numbers, &
+  call Gen1IntAPICreate(1, num_atom_types, natoms, coords, charges, KATOM, num_sym_atom, ang_numbers, &
                         NBLCK, KANG, num_cgto, KBLOCK, num_prim, num_contr, KPRIM, &
                         exponents, ucontr_coefs, .TRUE., pure)
   ! write (*,*) num_sym_atom(1:num_atom_types)

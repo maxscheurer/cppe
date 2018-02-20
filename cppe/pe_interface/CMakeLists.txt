@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 3.6)
 project(pe_interface Fortran)
 
 include_directories(
-  ${CMAKE_DALTON_DIR}/DALTON/include
-  ${CMAKE_DALTON_DIR}/build/modules
+  ${PROJECT_BINARY_DIR}/../../external/gen1int/modules
+  ${PROJECT_BINARY_DIR}/../../modules
+  ${PROJECT_BINARY_DIR}/../../external/pelib/modules
 )
 
 add_library(pe_interface STATIC
   pe_interface.F90
 )
+set_target_properties(pe_interface PROPERTIES Fortran_FORMAT "FREE")

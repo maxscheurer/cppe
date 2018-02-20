@@ -117,6 +117,13 @@ module gen1int_api
 
   contains
 
+  ! subroutine Gen1IntAPICreateEasy(num_atom_type, num_sym_atom, &
+  !                                 max_l_per_type,
+  !
+  !
+  !
+  ! end subroutine Gen1IntAPICreateEasy
+
   !> \brief initializes Gen1Int interface, for instance, creates the AO sub-shells
   !>        of host program (based on \fn(ORBPRO) subroutine by getting the unnormalized
   !>        contraction coefficients); should be called before any calculation
@@ -133,11 +140,14 @@ module gen1int_api
   !> \param ucontr_coefs contains the unnormalized contraction coefficients
   !> \note this subroutine is program specific; please add the meaning of other
   !>       arguments if you know, thanks!
-  subroutine Gen1IntAPICreate(num_comp, num_atom_type, KATOM, num_sym_atom, &
+  subroutine Gen1IntAPICreate(num_comp, num_atom_type, natoms, CORD, CHARGE, KATOM, num_sym_atom, &
                               ang_numbers, NBLCK, KANG, num_cgto, KBLOCK,   &
                               num_prim, num_contr, KPRIM, exponents, ucontr_coefs, NORMAL, SPHERICAL)
     integer, intent(in) :: num_comp
     integer, intent(in) :: num_atom_type
+    integer, intent(in) :: natoms
+    real(REALK), intent(in) :: CORD(3,natoms)
+    real(REALK), intent(in) :: CHARGE(natoms)
     integer, intent(in) :: KATOM
     integer, intent(in) :: num_sym_atom(KATOM)
     integer, intent(in) :: ang_numbers(KATOM,num_comp)
@@ -152,8 +162,6 @@ module gen1int_api
     real(REALK), intent(in) :: ucontr_coefs(KPRIM,KPRIM,KBLOCK,num_comp)
     logical , intent(in), optional :: NORMAL
     logical , intent(in), optional :: SPHERICAL
-    real(REALK) :: CORD(3,KATOM)
-    real(REALK) :: CHARGE(KATOM)
     real(REALK) :: DIPORG(3)
     real(REALK) :: GAGORG(3)
     real(REALK) :: ORIGIN(3)
@@ -180,6 +188,8 @@ module gen1int_api
     integer iang_sub
     integer IDDX
     logical NORMALIZED
+
+    NUCDEP = natoms
 
     ! MAX:
     IF( present(NORMAL)) THEN
@@ -407,9 +417,9 @@ module gen1int_api
     api_origin_LPF = ORIGIN
     api_inited = .true.
 
-    ! write(6,*) "--Gen1IntAPIShellView--"
-    ! call Gen1IntAPIShellView(6)
-    ! write(6,*) "--End Gen1IntAPIShellView--"
+    write(6,*) "--Gen1IntAPIShellView--"
+    call Gen1IntAPIShellView(6)
+    write(6,*) "--End Gen1IntAPIShellView--"
   end subroutine Gen1IntAPICreate
 
   function SPH(iang)
