@@ -64,6 +64,9 @@ module gen1int_api
   ! if Gen1Int interface initialized
   logical, save, private :: api_inited = .false.
 
+  ! recorder of created shells
+  integer, save, private :: n_allocated_shells = 0
+
   ! large and small components (the latter is only used in Dirac by -DPRG_DIRAC)
 #ifdef PRG_DIRAC
   integer, parameter, public :: NUM_COMPONENTS = 2
@@ -115,14 +118,109 @@ module gen1int_api
 
   public :: Gen1IntOnePropGetIntExpt
 
+  public :: Gen1IntAPICreateEasy
+  public :: Gen1IntAPICreateShell
+  public :: Gen1IntPrintShells
+
   contains
 
-  ! subroutine Gen1IntAPICreateEasy(num_atom_type, num_sym_atom, &
-  !                                 max_l_per_type,
-  !
-  !
-  !
-  ! end subroutine Gen1IntAPICreateEasy
+  subroutine Gen1IntAPICreateEasy(natoms, num_shells, coords, charges)
+    integer, intent(in) :: natoms
+    integer, intent(in) :: num_shells
+    real(REALK), intent(in) :: coords(3, natoms)
+    real(REALK), intent(in) :: charges(natoms)
+
+    integer ierr
+    integer IDDX
+
+    if (api_inited) call Gen1IntAPIDestroy()
+    allocate(sub_shells(num_shells,NUM_COMPONENTS), stat=ierr)
+    if (ierr/=0) then
+      call quit("Gen1IntAPICreate>> failed to allocate sub_shells!")
+    end if
+
+    api_num_atoms = natoms
+    write (*,*) "Number of atoms: ", api_num_atoms
+    ! coordinates of atoms
+    allocate(api_coord_atoms(3,api_num_atoms), stat=ierr)
+    if (ierr/=0) then
+      call quit("Gen1IntAPICreate>> failed to allocate api_coord_atoms!")
+    end if
+    api_coord_atoms = coords
+    write (*,*) "Nuclear coordinates: "
+    DO IDDX = 1, natoms, 1
+       write (*,*) api_coord_atoms(:,IDDX)
+    END DO
+    ! charges of atoms
+    allocate(api_charge_atoms(api_num_atoms), stat=ierr)
+    if (ierr/=0) then
+      call quit("Gen1IntAPICreate>> failed to allocate api_charge_atoms!")
+    end if
+    api_charge_atoms = -charges ! negative sign?
+    write (*,*) "Nuclear charges: "
+    DO IDDX = 1, natoms, 1
+       write (*,*) -api_charge_atoms(IDDX)
+    END DO
+
+    ! probably needed at some point...
+    ! api_dipole_origin = DIPORG
+    ! api_gauge_origin = GAGORG
+    ! api_origin_LPF = ORIGIN
+
+    api_inited = .true.
+
+  end subroutine Gen1IntAPICreateEasy
+
+
+
+  subroutine Gen1IntAPICreateShell(spher_gto, idx_center, coord_center, &
+    ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+    logical, intent(in) :: spher_gto
+    integer, intent(in) :: idx_center
+    real(REALK), intent(in) :: coord_center(3)
+    integer, intent(in) :: ang_num
+    integer, intent(in) :: num_prim
+    real(REALK), intent(in) :: exponents(num_prim)
+    integer, intent(in) :: num_contr
+    real(REALK), intent(in) :: contr_coef(num_prim)
+    integer, intent(in) :: last_shell
+    integer, intent(in) :: sub_shell
+
+    integer icomp
+    icomp = 6
+
+    n_allocated_shells = n_allocated_shells + 1
+    if (n_allocated_shells > 1) then
+      ! first shell
+      call Gen1IntShellCreate(spher_gto=spher_gto,                        &
+                              idx_cent=idx_center,                        &
+                              coord_cent=coord_center,                    &
+                              ang_num=ang_num,                            &
+                              num_prim=num_prim,                          &
+                              exponents=exponents,                        &
+                              num_contr=num_contr,                        &
+                              contr_coef=contr_coef,                      &
+                              last_shell=sub_shells(n_allocated_shells-1, icomp),&
+                              sub_shell=sub_shells(n_allocated_shells, icomp))
+    else
+      ! every other shell
+      call Gen1IntShellCreate(spher_gto=spher_gto,                        &
+                              idx_cent=idx_center,                        &
+                              coord_cent=coord_center,                    &
+                              ang_num=ang_num,                            &
+                              num_prim=num_prim,                          &
+                              exponents=exponents,                        &
+                              num_contr=num_contr,                        &
+                              contr_coef=contr_coef,                      &
+                              sub_shell=sub_shells(n_allocated_shells, icomp))
+    endif
+  end subroutine Gen1IntAPICreateShell
+
+  subroutine Gen1IntPrintShells()
+    write(6,*) "--Gen1IntAPIShellView--"
+    call Gen1IntAPIShellView(6)
+    write(6,*) "--End Gen1IntAPIShellView--"
+  end subroutine
 
   !> \brief initializes Gen1Int interface, for instance, creates the AO sub-shells
   !>        of host program (based on \fn(ORBPRO) subroutine by getting the unnormalized

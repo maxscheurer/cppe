@@ -14,6 +14,34 @@ subroutine set_coord_nuclei(number_atoms, coordinates, charges)
   ! CHARGE = charges
 end subroutine set_coord_nuclei
 
+subroutine gen1int_api_initialize(natoms, num_shells, coords, charges)
+  use gen1int_api
+  integer, intent(in) :: natoms
+  integer, intent(in) :: num_shells
+  real(REALK), intent(in) :: coords(3, natoms)
+  real(REALK), intent(in) :: charges(natoms)
+  call Gen1IntAPICreateEasy(natoms, num_shells, coords, charges)
+
+end subroutine gen1int_api_initialize
+
+subroutine gen1int_create_shell(spher_gto, idx_center, coord_center, &
+  ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+  use gen1int_api
+  logical, intent(in) :: spher_gto
+  integer, intent(in) :: idx_center
+  real(REALK), intent(in) :: coord_center(3)
+  integer, intent(in) :: ang_num
+  integer, intent(in) :: num_prim
+  real(REALK), intent(in) :: exponents(num_prim)
+  integer, intent(in) :: num_contr
+  real(REALK), intent(in) :: contr_coef(num_prim)
+  integer, intent(in) :: last_shell
+  integer, intent(in) :: sub_shell
+  call Gen1IntAPICreateShell(spher_gto, idx_center, coord_center, &
+    ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+
+end subroutine gen1int_create_shell
+
 subroutine gen1int_api_create(num_atom_types, natoms, coords, charges, num_sym_atom, ang_numbers, NBLCK, num_cgto, num_prim, &
   num_contr, exponents, ucontr_coefs, pure)
   use gen1int_api
