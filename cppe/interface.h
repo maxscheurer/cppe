@@ -5,7 +5,7 @@
 extern "C" void pe_interface_init_(int*, const double*, const double*);
 extern "C" void pe_set_potfile_(const char*, int);
 extern "C" void pe_interface_energy_(const double*, int*, int*);
-extern "C" void pe_interface_fock_(double*, int*, int*, double*, double*);
+extern "C" void pe_interface_fock_(const double*, int*, int*, const double*, double*);
 extern "C" int gen1int_api_initialized_();
 extern "C" void gen1int_api_create_(int*, int*, const double* coords, const double* charges, const int*, const int*, const int*, const int*, const int*, const int*, const double*, const double*, int*);
 extern "C" void set_coord_nuclei_(int*, double*, double*);
@@ -18,8 +18,8 @@ void pe_interface_energy(const double *densmat, int ndim, int nnbas) {
   return pe_interface_energy_(densmat, &ndim, &nnbas);
 }
 
-void pe_interface_fock(double *densmat, int ndim, int nnbas, double *fckmat, double energy) {
-  return pe_interface_fock_(densmat, &ndim, &nnbas, fckmat, &energy);
+void pe_interface_fock(const double *densmat, int ndim, int nnbas, const double *fckmat, double* energy) {
+  return pe_interface_fock_(densmat, &ndim, &nnbas, fckmat, energy);
 }
 
 int gen1int_api_initialized() { return gen1int_api_initialized_(); }

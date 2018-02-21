@@ -51,7 +51,8 @@ void CPPE::call_full_fock(const double* densmat, double* fockmat, double* energy
   if (!m_gen1int_initialized || !m_pe_initialized) {
     throw std::runtime_error("Gen1int and PElib need to be initialized before calling PElib");
   }
-  // pe_interface_fock();
+  pe_interface_fock(densmat, m_nbas, m_nnbas, fockmat, energy);
+  // pe_interface_energy(densmat, m_nbas, m_nnbas);
 }
 
 } // namespace libcppe
