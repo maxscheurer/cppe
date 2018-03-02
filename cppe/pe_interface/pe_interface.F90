@@ -25,7 +25,7 @@ subroutine gen1int_api_initialize(natoms, num_shells, coords, charges)
 end subroutine gen1int_api_initialize
 
 subroutine gen1int_create_shell(spher_gto, idx_center, coord_center, &
-  ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+  ang_num, num_prim, exponents, num_contr, contr_coef)
   use gen1int_api
   logical, intent(in) :: spher_gto
   integer, intent(in) :: idx_center
@@ -35,10 +35,8 @@ subroutine gen1int_create_shell(spher_gto, idx_center, coord_center, &
   real(REALK), intent(in) :: exponents(num_prim)
   integer, intent(in) :: num_contr
   real(REALK), intent(in) :: contr_coef(num_prim)
-  integer, intent(in) :: last_shell
-  integer, intent(in) :: sub_shell
   call Gen1IntAPICreateShell(spher_gto, idx_center, coord_center, &
-    ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+    ang_num, num_prim, exponents, num_contr, contr_coef)
 
 end subroutine gen1int_create_shell
 
@@ -124,6 +122,11 @@ subroutine pe_interface_init(nAtoms, coords, charges)
   call pe_init(6, coords, charges)
 end subroutine
 
+subroutine print_shells()
+  use gen1int_api
+  call Gen1IntPrintShells()
+end subroutine print_shells
+
 subroutine pe_interface_energy(densmatrix, ndim, nnbas)
   use polarizable_embedding, only: pe_master
   integer, intent(in) :: ndim
@@ -136,6 +139,7 @@ end subroutine pe_interface_energy
 
 subroutine pe_interface_fock(densmatrix, ndim, nnbas, fckmatrix, energy)
   use polarizable_embedding, only: pe_master
+  use gen1int_api
   integer, intent(in) :: ndim
   integer, intent(in) :: nnbas
   real(8), dimension(nnbas), intent(in) :: densmatrix
@@ -147,5 +151,4 @@ subroutine pe_interface_fock(densmatrix, ndim, nnbas, fckmatrix, energy)
   ! call pe_master("print_energy", .true., ndim, 1, densmatrix)
   call pe_master("full_fock", .true., ndim, 1, densmatrix, fckmatrix, energies)
   energy = energies(1)
-  write (*,*) "PE energy: ", energy
 end subroutine pe_interface_fock

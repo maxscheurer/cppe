@@ -21,6 +21,10 @@ namespace libcppe {
                           const int* num_contr,
                           const double* exponents,
                           const double* ucontr_coefs, int pure);
+      void initialize_gen1int(int natoms, int nshells, const double* coords, const double *charges);
+      void gen1int_add_shell(int spher_gto, int idx_center, const double* coord_center,
+        int ang_num, int num_prim, const double* exponents, int num_contr, const double* contr_coef);
+      void gen1int_print_shells();
       void initialize_pelib(std::string potfile, int natoms, int nbas,
                             const double* coords, const double* charges);
 

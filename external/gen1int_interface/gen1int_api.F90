@@ -132,6 +132,9 @@ module gen1int_api
 
     integer ierr
     integer IDDX
+    real(REALK) :: DIPORG(3)
+
+    num_sub_shells = num_shells
 
     if (api_inited) call Gen1IntAPIDestroy()
     allocate(sub_shells(num_shells,NUM_COMPONENTS), stat=ierr)
@@ -163,7 +166,7 @@ module gen1int_api
     END DO
 
     ! probably needed at some point...
-    ! api_dipole_origin = DIPORG
+    api_dipole_origin = DIPORG
     ! api_gauge_origin = GAGORG
     ! api_origin_LPF = ORIGIN
 
@@ -174,7 +177,7 @@ module gen1int_api
 
 
   subroutine Gen1IntAPICreateShell(spher_gto, idx_center, coord_center, &
-    ang_num, num_prim, exponents, num_contr, contr_coef, last_shell, sub_shell)
+    ang_num, num_prim, exponents, num_contr, contr_coef)
     logical, intent(in) :: spher_gto
     integer, intent(in) :: idx_center
     real(REALK), intent(in) :: coord_center(3)
@@ -183,15 +186,25 @@ module gen1int_api
     real(REALK), intent(in) :: exponents(num_prim)
     integer, intent(in) :: num_contr
     real(REALK), intent(in) :: contr_coef(num_prim)
-    integer, intent(in) :: last_shell
-    integer, intent(in) :: sub_shell
 
     integer icomp
-    icomp = 6
+    icomp = 1
+
+    ! write(*,*) "-- New shell --"
+    ! write(*,*) spher_gto
+    ! write(*,*) idx_center
+    ! write(*,*) coord_center
+    ! write(*,*) ang_num
+    ! write(*,*) num_prim
+    ! write(*,*) exponents
+    ! write(*,*) num_contr
+    ! write(*,*) contr_coef
+    ! write(*,*) "---------------"
+
 
     n_allocated_shells = n_allocated_shells + 1
     if (n_allocated_shells > 1) then
-      ! first shell
+      ! every other shell
       call Gen1IntShellCreate(spher_gto=spher_gto,                        &
                               idx_cent=idx_center,                        &
                               coord_cent=coord_center,                    &
@@ -203,7 +216,7 @@ module gen1int_api
                               last_shell=sub_shells(n_allocated_shells-1, icomp),&
                               sub_shell=sub_shells(n_allocated_shells, icomp))
     else
-      ! every other shell
+      ! first shell
       call Gen1IntShellCreate(spher_gto=spher_gto,                        &
                               idx_cent=idx_center,                        &
                               coord_cent=coord_center,                    &

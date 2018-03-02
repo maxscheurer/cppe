@@ -16,6 +16,21 @@ CPPE::~CPPE() {
   // destructor for CPPE class
 }
 
+void CPPE::initialize_gen1int(int natoms, int nshells, const double* coords, const double *charges) {
+  gen1int_api_initialize(natoms, nshells, coords, charges);
+}
+
+void CPPE::gen1int_add_shell(int spher_gto, int idx_center, const double* coord_center,
+  int ang_num, int num_prim, const double* exponents, int num_contr, const double* contr_coef) {
+  gen1int_api_add_shell(spher_gto, idx_center, coord_center, ang_num, num_prim, exponents, num_contr,
+  contr_coef);
+  m_gen1int_initialized = true;
+}
+
+void CPPE::gen1int_print_shells() {
+  print_shells();
+}
+
 void CPPE::initialize_gen1int(int ntypes, int natoms, const double* coords, const double* charges,
                     const int* num_sym_atom, const int* shells_per_type, const int* max_l_per_type,
                     const int* num_cgto, const int* num_prim,
