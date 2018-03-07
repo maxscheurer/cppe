@@ -13,7 +13,9 @@ namespace libcppe {
       CPPE();
       ~CPPE();
       void call_pe_energy(const double *densmat);
+      void call_pe_pol_energy(const double *densmat, double* energy);
       void call_full_fock(const double* densmat, double* fockmat, double* energy);
+      void call_dynamic_response(const double* densmat, double* fockmat, double* energy);
       bool gen1int_initialized() { return m_gen1int_initialized; }
       void initialize_gen1int(int ntypes, int natoms, const double* coords, const double* charges,
                           const int* num_sym_atom, const int* shells_per_type, const int* max_l_per_type,

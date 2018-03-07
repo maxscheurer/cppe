@@ -152,3 +152,29 @@ subroutine pe_interface_fock(densmatrix, ndim, nnbas, fckmatrix, energy)
   call pe_master("full_fock", .true., ndim, 1, densmatrix, fckmatrix, energies)
   energy = energies(1)
 end subroutine pe_interface_fock
+
+subroutine pe_interface_pol_energy(densmatrix, ndim, nnbas, energy)
+  use polarizable_embedding, only: pe_master
+  use gen1int_api
+  integer, intent(in) :: ndim
+  integer, intent(in) :: nnbas
+  real(8), dimension(nnbas), intent(in) :: densmatrix
+  real(8), intent(out) :: energy
+  real(8), dimension(1) :: energies
+  call pe_master(runtype="get_pol_energy", triang=.true., ndim=ndim, nmats=1, denmats=densmatrix, expvals=energies)
+  energy = energies(1)
+end subroutine pe_interface_pol_energy
+
+subroutine pe_interface_response(densmatrix, ndim, nnbas, fckmatrix, energy)
+  use polarizable_embedding, only: pe_master
+  use gen1int_api
+  integer, intent(in) :: ndim
+  integer, intent(in) :: nnbas
+  real(8), dimension(nnbas), intent(in) :: densmatrix
+  ! give storage for fckmatrix
+  real(8), dimension(nnbas), intent(out) :: fckmatrix
+  real(8), intent(out) :: energy
+
+  ! call pe_master("print_energy", .true., ndim, 1, densmatrix)
+  call pe_master("dynamic_response", .true., ndim, 1, densmatrix, fckmatrix)
+end subroutine pe_interface_response
