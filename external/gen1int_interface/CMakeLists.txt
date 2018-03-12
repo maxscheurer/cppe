@@ -18,6 +18,13 @@ set(ExternalProjectCMakeArgs
     -DENABLE_64BIT_INTEGERS=${ENABLE_64BIT_INTEGERS}
     )
 
+if(WITH_MPI)
+  set(ENABLE_MPI ON)
+  add_definitions(-DVAR_MPI)
+  message("Using MPI for gen1int_interface.")
+endif()
+
+
 # add_external(gen1int)
 include_directories(
   ${PROJECT_BINARY_DIR}/modules
