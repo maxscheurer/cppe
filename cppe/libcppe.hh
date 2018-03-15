@@ -1,8 +1,11 @@
+#ifndef LIBCPPE_INCLUDE_H
+#define LIBCPPE_INCLUDE_H
+
 #include <string>
 #include <vector>
 
-#include "utils/potfile_reader.hh"
 #include "core/multipole.hh"
+#include "core/molecule.hh"
 
 
 namespace libcppe {
@@ -24,14 +27,17 @@ namespace libcppe {
                             const double* coords, const double* charges);
       
       std::vector<Potential> read_potfile(std::string potfile_name);
+      double calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<Potential>& );
 
     private:
       bool m_gen1int_initialized;
+      bool m_pe_initialized;
       // TODO: build a struct/class with the basis set info?
       int m_nbas;  // number of basis functions
       int m_nnbas; // nbas*(nbas+1)/2
       int m_natoms;
-      bool m_pe_initialized;
   };
 
 }
+
+#endif // LIBCPPE_INCLUDE_H

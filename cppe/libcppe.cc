@@ -5,6 +5,9 @@
 
 #include "libcppe.hh"
 
+#include "utils/potfile_reader.hh"
+#include "core/multipole_expansion.hh"
+
 namespace libcppe {
 
 CPPE::CPPE() {
@@ -46,6 +49,13 @@ void CPPE::initialize_pelib(std::string potfile, int natoms, int nbas, const dou
   pe_interface_init(natoms, coords, charges);
   m_pe_initialized = true;
   
+}
+
+double CPPE::calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<Potential>& potentials) {
+  std::cout << "calculate_nulcei_multipole_interaction" << std::endl;
+  MultipoleExpansion mexp(mol,potentials);
+  double nuc_mul_energy = mexp.calculate_interaction_energy();
+  return nuc_mul_energy;
 }
 
 void CPPE::call_pe_energy(const double* densmat) {
