@@ -7,7 +7,7 @@
 
 namespace libcppe {
   
-// category and name
+// category and names
 std::map<std::string, std::vector<std::string>> ens {
   {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}}, 
   {"Polarization", {"Electronic", "Nuclear", "Multipoles"}}

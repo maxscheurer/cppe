@@ -13,6 +13,8 @@ private:
   arma::mat m_es_operator;
   arma::mat m_pol_operator;
   
+  PeEnergy m_pe_energy;
+  
 
 public:
   // TODO: extend constructor
