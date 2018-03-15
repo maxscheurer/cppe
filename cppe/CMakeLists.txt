@@ -6,6 +6,9 @@ add_dependencies(pe_interface gen1int_interface pelib)
 add_library(cppe
   libcppe.cc
   utils/potfile_reader.cc
+  core/cppe_state.cc
+  core/multipole_expansion.cc
+  core/math.cc
 )
 
 target_link_libraries(cppe pe_interface armadillo lapack arpack blas gen1int gen1int_interface pelib gfortran)
