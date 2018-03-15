@@ -1,9 +1,12 @@
+#ifndef LIBCPPE_CORE_POTFILE_READER_H
+#define LIBCPPE_CORE_POTFILE_READER_H
+
 #include <iostream>
 #include <string>
 #include <vector>
 
 namespace libcppe {
-  
+
 class Multipole;
 using Potential = std::vector<Multipole>;
 
@@ -18,3 +21,5 @@ public:
 };
 
 } // namespace libcppe
+
+#endif //LIBCPPE_CORE_POTFILE_READER_H

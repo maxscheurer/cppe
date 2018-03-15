@@ -6,6 +6,7 @@
 #include "potfile_reader.hh"
 #include "string_utils.hh"
 #include <libpe/libcppe/cppe/core/multipole.hh>
+#include <libpe/libcppe/cppe/core/multipole_expansion.hh>
 
 #define ang2bohr 1.8897261246
 
@@ -14,8 +15,6 @@ namespace libcppe {
 struct Site {
   double x, y, z;
 };
-
-std::vector<int> mul_vals{1, 3, 6, 10, 15, 21};
   
 namespace {
   inline bool file_exists (const std::string& name) {
@@ -37,6 +36,8 @@ std::vector<Potential> PotfileReader::read() {
   std::ifstream infile(m_potfile);
   std::vector<Potential> potentials;
   
+  std::vector<int> mul_vals{1, 3, 6, 10, 15, 21};
+  
   std::string line;
   
   int num_sites = 0;
@@ -52,29 +53,23 @@ std::vector<Potential> PotfileReader::read() {
       std::cout << "Number of sites: " << num_sites << std::endl; 
       getline(infile, line);
       unit = reduce(line);
-      std::cout << "Unit: " << unit << std::endl;
+      
+      double conversion;
+      if (!unit.compare("AA")) {
+        conversion = ang2bohr;
+      } else if (!unit.compare("AU"))  {
+        conversion = 1.0;
+      } else {
+        throw std::runtime_error("Invalid unit for potential file.");
+      }
       
       for (size_t i = 0; i < num_sites; i++) {
         Site site;
         getline(infile, line);
         std::vector<std::string> temp = split(reduce(line), ' ');
         std::string element = temp[0];
-        std::cout << "Element: " << element << std::endl;
         
-        double conversion;
-        if (!unit.compare("AA")) {
-          conversion = ang2bohr;
-        } else if (!unit.compare("AU"))  {
-          conversion = 1.0;
-        } else {
-          throw std::runtime_error("Invalid unit for potential file.");
-        }
         assert(temp.size() == 4);
-        std::cout << "-----" << std::endl;
-        std::cout << temp[1] << std::endl;
-        std::cout << temp[2] << std::endl;
-        std::cout << temp[3] << std::endl;
-        std::cout << "-----" << std::endl;
         site.x = stod(temp[1]) * conversion;
         site.y = stod(temp[2]) * conversion;
         site.z = stod(temp[3]) * conversion;
@@ -96,6 +91,7 @@ std::vector<Potential> PotfileReader::read() {
           temp = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
           
+          
           // fill up the array if values were not defined for all sites
           if (site_num != site_before+1) {
             int diff = site_num - site_before;
@@ -108,7 +104,7 @@ std::vector<Potential> PotfileReader::read() {
               potentials[site_before + d].push_back(mul);
             }
           }
-          // ----------------------------------
+          
           Site site = sites[site_num];
           Multipole mul(order, site.x, site.y, site.z);
           for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
@@ -132,6 +128,8 @@ std::vector<Potential> PotfileReader::read() {
         }
       } else if (temp.size() == 3) { // polarizabilities
         // read polarizabilities when we have the appropriate integrals
+        std::cout << "Warning: reading polarizabilities currently not implemented.";
+        std::cout << std::endl;
       } else { // unhandled
         throw std::runtime_error("Invalid number in potfile ORDER.");
       }
@@ -140,23 +138,22 @@ std::vector<Potential> PotfileReader::read() {
   infile.close();
   
   // DEBUG
-  int sc = 0;
-  for (auto& pot : potentials) {
-    std::cout << "Potential at site " << sc << std::endl;
-    for (auto& mul : pot) {
-      std::cout << "    k = " << mul.m_k << ", x= " << mul.m_x << ", y= " << mul.m_y << ", z= " << mul.m_z << std::endl;
-      std::cout << "       ";
-      for (auto& val : mul.get_values()) {
-        std::cout << val << " ";
-      }
-      std::cout << std::endl;
-    }
-    sc++;
-  }
+  // int sc = 0;
+  // for (auto& pot : potentials) {
+  //   std::cout << "Potential at site " << sc << std::endl;
+  //   for (auto& mul : pot) {
+  //     std::cout << "    k = " << mul.m_k << ", x= " << mul.m_x << ", y= " << mul.m_y << ", z= " << mul.m_z << std::endl;
+  //     std::cout << "       ";
+  //     for (auto& val : mul.get_values()) {
+  //       std::cout << val << " ";
+  //     }
+  //     std::cout << std::endl;
+  //   }
+  //   sc++;
+  // }
   // 
   
   return potentials;
 }
 
-  
 } // namespace libcppe
