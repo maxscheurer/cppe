@@ -5,10 +5,9 @@
 #include <string>
 #include <vector>
 
-namespace libcppe {
+#include "../core/multipole.hh"
 
-class Multipole;
-using Potential = std::vector<Multipole>;
+namespace libcppe {
 
 class PotfileReader {
 private:

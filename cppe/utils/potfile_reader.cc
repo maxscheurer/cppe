@@ -5,8 +5,7 @@
 
 #include "potfile_reader.hh"
 #include "string_utils.hh"
-#include <libpe/libcppe/cppe/core/multipole.hh>
-#include <libpe/libcppe/cppe/core/multipole_expansion.hh>
+#include "../core/multipole_expansion.hh"
 
 #define ang2bohr 1.8897261246
 
@@ -74,8 +73,9 @@ std::vector<Potential> PotfileReader::read() {
         site.y = stod(temp[2]) * conversion;
         site.z = stod(temp[3]) * conversion;
         sites.push_back(site);
-        std::vector<Multipole> v_mul;
-        potentials.push_back(v_mul);
+        // create an empty potential for the site
+        Potential p(site.x, site.y, site.z);
+        potentials.push_back(p);
       }
     }
     if (line.find("ORDER") != std::string::npos) {
@@ -101,7 +101,7 @@ std::vector<Potential> PotfileReader::read() {
               for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
                 mul.add_value(0.0);
               }
-              potentials[site_before + d].push_back(mul);
+              potentials[site_before + d].add_multipole(mul);
             }
           }
           
@@ -110,7 +110,7 @@ std::vector<Potential> PotfileReader::read() {
           for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
             mul.add_value(stod(temp[vl]));
           }
-          potentials[site_num].push_back(mul);
+          potentials[site_num].add_multipole(mul);
           site_before = site_num;
           
           // check if multipoles at the end of the list are missing
@@ -122,14 +122,31 @@ std::vector<Potential> PotfileReader::read() {
               for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
                 mul.add_value(0.0);
               }
-              potentials[site_num + d].push_back(mul);
+              potentials[site_num + d].add_multipole(mul);
             }
           }
         }
       } else if (temp.size() == 3) { // polarizabilities
-        // read polarizabilities when we have the appropriate integrals
-        std::cout << "Warning: reading polarizabilities currently not implemented.";
-        std::cout << std::endl;
+        int order1 = stoi(temp[1]);
+        int order2 = stoi(temp[2]);
+        if (order1 != 1 || order2 != 1) {
+          throw std::runtime_error("Only dipole-dipole polarizabilities " 
+                                    "are currently supported.");
+        }
+        getline(infile, line);
+        int num_polarizabilities = stoi(line);
+        for (size_t n_pol = 0; n_pol < num_polarizabilities; n_pol++) {
+          getline(infile, line);
+          temp = split(reduce(line), ' ');
+          int site_num = stoi(temp[0]) - 1;
+          
+          Site site = sites[site_num];
+          Polarizability pol{};
+          for (size_t vl = 1; vl <= mul_vals[order1+order2]; vl++) {
+            pol.add_value(stod(temp[vl]));
+          }
+          potentials[site_num].add_polarizability(pol);
+        }
       } else { // unhandled
         throw std::runtime_error("Invalid number in potfile ORDER.");
       }
