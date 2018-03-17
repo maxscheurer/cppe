@@ -1,7 +1,46 @@
 #include "math.hh"
 
+#include <cassert>
+
 namespace libcppe {
   
+std::vector<int> mult_v{1, 3, 6, 10, 15, 21};
+
+// this only works for the contraction of polarizability/interaction tensors with vectors of size 3
+// TODO: need to make this faster
+arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha, double beta) {
+  assert(mat.n_elem == 6);
+  assert(vec.n_elem == 3);
+  arma::vec result(3, arma::fill::zeros);
+  // expect upper triangle be provided
+  if (lower) {
+    // TODO: is this needed?
+  } else {
+    result[0] = mat[0]*vec[0] + mat[1]*vec[1] + mat[2]*vec[2];
+    result[1] = mat[1]*vec[0] + mat[3]*vec[1] + mat[4]*vec[2];
+    result[2] = mat[2]*vec[0] + mat[4]*vec[1] + mat[5]*vec[2];
+  }
+  result *= alpha;
+  result += beta*vec;
+  return result;
+}
+
+// TODO: add option for damping
+arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs) {
+  int x,y,z;
+  arma::vec Tk(mult_v[k]);
+  int idx = 0;
+  for (x = k; x > -1; x--) {
+    for (y = k; y > -1; y--) {
+      for (z = k; z > -1; z--) {
+        if (x + y + z != k) continue;
+        Tk[idx] = T(Rij, x,y,z, Tk_coeffs);
+        idx++;
+      }
+    }
+  }
+  return Tk;
+}
 
 double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn) {
   double t = 0.0;

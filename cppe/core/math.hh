@@ -5,8 +5,11 @@
 
 namespace libcppe {
   
+arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha, double beta);
 
 double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn);
+
+arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs);
 
 arma::Cube<int> Tk_coefficients(int max_order);
   
