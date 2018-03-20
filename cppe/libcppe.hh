@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <armadillo>
+
 #include "core/multipole.hh"
 #include "core/molecule.hh"
 
@@ -28,7 +30,10 @@ namespace libcppe {
       
       std::vector<Potential> read_potfile(std::string potfile_name);
       double calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<Potential>& );
-
+      arma::vec calculate_nulcear_fields(Molecule& mol, std::vector<Potential>& potentials, size_t polarizable_sites);
+      arma::vec calculate_multipole_fields(std::vector<Potential>& potentials, size_t polarizable_sites);
+      arma::vec calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields);
+      
     private:
       bool m_gen1int_initialized;
       bool m_pe_initialized;

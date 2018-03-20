@@ -12,8 +12,7 @@ private:
   std::vector<double> m_values;
 
 public:
-  Multipole (unsigned k, double x, double y, double z) :
-    m_k(k), m_x(x), m_y(y), m_z(z) {  };
+  Multipole (unsigned k) : m_k(k) {  };
   ~Multipole () {};
   
   // TODO: add check if too many values
@@ -35,18 +34,9 @@ public:
     }
   }
   
-  arma::vec get_site_position() {
-    arma::vec pos(3);
-    pos[0] = m_x;
-    pos[1] = m_y;
-    pos[2] = m_z;
-    return pos;
-  }
-  
   std::vector<double>& get_values() {return m_values;}
   arma::vec get_values_vec() {return arma::vec(m_values.data(), m_values.size());}
   unsigned m_k;
-  double m_x, m_y, m_z;
   
 };
 
@@ -61,6 +51,8 @@ public:
   void add_value(double val) {
     m_values.push_back(val);
   }
+  
+  std::vector<double>& get_values() {return m_values;}
 };
 
 
@@ -72,10 +64,11 @@ private:
   std::vector<int> m_exclusions;
 
 public:
-  Potential (double x, double y, double z) : m_x(x), m_y(y), m_z(z) {};
+  Potential (double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx) {};
   ~Potential () {};
   
   double m_x, m_y, m_z;
+  int index;
   
   void add_multipole(Multipole mul) {
     m_multipoles.push_back(mul);
@@ -85,8 +78,17 @@ public:
     m_polarizabilities.push_back(pol);
   }
   
+  // 0-based!!!
   void add_exclusion(int excl) {
     m_exclusions.push_back(excl);
+  }
+  
+  bool excludes_site(int other_site) {
+    return (std::find(m_exclusions.begin(), m_exclusions.end(), other_site) != m_exclusions.end());
+  }
+  
+  std::vector<int>& get_exclusions() {
+    return m_exclusions;
   }
   
   std::vector<Multipole>& get_multipoles() {
@@ -99,6 +101,14 @@ public:
   
   bool is_polarizable() {
     return (m_polarizabilities.size() > 0);
+  }
+  
+  arma::vec get_site_position() {
+    arma::vec pos(3);
+    pos[0] = m_x;
+    pos[1] = m_y;
+    pos[2] = m_z;
+    return pos;
   }
   
   

@@ -5,7 +5,9 @@
 
 namespace libcppe {
   
-arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha, double beta);
+arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha);
+
+arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj, arma::Cube<int>& Tk_coeffs);
 
 double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn);
 
@@ -13,6 +15,8 @@ arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs);
 
 arma::Cube<int> Tk_coefficients(int max_order);
   
+int xyz2idx(int x, int y, int z);
+
 double factorial(int n);
 
 void make_df(unsigned k, std::vector<double> &df);

@@ -74,7 +74,7 @@ std::vector<Potential> PotfileReader::read() {
         site.z = stod(temp[3]) * conversion;
         sites.push_back(site);
         // create an empty potential for the site
-        Potential p(site.x, site.y, site.z);
+        Potential p(site.x, site.y, site.z, i);
         potentials.push_back(p);
       }
     }
@@ -97,7 +97,7 @@ std::vector<Potential> PotfileReader::read() {
             int diff = site_num - site_before;
             for (size_t d = 1; d < diff; d++) {
               Site site = sites[site_before + d];
-              Multipole mul(order, site.x, site.y, site.z);
+              Multipole mul(order);
               for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
                 mul.add_value(0.0);
               }
@@ -106,7 +106,7 @@ std::vector<Potential> PotfileReader::read() {
           }
           
           Site site = sites[site_num];
-          Multipole mul(order, site.x, site.y, site.z);
+          Multipole mul(order);
           for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
             mul.add_value(stod(temp[vl]));
           }
@@ -118,7 +118,7 @@ std::vector<Potential> PotfileReader::read() {
             int diff = num_sites - site_num;
             for (size_t d = 1; d < diff; d++) {
               Site site = sites[site_num + d];
-              Multipole mul(order, site.x, site.y, site.z);
+              Multipole mul(order);
               for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
                 mul.add_value(0.0);
               }
@@ -151,12 +151,41 @@ std::vector<Potential> PotfileReader::read() {
         throw std::runtime_error("Invalid number in potfile ORDER.");
       }
     }
+    if (line.find("EXCLISTS") != std::string::npos) {
+      getline(infile, line);
+      int num_excl = stoi(split(line, ' ')[0]);
+      std::vector<std::string> temp;
+      for (size_t i = 0; i < num_excl; i++) {
+        getline(infile, line);
+        temp = split(reduce(line), ' ');
+        int site_num = stoi(temp[0]) - 1;
+        int excl_site_number;
+        int counter = 0;
+        for (auto s : temp) {
+          if (counter == 0) {
+            counter++;
+            continue;
+          }
+          int excl_site_number = stoi(s) - 1;
+          if (excl_site_number < 0) {
+            counter++;
+            continue;
+          }
+          potentials[site_num].add_exclusion(excl_site_number);
+          counter++;
+        }
+      }
+    }
   }
   infile.close();
   
   // DEBUG
   // int sc = 0;
   // for (auto& pot : potentials) {
+  //   std::cout << sc << std::endl;
+  //   for (auto ex : pot.get_exclusions()) {
+  //     std::cout << ex << " ";
+  //   }
   //   std::cout << "Potential at site " << sc << std::endl;
   //   for (auto& mul : pot) {
   //     std::cout << "    k = " << mul.m_k << ", x= " << mul.m_x << ", y= " << mul.m_y << ", z= " << mul.m_z << std::endl;
@@ -166,6 +195,7 @@ std::vector<Potential> PotfileReader::read() {
   //     }
   //     std::cout << std::endl;
   //   }
+  //   std::cout << std::endl;
   //   sc++;
   // }
   // 

@@ -7,6 +7,7 @@
 
 #include "utils/potfile_reader.hh"
 #include "core/multipole_expansion.hh"
+#include "core/electric_fields.hh"
 
 namespace libcppe {
 
@@ -56,6 +57,26 @@ double CPPE::calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<P
   MultipoleExpansion mexp(mol,potentials);
   double nuc_mul_energy = mexp.calculate_interaction_energy();
   return nuc_mul_energy;
+}
+
+arma::vec CPPE::calculate_nulcear_fields(Molecule& mol, std::vector<Potential>& potentials, size_t polarizable_sites) {
+  std::cout << "calculate nuclear fields" << std::endl;
+  NuclearFields nfields(mol, potentials);
+  arma::vec result(polarizable_sites*3, arma::fill::zeros);
+  nfields.compute(result, false);
+  return result;
+}
+
+arma::vec CPPE::calculate_multipole_fields(std::vector<Potential>& potentials, size_t polarizable_sites) {
+  MultipoleFields mul_fields(potentials);
+  arma::vec result(polarizable_sites*3, arma::fill::zeros);
+  mul_fields.compute(result, false);
+  return result;
+}
+
+arma::vec CPPE::calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields) {
+  InducedMoments ind(potentials);
+  return ind.compute(total_fields);
 }
 
 void CPPE::call_pe_energy(const double* densmat) {

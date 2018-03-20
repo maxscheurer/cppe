@@ -8,6 +8,7 @@ add_library(cppe
   utils/potfile_reader.cc
   core/cppe_state.cc
   core/multipole_expansion.cc
+  core/electric_fields.cc
   core/math.cc
 )
 

@@ -8,7 +8,7 @@ std::vector<int> mult_v{1, 3, 6, 10, 15, 21};
 
 // this only works for the contraction of polarizability/interaction tensors with vectors of size 3
 // TODO: need to make this faster
-arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha, double beta) {
+arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha) {
   assert(mat.n_elem == 6);
   assert(vec.n_elem == 3);
   arma::vec result(3, arma::fill::zeros);
@@ -21,9 +21,10 @@ arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha, doubl
     result[2] = mat[2]*vec[0] + mat[4]*vec[1] + mat[5]*vec[2];
   }
   result *= alpha;
-  result += beta*vec;
   return result;
 }
+
+// GS-Step
 
 // TODO: add option for damping
 arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs) {
@@ -40,6 +41,63 @@ arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs) {
     }
   }
   return Tk;
+}
+
+// TODO: there must be a way to make this more efficient...
+// only 1st derivative supported
+arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj, arma::Cube<int>& Tk_coeffs) {
+  if (l > 1) throw std::runtime_error("Only 1st derivatives supported for multipoles");
+  arma::vec Fi(3, arma::fill::zeros);
+  
+  double taylor;
+  if ((k + l) % 2 == 0) {
+    taylor = 1.0 / factorial(k);
+  } else if ((k + l) % 2 != 0) {
+    taylor = -1.0 / factorial(k);
+  }
+  
+  int i, j, m, x, y, z;
+  double symfac;
+  // std::cout << "mul k = " << k << std::endl;
+  // std::cout << "l = " << l << std::endl;
+  arma::vec Tk = Tk_tensor(k + l, Rji, Tk_coeffs);
+  for (x = k+l; x > -1; x--) {
+    for (y = k+l; y > -1; y--) {
+      for (z = k+l; z > -1; z--) {
+        if (x + y + z != k+l) continue;
+        i = xyz2idx(x, y, z);
+        for (int a = x; a > -1; a--) {
+          for (int b = y; b > -1; b--) {
+            for (int c = z; c > -1; c--) {
+              if (a + b + c != k) continue;
+              j = xyz2idx(a, b, c);
+              m = xyz2idx(x-a, y-b, z-c);
+              symfac = trinom(a, b, c);
+              Fi(m) += taylor * symfac * Tk(i) * Mkj(j);
+            }
+          }
+        }
+      }
+    }
+  }
+  return Fi;
+}
+
+int xyz2idx(int x, int y, int z) {
+  int idx = 0;
+  int k = x + y + z;
+  for (int a = k; a > -1; a--) {
+    for (int b = k; b > -1; b--) {
+      for (int c = k; c > -1; c--) {
+        if (a + b + c != k) continue;
+        if (a != x || b != y || c != z) {
+          idx++;
+        } else {
+          return idx;
+        }
+      }
+    }
+  }
 }
 
 double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn) {
