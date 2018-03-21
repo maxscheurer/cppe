@@ -74,9 +74,9 @@ arma::vec CPPE::calculate_multipole_fields(std::vector<Potential>& potentials, s
   return result;
 }
 
-arma::vec CPPE::calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields) {
+void CPPE::calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
   InducedMoments ind(potentials);
-  return ind.compute(total_fields);
+  ind.compute(total_fields, induced_moments, make_guess);
 }
 
 void CPPE::call_pe_energy(const double* densmat) {

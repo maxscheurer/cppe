@@ -4,32 +4,24 @@
 
 namespace libcppe {
   
-std::vector<int> mult_v{1, 3, 6, 10, 15, 21};
-
 // this only works for the contraction of polarizability/interaction tensors with vectors of size 3
 // TODO: need to make this faster
-arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha) {
+arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha) {
   assert(mat.n_elem == 6);
   assert(vec.n_elem == 3);
   arma::vec result(3, arma::fill::zeros);
   // expect upper triangle be provided
-  if (lower) {
-    // TODO: is this needed?
-  } else {
-    result[0] = mat[0]*vec[0] + mat[1]*vec[1] + mat[2]*vec[2];
-    result[1] = mat[1]*vec[0] + mat[3]*vec[1] + mat[4]*vec[2];
-    result[2] = mat[2]*vec[0] + mat[4]*vec[1] + mat[5]*vec[2];
-  }
+  result[0] = mat[0]*vec[0] + mat[1]*vec[1] + mat[2]*vec[2];
+  result[1] = mat[1]*vec[0] + mat[3]*vec[1] + mat[4]*vec[2];
+  result[2] = mat[2]*vec[0] + mat[4]*vec[1] + mat[5]*vec[2];  
   result *= alpha;
   return result;
 }
 
-// GS-Step
-
 // TODO: add option for damping
 arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs) {
   int x,y,z;
-  arma::vec Tk(mult_v[k]);
+  arma::vec Tk(multipole_components(k));
   int idx = 0;
   for (x = k; x > -1; x--) {
     for (y = k; y > -1; y--) {
@@ -83,6 +75,7 @@ arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj, arma:
   return Fi;
 }
 
+// x y z to index in contiguous array
 int xyz2idx(int x, int y, int z) {
   int idx = 0;
   int k = x + y + z;
@@ -118,8 +111,7 @@ double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn) {
   return t;
 }
 
-  
-  
+
 arma::Cube<int> Tk_coefficients(int max_order) {
   int maxi = 2*max_order+3;
   arma::Cube<int> Cijn(max_order+2, max_order+2, maxi, 
@@ -152,13 +144,11 @@ arma::Cube<int> Tk_coefficients(int max_order) {
       }
     }
   }
-  // std::cout << Cijn << std::endl;
   return Cijn;
 }
 
   
 double factorial(int n) {
-
     if(n < 2) return 1.0;
     double x = 1.0;
     for(int i = 2; i <= n; i++) x *= double(i);
@@ -200,8 +190,7 @@ void symmetry_factors(unsigned k, std::vector<double> &pf) {
 
 void prefactors(unsigned k, std::vector<double> &pf) {
   double taylor = -1.0 / factorial(k);;
-  // changed signs here because electron charges are included downstream
-  
+  // changed signs here because electron charges are included downstream (integral library)
   
   symmetry_factors(k, pf);
   for (size_t i = 0; i < pf.size(); i++) {
@@ -212,7 +201,6 @@ void prefactors(unsigned k, std::vector<double> &pf) {
 
 void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
   double taylor;
-  // changed signs here because electron charges are included downstream
   if (k % 2 == 0) {
     taylor = 1.0/factorial(k);
   } else if (k % 2 != 0) {
@@ -225,5 +213,10 @@ void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
   }
       
 }
+
+int multipole_components(int k) {
+  return (k+1)*(k+2)/2;
+}
+
 
 } // namespace libcppe

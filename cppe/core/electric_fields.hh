@@ -52,7 +52,7 @@ private:
 public:
   InducedMoments(std::vector<Potential> potentials) : m_potentials(potentials) {};
   ~InducedMoments() {};
-  arma::vec compute(arma::vec& total_fields); 
+  void compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess); 
 };
 
 

@@ -32,7 +32,7 @@ namespace libcppe {
       double calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<Potential>& );
       arma::vec calculate_nulcear_fields(Molecule& mol, std::vector<Potential>& potentials, size_t polarizable_sites);
       arma::vec calculate_multipole_fields(std::vector<Potential>& potentials, size_t polarizable_sites);
-      arma::vec calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields);
+      void calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields, arma::vec& induced_moments, bool make_guess);
       
     private:
       bool m_gen1int_initialized;

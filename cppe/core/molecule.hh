@@ -3,6 +3,8 @@
 
 #include <armadillo>
 
+namespace libcppe {
+
 struct Atom {
   int atomic_number;
   int charge;
@@ -35,4 +37,5 @@ struct Molecule : std::vector<Atom> {
   Molecule& operator=(const Molecule&) = default;
 };
 
+} // namespace libcppe
 #endif // LIBCPPE_CPPE_CORE_MOLECULE_H

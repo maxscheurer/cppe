@@ -23,13 +23,6 @@ public:
   
 };
 
-
-class MultipoleDerivative {
-  private:
-  
-  public:
-};
-
 } // namespace libcppe
 
 #endif

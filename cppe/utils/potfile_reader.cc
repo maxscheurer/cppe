@@ -6,6 +6,7 @@
 #include "potfile_reader.hh"
 #include "string_utils.hh"
 #include "../core/multipole_expansion.hh"
+#include "../core/math.hh"
 
 #define ang2bohr 1.8897261246
 
@@ -34,8 +35,7 @@ PotfileReader::PotfileReader(std::string potfile_name) :
 std::vector<Potential> PotfileReader::read() {
   std::ifstream infile(m_potfile);
   std::vector<Potential> potentials;
-  
-  std::vector<int> mul_vals{1, 3, 6, 10, 15, 21};
+
   
   std::string line;
   
@@ -68,7 +68,7 @@ std::vector<Potential> PotfileReader::read() {
         std::vector<std::string> temp = split(reduce(line), ' ');
         std::string element = temp[0];
         
-        assert(temp.size() == 4);
+        assert(temp.size() >= 4);
         site.x = stod(temp[1]) * conversion;
         site.y = stod(temp[2]) * conversion;
         site.z = stod(temp[3]) * conversion;
@@ -98,7 +98,7 @@ std::vector<Potential> PotfileReader::read() {
             for (size_t d = 1; d < diff; d++) {
               Site site = sites[site_before + d];
               Multipole mul(order);
-              for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
+              for (size_t vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
               }
               potentials[site_before + d].add_multipole(mul);
@@ -107,7 +107,7 @@ std::vector<Potential> PotfileReader::read() {
           
           Site site = sites[site_num];
           Multipole mul(order);
-          for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
+          for (size_t vl = 1; vl <= multipole_components(order); vl++) {
             mul.add_value(stod(temp[vl]));
           }
           potentials[site_num].add_multipole(mul);
@@ -119,7 +119,7 @@ std::vector<Potential> PotfileReader::read() {
             for (size_t d = 1; d < diff; d++) {
               Site site = sites[site_num + d];
               Multipole mul(order);
-              for (size_t vl = 1; vl <= mul_vals[order]; vl++) {
+              for (size_t vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
               }
               potentials[site_num + d].add_multipole(mul);
@@ -142,7 +142,7 @@ std::vector<Potential> PotfileReader::read() {
           
           Site site = sites[site_num];
           Polarizability pol{};
-          for (size_t vl = 1; vl <= mul_vals[order1+order2]; vl++) {
+          for (size_t vl = 1; vl <= multipole_components(order1+order2); vl++) {
             pol.add_value(stod(temp[vl]));
           }
           potentials[site_num].add_polarizability(pol);

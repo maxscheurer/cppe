@@ -3,3 +3,5 @@
 // TODO: refactor current hackish connection to
 // Q-Chem and put everything here
 // Probably add a state handler or sth like that?
+
+// Handler: prepare_scf

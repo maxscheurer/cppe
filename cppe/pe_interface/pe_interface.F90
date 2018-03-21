@@ -148,8 +148,8 @@ subroutine pe_interface_fock(densmatrix, ndim, nnbas, fckmatrix, energy)
   real(8), intent(out) :: energy
   real(8), dimension(1) :: energies
 
-  ! call pe_master("print_energy", .true., ndim, 1, densmatrix)
   call pe_master("full_fock", .true., ndim, 1, densmatrix, fckmatrix, energies)
+  call pe_master("print_energy", .true., ndim, 1, densmatrix)
   energy = energies(1)
 end subroutine pe_interface_fock
 

@@ -5,7 +5,7 @@
 
 namespace libcppe {
   
-arma::vec smat_vec(arma::vec mat, arma::vec vec, bool lower, double alpha);
+arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha);
 
 arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj, arma::Cube<int>& Tk_coeffs);
 
@@ -28,6 +28,8 @@ void symmetry_factors(unsigned k, std::vector<double> &pf);
 void prefactors(unsigned k, std::vector<double> &pf);
 
 void prefactors_nuclei(unsigned k, std::vector<double> &pf);
+
+int multipole_components(int k);
 
 } // namespace libcppe
 

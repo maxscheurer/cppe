@@ -59,20 +59,21 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
 }
 
 
-arma::vec InducedMoments::compute(arma::vec& total_fields) {
+void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
   std::cout << "run induced moments" << std::endl;
-  arma::vec induced_fields(total_fields.size(), arma::fill::zeros);
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
   // guess
-  size_t site_counter = 0;
-  for (auto& pot : m_potentials) {
-    if(!pot.is_polarizable()) continue;
-    arma::vec res = smat_vec(pot.get_polarizabilities()[0].get_values(), total_fields.subvec(site_counter, site_counter+2), false, 1.0);
-    induced_fields.subvec(site_counter, site_counter+2) = res;
-    site_counter += 3;
+  if (make_guess) {
+    size_t site_counter = 0;
+    for (auto& pot : m_potentials) {
+      if(!pot.is_polarizable()) continue;
+      arma::vec res = smat_vec(pot.get_polarizabilities()[0].get_values(), total_fields.subvec(site_counter, site_counter+2), 1.0);
+      induced_moments.subvec(site_counter, site_counter+2) = res;
+      site_counter += 3;
+    }
   }
   // std::cout << "induced mom. guess" << std::endl;
-  // induced_fields.raw_print(std::cout << std::setprecision(10));
+  // induced_moments.raw_print(std::cout << std::setprecision(10));
   int thresh = 50;
   int iteration = 0;
   bool converged = false;
@@ -100,14 +101,14 @@ arma::vec InducedMoments::compute(arma::vec& total_fields) {
         arma::vec diff = pot2.get_site_position()-pot1.get_site_position();
         arma::vec T2 = Tk_tensor(2, diff, Tk_coeffs);
         // += ???
-        Ftmp += smat_vec(T2, induced_fields.subvec(m, m+2), false, 1.0);
+        Ftmp += smat_vec(T2, induced_moments.subvec(m, m+2), 1.0);
         m += 3;
       }
       // keep value to calculate residual
-      M1tmp = induced_fields.subvec(l, l+2);
+      M1tmp = induced_moments.subvec(l, l+2);
       Ftmp += total_fields.subvec(l, l+2);
-      induced_fields.subvec(l, l+2) = smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, false, 1.0);
-      M1tmp = induced_fields.subvec(l, l+2) - M1tmp;
+      induced_moments.subvec(l, l+2) = smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, 1.0);
+      M1tmp = induced_moments.subvec(l, l+2) - M1tmp;
       norm += arma::norm(M1tmp);
       l += 3;
     }
@@ -120,10 +121,7 @@ arma::vec InducedMoments::compute(arma::vec& total_fields) {
   if (!converged) {
     throw std::runtime_error("Failed to converge induced moments.");
   }
-  
-  // std::cout << "induced moments (qc)" << std::endl;
-  // induced_fields.raw_print(std::cout << std::setprecision(12));
-  return induced_fields;
+  // TODO: warning if induced moments > 1 a.u.
 }
   
 
