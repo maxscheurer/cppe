@@ -1,5 +1,5 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef CPPE_INTERFACE_H
+#define CPPE_INTERFACE_H
 
 // extern "C" avoids C++ mangling of names.
 extern "C" void pe_interface_init_(int*, const double*, const double*);
@@ -60,4 +60,4 @@ void print_shells() {
   return print_shells_();
 }
 
-#endif
+#endif // CPPE_INTERFACE_H
