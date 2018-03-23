@@ -52,33 +52,6 @@ void CPPE::initialize_pelib(std::string potfile, int natoms, int nbas, const dou
   
 }
 
-double CPPE::calculate_nulcei_multipole_interaction(Molecule& mol, std::vector<Potential>& potentials) {
-  std::cout << "calculate_nulcei_multipole_interaction" << std::endl;
-  MultipoleExpansion mexp(mol,potentials);
-  double nuc_mul_energy = mexp.calculate_interaction_energy();
-  return nuc_mul_energy;
-}
-
-arma::vec CPPE::calculate_nulcear_fields(Molecule& mol, std::vector<Potential>& potentials, size_t polarizable_sites) {
-  std::cout << "calculate nuclear fields" << std::endl;
-  NuclearFields nfields(mol, potentials);
-  arma::vec result(polarizable_sites*3, arma::fill::zeros);
-  nfields.compute(result, false);
-  return result;
-}
-
-arma::vec CPPE::calculate_multipole_fields(std::vector<Potential>& potentials, size_t polarizable_sites) {
-  MultipoleFields mul_fields(potentials);
-  arma::vec result(polarizable_sites*3, arma::fill::zeros);
-  mul_fields.compute(result, false);
-  return result;
-}
-
-void CPPE::calculate_induced_moments(std::vector<Potential>& potentials, arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
-  InducedMoments ind(potentials);
-  ind.compute(total_fields, induced_moments, make_guess);
-}
-
 void CPPE::call_pe_energy(const double* densmat) {
   if (!m_gen1int_initialized || !m_pe_initialized) {
     throw std::runtime_error("Gen1int and PElib need to be initialized before calling PElib");
@@ -100,14 +73,6 @@ void CPPE::call_full_fock(const double* densmat, double* fockmat, double* energy
   pe_interface_fock(densmat, m_nbas, m_nnbas, fockmat, energy);
   // pe_interface_energy(densmat, m_nbas, m_nnbas);
 }
-
-void CPPE::call_dynamic_response(const double* densmat, double* fockmat, double* energy) {
-  if (!m_gen1int_initialized || !m_pe_initialized) {
-    throw std::runtime_error("Gen1int and PElib need to be initialized before calling PElib");
-  }
-  pe_interface_response(densmat, m_nbas, m_nnbas, fockmat, energy);
-}
-
 
 std::vector<Potential> CPPE::read_potfile(std::string potfile_name) {
   PotfileReader reader(potfile_name);
