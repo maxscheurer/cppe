@@ -7,6 +7,7 @@ add_library(cppe
   libcppe.cc
   utils/potfile_reader.cc
   utils/string_utils.cc
+  utils/pot_manipulation.cc
   core/cppe_state.cc
   core/multipole_expansion.cc
   core/electric_fields.cc

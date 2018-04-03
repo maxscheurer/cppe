@@ -14,7 +14,8 @@ extern "C" void print_shells_();
 extern "C" void gen1int_api_initialize_(int *natoms, int *num_shells, const double *coords, const double *charges);
 extern "C" void gen1int_create_shell_(int* spher_gto, int* idx_center, const double* coord_center,
   int* ang_num, int* num_prim, const double* exponents, int* num_contr, const double* contr_coef);
-// As usually FORTRAN passes by reference => use pointers
+
+extern "C" void pe_set_border_options_(int *m_pe_border, double* m_rmin, int* type_flag);
 
 
 void pe_interface_init(int n, const double* coords, const double* charges) { return pe_interface_init_(&n, coords, charges); }
@@ -48,6 +49,10 @@ void gen1int_api_add_shell(int spher_gto, int idx_center, const double* coord_ce
 
 void print_shells() {
   return print_shells_();
+}
+
+void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag) {
+  return pe_set_border_options_(&m_pe_border, &m_rmin, &type_flag);
 }
 
 #endif // CPPE_INTERFACE_H

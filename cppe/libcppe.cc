@@ -38,7 +38,7 @@ void CPPE::gen1int_print_shells() {
   print_shells();
 }
 
-void CPPE::initialize_pelib(std::string potfile, int natoms, int nbas, const double* coords, const double* charges) {
+void CPPE::initialize_pelib(PeOptions& options, int natoms, int nbas, const double* coords, const double* charges) {
   if (!m_gen1int_initialized) {
     throw std::runtime_error("Gen1int needs to be initialized before calling PElib");
   }
@@ -46,10 +46,11 @@ void CPPE::initialize_pelib(std::string potfile, int natoms, int nbas, const dou
   m_nbas = nbas;
   m_nnbas = nbas*(nbas+1)/2;
   assert(potfile.size() < 80);
-  pe_set_potfile(potfile.c_str(), static_cast<int>(potfile.size()));
+  pe_set_potfile(options.potfile.c_str(), static_cast<int>(options.potfile.size()));
+  pe_set_border_options(options.pe_border, options.border_options.rmin, options.border_options.border_type);
   pe_interface_init(natoms, coords, charges);
   m_pe_initialized = true;
-  
+
 }
 
 void CPPE::call_pe_energy(const double* densmat) {

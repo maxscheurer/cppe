@@ -8,6 +8,7 @@
 
 #include "core/multipole.hh"
 #include "core/molecule.hh"
+#include "core/pe_options.hh"
 
 
 namespace libcppe {
@@ -24,11 +25,11 @@ namespace libcppe {
       void gen1int_add_shell(int spher_gto, int idx_center, const double* coord_center,
         int ang_num, int num_prim, const double* exponents, int num_contr, const double* contr_coef);
       void gen1int_print_shells();
-      void initialize_pelib(std::string potfile, int natoms, int nbas,
+      void initialize_pelib(PeOptions& options, int natoms, int nbas,
                             const double* coords, const double* charges);
-      
+
       std::vector<Potential> read_potfile(std::string potfile_name);
-      
+
     private:
       bool m_gen1int_initialized;
       bool m_pe_initialized;

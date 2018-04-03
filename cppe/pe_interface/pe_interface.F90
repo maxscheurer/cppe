@@ -98,6 +98,23 @@ subroutine pe_interface_pol_energy(densmatrix, ndim, nnbas, energy)
   energy = energies(1)
 end subroutine pe_interface_pol_energy
 
+
+subroutine pe_set_border_options(m_pe_border, m_rmin, type_flag)
+  use pe_variables
+  logical, intent(in) :: m_pe_border
+  real(dp), intent(in) :: m_rmin
+  integer, intent(in) :: type_flag
+
+  if ( type_flag == 0 ) then
+    border_type = "REMOVE"
+  elseif ( type_flag == 1 ) then
+    border_type = "REDIST"
+  endif
+
+  pe_border = m_pe_border
+  Rmin = m_rmin
+end subroutine pe_set_border_options
+
 ! subroutine pe_interface_response(densmatrix, ndim, nnbas, fckmatrix, energy)
 !   use polarizable_embedding, only: pe_master
 !   use gen1int_api
@@ -107,7 +124,7 @@ end subroutine pe_interface_pol_energy
 !   ! give storage for fckmatrix
 !   real(8), dimension(nnbas), intent(out) :: fckmatrix
 !   real(8), intent(out) :: energy
-! 
+!
 !   ! call pe_master("print_energy", .true., ndim, 1, densmatrix)
 !   call pe_master("dynamic_response", .true., ndim, 1, densmatrix, fckmatrix)
 ! end subroutine pe_interface_response
