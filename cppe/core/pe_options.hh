@@ -10,6 +10,15 @@ struct BorderOptions {
   BorderType border_type{rem};
   // rmin is in AU!
   double rmin = 2.2;
+
+  // number of sites that parameters are redistributed to, i.e., the
+  // nredist nearest neighbors
+  int nredist = 1;
+
+  // order to which multipole moments are redistributed
+  // moments > redist_order will be removed
+  int redist_order = 1;
+  bool redist_pol = false;
 };
 
 struct PeOptions {

@@ -115,6 +115,15 @@ subroutine pe_set_border_options(m_pe_border, m_rmin, type_flag)
   Rmin = m_rmin
 end subroutine pe_set_border_options
 
+subroutine finalize_all()
+  use polarizable_embedding
+  use gen1int_api
+
+  call pe_finalize()
+  call Gen1IntAPIDestroy()
+
+end subroutine finalize_all
+
 ! subroutine pe_interface_response(densmatrix, ndim, nnbas, fckmatrix, energy)
 !   use polarizable_embedding, only: pe_master
 !   use gen1int_api

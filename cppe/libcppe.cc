@@ -16,8 +16,9 @@ CPPE::CPPE() {
 }
 
 CPPE::~CPPE() {
-  // destructor for CPPE class
-  // needs to destroy pelib and gen1int
+  if (m_gen1int_initialized && m_pe_initialized) {
+    finalize_all();
+  }
 }
 
 void CPPE::initialize_gen1int(int natoms, int nshells, const double* coords, const double *charges) {
@@ -72,7 +73,6 @@ void CPPE::call_full_fock(const double* densmat, double* fockmat, double* energy
     throw std::runtime_error("Gen1int and PElib need to be initialized before calling PElib");
   }
   pe_interface_fock(densmat, m_nbas, m_nnbas, fockmat, energy);
-  // pe_interface_energy(densmat, m_nbas, m_nnbas);
 }
 
 std::vector<Potential> CPPE::read_potfile(std::string potfile_name) {

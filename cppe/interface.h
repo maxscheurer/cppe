@@ -10,6 +10,7 @@ extern "C" void pe_interface_fock_(const double*, int*, int*, const double*, dou
 // extern "C" void pe_interface_response_(const double*, int*, int*, const double*, double*);
 extern "C" int gen1int_api_initialized_();
 extern "C" void print_shells_();
+extern "C" void finalize_all_();
 
 extern "C" void gen1int_api_initialize_(int *natoms, int *num_shells, const double *coords, const double *charges);
 extern "C" void gen1int_create_shell_(int* spher_gto, int* idx_center, const double* coord_center,
@@ -49,6 +50,10 @@ void gen1int_api_add_shell(int spher_gto, int idx_center, const double* coord_ce
 
 void print_shells() {
   return print_shells_();
+}
+
+void finalize_all() {
+  return finalize_all_();
 }
 
 void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag) {
