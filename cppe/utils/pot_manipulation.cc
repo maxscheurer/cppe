@@ -6,8 +6,8 @@
 
 namespace libcppe {
 
-bool sortbysec(const std::pair<int,int> &a,
-                const std::pair<int,int> &b) {
+bool sortbysec(const std::pair<int,double> &a,
+                const std::pair<int,double> &b) {
       return (a.second < b.second);
 }
 
@@ -49,33 +49,53 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
       std::cout << "site: " << site << std::endl;
       // first element is pot.index, second the distance to site
       for (Potential pot: m_potentials) {
-        if (pot.index == site) continue;
+        if (changed_sites.find(pot.index) != changed_sites.end()) continue;
         arma::vec dist_vec = m_potentials[site].get_site_position() - pot.get_site_position();
         double dist = arma::norm(dist_vec);
         neighbor_list.push_back(std::pair<int,double>(pot.index, dist));
       }
       sort(neighbor_list.begin(), neighbor_list.end(), sortbysec);
-      std::cout << "sorted nbl for site: " << site << std::endl;
       for (int k = 0; k < nredist; ++k) {
         Potential& pot = m_potentials[neighbor_list[k].first];
         if (pot.index == site) continue;
         std::cout << "Redistributing to site " << pot.index << std::endl;
+        std::cout << "distance: " << neighbor_list[k].second << std::endl;
         // must have the same order of multipoles if we want to redist
         // we can warn the user later, but for now, we will stop the program
-        assert(pot.get_multipoles().size() == m_potentials[site].get_multipoles().size());
         int m_idx = 0;
         for (Multipole& m : pot.get_multipoles()) {
           if (m.m_k >= redist_order) {
             m_idx++;
             continue;
-          } else {
-            std::cout << "Before: " << m.get_values_vec() << std::endl;
-            // holy fuck... this is never gonna work...
-            for (size_t i = 0; i < multipole_components(m.m_k); i++) {
-               m.get_values()[i] += m_potentials[site].get_multipoles()[m_idx].get_values()[i] / nredist;
-            }
-            std::cout << "After: " << m.get_values_vec() << std::endl;
+          } else if (m.m_k != m_potentials[site].get_multipoles()[m_idx].m_k) {
             m_idx++;
+            continue;
+          }
+          else {
+            std::cout << "Before: " << std::endl;
+            std::cout << m.get_values_vec() << std::endl;
+            // holy f***... this is never gonna work...
+            for (size_t i = 0; i < multipole_components(m.m_k); i++) {
+               m.get_values()[i] += m_potentials[site].get_multipoles()[m_idx].get_values()[i] / static_cast<double>(nredist);
+            }
+            std::cout << "After: " << std::endl;
+            std::cout << m.get_values_vec() << std::endl;
+            m_idx++;
+          }
+        }
+        int p_idx = 0;
+        if (pe_options.border_options.redist_pol) {
+          for (Polarizability& p : pot.get_polarizabilities()) {
+            // TODO: what if a site that has been chosen nearest neighbor
+            // has no multipole moments/polarizability of the respective order?!
+            std::cout << "Before: " << std::endl;
+            std::cout << p.get_values_vec() << std::endl;
+            for (size_t i = 0; i < multipole_components(2); i++) {
+               p.get_values()[i] += m_potentials[site].get_polarizabilities()[p_idx].get_values()[i] / static_cast<double>(nredist);
+            }
+            std::cout << "After: " << std::endl;
+            std::cout << p.get_values_vec() << std::endl;
+            p_idx++;
           }
         }
       }

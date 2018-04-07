@@ -99,11 +99,13 @@ subroutine pe_interface_pol_energy(densmatrix, ndim, nnbas, energy)
 end subroutine pe_interface_pol_energy
 
 
-subroutine pe_set_border_options(m_pe_border, m_rmin, type_flag)
+subroutine pe_set_border_options(m_pe_border, m_rmin, type_flag, m_redist_order, m_nredist)
   use pe_variables
   logical, intent(in) :: m_pe_border
   real(dp), intent(in) :: m_rmin
   integer, intent(in) :: type_flag
+  integer, intent(in) :: m_redist_order
+  integer, intent(in) :: m_nredist
 
   if ( type_flag == 0 ) then
     border_type = "REMOVE"
@@ -113,6 +115,8 @@ subroutine pe_set_border_options(m_pe_border, m_rmin, type_flag)
 
   pe_border = m_pe_border
   Rmin = m_rmin
+  redist_order = m_redist_order
+  nredist = m_nredist
 end subroutine pe_set_border_options
 
 subroutine finalize_all()

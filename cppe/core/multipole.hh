@@ -6,7 +6,7 @@
 #include <armadillo>
 
 namespace libcppe {
-  
+
 class Multipole {
 private:
   std::vector<double> m_values;
@@ -14,12 +14,12 @@ private:
 public:
   Multipole (unsigned k) : m_k(k) {  };
   ~Multipole () {};
-  
+
   // TODO: add check if too many values
   void add_value(double val) {
     m_values.push_back(val);
   }
-  
+
   // TODO: check if required number of values in m_values
   void remove_trace() {
     double trace;
@@ -33,13 +33,14 @@ public:
       std::cout << "Results from integral calculations could be wrong." << std::endl;
     }
   }
-  
+
   std::vector<double>& get_values() {return m_values;}
   arma::vec get_values_vec() {return arma::vec(m_values.data(), m_values.size());}
   unsigned m_k;
-  
+
 };
 
+// Currently, only dipole-dipole polarizabilities are used
 class Polarizability {
 private:
   std::vector<double> m_values;
@@ -47,11 +48,12 @@ private:
 public:
   Polarizability () {};
   ~Polarizability () {};
-  
+
   void add_value(double val) {
     m_values.push_back(val);
   }
-  
+
+  arma::vec get_values_vec() {return arma::vec(m_values.data(), m_values.size());}
   std::vector<double>& get_values() {return m_values;}
 };
 
@@ -66,43 +68,43 @@ private:
 public:
   Potential (double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx) {};
   ~Potential () {};
-  
+
   double m_x, m_y, m_z;
   int index;
-  
+
   void add_multipole(Multipole mul) {
     m_multipoles.push_back(mul);
   }
-  
+
   void add_polarizability(Polarizability pol) {
     m_polarizabilities.push_back(pol);
   }
-  
+
   // 0-based!!!
   void add_exclusion(int excl) {
     m_exclusions.push_back(excl);
   }
-  
+
   bool excludes_site(int other_site) {
     return (std::find(m_exclusions.begin(), m_exclusions.end(), other_site) != m_exclusions.end());
   }
-  
+
   std::vector<int>& get_exclusions() {
     return m_exclusions;
   }
-  
+
   std::vector<Multipole>& get_multipoles() {
     return m_multipoles;
   }
-  
+
   std::vector<Polarizability>& get_polarizabilities() {
     return m_polarizabilities;
   }
-  
+
   bool is_polarizable() {
     return (m_polarizabilities.size() > 0);
   }
-  
+
   arma::vec get_site_position() {
     arma::vec pos(3);
     pos[0] = m_x;
@@ -110,8 +112,8 @@ public:
     pos[2] = m_z;
     return pos;
   }
-  
-  
+
+
 };
 
 

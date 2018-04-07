@@ -12,7 +12,8 @@
 namespace libcppe {
 
 CPPE::CPPE() {
-  // constructor for CPPE class
+  m_gen1int_initialized = false;
+  m_pe_initialized = false;
 }
 
 CPPE::~CPPE() {
@@ -48,10 +49,13 @@ void CPPE::initialize_pelib(PeOptions& options, int natoms, int nbas, const doub
   m_nnbas = nbas*(nbas+1)/2;
   assert(potfile.size() < 80);
   pe_set_potfile(options.potfile.c_str(), static_cast<int>(options.potfile.size()));
-  pe_set_border_options(options.pe_border, options.border_options.rmin, options.border_options.border_type);
+  pe_set_border_options(options.pe_border,
+                        options.border_options.rmin,
+                        options.border_options.border_type,
+                        options.border_options.redist_pol ? -options.border_options.redist_order : options.border_options.redist_order,
+                        options.border_options.nredist);
   pe_interface_init(natoms, coords, charges);
   m_pe_initialized = true;
-
 }
 
 void CPPE::call_pe_energy(const double* densmat) {

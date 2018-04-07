@@ -16,7 +16,7 @@ extern "C" void gen1int_api_initialize_(int *natoms, int *num_shells, const doub
 extern "C" void gen1int_create_shell_(int* spher_gto, int* idx_center, const double* coord_center,
   int* ang_num, int* num_prim, const double* exponents, int* num_contr, const double* contr_coef);
 
-extern "C" void pe_set_border_options_(int *m_pe_border, double* m_rmin, int* type_flag);
+extern "C" void pe_set_border_options_(int *m_pe_border, double* m_rmin, int* type_flag, int* redist_order, int* nredist);
 
 
 void pe_interface_init(int n, const double* coords, const double* charges) { return pe_interface_init_(&n, coords, charges); }
@@ -56,8 +56,8 @@ void finalize_all() {
   return finalize_all_();
 }
 
-void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag) {
-  return pe_set_border_options_(&m_pe_border, &m_rmin, &type_flag);
+void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag, int redist_order, int nredist) {
+  return pe_set_border_options_(&m_pe_border, &m_rmin, &type_flag, &redist_order, &nredist);
 }
 
 #endif // CPPE_INTERFACE_H
