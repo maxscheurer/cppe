@@ -47,7 +47,7 @@ void CPPE::initialize_pelib(PeOptions& options, int natoms, int nbas, const doub
   m_natoms = natoms;
   m_nbas = nbas;
   m_nnbas = nbas*(nbas+1)/2;
-  assert(potfile.size() < 80);
+  assert(options.potfile.size() < 80);
   pe_set_potfile(options.potfile.c_str(), static_cast<int>(options.potfile.size()));
   pe_set_border_options(options.pe_border,
                         options.border_options.rmin,

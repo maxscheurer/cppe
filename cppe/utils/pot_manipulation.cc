@@ -40,13 +40,15 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
   } else if (pe_options.border_options.border_type == BorderType::redist) {
     std::cout << "redistributing moments" << std::endl;
     int nredist = pe_options.border_options.nredist;
-    assert(nredist <= m_potentials.size());
+    if (nredist > m_potentials.size()) {
+      throw std::runtime_error("Cannot redistribute to more sites than available sites.");
+    }
     // loop over all sites that are in rmin of core
-    std::cout << "changed sites: " << changed_sites.size() << std::endl;
+    // redistribute their multipoles/polarizabilities
     for (auto site : changed_sites) {
       int redist_order = pe_options.border_options.redist_order;
       std::vector<std::pair<int,double>> neighbor_list;
-      std::cout << "site: " << site << std::endl;
+      std::cout << "Redistributing site: " << site << std::endl;
       // first element is pot.index, second the distance to site
       for (Potential pot: m_potentials) {
         if (changed_sites.find(pot.index) != changed_sites.end()) continue;
@@ -58,10 +60,8 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
       for (int k = 0; k < nredist; ++k) {
         Potential& pot = m_potentials[neighbor_list[k].first];
         if (pot.index == site) continue;
-        std::cout << "Redistributing to site " << pot.index << std::endl;
-        std::cout << "distance: " << neighbor_list[k].second << std::endl;
+        std::cout << "  to neighbor " << pot.index << std::endl;
         // must have the same order of multipoles if we want to redist
-        // we can warn the user later, but for now, we will stop the program
         int m_idx = 0;
         for (Multipole& m : pot.get_multipoles()) {
           if (m.m_k >= redist_order) {
