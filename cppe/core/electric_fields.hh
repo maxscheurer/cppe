@@ -7,7 +7,9 @@
 // TODO: create Field class which others inherit
 
 namespace libcppe {
-  
+
+std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
+
 
 class ElectronFiels {
 private:
@@ -24,7 +26,7 @@ private:
   Molecule m_mol;
 
 public:
-  NuclearFields(Molecule mol, std::vector<Potential> potentials) : 
+  NuclearFields(Molecule mol, std::vector<Potential> potentials) :
     m_mol(mol), m_potentials(potentials) {};
   ~NuclearFields() {};
   // nuc_fields has length of 3*n_polarizable_sites
@@ -37,7 +39,7 @@ private:
   std::vector<Potential> m_potentials;
 
 public:
-  MultipoleFields(std::vector<Potential> potentials) : 
+  MultipoleFields(std::vector<Potential> potentials) :
     m_potentials(potentials) {};
   ~MultipoleFields() {};
   // nuc_fields has length of 3*n_polarizable_sites
@@ -48,13 +50,17 @@ public:
 class InducedMoments {
 private:
   std::vector<Potential> m_potentials;
+  std::vector<Potential> m_polsites;
+  size_t m_n_polsites;
 
 public:
-  InducedMoments(std::vector<Potential> potentials) : m_potentials(potentials) {};
+  InducedMoments(std::vector<Potential> potentials) : m_potentials(potentials) {
+    m_polsites = get_polarizable_sites(m_potentials);
+    m_n_polsites = m_polsites.size();
+  };
   ~InducedMoments() {};
-  void compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess); 
+  void compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess);
 };
-
 
 
 } // namespace libcppe

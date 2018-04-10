@@ -4,7 +4,7 @@
 #include "math.hh"
 
 namespace libcppe {
-  
+
 void NuclearFields::compute(arma::vec& nuc_fields, bool damp_core) {
   if (damp_core) {
     throw std::runtime_error("damping not implemented");
@@ -36,7 +36,7 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
   size_t site_counter = 0;
   for (auto& potential1 : m_potentials) {
     if (!potential1.is_polarizable()) continue;
-    
+
     // std::cout << "Calculating field on site " << potential1.index << std::endl;
     for (auto& potential2 : m_potentials) {
       if (potential1.index == potential2.index) continue;
@@ -46,7 +46,7 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
       for (auto& mul : potential2.get_multipoles()) {
         // TODO: exclude zero value multipoles here...
         // int non_zeros = std::count_if( mul.get_values().begin(), mul.get_values().end(), [](double val){return abs(val) > 0.0;} );
-        // std::cout << "non-zeros: " << non_zeros << std::endl; 
+        // std::cout << "non-zeros: " << non_zeros << std::endl;
         // if (non_zeros == 0) continue;
         arma::vec Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values(), Tk_coeffs);
         mult_fields(site_counter) += Fi(0);
@@ -57,7 +57,6 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
     site_counter += 3;
   }
 }
-
 
 void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
   std::cout << "run induced moments" << std::endl;
@@ -78,51 +77,99 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   int iteration = 0;
   bool converged = false;
   double norm;
-  
-  int l, m;
-  arma::vec Ftmp(3, arma::fill::zeros);
-  arma::vec M1tmp(3, arma::fill::zeros);
-  
+
+  // int l, m;
+  // arma::vec Ftmp(3, arma::fill::zeros);
+  // arma::vec M1tmp(3, arma::fill::zeros);
+
+
   // iterations
   while (!converged) {
     if (iteration >= thresh) break;
     norm = 0.0;
-    l = 0;
-    for (auto& pot1 : m_potentials) {
-      if(!pot1.is_polarizable()) continue;
-      m = 0;
+    #pragma omp parallel for reduction(+:norm)
+    for (int i = 0; i < m_n_polsites; ++i) {
+      arma::vec Ftmp(3, arma::fill::zeros);
+      arma::vec M1tmp(3, arma::fill::zeros);
+      int l = i*3;
+      Potential& pot1 = m_polsites[i];
       Ftmp.fill(0.0);
-      for (auto& pot2 : m_potentials) {
-        if(!pot2.is_polarizable()) continue;
-        if (pot1.excludes_site(pot2.index) || pot1.index == pot2.index) {
-          m += 3;
+      for (int j = 0; j < m_n_polsites; ++j) {
+        int m = 3*j;
+        Potential& pot2 = m_polsites[j];
+        if (pot1.excludes_site(pot2.index) || i == j) {
           continue;
         }
         arma::vec diff = pot2.get_site_position()-pot1.get_site_position();
         arma::vec T2 = Tk_tensor(2, diff, Tk_coeffs);
-        // += ???
         Ftmp += smat_vec(T2, induced_moments.subvec(m, m+2), 1.0);
-        m += 3;
       }
       // keep value to calculate residual
       M1tmp = induced_moments.subvec(l, l+2);
       Ftmp += total_fields.subvec(l, l+2);
       induced_moments.subvec(l, l+2) = smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, 1.0);
+      // Calculate the residual
       M1tmp = induced_moments.subvec(l, l+2) - M1tmp;
       norm += arma::norm(M1tmp);
-      l += 3;
     }
+    // OLD version (not parallel)
+    // for (int i = 0; i < m_potentials.size(); ++i) {
+    //   Potential& pot1 = m_potentials[i];
+    //   if(!pot1.is_polarizable()) continue;
+    //   m = 0;
+    //   Ftmp.fill(0.0);
+    //   for (int j = 0; j < m_potentials.size(); ++j) {
+    //     Potential& pot2 = m_potentials[j];
+    //     if(!pot2.is_polarizable()) continue;
+    //     if (pot1.excludes_site(pot2.index) || i == j) {
+    //       m += 3;
+    //       continue;
+    //     }
+    //     arma::vec diff = pot2.get_site_position()-pot1.get_site_position();
+    //     arma::vec T2 = Tk_tensor(2, diff, Tk_coeffs);
+    //     Ftmp += smat_vec(T2, induced_moments.subvec(m, m+2), 1.0);
+    //     m += 3;
+    //   }
+    //   // keep value to calculate residual
+    //   M1tmp = induced_moments.subvec(l, l+2);
+    //   Ftmp += total_fields.subvec(l, l+2);
+    //   induced_moments.subvec(l, l+2) = smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, 1.0);
+    //   // Calculate the residual
+    //   M1tmp = induced_moments.subvec(l, l+2) - M1tmp;
+    //   norm += arma::norm(M1tmp);
+    //   l += 3;
+    // }
     std::cout << iteration << " -- Norm: " << norm << std::endl;
     // calculate based on iteration
     if (norm < 1e-8) converged = true;
     iteration++;
   }
-  
+
   if (!converged) {
     throw std::runtime_error("Failed to converge induced moments.");
   }
-  // TODO: warning if induced moments > 1 a.u.
+
+  double nrm = 0.0;
+  for (int j = 0; j < m_n_polsites; ++j) {
+    int m = 3*j;
+    nrm = arma::norm(induced_moments.subvec(m, m+2));
+    if (nrm > 1.0) {
+      int site = m_polsites[j].index;
+      std::cout << "WARNING: Induced moment on site " << site << " is greater than 1 a.u.!" << std::endl;
+    }
+  }
 }
-  
+
+// returns a vector of potentials that are polarizable 
+std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials) {
+  std::vector<Potential> result;
+  for (auto p : potentials) {
+    if (p.is_polarizable()) {
+      result.push_back(p);
+    }
+  }
+  return result;
+}
+
 
 } // namespace libcppe
