@@ -90,10 +90,9 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
     #pragma omp parallel for reduction(+:norm)
     for (int i = 0; i < m_n_polsites; ++i) {
       arma::vec Ftmp(3, arma::fill::zeros);
-      arma::vec M1tmp(3, arma::fill::zeros);
+      arma::vec M1tmp(3);
       int l = i*3;
       Potential& pot1 = m_polsites[i];
-      Ftmp.fill(0.0);
       for (int j = 0; j < m_n_polsites; ++j) {
         int m = 3*j;
         Potential& pot2 = m_polsites[j];
@@ -160,7 +159,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   }
 }
 
-// returns a vector of potentials that are polarizable 
+// returns a vector of potentials that are polarizable
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials) {
   std::vector<Potential> result;
   for (auto p : potentials) {
