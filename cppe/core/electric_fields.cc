@@ -76,16 +76,27 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   int thresh = 50;
   int iteration = 0;
   bool converged = false;
-  double norm;
+  double norm = 0.0;
 
   // int l, m;
   // arma::vec Ftmp(3, arma::fill::zeros);
   // arma::vec M1tmp(3, arma::fill::zeros);
 
+  bool diis = false;
+  int diis_maxvec = 15;
+  std::vector<arma::vec> diis_prev_moments;
+  std::vector<arma::vec> diis_residuals;
+  arma::vec diis_old_moments = induced_moments;
+
 
   // iterations
   while (!converged) {
     if (iteration >= thresh) break;
+    if (norm <= 1.0 && iteration > 1 && !diis) {
+      std::cout << "--- Turning on DIIS. ---" << std::endl;
+      diis = true;
+    }
+
     norm = 0.0;
     #pragma omp parallel for reduction(+:norm)
     for (int i = 0; i < m_n_polsites; ++i) {
@@ -111,36 +122,52 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
       M1tmp = induced_moments.subvec(l, l+2) - M1tmp;
       norm += arma::norm(M1tmp);
     }
-    // OLD version (not parallel)
-    // for (int i = 0; i < m_potentials.size(); ++i) {
-    //   Potential& pot1 = m_potentials[i];
-    //   if(!pot1.is_polarizable()) continue;
-    //   m = 0;
-    //   Ftmp.fill(0.0);
-    //   for (int j = 0; j < m_potentials.size(); ++j) {
-    //     Potential& pot2 = m_potentials[j];
-    //     if(!pot2.is_polarizable()) continue;
-    //     if (pot1.excludes_site(pot2.index) || i == j) {
-    //       m += 3;
-    //       continue;
-    //     }
-    //     arma::vec diff = pot2.get_site_position()-pot1.get_site_position();
-    //     arma::vec T2 = Tk_tensor(2, diff, Tk_coeffs);
-    //     Ftmp += smat_vec(T2, induced_moments.subvec(m, m+2), 1.0);
-    //     m += 3;
-    //   }
-    //   // keep value to calculate residual
-    //   M1tmp = induced_moments.subvec(l, l+2);
-    //   Ftmp += total_fields.subvec(l, l+2);
-    //   induced_moments.subvec(l, l+2) = smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, 1.0);
-    //   // Calculate the residual
-    //   M1tmp = induced_moments.subvec(l, l+2) - M1tmp;
-    //   norm += arma::norm(M1tmp);
-    //   l += 3;
-    // }
-    std::cout << iteration << " -- Norm: " << norm << std::endl;
+
+    diis_prev_moments.push_back(induced_moments);
+    if (diis_prev_moments.size() > diis_maxvec) {
+      diis_prev_moments.erase(diis_prev_moments.begin());
+    }
+    diis_residuals.push_back(induced_moments - diis_old_moments);
+    if (diis_residuals.size() > diis_maxvec) {
+      diis_residuals.erase(diis_residuals.begin());
+    }
+
+    if (diis_residuals.size() > 2 && diis) {
+      int diis_size = diis_residuals.size() + 1;
+      arma::mat B(diis_size, diis_size, arma::fill::zeros);
+      for (size_t i = 1; i < diis_size; i++) {
+        B(i,0) = -1.0;
+        B(0,i) = -1.0;
+      }
+      for (size_t i = 1; i < diis_size; i++) {
+        for (size_t j = 1; j < diis_size; j++) {
+          B(i,j) = arma::dot(diis_residuals[i-1], diis_residuals[j-1]);
+          B(j,i) = B(i,j);
+        }
+      }
+      // std::cout << "B-matrix" << std::endl;
+      // std::cout << B << std::endl;
+      arma::vec rhs(diis_size, arma::fill::zeros);
+      rhs(0) = -1.0;
+
+      arma::vec weights = arma::solve(B, rhs);
+      // std::cout << weights << std::endl;
+      induced_moments.fill(0.0);
+      for (size_t i = 0; i < diis_size - 1; i++) {
+        induced_moments += weights[i+1] * diis_prev_moments[i];
+      }
+    }
+
+    if (diis) {
+      norm = arma::norm(induced_moments - diis_old_moments);
+    }
+
+    diis_old_moments = induced_moments;
+
+    std::cout << iteration << "--- Norm: " << norm << std::endl;
     // calculate based on iteration
     if (norm < 1e-8) converged = true;
+
     iteration++;
   }
 
