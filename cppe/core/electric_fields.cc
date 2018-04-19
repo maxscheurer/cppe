@@ -10,10 +10,11 @@ void NuclearFields::compute(arma::vec& nuc_fields, bool damp_core) {
     throw std::runtime_error("damping not implemented");
   }
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
-  size_t site_counter = 0;
-  // TODO: this could be parallelized
-  for (auto& potential : m_potentials) {
-    if (!potential.is_polarizable()) continue;
+
+  #pragma omp parallel for firstprivate(Tk_coeffs)
+  for (size_t i = 0; i < m_n_polsites; i++) {
+    size_t site_counter = 3*i;
+    Potential& potential = m_polsites[i];
     arma::vec site_position = potential.get_site_position();
     for (auto& atom : m_mol) {
       arma::vec core_position = atom.get_pos();
@@ -23,8 +24,20 @@ void NuclearFields::compute(arma::vec& nuc_fields, bool damp_core) {
       nuc_fields(site_counter+1) -=  atom.charge * Tms(1);
       nuc_fields(site_counter+2) -=  atom.charge * Tms(2);
     }
-    site_counter += 3;
   }
+  // for (auto& potential : m_potentials) {
+  //   if (!potential.is_polarizable()) continue;
+  //   arma::vec site_position = potential.get_site_position();
+  //   for (auto& atom : m_mol) {
+  //     arma::vec core_position = atom.get_pos();
+  //     arma::vec diff = site_position-core_position;
+  //     arma::vec Tms = Tk_tensor(1, diff, Tk_coeffs);
+  //     nuc_fields(site_counter) -=  atom.charge * Tms(0);
+  //     nuc_fields(site_counter+1) -=  atom.charge * Tms(1);
+  //     nuc_fields(site_counter+2) -=  atom.charge * Tms(2);
+  //   }
+  //   site_counter += 3;
+  // }
 }
 
 void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
@@ -33,13 +46,14 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
   }
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
   // Field at site of potential1 caused by all other sites
-  size_t site_counter = 0;
-  for (auto& potential1 : m_potentials) {
-    if (!potential1.is_polarizable()) continue;
-
-    // std::cout << "Calculating field on site " << potential1.index << std::endl;
-    for (auto& potential2 : m_potentials) {
-      if (potential1.index == potential2.index) continue;
+  // size_t site_counter = 0;
+  #pragma omp parallel for firstprivate(Tk_coeffs)
+  for (size_t i = 0; i < m_n_polsites; i++) {
+    size_t site_counter = 3*i;
+    Potential& potential1 = m_polsites[i];
+    for (size_t j = 0; j < m_n_polsites; j++) {
+      if (i == j) continue;
+      Potential& potential2 = m_polsites[j];
       if (potential1.excludes_site(potential2.index)) continue;
       arma::vec diff = potential1.get_site_position()-potential2.get_site_position();
       // std::cout << "-- created by site " << potential2.index << std::endl;
@@ -54,8 +68,29 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
         mult_fields(site_counter+2) += Fi(2);
       }
     }
-    site_counter += 3;
   }
+  // for (auto& potential1 : m_potentials) {
+  //   if (!potential1.is_polarizable()) continue;
+  //
+  //   // std::cout << "Calculating field on site " << potential1.index << std::endl;
+  //   for (auto& potential2 : m_potentials) {
+  //     if (potential1.index == potential2.index) continue;
+  //     if (potential1.excludes_site(potential2.index)) continue;
+  //     arma::vec diff = potential1.get_site_position()-potential2.get_site_position();
+  //     // std::cout << "-- created by site " << potential2.index << std::endl;
+  //     for (auto& mul : potential2.get_multipoles()) {
+  //       // TODO: exclude zero value multipoles here...
+  //       // int non_zeros = std::count_if( mul.get_values().begin(), mul.get_values().end(), [](double val){return abs(val) > 0.0;} );
+  //       // std::cout << "non-zeros: " << non_zeros << std::endl;
+  //       // if (non_zeros == 0) continue;
+  //       arma::vec Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values(), Tk_coeffs);
+  //       mult_fields(site_counter) += Fi(0);
+  //       mult_fields(site_counter+1) += Fi(1);
+  //       mult_fields(site_counter+2) += Fi(2);
+  //     }
+  //   }
+  //   site_counter += 3;
+  // }
 }
 
 void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
@@ -73,7 +108,8 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   }
   // std::cout << "induced mom. guess" << std::endl;
   // induced_moments.raw_print(std::cout << std::setprecision(10));
-  int thresh = 50;
+  int max_iter = 50;
+  double norm_thresh = 1e-8;
   int iteration = 0;
   bool converged = false;
   double norm = 0.0;
@@ -83,7 +119,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   // arma::vec M1tmp(3, arma::fill::zeros);
 
   bool diis = false;
-  int diis_maxvec = 15;
+  int diis_maxvec = 10;
   std::vector<arma::vec> diis_prev_moments;
   std::vector<arma::vec> diis_residuals;
   arma::vec diis_old_moments = induced_moments;
@@ -91,7 +127,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
 
   // iterations
   while (!converged) {
-    if (iteration >= thresh) break;
+    if (iteration >= max_iter) break;
     if (norm <= 1.0 && iteration > 1 && !diis) {
       std::cout << "--- Turning on DIIS. ---" << std::endl;
       diis = true;
@@ -164,9 +200,9 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
 
     diis_old_moments = induced_moments;
 
-    std::cout << iteration << "--- Norm: " << norm << std::endl;
+    std::cout << iteration << std::setprecision(12) << "--- Norm: " << norm << std::endl;
     // calculate based on iteration
-    if (norm < 1e-8) converged = true;
+    if (norm < norm_thresh) converged = true;
 
     iteration++;
   }

@@ -11,34 +11,33 @@
 #define ang2bohr 1.8897261246
 
 namespace libcppe {
-  
+
 struct Site {
   double x, y, z;
 };
-  
+
 namespace {
   inline bool file_exists (const std::string& name) {
     std::ifstream f(name.c_str());
     return f.good();
   }
-} // unnamed namespace 
-  
-PotfileReader::PotfileReader(std::string potfile_name) : 
+} // unnamed namespace
+
+PotfileReader::PotfileReader(std::string potfile_name) :
   m_potfile(potfile_name) {
-    
+
   if (!file_exists(m_potfile)) {
     throw std::runtime_error("Potential file does not exist.");
   }
-  
+
 }
 
 std::vector<Potential> PotfileReader::read() {
   std::ifstream infile(m_potfile);
   std::vector<Potential> potentials;
 
-  
   std::string line;
-  
+
   int num_sites = 0;
   std::string unit;
   std::vector<Site> sites;
@@ -49,10 +48,10 @@ std::vector<Potential> PotfileReader::read() {
     if (line.find("@COORDINATES") != std::string::npos ) {
       getline(infile, line);
       num_sites = stoi(split(line, ' ')[0]);
-      std::cout << "Number of sites: " << num_sites << std::endl; 
+      std::cout << "Number of sites: " << num_sites << std::endl;
       getline(infile, line);
       unit = reduce(line);
-      
+
       double conversion;
       if (!unit.compare("AA")) {
         conversion = ang2bohr;
@@ -61,13 +60,13 @@ std::vector<Potential> PotfileReader::read() {
       } else {
         throw std::runtime_error("Invalid unit for potential file.");
       }
-      
+
       for (size_t i = 0; i < num_sites; i++) {
         Site site;
         getline(infile, line);
         std::vector<std::string> temp = split(reduce(line), ' ');
         std::string element = temp[0];
-        
+
         assert(temp.size() >= 4);
         site.x = stod(temp[1]) * conversion;
         site.y = stod(temp[2]) * conversion;
@@ -90,8 +89,8 @@ std::vector<Potential> PotfileReader::read() {
           getline(infile, line);
           temp = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
-          
-          
+
+
           // fill up the array if values were not defined for all sites
           if (site_num != site_before+1) {
             int diff = site_num - site_before;
@@ -104,7 +103,7 @@ std::vector<Potential> PotfileReader::read() {
               potentials[site_before + d].add_multipole(mul);
             }
           }
-          
+
           Site site = sites[site_num];
           Multipole mul(order);
           for (size_t vl = 1; vl <= multipole_components(order); vl++) {
@@ -112,7 +111,7 @@ std::vector<Potential> PotfileReader::read() {
           }
           potentials[site_num].add_multipole(mul);
           site_before = site_num;
-          
+
           // check if multipoles at the end of the list are missing
           if ((n_mul == num_multipoles-1) && site_num != (num_sites-1)) {
             int diff = num_sites - site_num;
@@ -130,7 +129,7 @@ std::vector<Potential> PotfileReader::read() {
         int order1 = stoi(temp[1]);
         int order2 = stoi(temp[2]);
         if (order1 != 1 || order2 != 1) {
-          throw std::runtime_error("Only dipole-dipole polarizabilities " 
+          throw std::runtime_error("Only dipole-dipole polarizabilities "
                                     "are currently supported.");
         }
         getline(infile, line);
@@ -139,8 +138,8 @@ std::vector<Potential> PotfileReader::read() {
           getline(infile, line);
           temp = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
-          
           Site site = sites[site_num];
+          // std::cout << site.x << " " << site.y << " " << site.z << " " << site_num + 1 << std::endl;
           Polarizability pol{};
           for (size_t vl = 1; vl <= multipole_components(order1+order2); vl++) {
             pol.add_value(stod(temp[vl]));
@@ -178,7 +177,7 @@ std::vector<Potential> PotfileReader::read() {
     }
   }
   infile.close();
-  
+
   // DEBUG
   // int sc = 0;
   // for (auto& pot : potentials) {
@@ -198,8 +197,8 @@ std::vector<Potential> PotfileReader::read() {
   //   std::cout << std::endl;
   //   sc++;
   // }
-  // 
-  
+  //
+
   return potentials;
 }
 

@@ -6,7 +6,11 @@ namespace libcppe {
 double MultipoleExpansion::calculate_interaction_energy() {
   double total_energy = 0.0;
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
-  for (auto& potential : m_potentials) {
+  int npots = m_potentials.size();
+
+  #pragma omp parallel for reduction(+:total_energy) firstprivate(Tk_coeffs)
+  for (size_t i = 0; i < npots; i++) {
+    Potential& potential = m_potentials[i];
     arma::vec site_position = potential.get_site_position();
     for (auto& multipole : potential.get_multipoles()) {
       std::vector<double> pref(multipole_components(multipole.m_k));

@@ -1,3 +1,5 @@
+#include <iomanip>
+
 #include "cppe_state.hh"
 
 #include "multipole_expansion.hh"
@@ -48,9 +50,17 @@ void CppeState::calculate_static_energies_and_fields() {
 
 }
 
-void CppeState::update_induced_moments(arma::vec elec_fields, int iteration) {
+void CppeState::update_induced_moments(arma::vec elec_fields, int iteration, bool elec_only) {
   arma::vec tmp_total_fields(m_polarizable_sites*3, arma::fill::zeros);
-  tmp_total_fields = elec_fields + m_nuc_fields + m_multipole_fields;
+  if (elec_only) {
+    tmp_total_fields = elec_fields;
+  } else {
+    tmp_total_fields = elec_fields + m_nuc_fields + m_multipole_fields;
+
+    // elec_fields.save("elec_fields.txt", arma::raw_ascii);
+    // m_nuc_fields.save("nuc_fields.txt", arma::raw_ascii);
+    // m_multipole_fields.save("multipole_fields.txt", arma::raw_ascii);
+  }
 
   bool make_guess = true;
   if (iteration > 0) {
@@ -59,18 +69,25 @@ void CppeState::update_induced_moments(arma::vec elec_fields, int iteration) {
   InducedMoments ind(m_potentials);
   ind.compute(tmp_total_fields, m_induced_moments, make_guess);
 
-  double epol_elec = -0.5*arma::dot(m_induced_moments, elec_fields);
-  double epol_nuclear = -0.5*arma::dot(m_induced_moments, m_nuc_fields);
-  double epol_multipoles = -0.5*arma::dot(m_induced_moments, m_multipole_fields);
+  if (elec_only) {
+    double epol_elec = -0.5*arma::dot(m_induced_moments, elec_fields);
+    std::cout << std::setprecision(15) << "epol_elec = " << epol_elec << std::endl;
+    m_pe_energy.set("Polarization/Electronic", epol_elec);
+  } else {
+    double epol_elec = -0.5*arma::dot(m_induced_moments, elec_fields);
+    double epol_nuclear = -0.5*arma::dot(m_induced_moments, m_nuc_fields);
+    double epol_multipoles = -0.5*arma::dot(m_induced_moments, m_multipole_fields);
 
-  std::cout << "epol_elec = " << epol_elec << std::endl;
-  std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
-  std::cout << "epol_multipoles = " << epol_multipoles << std::endl;
+    std::cout << "epol_elec = " << epol_elec << std::endl;
+    std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
+    std::cout << "epol_multipoles = " << epol_multipoles << std::endl;
 
-  m_pe_energy.set("Polarization/Electronic", epol_elec);
-  m_pe_energy.set("Polarization/Nuclear", epol_nuclear);
-  m_pe_energy.set("Polarization/Multipoles", epol_multipoles);
+    m_pe_energy.set("Polarization/Electronic", epol_elec);
+    m_pe_energy.set("Polarization/Nuclear", epol_nuclear);
+    m_pe_energy.set("Polarization/Multipoles", epol_multipoles);
+  }
 
+  // m_induced_moments.save("induced_moments.txt", arma::raw_ascii);
 }
 
 void CppeState::print_summary() {

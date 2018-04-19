@@ -72,14 +72,14 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
             continue;
           }
           else {
-            std::cout << "Before: " << std::endl;
-            std::cout << m.get_values_vec() << std::endl;
+            // std::cout << "Before: " << std::endl;
+            // std::cout << m.get_values_vec() << std::endl;
             // holy f***... this is never gonna work...
             for (size_t i = 0; i < multipole_components(m.m_k); i++) {
                m.get_values()[i] += m_potentials[site].get_multipoles()[m_idx].get_values()[i] / static_cast<double>(nredist);
             }
-            std::cout << "After: " << std::endl;
-            std::cout << m.get_values_vec() << std::endl;
+            // std::cout << "After: " << std::endl;
+            // std::cout << m.get_values_vec() << std::endl;
             m_idx++;
           }
         }
@@ -88,26 +88,35 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
           for (Polarizability& p : pot.get_polarizabilities()) {
             // TODO: what if a site that has been chosen nearest neighbor
             // has no multipole moments/polarizability of the respective order?!
-            std::cout << "Before: " << std::endl;
-            std::cout << p.get_values_vec() << std::endl;
+            // std::cout << "Before: " << std::endl;
+            // std::cout << p.get_values_vec() << std::endl;
             for (size_t i = 0; i < multipole_components(2); i++) {
                p.get_values()[i] += m_potentials[site].get_polarizabilities()[p_idx].get_values()[i] / static_cast<double>(nredist);
             }
-            std::cout << "After: " << std::endl;
-            std::cout << p.get_values_vec() << std::endl;
+            // std::cout << "After: " << std::endl;
+            // std::cout << p.get_values_vec() << std::endl;
             p_idx++;
           }
         }
       }
     }
 
+    double total_charge = 0.0;
     for (Potential pot : m_potentials) {
       if (changed_sites.find(pot.index) == changed_sites.end()) {
         new_potentials.push_back(pot);
+        // TODO: debug
+        for (auto& m : pot.get_multipoles()) {
+          if (m.m_k == 0) {
+            total_charge += m.get_values()[0];
+          } else break;
+        }
+        // end TODO
       } else {
         std::cout << "Removing all parameters on site: " << pot.index << std::endl;
       }
     }
+    std::cout << "Total charge of the classical region: " << total_charge << std::endl;
   }
   assert(new_potentials.size() <= m_potentials.size());
   assert(new_potentials.size() != 0);

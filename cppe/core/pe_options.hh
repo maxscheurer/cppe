@@ -36,7 +36,8 @@ struct PeOptions {
   bool zero_mul = false;
   int zero_mul_order = 1;
 
-  int induced_iter_thresh = 8;
+  int induced_thresh = 8;
+  int max_iter = 50;
 
   bool pe_border = false;
   BorderOptions border_options{};
