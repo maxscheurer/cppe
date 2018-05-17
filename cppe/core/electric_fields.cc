@@ -45,15 +45,15 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
     throw std::runtime_error("damping not implemented");
   }
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
-  // Field at site of potential1 caused by all other sites
+  // Field at site of potential1 caused by all other sites (also non-polarizable sites!!!)
   // size_t site_counter = 0;
   #pragma omp parallel for firstprivate(Tk_coeffs)
   for (size_t i = 0; i < m_n_polsites; i++) {
     size_t site_counter = 3*i;
     Potential& potential1 = m_polsites[i];
-    for (size_t j = 0; j < m_n_polsites; j++) {
-      if (i == j) continue;
-      Potential& potential2 = m_polsites[j];
+    for (size_t j = 0; j < m_potentials.size(); j++) {
+      Potential& potential2 = m_potentials[j]; // all other multipoles create el. field at site i
+      if (potential1.index == potential2.index) continue;
       if (potential1.excludes_site(potential2.index)) continue;
       arma::vec diff = potential1.get_site_position()-potential2.get_site_position();
       // std::cout << "-- created by site " << potential2.index << std::endl;
