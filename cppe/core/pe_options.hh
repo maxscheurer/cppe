@@ -24,6 +24,8 @@ struct BorderOptions {
 struct PeOptions {
   std::string potfile{"potential.pot"};
 
+  int print_level = 1;
+
   bool damp_induced = false;
   bool damp_multipoles = false;
   bool damp_core = false;
@@ -37,7 +39,9 @@ struct PeOptions {
   int zero_mul_order = 1;
 
   int induced_thresh = 8;
-  int max_iter = 50;
+  bool do_diis = true;
+  int diis_maxiter = 50;
+  double diis_start_norm = 1.0;
 
   bool pe_border = false;
   BorderOptions border_options{};
