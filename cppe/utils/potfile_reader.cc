@@ -48,7 +48,7 @@ std::vector<Potential> PotfileReader::read() {
     if (line.find("@COORDINATES") != std::string::npos ) {
       getline(infile, line);
       num_sites = stoi(split(line, ' ')[0]);
-      std::cout << "Number of sites: " << num_sites << std::endl;
+      // std::cout << "Number of sites: " << num_sites << std::endl;
       getline(infile, line);
       unit = reduce(line);
 

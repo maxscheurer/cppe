@@ -1,10 +1,10 @@
 #include "pe_energies.hh"
 
 namespace libcppe {
-  
+
 // category and names
 std::map<std::string, std::vector<std::string>> ens {
-  {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}}, 
+  {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}},
   {"Polarization", {"Electronic", "Nuclear", "Multipoles"}}
 };
 
@@ -12,7 +12,7 @@ std::map<std::string, std::vector<std::string>> ens {
 PeEnergy::PeEnergy() {
   for (auto it : ens) {
     for (auto nm : it.second) {
-    	PeEnergyContribution contrib(it.first, nm, 0.0);	
+    	PeEnergyContribution contrib(it.first, nm, 0.0);
       m_energies.push_back(contrib);
     }
   }
@@ -60,6 +60,6 @@ double PeEnergy::get_total_energy() {
   }
   return energy;
 }
-  
+
 
 } /* libcppe */
