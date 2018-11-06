@@ -25,19 +25,6 @@ void NuclearFields::compute(arma::vec& nuc_fields, bool damp_core) {
       nuc_fields(site_counter+2) -=  atom.charge * Tms(2);
     }
   }
-  // for (auto& potential : m_potentials) {
-  //   if (!potential.is_polarizable()) continue;
-  //   arma::vec site_position = potential.get_site_position();
-  //   for (auto& atom : m_mol) {
-  //     arma::vec core_position = atom.get_pos();
-  //     arma::vec diff = site_position-core_position;
-  //     arma::vec Tms = Tk_tensor(1, diff, Tk_coeffs);
-  //     nuc_fields(site_counter) -=  atom.charge * Tms(0);
-  //     nuc_fields(site_counter+1) -=  atom.charge * Tms(1);
-  //     nuc_fields(site_counter+2) -=  atom.charge * Tms(2);
-  //   }
-  //   site_counter += 3;
-  // }
 }
 
 void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
@@ -58,8 +45,8 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
       arma::vec diff = potential1.get_site_position()-potential2.get_site_position();
       // std::cout << "-- created by site " << potential2.index << std::endl;
       for (auto& mul : potential2.get_multipoles()) {
-        // TODO: exclude zero value multipoles here...
-        // int non_zeros = std::count_if( mul.get_values().begin(), mul.get_values().end(), [](double val){return abs(val) > 0.0;} );
+        // TODO: exclude zero value multipoles here
+        // int non_zeros = std::count_if( mul.get_values().begin(), mul.get_values().end(), [](double val){return fabs(val) > 0.0;} );
         // std::cout << "non-zeros: " << non_zeros << std::endl;
         // if (non_zeros == 0) continue;
         arma::vec Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values(), Tk_coeffs);
@@ -69,32 +56,10 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
       }
     }
   }
-  // for (auto& potential1 : m_potentials) {
-  //   if (!potential1.is_polarizable()) continue;
-  //
-  //   // std::cout << "Calculating field on site " << potential1.index << std::endl;
-  //   for (auto& potential2 : m_potentials) {
-  //     if (potential1.index == potential2.index) continue;
-  //     if (potential1.excludes_site(potential2.index)) continue;
-  //     arma::vec diff = potential1.get_site_position()-potential2.get_site_position();
-  //     // std::cout << "-- created by site " << potential2.index << std::endl;
-  //     for (auto& mul : potential2.get_multipoles()) {
-  //       // TODO: exclude zero value multipoles here...
-  //       // int non_zeros = std::count_if( mul.get_values().begin(), mul.get_values().end(), [](double val){return abs(val) > 0.0;} );
-  //       // std::cout << "non-zeros: " << non_zeros << std::endl;
-  //       // if (non_zeros == 0) continue;
-  //       arma::vec Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values(), Tk_coeffs);
-  //       mult_fields(site_counter) += Fi(0);
-  //       mult_fields(site_counter+1) += Fi(1);
-  //       mult_fields(site_counter+2) += Fi(2);
-  //     }
-  //   }
-  //   site_counter += 3;
-  // }
 }
 
 void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
-  std::cout << "run induced moments" << std::endl;
+  std::cout << "        Running solver for induced moments." << std::endl;
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
@@ -108,8 +73,11 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   }
   // std::cout << "induced mom. guess" << std::endl;
   // induced_moments.raw_print(std::cout << std::setprecision(10));
-  int max_iter = 50;
-  double norm_thresh = 1e-8;
+  int max_iter = m_options.diis_maxiter;
+  bool do_diis = m_options.do_diis;
+  double norm_thresh = std::pow(10, -m_options.induced_thresh);
+  double diis_start_norm = m_options.diis_start_norm;
+
   int iteration = 0;
   bool converged = false;
   double norm = 0.0;
@@ -128,8 +96,8 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   // iterations
   while (!converged) {
     if (iteration >= max_iter) break;
-    if (norm <= 1.0 && iteration > 1 && !diis) {
-      std::cout << "--- Turning on DIIS. ---" << std::endl;
+    if (norm <= diis_start_norm && iteration > 1 && !diis && do_diis) {
+      std::cout << "        --- Turning on DIIS. ---" << std::endl;
       diis = true;
     }
 
@@ -200,7 +168,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
 
     diis_old_moments = induced_moments;
 
-    std::cout << iteration << std::setprecision(12) << "--- Norm: " << norm << std::endl;
+    std::cout << iteration << std::setprecision(12) << "        --- Norm: " << norm << std::endl;
     // calculate based on iteration
     if (norm < norm_thresh) converged = true;
 
@@ -222,7 +190,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   }
 }
 
-// returns a vector of potentials that are polarizable
+// returns a vector of potentials that have polarizabilities
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials) {
   std::vector<Potential> result;
   for (auto p : potentials) {

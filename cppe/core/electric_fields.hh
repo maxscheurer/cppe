@@ -3,6 +3,7 @@
 
 #include "molecule.hh"
 #include "multipole_expansion.hh"
+#include "pe_options.hh"
 
 // TODO: create Field class which others inherit
 
@@ -22,10 +23,10 @@ public:
 
 class NuclearFields {
 private:
-  std::vector<Potential> m_potentials;
-  std::vector<Potential> m_polsites;
-  size_t m_n_polsites;
-  Molecule m_mol;
+  std::vector<Potential> m_potentials; //!< vector with all site potentials
+  std::vector<Potential> m_polsites; //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites; //!< number of polarizable sites
+  Molecule m_mol; //!< core region molecule
 
 public:
   NuclearFields(Molecule mol, std::vector<Potential> potentials) :
@@ -41,9 +42,9 @@ public:
 
 class MultipoleFields {
 private:
-  std::vector<Potential> m_potentials;
-  std::vector<Potential> m_polsites;
-  size_t m_n_polsites;
+  std::vector<Potential> m_potentials; //!< vector with all site potentials
+  std::vector<Potential> m_polsites; //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites; //!< number of polarizable sites
 
 public:
   MultipoleFields(std::vector<Potential> potentials) :
@@ -59,12 +60,14 @@ public:
 
 class InducedMoments {
 private:
-  std::vector<Potential> m_potentials;
-  std::vector<Potential> m_polsites;
-  size_t m_n_polsites;
+  std::vector<Potential> m_potentials; //!< vector with all site potentials
+  std::vector<Potential> m_polsites; //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites; //!< number of polarizable sites
+  PeOptions m_options;
 
 public:
-  InducedMoments(std::vector<Potential> potentials) : m_potentials(potentials) {
+  InducedMoments(std::vector<Potential> potentials, PeOptions options) : m_potentials(potentials),
+                                                                         m_options(options) {
     m_polsites = get_polarizable_sites(m_potentials);
     m_n_polsites = m_polsites.size();
   };
