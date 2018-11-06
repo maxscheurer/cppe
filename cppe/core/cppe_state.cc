@@ -7,7 +7,7 @@
 
 namespace libcppe {
 
-CppeState::CppeState() {
+CppeState::CppeState(PeOptions options) : m_options(options) {
   m_pe_energy = PeEnergy{};
 }
 
@@ -66,28 +66,27 @@ void CppeState::update_induced_moments(arma::vec elec_fields, int iteration, boo
   if (iteration > 0) {
     make_guess = false;
   }
-  InducedMoments ind(m_potentials);
+  InducedMoments ind(m_potentials, m_options);
   ind.compute(tmp_total_fields, m_induced_moments, make_guess);
 
   if (elec_only) {
     double epol_elec = -0.5*arma::dot(m_induced_moments, elec_fields);
-    std::cout << std::setprecision(15) << "epol_elec = " << epol_elec << std::endl;
+    // std::cout << std::setprecision(15) << "epol_elec = " << epol_elec << std::endl;
     m_pe_energy.set("Polarization/Electronic", epol_elec);
   } else {
     double epol_elec = -0.5*arma::dot(m_induced_moments, elec_fields);
     double epol_nuclear = -0.5*arma::dot(m_induced_moments, m_nuc_fields);
     double epol_multipoles = -0.5*arma::dot(m_induced_moments, m_multipole_fields);
 
-    std::cout << "epol_elec = " << epol_elec << std::endl;
-    std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
-    std::cout << "epol_multipoles = " << epol_multipoles << std::endl;
+    // std::cout << "epol_elec = " << epol_elec << std::endl;
+    // std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
+    // std::cout << "epol_multipoles = " << epol_multipoles << std::endl;
 
     m_pe_energy.set("Polarization/Electronic", epol_elec);
     m_pe_energy.set("Polarization/Nuclear", epol_nuclear);
     m_pe_energy.set("Polarization/Multipoles", epol_multipoles);
   }
 
-  // m_induced_moments.save("induced_moments.txt", arma::raw_ascii);
 }
 
 void CppeState::print_summary() {
