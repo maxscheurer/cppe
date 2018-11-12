@@ -22,7 +22,7 @@ endif()
 
 ##########################################################################
 # Pass on to subdirectories
-add_subdirectory(external)
+# add_subdirectory(external)
 add_subdirectory(cppe)
 
 # TODO Testing
