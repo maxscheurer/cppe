@@ -24,7 +24,8 @@ set(PN "cppe")
 
 set(INSTALL_DEVEL_HEADERS ON)
 set(src_prefix "core")
-file(GLOB header_files ${src_prefix}/*.hh)
+file(GLOB_RECURSE header_files ${src_prefix}/*.hh)
+message(${CYAN} ${header_files})
 install(FILES ${header_files} libcppe.hh
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cppe)
 if (INSTALL_DEVEL_HEADERS)
