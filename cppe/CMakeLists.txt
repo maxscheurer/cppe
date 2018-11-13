@@ -23,15 +23,19 @@ include(CMakePackageConfigHelpers)
 set(PN "cppe")
 
 set(INSTALL_DEVEL_HEADERS ON)
-set(src_prefix "core")
-file(GLOB_RECURSE header_files ${src_prefix}/*.hh)
-message(${CYAN} ${header_files})
-install(FILES ${header_files} libcppe.hh
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cppe)
+# set(src_prefix "core")
+# file(GLOB_RECURSE header_files ${src_prefix}/*.hh)
+# install(FILES ${header_files} libcppe.hh
+#         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cppe)
 if (INSTALL_DEVEL_HEADERS)
-    install(DIRECTORY ${src_prefix}
+    install(DIRECTORY "core"
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}
-            FILES_MATCHING PATTERN "*.h")
+            FILES_MATCHING PATTERN "*.hh")
+    install(DIRECTORY "utils"
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}
+            FILES_MATCHING PATTERN "*.hh")
+    install(FILES libcppe.hh
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN})
 endif()
 install(TARGETS cppe
         EXPORT "${PN}Targets"
