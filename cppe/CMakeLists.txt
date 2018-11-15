@@ -3,7 +3,6 @@ set(CMAKE_CXX_STANDARD 11)
 # add_subdirectory(pe_interface)
 # add_dependencies(pe_interface gen1int_interface pelib)
 find_package(Armadillo REQUIRED)
-#include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 add_library(cppe
   libcppe.cc
@@ -25,10 +24,6 @@ include(CMakePackageConfigHelpers)
 set(PN "cppe")
 
 set(INSTALL_DEVEL_HEADERS ON)
-# set(src_prefix "core")
-# file(GLOB_RECURSE header_files ${src_prefix}/*.hh)
-# install(FILES ${header_files} libcppe.hh
-#         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cppe)
 if (INSTALL_DEVEL_HEADERS)
     install(DIRECTORY "core"
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}
