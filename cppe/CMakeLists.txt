@@ -1,4 +1,4 @@
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 # add_subdirectory(pe_interface)
 # add_dependencies(pe_interface gen1int_interface pelib)
