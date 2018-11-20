@@ -56,7 +56,7 @@ public:
 
   arma::vec get_static_fields() { return (m_nuc_fields + m_multipole_fields); }
 
-  void print_summary();
+  void print_summary(std::ostream& output_stream = std::cout);
 
 };
 

@@ -1,4 +1,5 @@
 #include <iomanip>
+#include <iostream>
 
 #include "cppe_state.hh"
 
@@ -89,13 +90,13 @@ void CppeState::update_induced_moments(arma::vec elec_fields, int iteration, boo
 
 }
 
-void CppeState::print_summary() {
+void CppeState::print_summary(std::ostream& output_stream) {
   size_t w = 30;
   std::string off(3, ' ');
   std::string off2(6, ' ');
   // std::cout << off << "Corrected Excitation Energy (" << energy_name << "): " << std::string(w - 52, ' ');
   // std::cout << std::setw(11) << (state.energy + ene) * conversion::au2ev << " eV" << std::endl;
-  std::cout << std::string(2*w+10, '-') << std::endl;
+  output_stream << std::string(2*w+10, '-') << std::endl;
   // std::cout << "__________      .__               .__              ___.   .__          \n"
   // "\\______   \\____ |  | _____ _______|__|____________ \\_ |__ |  |   ____  \n"
   // " |     ___/  _ \\|  | \\__  \\\\_  __ \\  \\___   /\\__  \\ | __ \\|  | _/ __ \\ \n"
@@ -112,22 +113,22 @@ void CppeState::print_summary() {
   // " /        \\  |  /  Y Y  \\  Y Y  \\/ __ \\|  | \\/\\___  |                  \n"
   // "/_______  /____/|__|_|  /__|_|  (____  /__|   / ____|                  \n"
   // "        \\/            \\/      \\/     \\/       \\/                       " << std::endl;
-  std::cout << "Polarizable Embedding Summary:";
-  std::cout << std::endl << std::endl;
-  std::cout << off << "Electrostatics:" << std::endl;
-  std::cout << off2 << "Electronic:" << std::string(w-11, ' ') << m_pe_energy.get("Electrostatic/Electronic") << std::endl;
-  std::cout << off2 << "Nuclear:" << std::string(w-8, ' ') << m_pe_energy.get("Electrostatic/Nuclear") << std::endl;
-  std::cout << off2 << "Multipole:" << std::string(w-10, ' ') << m_pe_energy.get("Electrostatic/Multipoles") << std::endl;
-  std::cout << off2 << "Total:" << std::string(w-6, ' ') << m_pe_energy.get("Electrostatic") << std::endl;
-  std::cout << std::endl;
-  std::cout << off << "Polarization:" << std::endl;
-  std::cout << off2 << "Electronic:" << std::string(w-11, ' ') << m_pe_energy.get("Polarization/Electronic") << std::endl;
-  std::cout << off2 << "Nuclear:" << std::string(w-8, ' ') << m_pe_energy.get("Polarization/Nuclear") << std::endl;
-  std::cout << off2 << "Multipole:" << std::string(w-10, ' ') << m_pe_energy.get("Polarization/Multipoles") << std::endl;
-  std::cout << off2 << "Total:" << std::string(w-6, ' ') << m_pe_energy.get("Polarization") << std::endl;
-  std::cout << std::endl;
-  std::cout << off << "Total Energy:" << std::string(w-10, ' ') << m_pe_energy.get_total_energy() << std::endl;
-  std::cout << std::string(2*w+10, '-') << std::endl << std::endl;
+  output_stream << "Polarizable Embedding Summary:";
+  output_stream << std::setprecision(12) << std::endl << std::endl;
+  output_stream << off << "Electrostatics:" << std::endl;
+  output_stream << off2 << "Electronic:" << std::string(w-11, ' ') << m_pe_energy.get("Electrostatic/Electronic") << std::endl;
+  output_stream << off2 << "Nuclear:" << std::string(w-8, ' ') << m_pe_energy.get("Electrostatic/Nuclear") << std::endl;
+  output_stream << off2 << "Multipole:" << std::string(w-10, ' ') << m_pe_energy.get("Electrostatic/Multipoles") << std::endl;
+  output_stream << off2 << "Total:" << std::string(w-6, ' ') << m_pe_energy.get("Electrostatic") << std::endl;
+  output_stream << std::endl;
+  output_stream << off << "Polarization:" << std::endl;
+  output_stream << off2 << "Electronic:" << std::string(w-11, ' ') << m_pe_energy.get("Polarization/Electronic") << std::endl;
+  output_stream << off2 << "Nuclear:" << std::string(w-8, ' ') << m_pe_energy.get("Polarization/Nuclear") << std::endl;
+  output_stream << off2 << "Multipole:" << std::string(w-10, ' ') << m_pe_energy.get("Polarization/Multipoles") << std::endl;
+  output_stream << off2 << "Total:" << std::string(w-6, ' ') << m_pe_energy.get("Polarization") << std::endl;
+  output_stream << std::endl;
+  output_stream << off << "Total Energy:" << std::string(w-10, ' ') << m_pe_energy.get_total_energy() << std::endl;
+  output_stream << std::string(2*w+10, '-') << std::endl << std::endl;
 }
 
 } /* libcppe */
