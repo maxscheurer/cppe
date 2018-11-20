@@ -2,6 +2,7 @@
 #define INCLUDE_CPPE_STATE_H
 
 #include <armadillo>
+#include <iostream>
 
 #include "pe_energies.hh"
 #include "molecule.hh"
@@ -28,11 +29,13 @@ private:
   arma::vec m_induced_moments; //!< Vector with induced moments
 
   PeOptions m_options;
+  
+  std::ostream& m_output_stream; //!< Output stream for printing
 
 
 public:
   // TODO: extend constructor
-  CppeState(PeOptions options);
+  CppeState(PeOptions options, std::ostream& = std::cout);
   ~CppeState() {};
 
   // arma::mat pol_operator_copy() const { return m_pol_operator; }
@@ -56,7 +59,7 @@ public:
 
   arma::vec get_static_fields() { return (m_nuc_fields + m_multipole_fields); }
 
-  void print_summary(std::ostream& output_stream = std::cout);
+  void print_summary();
 
 };
 

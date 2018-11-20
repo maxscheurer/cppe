@@ -72,7 +72,7 @@ public:
     m_n_polsites = m_polsites.size();
   };
   ~InducedMoments() {};
-  void compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess);
+  void compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess, std::ostream& output_stream = std::cout);
 };
 
 

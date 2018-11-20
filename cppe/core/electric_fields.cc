@@ -58,8 +58,10 @@ void MultipoleFields::compute(arma::vec& mult_fields, bool damp) {
   }
 }
 
-void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess) {
-  std::cout << "        Running solver for induced moments." << std::endl;
+void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments, bool make_guess, std::ostream& output_stream) {
+  arma::set_cerr_stream(output_stream);
+  arma::set_cout_stream(output_stream);
+  output_stream << "        Running solver for induced moments." << std::endl;
   arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
@@ -97,7 +99,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
   while (!converged) {
     if (iteration >= max_iter) break;
     if (norm <= diis_start_norm && iteration > 1 && !diis && do_diis) {
-      std::cout << "        --- Turning on DIIS. ---" << std::endl;
+      output_stream << "        --- Turning on DIIS. ---" << std::endl;
       diis = true;
     }
 
@@ -168,7 +170,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
 
     diis_old_moments = induced_moments;
 
-    std::cout << iteration << std::setprecision(12) << "        --- Norm: " << norm << std::endl;
+    output_stream << iteration << std::setprecision(12) << "        --- Norm: " << norm << std::endl;
     // calculate based on iteration
     if (norm < norm_thresh) converged = true;
 
@@ -185,7 +187,7 @@ void InducedMoments::compute(arma::vec& total_fields, arma::vec& induced_moments
     nrm = arma::norm(induced_moments.subvec(m, m+2));
     if (nrm > 1.0) {
       int site = m_polsites[j].index;
-      std::cout << "WARNING: Induced moment on site " << site << " is greater than 1 a.u.!" << std::endl;
+      output_stream << "WARNING: Induced moment on site " << site << " is greater than 1 a.u.!" << std::endl;
     }
   }
 }
