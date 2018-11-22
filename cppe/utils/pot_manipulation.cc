@@ -34,12 +34,16 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
       if (changed_sites.find(pot.index) == changed_sites.end()) {
         new_potentials.push_back(pot);
       } else {
-        std::cout << "Removing all parameters on site: " << pot.index << std::endl;
+        m_output_stream << "     Removing all parameters on site: " << pot.index << std::endl;
       }
     }
   } else if (pe_options.border_options.border_type == BorderType::redist) {
-    std::cout << "redistributing moments" << std::endl;
+    m_output_stream << "     Redistributing moments in " << pe_options.border_options.rmin << " a.u. proximity." << std::endl;
     int nredist = pe_options.border_options.nredist;
+    if (nredist == -1) {
+        m_output_stream << "     Will redistribute to all other sites." << std::endl;
+        nredist = m_potentials.size() - changed_sites.size();
+    }
     if (nredist > m_potentials.size()) {
       throw std::runtime_error("Cannot redistribute to more sites than available sites.");
     }
@@ -48,7 +52,7 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
     for (auto site : changed_sites) {
       int redist_order = pe_options.border_options.redist_order;
       std::vector<std::pair<int,double>> neighbor_list;
-      std::cout << "Redistributing site: " << site << std::endl;
+      m_output_stream << "     Redistributing site: " << site << std::endl;
       // first element is pot.index, second the distance to site
       for (Potential pot: m_potentials) {
         if (changed_sites.find(pot.index) != changed_sites.end()) continue;
@@ -60,7 +64,7 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
       for (int k = 0; k < nredist; ++k) {
         Potential& pot = m_potentials[neighbor_list[k].first];
         if (pot.index == site) continue;
-        std::cout << "  to neighbor " << pot.index << std::endl;
+        m_output_stream << "       to neighbor " << pot.index << std::endl;
         // must have the same order of multipoles if we want to redist
         int m_idx = 0;
         for (Multipole& m : pot.get_multipoles()) {
@@ -113,10 +117,10 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions& pe_options) {
         }
         // end TODO
       } else {
-        std::cout << "Removing all parameters on site: " << pot.index << std::endl;
+        m_output_stream << "     Removing all parameters on site: " << pot.index << std::endl;
       }
     }
-    std::cout << "Total charge of the classical region: " << total_charge << std::endl;
+    m_output_stream << "    Total charge of the classical region: " << total_charge << std::endl;
   }
   assert(new_potentials.size() <= m_potentials.size());
   assert(new_potentials.size() != 0);
