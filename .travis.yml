@@ -1,8 +1,21 @@
 language: cpp
 
+os:
+  - linux
+  - osx
+
 compiler:
   - gcc
   - clang
+
+addons:
+  apt:
+    packages:
+      - libarmadillo
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install armadillo; fi
 
 before_script:
   - mkdir build
