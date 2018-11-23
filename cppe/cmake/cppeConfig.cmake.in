@@ -2,8 +2,6 @@
 # ------------------
 #
 # CPPE cmake module.
-# This module sets the following variables in your project::
-# TODO:
 
 @PACKAGE_INIT@
 
