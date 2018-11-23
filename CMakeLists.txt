@@ -7,13 +7,10 @@ cmake_policy(VERSION 3.0.0)
 ##########################################################################
 # Project setup
 
-project(cppe VERSION 0.0.0 LANGUAGES Fortran C CXX)
-message("\n# Configuring ${PROJECT_NAME}\n#")
-
-##########################################################################
-# Setup hard and optional dependencies and find components
-
-# TODO setup
+project(cppe VERSION 0.0.0 LANGUAGES CXX)
+if(NOT CMAKE_REQUIRED_QUIET)
+	message("\n# Configuring ${PROJECT_NAME}\n#")
+endif()
 
 # Export compile commands if cmake supports it.
 if (CMAKE_VERSION VERSION_GREATER 3.5.0)
@@ -29,4 +26,7 @@ add_subdirectory(cppe)
 
 ##########################################################################
 # Finish off
-message("#\n# Configuring ${PROJECT_NAME} done\n")
+
+if(NOT CMAKE_REQUIRED_QUIET)
+	message("#\n# Configuring ${PROJECT_NAME} done\n")
+endif()
