@@ -1,5 +1,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
+
+#include "pybind_arma.h"
 
 #include "../core/cppe_state.hh"
 #include "../core/molecule.hh"
@@ -21,11 +24,13 @@ void export_core(py::module& m) {
         .def_readwrite("charge", &libcppe::Atom::charge)
         .def_readwrite("x", &libcppe::Atom::m_x)
         .def_readwrite("y", &libcppe::Atom::m_y)
-        .def_readwrite("z", &libcppe::Atom::m_z);
+        .def_readwrite("z", &libcppe::Atom::m_z)
+        .def("get_position", &libcppe::Atom::get_pos);
     
+    // py::class_<std::vector<libcppe::Atom>> atomlist(m, "AtomList");
+    // py::bind_vector<std::vector<libcppe::Atom>>(m, "AtomList");
     // py::class_<libcppe::Molecule, std::vector<libcppe::Atom>> mol(m, "Molecule", "Molecule class");
-    // mol.def(py::init<>())
-    //    .def("push_back", &libcppe::Molecule::push_back);
+    py::bind_vector<libcppe::Molecule>(m, "Molecule");
     
     py::class_<libcppe::Potential> pot(m, "Potential", "Potential (Site)");
     pot.def(py::init<double, double, double, int>())
@@ -33,10 +38,4 @@ void export_core(py::module& m) {
         .def_readwrite("y", &libcppe::Potential::m_y, "y coordinate")
         .def_readwrite("z", &libcppe::Potential::m_z, "z coordinate")
         .def_readwrite("index", &libcppe::Potential::index, "site index");
-  // m.doc() = "pybind11 example plugin";
-
-  // m.def("mul", &mul, py::call_guard<py::scoped_ostream_redirect,
-  //                    py::scoped_estream_redirect>());
-  // m.def("set_element", &set_element);
-  // m.def("matmul", &matmul);
 }
