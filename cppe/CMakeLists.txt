@@ -31,6 +31,35 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 set(PN "cppe")
 
+option(ENABLE_PYTHON_INTERFACE OFF)
+set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
+if (${ENABLE_PYTHON_INTERFACE})
+    message(STATUS "Building Python interface for cppe.")
+    find_package(pybind11 CONFIG)
+    if(${pybind11_FOUND})
+        # get_property(_loc TARGET pybind11 PROPERTY LOCATION)
+        # message(STATUS "${Cyan}Found pybind11${ColourReset}: ${_loc} (found version ${pybind11_VERSION})")
+        # add_library(pybind11_external INTERFACE)  # dummy
+        message(STATUS "found pybind11")
+    else()
+        include(ExternalProject)
+        message(STATUS "Suitable pybind11 could not be located, ${Magenta}Building pybind11${ColourReset} instead.")
+        ExternalProject_Add(
+          pybind11_external
+          GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
+          GIT_TAG "master"
+          CMAKE_ARGS -DPYBIND11_TEST=OFF
+                     -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
+        
+          set(pybind11_DIR ${STAGED_INSTALL_PREFIX}/share/cmake/pybind11 CACHE PATH "path to internally built pybind11Config.cmake" FORCE)
+        )
+    endif()
+    
+    pybind11_add_module(pycppe export_cppe.cc)
+    target_include_directories(pycppe PRIVATE ${ARMADILLO_INCLUDE_DIRS})
+    target_link_libraries(pycppe PRIVATE ${ARMADILLO_LIBRARIES} cppe)
+endif()
+
 set(INSTALL_DEVEL_HEADERS ON)
 if (INSTALL_DEVEL_HEADERS)
     install(DIRECTORY "core"
