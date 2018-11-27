@@ -22,7 +22,11 @@ endif()
 message(STATUS "pybind dir " ${pybind11_DIR})
 # pybind11_add_module(pycppe export_cppe.cc)
 
-add_library(pycppe MODULE export_core.cc export_utils.cc pycppe.cc)
+add_library(pycppe MODULE
+    export_molecule.cc
+    export_multipole.cc
+    export_utils.cc
+    pycppe.cc)
 
 target_include_directories(pycppe PRIVATE ${ARMADILLO_INCLUDE_DIRS})
 target_link_libraries(pycppe PRIVATE ${ARMADILLO_LIBRARIES} cppe)

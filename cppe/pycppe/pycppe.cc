@@ -2,11 +2,13 @@
 
 namespace py = pybind11;
 
-void export_utils(py::module&);
-void export_core(py::module&);
+void export_molecule(py::module &);
+void export_multipole(py::module &);
+void export_utils(py::module &);
 
 PYBIND11_MODULE(pycppe, pycppe) {
-    pycppe.doc() = "Python interface for CPPE";
-    export_core(pycppe);
-    export_utils(pycppe);
+  pycppe.doc() = "Python interface for CPPE";
+  export_molecule(pycppe);
+  export_multipole(pycppe);
+  export_utils(pycppe);
 }

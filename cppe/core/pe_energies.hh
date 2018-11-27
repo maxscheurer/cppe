@@ -1,23 +1,22 @@
 #ifndef LIBCPPE_CORE_PE_ENERGIES_H
 #define LIBCPPE_CORE_PE_ENERGIES_H
 
+#include "../utils/string_utils.hh"
 #include <map>
 #include <string>
-#include "../utils/string_utils.hh"
 
 namespace libcppe {
 
 /*! PE Energy Contribution */
 struct PeEnergyContribution {
-  PeEnergyContribution(std::string cat, std::string name, double val) :
-  m_category(cat), m_name(name), m_value(val) { }
+  PeEnergyContribution(std::string cat, std::string name, double val)
+      : m_category(cat), m_name(name), m_value(val) {}
 
-
-	std::string m_category; /*!< category of the energy, either "Electrostatic"
-                              or "Polarization"*/
-  std::string m_name; /*!< name of the energy,
-                          "Electronic", "Nuclear", or "Multipoles" */
-  double m_value; //!< energy value
+  std::string m_category; /*!< category of the energy, either "Electrostatic"
+                        or "Polarization"*/
+  std::string m_name;     /*!< name of the energy,
+                              "Electronic", "Nuclear", or "Multipoles" */
+  double m_value;         //!< energy value
 };
 
 /*! PE Energy Container */
@@ -39,12 +38,10 @@ struct PeEnergy {
   /*! returns the total PE energy */
   double get_total_energy();
 
-  private:
-    std::vector<PeEnergyContribution> m_energies;
-
+private:
+  std::vector<PeEnergyContribution> m_energies;
 };
 
-} /* libcppe */
-
+} // namespace libcppe
 
 #endif // LIBCPPE_CORE_PE_ENERGIES_H
