@@ -7,6 +7,7 @@ void export_multipole(py::module &);
 void export_options(py::module &);
 void export_utils(py::module &);
 void export_state(py::module &);
+void export_fields(py::module &);
 
 PYBIND11_MODULE(cppe, cppe) {
   cppe.doc() = "Python interface for CPPE";
@@ -15,4 +16,5 @@ PYBIND11_MODULE(cppe, cppe) {
   export_options(cppe);
   export_utils(cppe);
   export_state(cppe);
+  export_fields(cppe);
 }

@@ -11,15 +11,6 @@ namespace libcppe {
 
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
 
-class ElectronFiels {
-private:
-  /* data */
-
-public:
-  ElectronFiels();
-  ~ElectronFiels();
-};
-
 class NuclearFields {
 private:
   std::vector<Potential> m_potentials; //!< vector with all site potentials
@@ -74,6 +65,15 @@ public:
   ~InducedMoments(){};
   void compute(arma::vec &total_fields, arma::vec &induced_moments,
                bool make_guess, std::ostream &output_stream = std::cout);
+  /**
+      overloads the compute method for induced moments and returns
+     a copy of the induced moments vector
+  */
+  arma::vec compute(arma::vec &total_fields, bool make_guess) {
+    arma::vec induced_moments(total_fields.n_rows, arma::fill::zeros);
+    compute(total_fields, induced_moments, make_guess, std::cout);
+    return induced_moments;
+  }
 };
 
 } // namespace libcppe

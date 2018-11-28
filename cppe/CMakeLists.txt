@@ -26,9 +26,7 @@ if (${ENABLE_PYTHON_INTERFACE})
     include(FindPythonLibs)
     find_package(pybind11 CONFIG)
     if(${pybind11_FOUND})
-        # get_property(_loc TARGET pybind11 PROPERTY LOCATION)
-        # message(STATUS "${Cyan}Found pybind11${ColourReset}: ${_loc} (found version ${pybind11_VERSION})")
-        add_library(pybind11_external INTERFACE)  # dummy
+        add_library(pybind11_external INTERFACE)
         message(STATUS "found pybind11 " ${pybind11_DIR})
     else()
         include(ExternalProject)
@@ -49,6 +47,7 @@ if (${ENABLE_PYTHON_INTERFACE})
         pycppe/export_molecule.cc
         pycppe/export_multipole.cc
         pycppe/export_options.cc
+        pycppe/export_fields.cc
         pycppe/export_utils.cc
         pycppe/export_state.cc
         pycppe/pycppe.cc)
