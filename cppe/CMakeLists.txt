@@ -12,6 +12,48 @@ if (ENABLE_OPENMP)
     endif()
 endif()
 
+set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
+
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+option(ENABLE_PYTHON_INTERFACE OFF)
+set(PYTHON_INTERFACE_SOURCES "")
+if (${ENABLE_PYTHON_INTERFACE})
+    message(STATUS "Building Python interface for cppe.")
+    # add_subdirectory(pycppe)
+    
+    include(FindPythonLibs)
+    find_package(pybind11 CONFIG)
+    if(${pybind11_FOUND})
+        # get_property(_loc TARGET pybind11 PROPERTY LOCATION)
+        # message(STATUS "${Cyan}Found pybind11${ColourReset}: ${_loc} (found version ${pybind11_VERSION})")
+        add_library(pybind11_external INTERFACE)  # dummy
+        message(STATUS "found pybind11 " ${pybind11_DIR})
+    else()
+        include(ExternalProject)
+        message(STATUS "Suitable pybind11 could not be located, ${Magenta}Building pybind11${ColourReset} instead.")
+        ExternalProject_Add(
+          pybind11_external
+          GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
+          GIT_TAG "master"
+          CMAKE_ARGS -DPYBIND11_TEST=OFF
+                     -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
+        
+          set(pybind11_DIR ${STAGED_INSTALL_PREFIX}/share/cmake/pybind11 CACHE PATH "path to internally built pybind11Config.cmake" FORCE)
+        )
+    endif()
+
+    message(STATUS "pybind dir " ${pybind11_DIR})
+    set(PYTHON_INTERFACE_SOURCES
+        pycppe/export_molecule.cc
+        pycppe/export_multipole.cc
+        pycppe/export_options.cc
+        pycppe/export_utils.cc
+        pycppe/export_state.cc
+        pycppe/pycppe.cc)
+endif()
+
 add_library(cppe
   libcppe.cc
   utils/potfile_reader.cc
@@ -22,22 +64,19 @@ add_library(cppe
   core/electric_fields.cc
   core/math.cc
   core/pe_energies.cc
+  ${PYTHON_INTERFACE_SOURCES}
 )
 # target_link_libraries(cppe pe_interface armadillo lapack blas gen1int gen1int_interface pelib gfortran)
-target_link_libraries(cppe ${ARMADILLO_LIBRARIES})
+target_link_libraries(cppe PUBLIC ${ARMADILLO_LIBRARIES})
 target_include_directories(cppe PUBLIC ${ARMADILLO_INCLUDE_DIRS})
 
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
-set(PN "cppe")
-
-option(ENABLE_PYTHON_INTERFACE OFF)
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
-if (${ENABLE_PYTHON_INTERFACE})
-    message(STATUS "Building Python interface for cppe.")
-    add_subdirectory(pycppe)
+if(${ENABLE_PYTHON_INTERFACE})
+    target_link_libraries(cppe PUBLIC pybind11::module)
+    set_target_properties(cppe PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
+                                             SUFFIX "${PYTHON_MODULE_EXTENSION}")
 endif()
 
+set(PN "cppe")
 set(INSTALL_DEVEL_HEADERS ON)
 if (INSTALL_DEVEL_HEADERS)
     install(DIRECTORY "core"

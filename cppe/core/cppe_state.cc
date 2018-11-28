@@ -6,11 +6,18 @@
 #include "electric_fields.hh"
 #include "multipole_expansion.hh"
 
+#include "../utils/pot_manipulation.hh"
+#include "../utils/potfile_reader.hh"
+
 namespace libcppe {
 
-CppeState::CppeState(PeOptions options, std::ostream &output_stream)
-    : m_options(options), m_output_stream(output_stream) {
+CppeState::CppeState(PeOptions options, Molecule mol,
+                     std::ostream &output_stream)
+    : m_options(options), m_output_stream(output_stream), m_mol(mol) {
   m_pe_energy = PeEnergy{};
+  std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
+  potentials = PotManipulator(potentials, m_mol).manipulate(m_options);
+  set_potentials(potentials);
 }
 
 void CppeState::set_potentials(std::vector<Potential> potentials) {

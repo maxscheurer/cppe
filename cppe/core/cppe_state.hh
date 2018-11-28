@@ -33,8 +33,7 @@ private:
   std::ostream &m_output_stream; //!< Output stream for printing
 
 public:
-  // TODO: extend constructor
-  CppeState(PeOptions options, std::ostream & = std::cout);
+  CppeState(PeOptions options, Molecule mol, std::ostream & = std::cout);
   ~CppeState(){};
 
   // arma::mat pol_operator_copy() const { return m_pol_operator; }
@@ -46,7 +45,6 @@ public:
 
   void update_energies(arma::mat P);
 
-  void set_molecule(Molecule mol) { m_mol = mol; }
   void set_potentials(std::vector<Potential> potentials);
 
   PeEnergy get_current_energies() const { return m_pe_energy; }
