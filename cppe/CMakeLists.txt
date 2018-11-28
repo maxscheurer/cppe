@@ -19,6 +19,7 @@ include(CMakePackageConfigHelpers)
 
 option(ENABLE_PYTHON_INTERFACE OFF)
 set(PYTHON_INTERFACE_SOURCES "")
+set(PYTHON_SHARED "")
 if (${ENABLE_PYTHON_INTERFACE})
     message(STATUS "Building Python interface for cppe.")
     # add_subdirectory(pycppe)
@@ -51,9 +52,10 @@ if (${ENABLE_PYTHON_INTERFACE})
         pycppe/export_utils.cc
         pycppe/export_state.cc
         pycppe/pycppe.cc)
+    set(PYTHON_SHARED SHARED)
 endif()
 
-add_library(cppe
+add_library(cppe ${PYTHON_SHARED}
   libcppe.cc
   utils/potfile_reader.cc
   utils/string_utils.cc
@@ -76,7 +78,7 @@ if(${ENABLE_PYTHON_INTERFACE})
 endif()
 
 set(PN "cppe")
-set(INSTALL_DEVEL_HEADERS ON)
+option(INSTALL_DEVEL_HEADERS "Install devel headers" ON)
 if (INSTALL_DEVEL_HEADERS)
     install(DIRECTORY "core"
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}

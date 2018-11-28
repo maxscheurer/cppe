@@ -58,6 +58,7 @@ public:
 
   arma::vec get_static_fields() { return (m_nuc_fields + m_multipole_fields); }
 
+  // TODO: summary as string
   void print_summary();
 };
 
