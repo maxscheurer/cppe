@@ -24,5 +24,6 @@ void export_state(py::module &m) {
       .def("update_induced_moments",
            &libcppe::CppeState::update_induced_moments)
       .def("get_static_fields", &libcppe::CppeState::get_static_fields)
-      .def("print_summary", &libcppe::CppeState::print_summary);
+      .def("print_summary", &libcppe::CppeState::print_summary)
+      .def("get_potentials", &libcppe::CppeState::get_potentials);
 }
