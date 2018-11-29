@@ -208,6 +208,13 @@ void prefactors(unsigned k, std::vector<double> &pf) {
   }
 }
 
+std::vector<double> prefactors(unsigned k) {
+  int sz = multipole_components(k);
+  std::vector<double> pref(sz);
+  prefactors(k, pref);
+  return pref;
+}
+
 void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
   double taylor;
   if (k % 2 == 0) {

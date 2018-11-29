@@ -32,6 +32,8 @@ void prefactors_nuclei(unsigned k, std::vector<double> &pf);
 
 int multipole_components(int k);
 
+std::vector<double> prefactors(unsigned k);
+
 } // namespace libcppe
 
 #endif // INCLUDE_LIBCPPE_CPPE_CORE_MATH_H

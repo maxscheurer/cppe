@@ -4,11 +4,14 @@
 
 #include "pybind_arma.h"
 
+#include "../core/math.hh"
 #include "../core/multipole.hh"
 
 namespace py = pybind11;
 
 void export_multipole(py::module &m) {
+  m.def("prefactors", py::overload_cast<unsigned>(&libcppe::prefactors),
+        "Prefactors for the multipole components (alphabetical order)");
   // libcppe::Multipole
   py::class_<libcppe::Multipole> mul(m, "Multipole");
   mul.def(py::init<unsigned>())
