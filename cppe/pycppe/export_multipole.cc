@@ -31,5 +31,7 @@ void export_multipole(py::module &m) {
       .def_readwrite("z", &libcppe::Potential::m_z, "z coordinate")
       .def("is_polarizable", &libcppe::Potential::is_polarizable)
       .def("get_site_position", &libcppe::Potential::get_site_position)
+      .def("get_multipoles", &libcppe::Potential::get_multipoles)
+      .def("get_polarizabilities", &libcppe::Potential::get_polarizabilities)
       .def_readwrite("index", &libcppe::Potential::index, "site index");
 }
