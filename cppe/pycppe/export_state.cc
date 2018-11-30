@@ -2,6 +2,7 @@
 #include <pybind11/stl.h>
 
 #include "../core/cppe_state.hh"
+#include "../core/pe_energies.hh"
 #include "../core/pe_options.hh"
 
 #include "pybind_arma.h"
@@ -28,4 +29,9 @@ void export_state(py::module &m) {
       .def("get_potentials", &libcppe::CppeState::get_potentials)
       .def("get_polarizable_site_number",
            &libcppe::CppeState::get_polarizable_site_number);
+
+  py::class_<libcppe::PeEnergy> pe_energy(m, "PeEnergy");
+  pe_energy.def(py::init<>())
+      .def("get_total_energy", &libcppe::PeEnergy::get_total_energy)
+      .def("get", &libcppe::PeEnergy::get);
 }
