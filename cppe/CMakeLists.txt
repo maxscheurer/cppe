@@ -22,13 +22,10 @@ set(PYTHON_INTERFACE_SOURCES "")
 set(PYTHON_SHARED "")
 if (${ENABLE_PYTHON_INTERFACE})
     message(STATUS "Building Python interface for cppe.")
-    # add_subdirectory(pycppe)
-    
-    include(FindPythonLibs)
     find_package(pybind11 CONFIG)
     if(${pybind11_FOUND})
         add_library(pybind11_external INTERFACE)
-        message(STATUS "found pybind11 " ${pybind11_DIR})
+        message(STATUS "Pybind11 found here: " ${pybind11_DIR})
     else()
         include(ExternalProject)
         message(STATUS "Suitable pybind11 could not be located, ${Magenta}Building pybind11${ColourReset} instead.")
@@ -43,7 +40,6 @@ if (${ENABLE_PYTHON_INTERFACE})
         )
     endif()
 
-    message(STATUS "pybind dir " ${pybind11_DIR})
     set(PYTHON_INTERFACE_SOURCES
         pycppe/export_molecule.cc
         pycppe/export_multipole.cc

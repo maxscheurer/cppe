@@ -24,7 +24,7 @@ struct Atom {
   }
 };
 
-// Molecule is a slightly decorated std::vector, more features to come
+// Molecule is a slightly decorated std::vector
 struct Molecule : std::vector<Atom> {
 
   // TODO: ugly, probably highly stupid code?
