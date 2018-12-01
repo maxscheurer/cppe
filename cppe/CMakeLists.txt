@@ -1,8 +1,35 @@
 set(CMAKE_CXX_STANDARD 14)
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+include(ExternalProject)
 # add_subdirectory(pe_interface)
 # add_dependencies(pe_interface gen1int_interface pelib)
-find_package(Armadillo REQUIRED)
+
+set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
+
+find_package(Armadillo)
+if(${ARMADILLO_FOUND})
+    add_library(armadillo_external INTERFACE) # Dummy
+    set(ARMADILLO_INCLUDE_DIRS_IFC ${ARMADILLO_INCLUDE_DIRS})
+else()
+    message(STATUS "${CYAN}Armadillo not found on system, building Armadillo from source.")
+    set(arma_tar "armadillo-9.200.5.tar.xz")
+    set(CMAKE_ARGS "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}")
+    ExternalProject_Add(armadillo_external
+        DEPENDS
+	DOWNLOAD_COMMAND wget https://sourceforge.net/projects/arma/files/${arma_tar}
+	CONFIGURE_COMMAND tar -xf ../${arma_tar} -C ../armadillo_external  --strip-components=1
+	BUILD_IN_SOURCE 1
+	BUILD_COMMAND cmake ${CMAKE_ARGS} .
+	INSTALL_COMMAND make
+	)
+
+    set(Armadillo_DIR ${CMAKE_BINARY_DIR}/cppe/armadillo_external-prefix/src/armadillo_external)
+    set(ARMADILLO_LIBRARIES ${Armadillo_DIR}/libarmadillo${CMAKE_SHARED_LIBRARY_SUFFIX})
+    set(ARMADILLO_INCLUDE_DIRS ${Armadillo_DIR}/include)
+    set(ARMADILLO_INCLUDE_DIRS_IFC "")
+endif()
 
 if (ENABLE_OPENMP)
     find_package(OpenMP REQUIRED)
@@ -11,11 +38,6 @@ if (ENABLE_OPENMP)
         set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
     endif()
 endif()
-
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
-
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
 
 option(ENABLE_PYTHON_INTERFACE OFF)
 set(PYTHON_INTERFACE_SOURCES "")
@@ -27,7 +49,6 @@ if (${ENABLE_PYTHON_INTERFACE})
         add_library(pybind11_external INTERFACE)
         message(STATUS "Pybind11 found here: " ${pybind11_DIR})
     else()
-        include(ExternalProject)
         message(STATUS "Suitable pybind11 could not be located, ${Magenta}Building pybind11${ColourReset} instead.")
         ExternalProject_Add(
           pybind11_external
@@ -63,9 +84,11 @@ add_library(cppe ${PYTHON_SHARED}
   core/pe_energies.cc
   ${PYTHON_INTERFACE_SOURCES}
 )
+
+add_dependencies(cppe armadillo_external)
 # target_link_libraries(cppe pe_interface armadillo lapack blas gen1int gen1int_interface pelib gfortran)
 target_link_libraries(cppe PUBLIC ${ARMADILLO_LIBRARIES})
-target_include_directories(cppe PUBLIC ${ARMADILLO_INCLUDE_DIRS})
+target_include_directories(cppe PRIVATE ${ARMADILLO_INCLUDE_DIRS})
 
 if(${ENABLE_PYTHON_INTERFACE})
     target_link_libraries(cppe PUBLIC pybind11::module)
@@ -92,7 +115,7 @@ install(TARGETS cppe
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
 target_include_directories(cppe INTERFACE
-                           $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${ARMADILLO_INCLUDE_DIRS})
+$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${ARMADILLO_INCLUDE_DIRS_IFC})
 
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
 message(STATUS ${CMAKECONFIG_INSTALL_DIR})
