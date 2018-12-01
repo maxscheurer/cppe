@@ -33,6 +33,7 @@ private:
   std::ostream &m_output_stream = std::cout; //!< Output stream for printing
 
 public:
+  CppeState(){};
   CppeState(PeOptions options, Molecule mol, std::ostream & = std::cout);
   ~CppeState(){};
 
