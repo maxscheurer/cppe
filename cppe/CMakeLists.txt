@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(cppe-core VERSION 0.1.0 LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 14)
 
 include(GNUInstallDirs)
@@ -6,8 +9,7 @@ include(ExternalProject)
 # add_subdirectory(pe_interface)
 # add_dependencies(pe_interface gen1int_interface pelib)
 
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
-
+# TODO: move to external/upstream
 find_package(Armadillo)
 if(${ARMADILLO_FOUND})
     add_library(armadillo_external INTERFACE) # Dummy
@@ -44,22 +46,8 @@ set(PYTHON_INTERFACE_SOURCES "")
 set(PYTHON_SHARED "")
 if (${ENABLE_PYTHON_INTERFACE})
     message(STATUS "Building Python interface for cppe.")
-    find_package(pybind11 CONFIG)
-    if(${pybind11_FOUND})
-        add_library(pybind11_external INTERFACE)
-        message(STATUS "Pybind11 found here: " ${pybind11_DIR})
-    else()
-        message(STATUS "Suitable pybind11 could not be located, ${Magenta}Building pybind11${ColourReset} instead.")
-        ExternalProject_Add(
-          pybind11_external
-          GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
-          GIT_TAG "master"
-          CMAKE_ARGS -DPYBIND11_TEST=OFF
-                     -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
-        
-          set(pybind11_DIR ${STAGED_INSTALL_PREFIX}/share/cmake/pybind11 CACHE PATH "path to internally built pybind11Config.cmake" FORCE)
-        )
-    endif()
+    find_package(pybind11 CONFIG REQUIRED NO_DEFAULT_PATH)
+    message(STATUS "Using pybind11: " ${pybind11_DIR})
 
     set(PYTHON_INTERFACE_SOURCES
         pycppe/export_molecule.cc
@@ -118,7 +106,6 @@ target_include_directories(cppe INTERFACE
 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${ARMADILLO_INCLUDE_DIRS_IFC})
 
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
-message(STATUS ${CMAKECONFIG_INSTALL_DIR})
 configure_package_config_file(cmake/${PN}Config.cmake.in
                          "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
                          INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
