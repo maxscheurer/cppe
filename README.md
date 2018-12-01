@@ -1,11 +1,11 @@
 # CPPE
 
-CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)
+CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
 calculations and post-SCF methods. A convenient Python interface is also available.
 
-For testing purposes, CPPE is also interfaced to the original PE implementation<sup>1,2</sup>, namely
+For testing purposes, CPPE is also interfaced to the original PE implementation, namely
 [PElib](https://gitlab.com/pe-software/pelib-public), used in the DALTON program package.
 
 <!-- CPPE is currently implemented in the Q-Chem program package for PE-SCF
