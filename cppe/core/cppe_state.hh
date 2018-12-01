@@ -33,6 +33,7 @@ private:
   std::ostream &m_output_stream; //!< Output stream for printing
 
 public:
+  CppeState(){};
   CppeState(PeOptions options, Molecule mol, std::ostream & = std::cout);
   ~CppeState(){};
 
@@ -42,6 +43,9 @@ public:
   void set_es_operator(arma::mat es_operator) { m_es_operator = es_operator; }
   // void set_pol_operator(arma::mat pol_operator) { m_pol_operator =
   // pol_operator; }
+
+  void set_options(PeOptions options) { m_options = options; }
+  void set_molecule(Molecule mol) { m_mol = mol; }
 
   void update_energies(arma::mat P);
 
