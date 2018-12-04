@@ -4,12 +4,6 @@ dist: trusty
 
 compiler:
   - gcc
-  - clang
-
-addons:
-  apt:
-    packages:
-      - libarmadillo-dev
 
 matrix:
   include:
