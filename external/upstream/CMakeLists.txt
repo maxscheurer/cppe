@@ -1,2 +1,12 @@
 add_subdirectory(pybind11)
-# add_subdirectory(armadillo)
+
+if(${ENABLE_PELIB})
+    file(MAKE_DIRECTORY ${STAGED_INSTALL_PREFIX})
+    file(MAKE_DIRECTORY ${STAGED_INSTALL_PREFIX}/lib)
+    file(MAKE_DIRECTORY ${STAGED_INSTALL_PREFIX}/modules)
+    set(CMAKE_Fortran_MODULE_DIRECTORY ${STAGED_INSTALL_PREFIX}/modules)
+    add_subdirectory(gen1int)
+    add_subdirectory(gen1int_interface)
+    # set(PARENT_MODULE_DIR ${STAGED_INSTALL_PREFIX}/modules)
+    add_subdirectory(pelib)
+endif()

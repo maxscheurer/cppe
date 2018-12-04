@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(ExternalProject)
-# add_subdirectory(pe_interface)
-# add_dependencies(pe_interface gen1int_interface pelib)
 
 # TODO: move to external/upstream
 find_package(Armadillo)
@@ -19,12 +17,11 @@ else()
     set(arma_tar "armadillo-9.200.5.tar.xz")
     set(CMAKE_ARGS "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}")
     ExternalProject_Add(armadillo_external
-        DEPENDS
-	DOWNLOAD_COMMAND wget https://sourceforge.net/projects/arma/files/${arma_tar}
-	CONFIGURE_COMMAND tar -xf ../${arma_tar} -C ../armadillo_external  --strip-components=1
-	BUILD_IN_SOURCE 1
-	BUILD_COMMAND cmake ${CMAKE_ARGS} .
-	INSTALL_COMMAND make
+    	DOWNLOAD_COMMAND wget https://sourceforge.net/projects/arma/files/${arma_tar}
+    	CONFIGURE_COMMAND tar -xf ../${arma_tar} -C ../armadillo_external  --strip-components=1
+    	BUILD_IN_SOURCE 1
+    	BUILD_COMMAND cmake ${CMAKE_ARGS} .
+    	INSTALL_COMMAND make
 	)
 
     set(Armadillo_DIR ${CMAKE_BINARY_DIR}/cppe/armadillo_external-prefix/src/armadillo_external)
@@ -41,7 +38,6 @@ if (ENABLE_OPENMP)
     endif()
 endif()
 
-option(ENABLE_PYTHON_INTERFACE OFF)
 set(PYTHON_INTERFACE_SOURCES "")
 set(PYTHON_SHARED "")
 if (${ENABLE_PYTHON_INTERFACE})
@@ -58,6 +54,11 @@ if (${ENABLE_PYTHON_INTERFACE})
         pycppe/export_state.cc
         pycppe/pycppe.cc)
     set(PYTHON_SHARED SHARED)
+endif()
+
+if(${ENABLE_PELIB})
+    add_subdirectory(pelib_interface)
+    # add_dependencies(pelib_interface gen1int_interface pelib_external gen1int_external)
 endif()
 
 add_library(cppe ${PYTHON_SHARED}

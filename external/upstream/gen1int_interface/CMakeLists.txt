@@ -18,17 +18,12 @@ set(ExternalProjectCMakeArgs
     -DENABLE_64BIT_INTEGERS=${ENABLE_64BIT_INTEGERS}
     )
 
-if(WITH_MPI)
-  set(ENABLE_MPI ON)
-  add_definitions(-DVAR_MPI)
-  message("Using MPI for gen1int_interface.")
-endif()
-
-
-# add_external(gen1int)
 include_directories(
-  ${PROJECT_BINARY_DIR}/modules
-  ${PROJECT_BINARY_DIR}/external/gen1int/modules
+  # ${PROJECT_BINARY_DIR}/modules
+  # ${PROJECT_BINARY_DIR}/external/gen1int/modules
+  ${STAGED_INSTALL_PREFIX}/modules
 )
 target_link_libraries(gen1int_interface gen1int)
-add_dependencies(gen1int_interface gen1int)
+add_dependencies(gen1int_interface gen1int_external)
+install(TARGETS gen1int_interface LIBRARY DESTINATION ${STAGED_INSTALL_PREFIX}/lib
+ARCHIVE DESTINATION ${STAGED_INSTALL_PREFIX}/lib)
