@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.0.3)
+project(gen1int_interface Fortran)
+
 add_library(
     gen1int_interface
     gen1int_api.F90
@@ -19,11 +22,8 @@ set(ExternalProjectCMakeArgs
     )
 
 include_directories(
-  # ${PROJECT_BINARY_DIR}/modules
-  # ${PROJECT_BINARY_DIR}/external/gen1int/modules
-  ${STAGED_INSTALL_PREFIX}/modules
+  ${CMAKE_INSTALL_PREFIX}/modules
 )
 target_link_libraries(gen1int_interface gen1int)
-add_dependencies(gen1int_interface gen1int_external)
-install(TARGETS gen1int_interface LIBRARY DESTINATION ${STAGED_INSTALL_PREFIX}/lib
-ARCHIVE DESTINATION ${STAGED_INSTALL_PREFIX}/lib)
+install(TARGETS gen1int_interface LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)

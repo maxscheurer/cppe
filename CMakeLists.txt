@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 cmake_policy(VERSION 3.0.0)
 
 # Prefer shared to static libs (cmake does the reverse by default)
-# option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
 
 ##########################################################################
 # Project setup
@@ -19,6 +19,17 @@ endif()
 
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 
+set(pe_ext "")
+if(${ENABLE_PELIB})
+	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+	set(pe_ext pelib_external gen1int_external gen1int_interface)
+endif()
+
+set(pybind_ext "")
+if(${ENABLE_PYTHON_INTERFACE})
+	set(pybind_ext "pybind11_external")
+endif()
+
 add_subdirectory(external/upstream)
 
 option(ENABLE_PYTHON_INTERFACE "Build the Python interface" OFF)
@@ -26,14 +37,8 @@ option(ENABLE_PELIB "Build PElib and interface" OFF)
 
 include(ExternalProject)
 
-set(pe_ext "")
-if(${ENABLE_PELIB})
-	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-	set(pe_ext pelib_external gen1int_external gen1int_interface)
-endif()
-
 ExternalProject_Add(cppe-core
-   DEPENDS pybind11_external ${pe_ext}
+   DEPENDS ${pybind_ext} ${pe_ext} armadillo_external
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cppe
    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
               -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -49,7 +54,9 @@ ExternalProject_Add(cppe-core
 			  -DENABLE_PYTHON_INTERFACE=${ENABLE_PYTHON_INTERFACE}
 			  -DENABLE_PELIB=${ENABLE_PELIB}
 			  -Dpybind11_DIR=${pybind11_DIR}
+			  -DArmadillo_DIR=${Armadillo_DIR}
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+			  -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
    CMAKE_CACHE_ARGS -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
    BUILD_ALWAYS 1)
 
