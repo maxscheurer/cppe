@@ -13,12 +13,12 @@ addons:
      - g++-8
 
 env:
- - CC=gcc-8 && CXX=g++-8
+ - CC=gcc-8 && CXX=g++-8 && FC=gfortran-8
 
 before_script:
   - mkdir build
   - cd build
-  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC ..
+  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC -DCMAKE_Fortran_COMPILER=$FC ..
 
 script:
   - cmake --version
