@@ -5,22 +5,21 @@ dist: trusty
 compiler:
   - gcc
 
-matrix:
-  include:
-    # gcc-7 (with tests and c++17)
-    - addons:
-        apt:
-          sources: *def_sources
-          packages:
-            - *def_packages
-            - g++-7
-      compiler: gcc
-      env: CC_COMP="gcc-7" CXX_COMP="g++-7"
+- os: linux
+       addons:
+         apt:
+           sources:
+             - ubuntu-toolchain-r-test
+           packages:
+             - g++-8
+       env:
+         - CC=gcc-8
+         - CXX=g++-8
 
 before_script:
   - mkdir build
   - cd build
-  - cmake -DBUILD_SHARED_LIBS=on ..
+  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC ..
 
 script:
   - cmake --version
