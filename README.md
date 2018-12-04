@@ -1,5 +1,7 @@
 # CPPE
 
+[![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
+
 CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
