@@ -27,6 +27,10 @@ If the Python interface should be built, specify the CMake option
 `-DENABLE_PYTHON_INTERFACE=ON`. If `pybind11` is not installed, CMake
 will automatically download `pybind11` and install it locally.
 
+### PElib interface
+To build PElib (together with gen1int and the appropriate interface), set the following option:
+`-DENABLE_PELIB=ON`.
+
 
 ### Dependencies
 - C++ 11 compiler
