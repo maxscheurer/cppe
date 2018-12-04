@@ -91,7 +91,7 @@ install(TARGETS cppe
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
 target_include_directories(cppe INTERFACE
-$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${ARMADILLO_INCLUDE_DIRS})
 
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
 configure_package_config_file(cmake/${PN}Config.cmake.in
