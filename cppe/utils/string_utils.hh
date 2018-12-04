@@ -18,5 +18,5 @@ std::string trim(const std::string& str,
 std::string reduce(const std::string& str,
                    const std::string& fill = " ",
                    const std::string& whitespace = " \t\n");
-                   
+
 #endif // LIBCPPE_UTILS_STRING_UTIL_H

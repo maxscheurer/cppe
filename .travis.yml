@@ -1,0 +1,33 @@
+sudo: required
+language: cpp
+dist: trusty
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    packages:
+      - libarmadillo-dev
+
+matrix:
+  include:
+    # gcc-7 (with tests and c++17)
+    - addons:
+        apt:
+          sources: *def_sources
+          packages:
+            - *def_packages
+            - g++-7
+      compiler: gcc
+      env: CC_COMP="gcc-7" CXX_COMP="g++-7"
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake -DBUILD_SHARED_LIBS=on ..
+
+script:
+  - cmake --version
+  - make

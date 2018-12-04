@@ -10,7 +10,10 @@ struct Atom {
   int charge;
   double m_x, m_y, m_z;
   Atom(int an) : atomic_number(an) { charge = an; }
-  Atom(int an, double x, double y, double z) : atomic_number(an), m_x(x), m_y(y), m_z(z) { charge = an; }
+  Atom(int an, double x, double y, double z)
+      : atomic_number(an), m_x(x), m_y(y), m_z(z) {
+    charge = an;
+  }
 
   arma::vec get_pos() {
     arma::vec pos(3);
@@ -21,8 +24,7 @@ struct Atom {
   }
 };
 
-
-// Molecule is a slightly decorated std::vector, more features to come
+// Molecule is a slightly decorated std::vector
 struct Molecule : std::vector<Atom> {
 
   // TODO: ugly, probably highly stupid code?
@@ -34,7 +36,7 @@ struct Molecule : std::vector<Atom> {
   }
 
   ~Molecule() = default;
-  Molecule& operator=(const Molecule&) = default;
+  Molecule &operator=(const Molecule &) = default;
 };
 
 } // namespace libcppe

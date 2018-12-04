@@ -4,17 +4,18 @@
 #include <armadillo>
 
 namespace libcppe {
-  
+
 arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha);
 
-arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj, arma::Cube<int>& Tk_coeffs);
+arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
+                               arma::Cube<int> &Tk_coeffs);
 
-double T(arma::vec Rij, int x, int y, int z, arma::Cube<int>& Cijn);
+double T(arma::vec Rij, int x, int y, int z, arma::Cube<int> &Cijn);
 
-arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int>& Tk_coeffs);
+arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int> &Tk_coeffs);
 
 arma::Cube<int> Tk_coefficients(int max_order);
-  
+
 int xyz2idx(int x, int y, int z);
 
 double factorial(int n);
@@ -31,6 +32,8 @@ void prefactors_nuclei(unsigned k, std::vector<double> &pf);
 
 int multipole_components(int k);
 
+std::vector<double> prefactors(unsigned k);
+
 } // namespace libcppe
 
-#endif //INCLUDE_LIBCPPE_CPPE_CORE_MATH_H
+#endif // INCLUDE_LIBCPPE_CPPE_CORE_MATH_H

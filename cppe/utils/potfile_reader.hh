@@ -14,11 +14,11 @@ private:
   std::string m_potfile;
 
 public:
-  PotfileReader (std::string potfile_name);
-  ~PotfileReader () {};
+  PotfileReader(std::string potfile_name);
+  ~PotfileReader(){};
   std::vector<Potential> read();
 };
 
 } // namespace libcppe
 
-#endif //LIBCPPE_CORE_POTFILE_READER_H
+#endif // LIBCPPE_CORE_POTFILE_READER_H
