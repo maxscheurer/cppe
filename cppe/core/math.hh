@@ -18,6 +18,7 @@ arma::Cube<int> Tk_coefficients(int max_order);
 
 int xyz2idx(int x, int y, int z);
 
+// TODO: return type should be unsigned long
 double factorial(int n);
 
 void make_df(unsigned k, std::vector<double> &df);
@@ -34,6 +35,6 @@ int multipole_components(int k);
 
 std::vector<double> prefactors(unsigned k);
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // INCLUDE_LIBCPPE_CPPE_CORE_MATH_H
+#endif  // INCLUDE_LIBCPPE_CPPE_CORE_MATH_H

@@ -31,11 +31,13 @@ if (${ENABLE_PYTHON_INTERFACE})
         pycppe/export_fields.cc
         pycppe/export_utils.cc
         pycppe/export_state.cc
+        pycppe/export_math.cc
         pycppe/pycppe.cc)
     set(PYTHON_SHARED SHARED)
 endif()
 
 set(PELIB_LIBRARIES "")
+set(PELIB_INTERFACE_SOURCES "")
 if(${ENABLE_PELIB})
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     add_subdirectory(pelib_interface)
@@ -47,6 +49,7 @@ if(${ENABLE_PELIB})
                         "blas"
                         "gfortran")
     link_directories(${CMAKE_INSTALL_PREFIX}/lib)
+    set(PELIB_INTERFACE_SOURCES pelib_interface/pe_interface.F90)
 endif()
 
 add_library(cppe ${PYTHON_SHARED}
@@ -59,7 +62,7 @@ add_library(cppe ${PYTHON_SHARED}
   core/electric_fields.cc
   core/math.cc
   core/pe_energies.cc
-  ${PYTHON_INTERFACE_SOURCES}
+  ${PYTHON_INTERFACE_SOURCES} ${PELIB_INTERFACE_SOURCES}
 )
 
 target_link_libraries(cppe PUBLIC ${ARMADILLO_LIBRARIES} ${PELIB_LIBRARIES})
