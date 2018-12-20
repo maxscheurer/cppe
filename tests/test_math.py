@@ -62,6 +62,7 @@ class TestMath(unittest.TestCase):
                 assert xyz2idx(*c) == i
 
     def test_T_tensors(self):
+        # tests the T tensors against auto-generated Python code
         ref_T = tensors.T
 
         for k in range(6):
