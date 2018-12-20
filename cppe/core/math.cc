@@ -20,7 +20,8 @@ arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha) {
 }
 
 // TODO: add option for damping
-arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int> &Tk_coeffs) {
+arma::vec Tk_tensor(int k, arma::vec Rij,
+                    std::vector<arma::Mat<int>> &Tk_coeffs) {
   int x, y, z;
   arma::vec Tk(multipole_components(k));
   int idx = 0;
@@ -39,7 +40,7 @@ arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int> &Tk_coeffs) {
 // TODO: there must be a way to make this more efficient...
 // only 1st derivative supported
 arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
-                               arma::Cube<int> &Tk_coeffs) {
+                               std::vector<arma::Mat<int>> &Tk_coeffs) {
   if (l > 1)
     throw std::runtime_error("Only 1st derivatives supported for multipoles");
   arma::vec Fi(3, arma::fill::zeros);
@@ -96,16 +97,17 @@ int xyz2idx(int x, int y, int z) {
   }
 }
 
-double T(arma::vec Rij, int x, int y, int z, arma::Cube<int> &Cijn) {
+double T(arma::vec Rij, int x, int y, int z,
+         std::vector<arma::Mat<int>> &Cijn) {
   double t = 0.0;
   double R = arma::norm(Rij);
   double Cx, Cy, Cz;
   for (size_t l = 0; l <= x; l++) {
-    Cx = Cijn.slice(0)(x, l) * pow((Rij(0) / R), l);
+    Cx = Cijn[0](x, l) * pow((Rij(0) / R), l);
     for (size_t m = 0; m <= y; m++) {
-      Cy = Cx * Cijn.slice(l + x)(y, m) * pow((Rij(1) / R), m);
+      Cy = Cx * Cijn[l + x](y, m) * pow((Rij(1) / R), m);
       for (size_t n = 0; n <= z; n++) {
-        Cz = Cy * Cijn.slice(l + x + m + y)(z, n) * pow((Rij(2) / R), n);
+        Cz = Cy * Cijn[l + x + m + y](z, n) * pow((Rij(2) / R), n);
         t += Cz;
       }
     }
@@ -114,15 +116,19 @@ double T(arma::vec Rij, int x, int y, int z, arma::Cube<int> &Cijn) {
   return t;
 }
 
-arma::Cube<int> Tk_coefficients(int max_order) {
+std::vector<arma::Mat<int>> Tk_coefficients(int max_order) {
   int maxi = 2 * max_order + 3;
-  arma::Cube<int> Cijn(max_order + 2, max_order + 2, maxi, arma::fill::zeros);
-
+  // arma::Cube<int> Cijn(max_order + 2, max_order + 2, maxi,
+  // arma::fill::zeros);
+  std::vector<arma::Mat<int>> Cijn;
   for (int n = 0; n < maxi; ++n) {
     int k;
-    arma::Mat<int> &mat = Cijn.slice(n);
+    arma::Mat<int> mat(max_order + 2, max_order + 2, arma::fill::zeros);
     mat(0, 0) = 1;
-    if ((n + 1) % 2 == 0) continue;
+    if ((n + 1) % 2 == 0) {
+      Cijn.push_back(mat);
+      continue;
+    }
     for (size_t i = 1; i <= max_order + 1; i++) {
       if (i % 2 != 0) {
         k = i - 1;
@@ -143,6 +149,7 @@ arma::Cube<int> Tk_coefficients(int max_order) {
         mat(j, i) = mat(i, j);
       }
     }
+    Cijn.push_back(mat);
   }
   return Cijn;
 }

@@ -5,7 +5,7 @@ namespace libcppe {
 // calculates the multipole-nuclei interaction energy through the given order
 double MultipoleExpansion::calculate_interaction_energy() {
   double total_energy = 0.0;
-  arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
+  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
   int npots = m_potentials.size();
 
 #pragma omp parallel for reduction(+ : total_energy) firstprivate(Tk_coeffs)

@@ -1,6 +1,5 @@
-#include <iomanip>
-
 #include "electric_fields.hh"
+#include <iomanip>
 #include "math.hh"
 
 namespace libcppe {
@@ -9,7 +8,7 @@ void NuclearFields::compute(arma::vec &nuc_fields, bool damp_core) {
   if (damp_core) {
     throw std::runtime_error("damping not implemented");
   }
-  arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
+  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
 
 #pragma omp parallel for firstprivate(Tk_coeffs)
   for (size_t i = 0; i < m_n_polsites; i++) {
@@ -31,7 +30,7 @@ void MultipoleFields::compute(arma::vec &mult_fields, bool damp) {
   if (damp) {
     throw std::runtime_error("damping not implemented");
   }
-  arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
+  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
 // Field at site of potential1 caused by all other sites (also non-polarizable
 // sites!!!) size_t site_counter = 0;
 #pragma omp parallel for firstprivate(Tk_coeffs)
@@ -68,7 +67,7 @@ void InducedMoments::compute(arma::vec &total_fields,
   arma::set_cerr_stream(output_stream);
   arma::set_cout_stream(output_stream);
   output_stream << "        Running solver for induced moments." << std::endl;
-  arma::Cube<int> Tk_coeffs = Tk_coefficients(5);
+  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
     size_t site_counter = 0;
