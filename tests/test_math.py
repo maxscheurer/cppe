@@ -8,12 +8,9 @@ from tensors import tensors
 from tensors import symmetry
 
 
-  # m.def("multipole_derivative", &multipole_derivative);
-  # m.def("xyz2idx", &xyz2idx);
-  # m.def("factorial", &factorial);
-  # m.def("make_df", &make_df);
-  # m.def("trinom", &trinom);
-  # m.def("symmetry_factors", &symmetry_factors);
+# m.def("multipole_derivative", &multipole_derivative);
+# m.def("trinom", &trinom);
+# m.def("symmetry_factors", &symmetry_factors);
 
 prefs = [
     [-1.0],
@@ -23,7 +20,7 @@ prefs = [
 
 
 class TestMath(unittest.TestCase):
-    
+
     def test_basic_math(self):
         # factorial
         rng = np.arange(0, 10, 1)
@@ -46,7 +43,7 @@ class TestMath(unittest.TestCase):
         mat[1, 2] = mat[2, 1] = y[4]
         mat[2, 2] = y[5]
         np.testing.assert_almost_equal(mat @ x, z, decimal=14)
-        
+
     def test_multipole_components(self):
         for k in range(6):
             comps = (k + 1) * (k + 2) / 2
