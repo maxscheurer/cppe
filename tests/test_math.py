@@ -1,22 +1,19 @@
 import unittest
-import itertools
 import numpy as np
-from cppe import smat_vec, Tk_tensor, xyz2idx, factorial, prefactors, Tk_coefficients
+from cppe import (smat_vec, Tk_tensor, xyz2idx,
+                  factorial, prefactors, Tk_coefficients,
+                  multipole_components)
 
 from tensors import tensors
 from tensors import symmetry
 
 
   # m.def("multipole_derivative", &multipole_derivative);
-  # m.def("T", &T);
-  # m.def("Tk_tensor", &Tk_tensor);
-  # m.def("Tk_coefficients", &Tk_coefficients);
   # m.def("xyz2idx", &xyz2idx);
   # m.def("factorial", &factorial);
   # m.def("make_df", &make_df);
   # m.def("trinom", &trinom);
   # m.def("symmetry_factors", &symmetry_factors);
-  # m.def("multipole_components", &multipole_components);
 
 prefs = [
     [-1.0],
@@ -26,6 +23,12 @@ prefs = [
 
 
 class TestMath(unittest.TestCase):
+    
+    def test_basic_math(self):
+        # factorial
+        rng = np.arange(0, 10, 1)
+        for a in rng:
+            assert factorial(a) == np.math.factorial(a)
 
     def test_prefactors(self):
         for k in range(3):
@@ -43,6 +46,23 @@ class TestMath(unittest.TestCase):
         mat[1, 2] = mat[2, 1] = y[4]
         mat[2, 2] = y[5]
         np.testing.assert_almost_equal(mat @ x, z, decimal=14)
+        
+    def test_multipole_components(self):
+        for k in range(6):
+            comps = (k + 1) * (k + 2) / 2
+            assert comps == multipole_components(k)
+
+    def test_xyz2idx(self):
+        for k in range(6):
+            combinations = []
+            for x in range(k, -1, -1):
+                for y in range(k, -1, -1):
+                    for z in range(k, -1, -1):
+                        if (x + y + z) != k:
+                            continue
+                        combinations.append((x, y, z))
+            for i, c in enumerate(combinations):
+                assert xyz2idx(*c) == i
 
     def test_T_tensors(self):
         ref_T = tensors.T
@@ -54,6 +74,8 @@ class TestMath(unittest.TestCase):
             coeffs = Tk_coefficients(k)
             actual = Tk_tensor(k, R, coeffs)
 
+            # gets the indices of non-redundant components
+            # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_almost_equal(actual,
                                            ref.take(sym_indices), decimal=11)
