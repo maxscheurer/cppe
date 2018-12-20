@@ -12,14 +12,14 @@ namespace libcppe {
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
 
 class NuclearFields {
-private:
-  std::vector<Potential> m_potentials; //!< vector with all site potentials
+ private:
+  std::vector<Potential> m_potentials;  //!< vector with all site potentials
   std::vector<Potential>
-      m_polsites;      //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites; //!< number of polarizable sites
-  Molecule m_mol;      //!< core region molecule
+      m_polsites;       //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites;  //!< number of polarizable sites
+  Molecule m_mol;       //!< core region molecule
 
-public:
+ public:
   NuclearFields(Molecule mol, std::vector<Potential> potentials)
       : m_mol(mol), m_potentials(potentials) {
     m_polsites = get_polarizable_sites(m_potentials);
@@ -31,13 +31,13 @@ public:
 };
 
 class MultipoleFields {
-private:
-  std::vector<Potential> m_potentials; //!< vector with all site potentials
+ private:
+  std::vector<Potential> m_potentials;  //!< vector with all site potentials
   std::vector<Potential>
-      m_polsites;      //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites; //!< number of polarizable sites
+      m_polsites;       //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites;  //!< number of polarizable sites
 
-public:
+ public:
   MultipoleFields(std::vector<Potential> potentials)
       : m_potentials(potentials) {
     m_polsites = get_polarizable_sites(m_potentials);
@@ -49,14 +49,14 @@ public:
 };
 
 class InducedMoments {
-private:
-  std::vector<Potential> m_potentials; //!< vector with all site potentials
+ private:
+  std::vector<Potential> m_potentials;  //!< vector with all site potentials
   std::vector<Potential>
-      m_polsites;      //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites; //!< number of polarizable sites
+      m_polsites;       //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites;  //!< number of polarizable sites
   PeOptions m_options;
 
-public:
+ public:
   InducedMoments(std::vector<Potential> potentials, PeOptions options)
       : m_potentials(potentials), m_options(options) {
     m_polsites = get_polarizable_sites(m_potentials);
@@ -76,6 +76,6 @@ public:
   }
 };
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // LIBCPPE_CPPE_CORE_ELECTRIC_FIELDS_H
+#endif  // LIBCPPE_CPPE_CORE_ELECTRIC_FIELDS_H

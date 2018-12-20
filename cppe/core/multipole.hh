@@ -8,10 +8,10 @@
 namespace libcppe {
 
 class Multipole {
-private:
+ private:
   std::vector<double> m_values;
 
-public:
+ public:
   Multipole(unsigned k) : m_k(k){};
   ~Multipole(){};
 
@@ -43,10 +43,10 @@ public:
 
 // Currently, only dipole-dipole polarizabilities are used
 class Polarizability {
-private:
+ private:
   std::vector<double> m_values;
 
-public:
+ public:
   Polarizability(){};
   ~Polarizability(){};
 
@@ -59,13 +59,13 @@ public:
 };
 
 class Potential {
-private:
+ private:
   std::vector<Multipole> m_multipoles;
   std::vector<Polarizability> m_polarizabilities;
   // sites to exclude, 0-based index
   std::vector<int> m_exclusions;
 
-public:
+ public:
   Potential(double x, double y, double z, int idx)
       : m_x(x), m_y(y), m_z(z), index(idx){};
   ~Potential(){};
@@ -106,6 +106,6 @@ public:
   }
 };
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // LIBCPPE_CORE_MULTIPOLE_H
+#endif  // LIBCPPE_CORE_MULTIPOLE_H

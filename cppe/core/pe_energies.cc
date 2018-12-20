@@ -27,7 +27,7 @@ double PeEnergy::get(std::string energy_string) {
       }
     }
     return energy;
-  } else if (split_name.size() == 2) { // specific energy requested
+  } else if (split_name.size() == 2) {  // specific energy requested
     for (auto &en : m_energies) {
       if (!en.m_category.compare(split_name[0]) &&
           !en.m_name.compare(split_name[1])) {
@@ -61,4 +61,4 @@ double PeEnergy::get_total_energy() {
   return energy;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

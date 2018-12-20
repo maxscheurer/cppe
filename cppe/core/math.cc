@@ -27,8 +27,7 @@ arma::vec Tk_tensor(int k, arma::vec Rij, arma::Cube<int> &Tk_coeffs) {
   for (x = k; x > -1; x--) {
     for (y = k; y > -1; y--) {
       for (z = k; z > -1; z--) {
-        if (x + y + z != k)
-          continue;
+        if (x + y + z != k) continue;
         Tk[idx] = T(Rij, x, y, z, Tk_coeffs);
         idx++;
       }
@@ -60,14 +59,12 @@ arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
   for (x = k + l; x > -1; x--) {
     for (y = k + l; y > -1; y--) {
       for (z = k + l; z > -1; z--) {
-        if (x + y + z != k + l)
-          continue;
+        if (x + y + z != k + l) continue;
         i = xyz2idx(x, y, z);
         for (int a = x; a > -1; a--) {
           for (int b = y; b > -1; b--) {
             for (int c = z; c > -1; c--) {
-              if (a + b + c != k)
-                continue;
+              if (a + b + c != k) continue;
               j = xyz2idx(a, b, c);
               m = xyz2idx(x - a, y - b, z - c);
               symfac = trinom(a, b, c);
@@ -88,8 +85,7 @@ int xyz2idx(int x, int y, int z) {
   for (int a = k; a > -1; a--) {
     for (int b = k; b > -1; b--) {
       for (int c = k; c > -1; c--) {
-        if (a + b + c != k)
-          continue;
+        if (a + b + c != k) continue;
         if (a != x || b != y || c != z) {
           idx++;
         } else {
@@ -122,13 +118,11 @@ arma::Cube<int> Tk_coefficients(int max_order) {
   int maxi = 2 * max_order + 3;
   arma::Cube<int> Cijn(max_order + 2, max_order + 2, maxi, arma::fill::zeros);
 
-  // TODO: I'm so bad with armadillo currently...
   for (int n = 0; n < maxi; ++n) {
     int k;
     arma::Mat<int> &mat = Cijn.slice(n);
     mat(0, 0) = 1;
-    if ((n + 1) % 2 == 0)
-      continue;
+    if ((n + 1) % 2 == 0) continue;
     for (size_t i = 1; i <= max_order + 1; i++) {
       if (i % 2 != 0) {
         k = i - 1;
@@ -136,8 +130,7 @@ arma::Cube<int> Tk_coefficients(int max_order) {
         k = i;
       }
       for (size_t j = 0; j <= i; j++) {
-        if ((i + j) % 2 != 0)
-          continue;
+        if ((i + j) % 2 != 0) continue;
         if (j == 0) {
           mat(i, j) = mat(i - 1, j + 1);
         } else if (j != i) {
@@ -155,16 +148,13 @@ arma::Cube<int> Tk_coefficients(int max_order) {
 }
 
 double factorial(int n) {
-  if (n < 2)
-    return 1.0;
+  if (n < 2) return 1.0;
   double x = 1.0;
-  for (int i = 2; i <= n; i++)
-    x *= double(i);
+  for (int i = 2; i <= n; i++) x *= double(i);
   return x;
 }
 
 void make_df(unsigned k, std::vector<double> &df) {
-
   double f = -1.0;
   for (unsigned i = 1; i <= k; i++) {
     f *= double(i) / double(2 * i - 1);
@@ -187,8 +177,7 @@ void symmetry_factors(unsigned k, std::vector<double> &pf) {
   for (x = k; x > -1; x--) {
     for (y = k; y > -1; y--) {
       for (z = k; z > -1; z--) {
-        if (x + y + z != k)
-          continue;
+        if (x + y + z != k) continue;
         pf[idx] = static_cast<double>(trinom(x, y, z));
         idx++;
       }
@@ -231,4 +220,4 @@ void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
 
 int multipole_components(int k) { return (k + 1) * (k + 2) / 2; }
 
-} // namespace libcppe
+}  // namespace libcppe

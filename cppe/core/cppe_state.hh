@@ -12,27 +12,27 @@
 namespace libcppe {
 
 class CppeState {
-private:
-  arma::mat m_es_operator; //!< PE electrostatics operator
+ private:
+  arma::mat m_es_operator;  //!< PE electrostatics operator
 
-  PeEnergy m_pe_energy; //!< PE Energy Container
+  PeEnergy m_pe_energy;  //!< PE Energy Container
 
   // Molecule and Potentials
-  Molecule m_mol;                      //!< core region molecule
-  std::vector<Potential> m_potentials; //!< vector with all site potentials
+  Molecule m_mol;                       //!< core region molecule
+  std::vector<Potential> m_potentials;  //!< vector with all site potentials
 
-  size_t m_polarizable_sites; //!< number of polarizable sites
+  size_t m_polarizable_sites;  //!< number of polarizable sites
   // Static Fields
-  arma::vec m_nuc_fields;       //!< electric fields from nuclei
-  arma::vec m_multipole_fields; //!< electric fields from multipole moments
+  arma::vec m_nuc_fields;        //!< electric fields from nuclei
+  arma::vec m_multipole_fields;  //!< electric fields from multipole moments
 
-  arma::vec m_induced_moments; //!< Vector with induced moments
+  arma::vec m_induced_moments;  //!< Vector with induced moments
 
   PeOptions m_options;
 
-  std::ostream &m_output_stream = std::cout; //!< Output stream for printing
+  std::ostream &m_output_stream = std::cout;  //!< Output stream for printing
 
-public:
+ public:
   CppeState(){};
   CppeState(PeOptions options, Molecule mol, std::ostream & = std::cout);
   ~CppeState(){};
@@ -67,6 +67,6 @@ public:
   void print_summary();
 };
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // INCLUDE_CPPE_STATE_H
+#endif  // INCLUDE_CPPE_STATE_H

@@ -150,4 +150,4 @@ void CppeState::print_summary() {
   m_output_stream << std::string(2 * w + 10, '-') << std::endl << std::endl;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

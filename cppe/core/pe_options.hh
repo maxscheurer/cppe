@@ -47,5 +47,5 @@ struct PeOptions {
   BorderOptions border_options{};
 };
 
-} // namespace libcppe
-#endif // CPPE_CORE_PE_OPTIONS_H
+}  // namespace libcppe
+#endif  // CPPE_CORE_PE_OPTIONS_H

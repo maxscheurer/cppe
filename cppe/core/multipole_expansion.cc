@@ -28,4 +28,4 @@ double MultipoleExpansion::calculate_interaction_energy() {
   return total_energy;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

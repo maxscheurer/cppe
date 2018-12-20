@@ -40,11 +40,9 @@ void MultipoleFields::compute(arma::vec &mult_fields, bool damp) {
     Potential &potential1 = m_polsites[i];
     for (size_t j = 0; j < m_potentials.size(); j++) {
       Potential &potential2 =
-          m_potentials[j]; // all other multipoles create el. field at site i
-      if (potential1.index == potential2.index)
-        continue;
-      if (potential1.excludes_site(potential2.index))
-        continue;
+          m_potentials[j];  // all other multipoles create el. field at site i
+      if (potential1.index == potential2.index) continue;
+      if (potential1.excludes_site(potential2.index)) continue;
       arma::vec diff =
           potential1.get_site_position() - potential2.get_site_position();
       // std::cout << "-- created by site " << potential2.index << std::endl;
@@ -75,8 +73,7 @@ void InducedMoments::compute(arma::vec &total_fields,
   if (make_guess) {
     size_t site_counter = 0;
     for (auto &pot : m_potentials) {
-      if (!pot.is_polarizable())
-        continue;
+      if (!pot.is_polarizable()) continue;
       arma::vec res =
           smat_vec(pot.get_polarizabilities()[0].get_values(),
                    total_fields.subvec(site_counter, site_counter + 2), 1.0);
@@ -107,8 +104,7 @@ void InducedMoments::compute(arma::vec &total_fields,
 
   // iterations
   while (!converged) {
-    if (iteration >= max_iter)
-      break;
+    if (iteration >= max_iter) break;
     if (norm <= diis_start_norm && iteration > 1 && !diis && do_diis) {
       output_stream << "        --- Turning on DIIS. ---" << std::endl;
       diis = true;
@@ -185,8 +181,7 @@ void InducedMoments::compute(arma::vec &total_fields,
     output_stream << iteration << std::setprecision(12)
                   << "        --- Norm: " << norm << std::endl;
     // calculate based on iteration
-    if (norm < norm_thresh)
-      converged = true;
+    if (norm < norm_thresh) converged = true;
 
     iteration++;
   }
@@ -208,8 +203,8 @@ void InducedMoments::compute(arma::vec &total_fields,
 }
 
 // returns a vector of potentials that have polarizabilities
-std::vector<Potential>
-get_polarizable_sites(std::vector<Potential> potentials) {
+std::vector<Potential> get_polarizable_sites(
+    std::vector<Potential> potentials) {
   std::vector<Potential> result;
   for (auto p : potentials) {
     if (p.is_polarizable()) {
@@ -219,4 +214,4 @@ get_polarizable_sites(std::vector<Potential> potentials) {
   return result;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

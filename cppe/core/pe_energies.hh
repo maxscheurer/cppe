@@ -21,7 +21,6 @@ struct PeEnergyContribution {
 
 /*! PE Energy Container */
 struct PeEnergy {
-
   PeEnergy();
 
   /*! returns energy contribution from given string */

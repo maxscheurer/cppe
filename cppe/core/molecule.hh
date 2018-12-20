@@ -26,7 +26,6 @@ struct Atom {
 
 // Molecule is a slightly decorated std::vector
 struct Molecule : std::vector<Atom> {
-
   // TODO: ugly, probably highly stupid code?
   arma::vec get_atom_position(int atom) {
     if (this->size() <= atom) {
@@ -39,5 +38,5 @@ struct Molecule : std::vector<Atom> {
   Molecule &operator=(const Molecule &) = default;
 };
 
-} // namespace libcppe
-#endif // LIBCPPE_CPPE_CORE_MOLECULE_H
+}  // namespace libcppe
+#endif  // LIBCPPE_CPPE_CORE_MOLECULE_H
