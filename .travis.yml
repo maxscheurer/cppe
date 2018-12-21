@@ -20,7 +20,6 @@ env:
 
 before_script:
   - sudo pip3 install pytest numpy
-  - sudo pip3 install pyscf
   - mkdir build
   - cd build
   - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC -DCMAKE_Fortran_COMPILER=$FC ..
