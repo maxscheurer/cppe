@@ -36,7 +36,6 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 
 ### Dependencies
 - C++ 11 compiler
-- [armadillo](http://arma.sourceforge.net/docs.html) (CMake will at least try to install armadillo from sources if not installed)
 - Python 3.6 (interpreter and development packages)
 
 
