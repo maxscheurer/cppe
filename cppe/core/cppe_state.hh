@@ -34,7 +34,7 @@ class CppeState {
 
   std::ostream& m_output_stream = std::cout;  //!< Output stream for printing
 
-  bool m_make_guess = false;
+  bool m_make_guess = true;
 
  public:
   CppeState(){};
