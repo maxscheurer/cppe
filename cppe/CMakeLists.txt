@@ -7,8 +7,6 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(ExternalProject)
 
-find_package(Armadillo REQUIRED)
-
 if(ENABLE_OPENMP)
     find_package(OpenMP REQUIRED)
     if (OPENMP_FOUND)
@@ -65,8 +63,10 @@ add_library(cppe ${PYTHON_SHARED}
   ${PYTHON_INTERFACE_SOURCES} ${PELIB_INTERFACE_SOURCES}
 )
 
-target_link_libraries(cppe PUBLIC ${ARMADILLO_LIBRARIES} ${PELIB_LIBRARIES})
-target_include_directories(cppe PRIVATE ${ARMADILLO_INCLUDE_DIRS})
+# TODO: hack
+find_package(Eigen3 3.3 REQUIRED)
+target_link_libraries(cppe PUBLIC ${PELIB_LIBRARIES})
+target_include_directories(cppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
 
 if(${ENABLE_PYTHON_INTERFACE})
     target_link_libraries(cppe PUBLIC pybind11::module)
@@ -94,7 +94,7 @@ install(TARGETS cppe
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
 target_include_directories(cppe INTERFACE
-$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${ARMADILLO_INCLUDE_DIRS})
+$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
 configure_package_config_file(cmake/${PN}Config.cmake.in

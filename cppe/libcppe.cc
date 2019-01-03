@@ -99,4 +99,4 @@ std::vector<Potential> CPPE::read_potfile(std::string potfile_name) {
   return result;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

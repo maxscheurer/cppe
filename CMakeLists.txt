@@ -38,7 +38,7 @@ option(ENABLE_PELIB "Build PElib and interface" OFF)
 include(ExternalProject)
 
 ExternalProject_Add(cppe-core
-   DEPENDS ${pybind_ext} ${pe_ext} armadillo_external
+   DEPENDS ${pybind_ext} ${pe_ext} 
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cppe
    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
               -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -54,7 +54,6 @@ ExternalProject_Add(cppe-core
 			  -DENABLE_PYTHON_INTERFACE=${ENABLE_PYTHON_INTERFACE}
 			  -DENABLE_PELIB=${ENABLE_PELIB}
 			  -Dpybind11_DIR=${pybind11_DIR}
-			  -DArmadillo_DIR=${Armadillo_DIR}
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 			  -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
    CMAKE_CACHE_ARGS -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}

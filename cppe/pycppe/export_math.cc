@@ -1,9 +1,8 @@
+#include <pybind11/eigen.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
 #include "../core/math.hh"
-
-#include "pybind_arma.h"
 
 namespace py = pybind11;
 

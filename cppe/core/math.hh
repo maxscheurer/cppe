@@ -1,21 +1,24 @@
-#ifndef INCLUDE_LIBCPPE_CPPE_CORE_MATH_H
-#define INCLUDE_LIBCPPE_CPPE_CORE_MATH_H
+#pragma once
 
-#include <armadillo>
+#include <Eigen/Core>
+#include <vector>
 
 namespace libcppe {
 
-arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha);
+Eigen::Vector3d smat_vec(Eigen::VectorXd mat, Eigen::Vector3d vec,
+                         double alpha);
 
-arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
-                               std::vector<arma::Mat<int>> &Tk_coeffs);
+Eigen::VectorXd multipole_derivative(int k, int l, Eigen::Vector3d Rji,
+                                     Eigen::VectorXd Mkj,
+                                     std::vector<Eigen::MatrixXi> &Tk_coeffs);
 
-double T(arma::vec Rij, int x, int y, int z, std::vector<arma::Mat<int>> &Cijn);
+double T(Eigen::Vector3d Rij, int x, int y, int z,
+         std::vector<Eigen::MatrixXi> &Cijn);
 
-arma::vec Tk_tensor(int k, arma::vec Rij,
-                    std::vector<arma::Mat<int>> &Tk_coeffs);
+Eigen::VectorXd Tk_tensor(int k, Eigen::Vector3d Rij,
+                          std::vector<Eigen::MatrixXi> &Tk_coeffs);
 
-std::vector<arma::Mat<int>> Tk_coefficients(int max_order);
+std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order);
 
 int xyz2idx(int x, int y, int z);
 
@@ -26,16 +29,12 @@ void make_df(unsigned k, std::vector<double> &df);
 
 int trinom(int i, int j, int k);
 
-void symmetry_factors(unsigned k, std::vector<double> &pf);
-
-void prefactors(unsigned k, std::vector<double> &pf);
-
-void prefactors_nuclei(unsigned k, std::vector<double> &pf);
-
-int multipole_components(int k);
+std::vector<double> symmetry_factors(unsigned k);
 
 std::vector<double> prefactors(unsigned k);
 
-}  // namespace libcppe
+std::vector<double> prefactors_nuclei(unsigned k);
 
-#endif  // INCLUDE_LIBCPPE_CPPE_CORE_MATH_H
+int multipole_components(int k);
+
+}  // namespace libcppe

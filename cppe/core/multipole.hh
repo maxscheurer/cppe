@@ -1,7 +1,8 @@
 #ifndef LIBCPPE_CORE_MULTIPOLE_H
 #define LIBCPPE_CORE_MULTIPOLE_H
 
-#include <armadillo>
+#include <Eigen/Core>
+
 #include <iostream>
 #include <vector>
 
@@ -35,8 +36,9 @@ class Multipole {
   }
 
   std::vector<double> &get_values() { return m_values; }
-  arma::vec get_values_vec() {
-    return arma::vec(m_values.data(), m_values.size());
+  Eigen::VectorXd get_values_vec() {
+    return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
+    ;
   }
   unsigned m_k;
 };
@@ -52,8 +54,8 @@ class Polarizability {
 
   void add_value(double val) { m_values.push_back(val); }
 
-  arma::vec get_values_vec() {
-    return arma::vec(m_values.data(), m_values.size());
+  Eigen::VectorXd get_values_vec() {
+    return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
   }
   std::vector<double> &get_values() { return m_values; }
 };
@@ -97,13 +99,7 @@ class Potential {
 
   bool is_polarizable() { return (m_polarizabilities.size() > 0); }
 
-  arma::vec get_site_position() {
-    arma::vec pos(3);
-    pos[0] = m_x;
-    pos[1] = m_y;
-    pos[2] = m_z;
-    return pos;
-  }
+  Eigen::Vector3d get_site_position() { return Eigen::Vector3d(m_x, m_y, m_z); }
 };
 
 }  // namespace libcppe

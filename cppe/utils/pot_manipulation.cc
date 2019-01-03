@@ -1,6 +1,8 @@
 #include <cassert>
 #include <set>
 
+#include <Eigen/Core>
+
 #include "../core/math.hh"
 #include "pot_manipulation.hh"
 
@@ -14,13 +16,12 @@ bool sortbysec(const std::pair<int, double> &a,
 std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
   std::vector<Potential> new_potentials;
   std::set<int> changed_sites;
-  if (!pe_options.pe_border)
-    return m_potentials; // do nothing
+  if (!pe_options.pe_border) return m_potentials;  // do nothing
 
   for (Atom a : m_mol) {
-    arma::vec a_pos = a.get_pos();
+    Eigen::Vector3d a_pos = a.get_pos();
     for (Potential pot : m_potentials) {
-      if (arma::norm(a_pos - pot.get_site_position()) <=
+      if ((a_pos - pot.get_site_position()).norm() <=
           pe_options.border_options.rmin) {
         if (changed_sites.find(pot.index) == changed_sites.end()) {
           changed_sites.insert(pot.index);
@@ -29,8 +30,7 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
     }
   }
 
-  if (changed_sites.size() == 0)
-    return m_potentials; // do nothing
+  if (changed_sites.size() == 0) return m_potentials;  // do nothing
 
   if (pe_options.border_options.border_type == BorderType::rem) {
     for (Potential pot : m_potentials) {
@@ -63,18 +63,16 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
       m_output_stream << "     Redistributing site: " << site << std::endl;
       // first element is pot.index, second the distance to site
       for (Potential pot : m_potentials) {
-        if (changed_sites.find(pot.index) != changed_sites.end())
-          continue;
-        arma::vec dist_vec =
+        if (changed_sites.find(pot.index) != changed_sites.end()) continue;
+        Eigen::Vector3d dist_vec =
             m_potentials[site].get_site_position() - pot.get_site_position();
-        double dist = arma::norm(dist_vec);
+        double dist = dist_vec.norm();
         neighbor_list.push_back(std::pair<int, double>(pot.index, dist));
       }
       sort(neighbor_list.begin(), neighbor_list.end(), sortbysec);
       for (int k = 0; k < nredist; ++k) {
         Potential &pot = m_potentials[neighbor_list[k].first];
-        if (pot.index == site)
-          continue;
+        if (pot.index == site) continue;
         m_output_stream << "       to neighbor " << pot.index << std::endl;
         // must have the same order of multipoles if we want to redist
         int m_idx = 0;
@@ -145,4 +143,4 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
   return new_potentials;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

@@ -1,3 +1,4 @@
+#include <pybind11/eigen.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -5,18 +6,11 @@
 #include "../core/pe_energies.hh"
 #include "../core/pe_options.hh"
 
-#include "pybind_arma.h"
-
 namespace py = pybind11;
 
 void export_state(py::module &m) {
   py::class_<libcppe::CppeState> cppe_state(m, "CppeState");
   cppe_state.def(py::init<libcppe::PeOptions, libcppe::Molecule>())
-      .def("set_es_operator", &libcppe::CppeState::set_es_operator)
-      .def("get_es_operator", &libcppe::CppeState::es_operator_copy)
-      .def("update_energies", &libcppe::CppeState::update_energies,
-           "Updates the PE electrostatic-electronic energy given a density",
-           py::arg("D"))
       .def("set_potentials", &libcppe::CppeState::set_potentials)
       .def("get_current_energies", &libcppe::CppeState::get_current_energies)
       .def("calculate_static_energies_and_fields",

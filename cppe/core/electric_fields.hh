@@ -27,7 +27,7 @@ class NuclearFields {
   };
   ~NuclearFields(){};
   // nuc_fields has length of 3*n_polarizable_sites
-  void compute(arma::vec &nuc_fields, bool damp_core);
+  Eigen::VectorXd compute(bool damp_core = false);
 };
 
 class MultipoleFields {
@@ -45,7 +45,7 @@ class MultipoleFields {
   };
   ~MultipoleFields(){};
   // nuc_fields has length of 3*n_polarizable_sites
-  void compute(arma::vec &mult_fields, bool damp);
+  Eigen::VectorXd compute(bool damp = false);
 };
 
 class InducedMoments {
@@ -63,14 +63,16 @@ class InducedMoments {
     m_n_polsites = m_polsites.size();
   };
   ~InducedMoments(){};
-  void compute(arma::vec &total_fields, arma::vec &induced_moments,
-               bool make_guess, std::ostream &output_stream = std::cout);
+  void compute(const Eigen::VectorXd &total_fields,
+               Eigen::VectorXd &induced_moments, bool make_guess,
+               std::ostream &output_stream = std::cout);
   /**
       overloads the compute method for induced moments and returns
      a copy of the induced moments vector
   */
-  arma::vec compute(arma::vec &total_fields, bool make_guess) {
-    arma::vec induced_moments(total_fields.n_rows, arma::fill::zeros);
+  Eigen::VectorXd compute(Eigen::VectorXd &total_fields, bool make_guess) {
+    Eigen::VectorXd induced_moments =
+        Eigen::VectorXd::Zero(total_fields.size());
     compute(total_fields, induced_moments, make_guess, std::cout);
     return induced_moments;
   }

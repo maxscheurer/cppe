@@ -4,7 +4,11 @@
 #include "cppe_state.hh"
 
 #include "electric_fields.hh"
+#include "molecule.hh"
+#include "multipole.hh"
 #include "multipole_expansion.hh"
+#include "pe_energies.hh"
+#include "pe_options.hh"
 
 #include "../utils/pot_manipulation.hh"
 #include "../utils/potfile_reader.hh"
@@ -28,13 +32,7 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
       m_polarizable_sites++;
     }
   }
-  m_induced_moments = arma::vec(m_polarizable_sites * 3, arma::fill::zeros);
-}
-
-void CppeState::update_energies(arma::mat P) {
-  // Electrostatic energy (electrons-multipoles)
-  double ees_elec = arma::dot(P, m_es_operator);
-  m_pe_energy.set("Electrostatic/Electronic", ees_elec);
+  m_induced_moments = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
 }
 
 void CppeState::calculate_static_energies_and_fields() {
@@ -47,44 +45,39 @@ void CppeState::calculate_static_energies_and_fields() {
 
   // Nuclear fields
   NuclearFields nfields(m_mol, m_potentials);
-  m_nuc_fields = arma::vec(m_polarizable_sites * 3, arma::fill::zeros);
-  nfields.compute(m_nuc_fields, false);
+  m_nuc_fields = nfields.compute();
   // Multipole fields
   MultipoleFields mul_fields(m_potentials);
-  m_multipole_fields = arma::vec(m_polarizable_sites * 3, arma::fill::zeros);
-  mul_fields.compute(m_multipole_fields, false);
+  m_multipole_fields = mul_fields.compute();
 }
 
-void CppeState::update_induced_moments(arma::vec elec_fields, int iteration,
+void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
                                        bool elec_only) {
-  arma::vec tmp_total_fields(m_polarizable_sites * 3, arma::fill::zeros);
+  Eigen::VectorXd tmp_total_fields =
+      Eigen::VectorXd::Zero(m_polarizable_sites * 3);
   if (elec_only) {
     tmp_total_fields = elec_fields;
   } else {
     tmp_total_fields = elec_fields + m_nuc_fields + m_multipole_fields;
-
-    // elec_fields.save("elec_fields.txt", arma::raw_ascii);
-    // m_nuc_fields.save("nuc_fields.txt", arma::raw_ascii);
-    // m_multipole_fields.save("multipole_fields.txt", arma::raw_ascii);
   }
 
-  bool make_guess = true;
-  if (iteration > 0) {
-    make_guess = false;
-  }
+  std::cout << "Make guess: " << m_make_guess << std::endl;
   InducedMoments ind(m_potentials, m_options);
-  ind.compute(tmp_total_fields, m_induced_moments, make_guess, m_output_stream);
+  ind.compute(tmp_total_fields, m_induced_moments, m_make_guess,
+              m_output_stream);
+  if (m_make_guess) {
+    m_make_guess = false;
+  }
 
   if (elec_only) {
-    double epol_elec = -0.5 * arma::dot(m_induced_moments, elec_fields);
+    double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
     // std::cout << std::setprecision(15) << "epol_elec = " << epol_elec <<
     // std::endl;
     m_pe_energy.set("Polarization/Electronic", epol_elec);
   } else {
-    double epol_elec = -0.5 * arma::dot(m_induced_moments, elec_fields);
-    double epol_nuclear = -0.5 * arma::dot(m_induced_moments, m_nuc_fields);
-    double epol_multipoles =
-        -0.5 * arma::dot(m_induced_moments, m_multipole_fields);
+    double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
+    double epol_nuclear = -0.5 * m_induced_moments.dot(m_nuc_fields);
+    double epol_multipoles = -0.5 * m_induced_moments.dot(m_multipole_fields);
 
     // std::cout << "epol_elec = " << epol_elec << std::endl;
     // std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
