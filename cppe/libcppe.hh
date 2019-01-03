@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-// #include <armadillo>
-
 // #include "core/molecule.hh"
 #include "core/multipole.hh"
 // #include "core/pe_options.hh"

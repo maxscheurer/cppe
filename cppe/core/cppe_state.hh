@@ -51,8 +51,6 @@ class CppeState {
   void calculate_static_energies_and_fields();
 
   std::vector<double> get_induced_moments() const {
-    // return m_induced_moments;
-    // return arma::conv_to<std::vector<double>>::from(m_induced_moments);
     return std::vector<double>(
         m_induced_moments.data(),
         m_induced_moments.data() + m_induced_moments.size());
@@ -63,10 +61,6 @@ class CppeState {
   size_t get_polarizable_site_number() { return m_polarizable_sites; }
 
   std::vector<double> get_static_fields() {
-    // TODO: make std::vector
-    // return (m_nuc_fields + m_multipole_fields);
-    // return arma::conv_to<std::vector<double>>::from(m_nuc_fields +
-    // m_multipole_fields);
     Eigen::VectorXd static_fields = m_nuc_fields + m_multipole_fields;
     return std::vector<double>(static_fields.data(),
                                static_fields.data() + static_fields.size());

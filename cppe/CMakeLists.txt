@@ -63,9 +63,6 @@ add_library(cppe ${PYTHON_SHARED}
   ${PYTHON_INTERFACE_SOURCES} ${PELIB_INTERFACE_SOURCES}
 )
 
-# TODO: hack
-find_package(Eigen3 3.3 REQUIRED)
-target_link_libraries(cppe PUBLIC ${PELIB_LIBRARIES})
 target_include_directories(cppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
 
 if(${ENABLE_PYTHON_INTERFACE})
