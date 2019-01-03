@@ -55,6 +55,9 @@ class CppeState {
         m_induced_moments.data(),
         m_induced_moments.data() + m_induced_moments.size());
   }
+
+  Eigen::VectorXd get_induced_moments_vec() const { return m_induced_moments; }
+
   void update_induced_moments(Eigen::VectorXd elec_fields,
                               bool elec_only = false);
 
