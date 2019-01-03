@@ -47,7 +47,7 @@ class CppeState {
   void set_potentials(std::vector<Potential> potentials);
   std::vector<Potential> get_potentials() { return m_potentials; }
 
-  PeEnergy get_current_energies() const { return m_pe_energy; }
+  PeEnergy& get_current_energies() { return m_pe_energy; }
   void calculate_static_energies_and_fields();
 
   std::vector<double> get_induced_moments() const {

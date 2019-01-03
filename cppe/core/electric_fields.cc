@@ -112,7 +112,7 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
 #pragma omp parallel for reduction(+ : norm)
     for (int i = 0; i < m_n_polsites; ++i) {
       Eigen::Vector3d Ftmp = Eigen::Vector3d::Zero();
-      Eigen::Vector3d M1tmp;
+      Eigen::Vector3d M1tmp = Eigen::Vector3d::Zero();
       int l = i * 3;
       Potential &pot1 = m_polsites[i];
       for (int j = 0; j < m_n_polsites; ++j) {
