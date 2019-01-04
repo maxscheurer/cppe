@@ -12,7 +12,8 @@ void export_state(py::module &m) {
   py::class_<libcppe::CppeState> cppe_state(m, "CppeState");
   cppe_state.def(py::init<libcppe::PeOptions, libcppe::Molecule>())
       .def("set_potentials", &libcppe::CppeState::set_potentials)
-      .def("get_current_energies", &libcppe::CppeState::get_current_energies)
+      .def("get_energies", &libcppe::CppeState::get_energies)
+      .def("set_energies", &libcppe::CppeState::set_energies)
       .def("calculate_static_energies_and_fields",
            &libcppe::CppeState::calculate_static_energies_and_fields)
       .def("get_induced_moments", &libcppe::CppeState::get_induced_moments)
@@ -27,5 +28,6 @@ void export_state(py::module &m) {
   py::class_<libcppe::PeEnergy> pe_energy(m, "PeEnergy");
   pe_energy.def(py::init<>())
       .def("get_total_energy", &libcppe::PeEnergy::get_total_energy)
+      .def("set", &libcppe::PeEnergy::set)
       .def("get", &libcppe::PeEnergy::get);
 }
