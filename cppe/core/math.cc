@@ -6,7 +6,7 @@ namespace libcppe {
 
 // this only works for the contraction of polarizability/interaction tensors
 // with vectors of size 3
-Eigen::Vector3d smat_vec(Eigen::VectorXd mat, Eigen::Vector3d vec,
+Eigen::Vector3d smat_vec(const Eigen::VectorXd &mat, const Eigen::Vector3d &vec,
                          double alpha) {
   Eigen::Vector3d result;
   // expect upper triangle be provided
@@ -18,7 +18,7 @@ Eigen::Vector3d smat_vec(Eigen::VectorXd mat, Eigen::Vector3d vec,
 }
 
 // TODO: add option for damping
-Eigen::VectorXd Tk_tensor(int k, Eigen::Vector3d Rij,
+Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d &Rij,
                           std::vector<Eigen::MatrixXi> &Tk_coeffs) {
   int x, y, z;
   Eigen::VectorXd Tk(multipole_components(k));
@@ -37,12 +37,12 @@ Eigen::VectorXd Tk_tensor(int k, Eigen::Vector3d Rij,
 
 // TODO: there must be a way to make this more efficient...
 // only 1st derivative supported
-Eigen::VectorXd multipole_derivative(int k, int l, Eigen::Vector3d Rji,
+Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
                                      Eigen::VectorXd Mkj,
                                      std::vector<Eigen::MatrixXi> &Tk_coeffs) {
   if (l > 1)
     throw std::runtime_error("Only 1st derivatives supported for multipoles");
-  Eigen::Vector3d Fi = Eigen::Vector3d::Zero();
+  Eigen::VectorXd Fi = Eigen::VectorXd::Zero(3);
 
   double taylor;
   if ((k + l) % 2 == 0) {
@@ -96,7 +96,7 @@ int xyz2idx(int x, int y, int z) {
   }
 }
 
-double T(Eigen::Vector3d Rij, int x, int y, int z,
+double T(const Eigen::Vector3d &Rij, int x, int y, int z,
          std::vector<Eigen::MatrixXi> &Cijn) {
   double t = 0.0;
   double R = Rij.norm();

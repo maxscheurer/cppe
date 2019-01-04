@@ -60,8 +60,6 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
   } else {
     tmp_total_fields = elec_fields + m_nuc_fields + m_multipole_fields;
   }
-
-  std::cout << "Make guess: " << m_make_guess << std::endl;
   InducedMoments ind(m_potentials, m_options);
   ind.compute(tmp_total_fields, m_induced_moments, m_make_guess,
               m_output_stream);

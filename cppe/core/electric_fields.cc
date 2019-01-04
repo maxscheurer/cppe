@@ -11,7 +11,7 @@ Eigen::VectorXd NuclearFields::compute(bool damp_core) {
     throw std::runtime_error("damping not implemented");
   }
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
-  Eigen::VectorXd nuc_fields(3 * m_n_polsites);
+  Eigen::VectorXd nuc_fields =  Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for firstprivate(Tk_coeffs)
   for (size_t i = 0; i < m_n_polsites; i++) {
     size_t site_counter = 3 * i;
@@ -34,7 +34,7 @@ Eigen::VectorXd MultipoleFields::compute(bool damp) {
     throw std::runtime_error("damping not implemented");
   }
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
-  Eigen::VectorXd mult_fields(3 * m_n_polsites);
+  Eigen::VectorXd mult_fields = Eigen::VectorXd::Zero(3 * m_n_polsites);
 // Field at site of potential1 caused by all other sites (also non-polarizable
 // sites!!!) size_t site_counter = 0;
 #pragma omp parallel for firstprivate(Tk_coeffs)
