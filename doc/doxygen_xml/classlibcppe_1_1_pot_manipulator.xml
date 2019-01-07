@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="classlibcppe_1_1_pot_manipulator" kind="class" language="C++" prot="public">
+    <compoundname>libcppe::PotManipulator</compoundname>
+    <includes refid="pot__manipulation_8hh" local="no">pot_manipulation.hh</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+        <definition>std::vector&lt;Potential&gt; libcppe::PotManipulator::m_potentials</definition>
+        <argsstring></argsstring>
+        <name>m_potentials</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="14" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="14" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">manipulate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" prot="private" static="no" mutable="no">
+        <type><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref></type>
+        <definition>Molecule libcppe::PotManipulator::m_mol</definition>
+        <argsstring></argsstring>
+        <name>m_mol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="15" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="15" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">manipulate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" prot="private" static="no" mutable="no">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; libcppe::PotManipulator::m_output_stream</definition>
+        <argsstring></argsstring>
+        <name>m_output_stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="16" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">manipulate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlibcppe_1_1_pot_manipulator_1abe7b678ecf0f070b0ce2da8ec71a0f96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::PotManipulator::PotManipulator</definition>
+        <argsstring>(std::vector&lt; Potential &gt; potentials, Molecule mol, std::ostream &amp;output_stream=std::cout)</argsstring>
+        <name>PotManipulator</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+          <declname>potentials</declname>
+        </param>
+        <param>
+          <type><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref></type>
+          <declname>mol</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>output_stream</declname>
+          <defval>std::cout</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="19" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="19" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_pot_manipulator_1af3209209a0765b5cbc837f81fa7a3336" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::PotManipulator::~PotManipulator</definition>
+        <argsstring>()</argsstring>
+        <name>~PotManipulator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="22" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+        <definition>std::vector&lt; Potential &gt; libcppe::PotManipulator::manipulate</definition>
+        <argsstring>(PeOptions &amp;pe_options)</argsstring>
+        <name>manipulate</name>
+        <param>
+          <type><ref refid="structlibcppe_1_1_pe_options" kindref="compound">PeOptions</ref> &amp;</type>
+          <declname>pe_options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="23" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc" bodystart="16" bodyend="144"/>
+        <references refid="structlibcppe_1_1_pe_options_1a25f94af2ce3ce19497eceba71ece41e2" compoundref="pe__options_8hh" startline="46">libcppe::PeOptions::pe_border</references>
+        <references refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" compoundref="pot__manipulation_8hh" startline="14">m_potentials</references>
+        <references refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" compoundref="pot__manipulation_8hh" startline="15">m_mol</references>
+        <references refid="structlibcppe_1_1_pe_options_1a78b401c6ba444fc25a96d6cad9027200" compoundref="pe__options_8hh" startline="47">libcppe::PeOptions::border_options</references>
+        <references refid="structlibcppe_1_1_border_options_1a1aa9386bc0d0d85710b41ec73c294aef" compoundref="pe__options_8hh" startline="12">libcppe::BorderOptions::rmin</references>
+        <references refid="structlibcppe_1_1_border_options_1a1636906038a91edd26f96a44e5c84b4b" compoundref="pe__options_8hh" startline="10">libcppe::BorderOptions::border_type</references>
+        <references refid="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a9bcbc216894f4447ff243898acb74391" compoundref="pe__options_8hh" startline="7">libcppe::rem</references>
+        <references refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" compoundref="pot__manipulation_8hh" startline="16">m_output_stream</references>
+        <references refid="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a1f666ad63b0c3399e3ee18bdf9d13f6a" compoundref="pe__options_8hh" startline="7">libcppe::redist</references>
+        <references refid="structlibcppe_1_1_border_options_1add1c2f997e2eace07a4a228a2ee41cac" compoundref="pe__options_8hh" startline="16">libcppe::BorderOptions::nredist</references>
+        <references refid="structlibcppe_1_1_border_options_1a07cc8505b7c433c068cf400e8239efeb" compoundref="pe__options_8hh" startline="20">libcppe::BorderOptions::redist_order</references>
+        <references refid="namespacelibcppe_1ad88d79aa1c677e9730d1f733f0e1fa60" compoundref="pot__manipulation_8cc" startline="11" endline="14">libcppe::sortbysec</references>
+        <references refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" compoundref="multipole_8hh" startline="76">libcppe::Potential::index</references>
+        <references refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" compoundref="multipole_8hh" startline="94" endline="94">libcppe::Potential::get_multipoles</references>
+        <references refid="namespacelibcppe_1a805981c691429e1882cc7e4613128374" compoundref="math_8cc" startline="220" endline="220">libcppe::multipole_components</references>
+        <references refid="structlibcppe_1_1_border_options_1a1317f5d3abb692642c9c67f2e7b37930" compoundref="pe__options_8hh" startline="21">libcppe::BorderOptions::redist_pol</references>
+        <references refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" compoundref="multipole_8hh" startline="96" endline="98">libcppe::Potential::get_polarizabilities</references>
+        <referencedby refid="classlibcppe_1_1_cppe_state_1a3e009bd65d3d65dbdf25c2f5cc10b2f9" compoundref="cppe__state_8cc" startline="18" endline="25">libcppe::CppeState::CppeState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="49">
+        <label>std::vector&lt; Atom &gt;</label>
+      </node>
+      <node id="47">
+        <label>libcppe::PotManipulator</label>
+        <link refid="classlibcppe_1_1_pot_manipulator"/>
+        <childnode refid="48" relation="usage">
+          <edgelabel>m_mol</edgelabel>
+        </childnode>
+      </node>
+      <node id="48">
+        <label>libcppe::Molecule</label>
+        <link refid="structlibcppe_1_1_molecule"/>
+        <childnode refid="49" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" line="12" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh" bodystart="12" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" prot="private" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>m_mol</name></member>
+      <member refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" prot="private" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>m_output_stream</name></member>
+      <member refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" prot="private" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>m_potentials</name></member>
+      <member refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" prot="public" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>manipulate</name></member>
+      <member refid="classlibcppe_1_1_pot_manipulator_1abe7b678ecf0f070b0ce2da8ec71a0f96" prot="public" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>PotManipulator</name></member>
+      <member refid="classlibcppe_1_1_pot_manipulator_1af3209209a0765b5cbc837f81fa7a3336" prot="public" virt="non-virtual"><scope>libcppe::PotManipulator</scope><name>~PotManipulator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

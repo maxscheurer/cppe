@@ -47,8 +47,8 @@ extensions = [
 ]
 
 breathe_projects = {
-    "CPPE":"/Users/maxscheurer/Documents/cppe_doxygen2/xml/",
-    }
+    "CPPE": "../doxygen_xml/",
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

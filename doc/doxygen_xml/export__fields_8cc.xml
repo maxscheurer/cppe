@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="export__fields_8cc" kind="file" language="C++">
+    <compoundname>export_fields.cc</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">pybind11/eigen.h</includes>
+    <includes local="no">pybind11/iostream.h</includes>
+    <includes local="no">pybind11/pybind11.h</includes>
+    <includes local="no">pybind11/stl.h</includes>
+    <includes refid="electric__fields_8hh" local="yes">../core/electric_fields.hh</includes>
+    <includes refid="molecule_8hh" local="yes">../core/molecule.hh</includes>
+    <includes refid="pe__options_8hh" local="yes">../core/pe_options.hh</includes>
+    <incdepgraph>
+      <node id="222">
+        <label>multipole_expansion.hh</label>
+        <link refid="multipole__expansion_8hh"/>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+      </node>
+      <node id="219">
+        <label>molecule.hh</label>
+        <link refid="molecule_8hh"/>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+      </node>
+      <node id="224">
+        <label>multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="226">
+        <label>string</label>
+      </node>
+      <node id="214">
+        <label>pybind11/eigen.h</label>
+      </node>
+      <node id="223">
+        <label>math.hh</label>
+        <link refid="math_8hh"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>pybind11/iostream.h</label>
+      </node>
+      <node id="225">
+        <label>pe_options.hh</label>
+        <link refid="pe__options_8hh"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>vector</label>
+      </node>
+      <node id="216">
+        <label>pybind11/pybind11.h</label>
+      </node>
+      <node id="213">
+        <label>iostream</label>
+      </node>
+      <node id="212">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc</label>
+        <link refid="export__fields_8cc"/>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>../core/electric_fields.hh</label>
+        <link refid="electric__fields_8hh"/>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>pybind11/stl.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="export__fields_8cc_1a39dfbcb573d9180eeacde079fa78898a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void export_fields</definition>
+        <argsstring>(py::module &amp;m)</argsstring>
+        <name>export_fields</name>
+        <param>
+          <type>py::module &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc" line="14" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc" bodystart="14" bodyend="34"/>
+        <references refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" compoundref="electric__fields_8cc" startline="9" endline="30">libcppe::NuclearFields::compute</references>
+        <references refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</references>
+        <references refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</references>
+        <referencedby refid="pycppe_8cc_1aede4ed36a00185bbc1f705fc2add7f46" compoundref="pycppe_8cc" startline="13" endline="22">PYBIND11_MODULE</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/eigen.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/iostream.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/pybind11.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/stl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/electric_fields.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/molecule.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/pe_options.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">py<sp/>=<sp/>pybind11;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="pycppe_8cc_1a9cea21d86c07b65d985f3bd0354f9d5f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="export__fields_8cc_1a39dfbcb573d9180eeacde079fa78898a" kindref="member">export_fields</ref>(py::module<sp/>&amp;m)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::NuclearFields&gt;<sp/>nuc_fields(</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m,<sp/></highlight><highlight class="stringliteral">&quot;NuclearFields&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Electric<sp/>fields<sp/>created<sp/>by<sp/>nuclei&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>nuc_fields.def(py::init&lt;<ref refid="structlibcppe_1_1_molecule" kindref="compound">libcppe::Molecule</ref>,<sp/>std::vector&lt;libcppe::Potential&gt;&gt;())</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;compute&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" kindref="member">libcppe::NuclearFields::compute</ref>);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::MultipoleFields&gt;<sp/>mul_fields(</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m,<sp/></highlight><highlight class="stringliteral">&quot;MultipoleFields&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Electric<sp/>fields<sp/>created<sp/>by<sp/>multipoles&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>mul_fields.def(py::init&lt;std::vector&lt;libcppe::Potential&gt;&gt;())</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;compute&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" kindref="member">libcppe::MultipoleFields::compute</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::InducedMoments&gt;<sp/>ind_moments(m,<sp/></highlight><highlight class="stringliteral">&quot;InducedMoments&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>ind_moments</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(py::init&lt;std::vector&lt;libcppe::Potential&gt;,<sp/><ref refid="structlibcppe_1_1_pe_options" kindref="compound">libcppe::PeOptions</ref>&gt;())</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;compute&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>py::overload_cast&lt;Eigen::VectorXd<sp/>&amp;,<sp/>bool&gt;(</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" kindref="member">libcppe::InducedMoments::compute</ref>),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Compute<sp/>the<sp/>induced<sp/>moments<sp/>solving<sp/>the<sp/>classical<sp/>response<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;equation&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>py::arg(</highlight><highlight class="stringliteral">&quot;total_fields&quot;</highlight><highlight class="normal">),<sp/>py::arg(</highlight><highlight class="stringliteral">&quot;make_guess&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc"/>
+  </compounddef>
+</doxygen>

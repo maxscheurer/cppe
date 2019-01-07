@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="classlibcppe_1_1_c_p_p_e" kind="class" language="C++" prot="public">
+    <compoundname>libcppe::CPPE</compoundname>
+    <includes refid="libcppe_8hh" local="no">libcppe.hh</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_c_p_p_e_1a802bca8cb5bbe9e8f0b6aff2c96996d7" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::CPPE::m_gen1int_initialized</definition>
+        <argsstring></argsstring>
+        <name>m_gen1int_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="34" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="34" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_c_p_p_e_1a00df555829f44da470396eb897c91523" compoundref="libcppe_8cc" startline="14" endline="17">CPPE</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_c_p_p_e_1a074fd2f8e6a8323a2d19cbd0ad87b5ac" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::CPPE::m_pe_initialized</definition>
+        <argsstring></argsstring>
+        <name>m_pe_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="35" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="35" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_c_p_p_e_1a00df555829f44da470396eb897c91523" compoundref="libcppe_8cc" startline="14" endline="17">CPPE</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_c_p_p_e_1a7c0b7645fb2cfc22018305274a968406" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::CPPE::m_nbas</definition>
+        <argsstring></argsstring>
+        <name>m_nbas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="37" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_c_p_p_e_1a0629a48687503d9428abfe7dbdb1f70c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::CPPE::m_nnbas</definition>
+        <argsstring></argsstring>
+        <name>m_nnbas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="38" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_c_p_p_e_1a3ebec8fcb42c454065416698cc176b35" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::CPPE::m_natoms</definition>
+        <argsstring></argsstring>
+        <name>m_natoms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="39" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlibcppe_1_1_c_p_p_e_1a00df555829f44da470396eb897c91523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::CPPE::CPPE</definition>
+        <argsstring>()</argsstring>
+        <name>CPPE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="15" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc" bodystart="14" bodyend="17"/>
+        <references refid="classlibcppe_1_1_c_p_p_e_1a802bca8cb5bbe9e8f0b6aff2c96996d7" compoundref="libcppe_8hh" startline="34">m_gen1int_initialized</references>
+        <references refid="classlibcppe_1_1_c_p_p_e_1a074fd2f8e6a8323a2d19cbd0ad87b5ac" compoundref="libcppe_8hh" startline="35">m_pe_initialized</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_c_p_p_e_1aae1b8d61cb7305011f3ac2f5b870a622" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::CPPE::~CPPE</definition>
+        <argsstring>()</argsstring>
+        <name>~CPPE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_c_p_p_e_1aaa7a8a306e74ebaf6785dfa22c14e44c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+        <definition>std::vector&lt; Potential &gt; libcppe::CPPE::read_potfile</definition>
+        <argsstring>(std::string potfile_name)</argsstring>
+        <name>read_potfile</name>
+        <param>
+          <type>std::string</type>
+          <declname>potfile_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="31" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc" bodystart="95" bodyend="100"/>
+        <references refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" line="13" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh" bodystart="13" bodyend="40"/>
+    <listofallmembers>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a00df555829f44da470396eb897c91523" prot="public" virt="non-virtual"><scope>libcppe::CPPE</scope><name>CPPE</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a802bca8cb5bbe9e8f0b6aff2c96996d7" prot="private" virt="non-virtual"><scope>libcppe::CPPE</scope><name>m_gen1int_initialized</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a3ebec8fcb42c454065416698cc176b35" prot="private" virt="non-virtual"><scope>libcppe::CPPE</scope><name>m_natoms</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a7c0b7645fb2cfc22018305274a968406" prot="private" virt="non-virtual"><scope>libcppe::CPPE</scope><name>m_nbas</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a0629a48687503d9428abfe7dbdb1f70c" prot="private" virt="non-virtual"><scope>libcppe::CPPE</scope><name>m_nnbas</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1a074fd2f8e6a8323a2d19cbd0ad87b5ac" prot="private" virt="non-virtual"><scope>libcppe::CPPE</scope><name>m_pe_initialized</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1aaa7a8a306e74ebaf6785dfa22c14e44c" prot="public" virt="non-virtual"><scope>libcppe::CPPE</scope><name>read_potfile</name></member>
+      <member refid="classlibcppe_1_1_c_p_p_e_1aae1b8d61cb7305011f3ac2f5b870a622" prot="public" virt="non-virtual"><scope>libcppe::CPPE</scope><name>~CPPE</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

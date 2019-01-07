@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="classlibcppe_1_1_multipole_expansion" kind="class" language="C++" prot="public">
+    <compoundname>libcppe::MultipoleExpansion</compoundname>
+    <includes refid="multipole__expansion_8hh" local="no">multipole_expansion.hh</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" prot="private" static="no" mutable="no">
+        <type><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref></type>
+        <definition>Molecule libcppe::MultipoleExpansion::m_mol</definition>
+        <argsstring></argsstring>
+        <name>m_mol</name>
+        <briefdescription>
+<para>core region molecule </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="12" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" bodystart="12" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">calculate_interaction_energy</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+        <definition>std::vector&lt;Potential&gt; libcppe::MultipoleExpansion::m_potentials</definition>
+        <argsstring></argsstring>
+        <name>m_potentials</name>
+        <briefdescription>
+<para>vector with all site potentials </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="13" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" bodystart="13" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">calculate_interaction_energy</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_expansion_1ae2391f0e45982d4241bede61c620d560" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::MultipoleExpansion::MultipoleExpansion</definition>
+        <argsstring>(Molecule core, std::vector&lt; Potential &gt; potentials)</argsstring>
+        <name>MultipoleExpansion</name>
+        <param>
+          <type><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref></type>
+          <declname>core</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+          <declname>potentials</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" bodystart="16" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_expansion_1a6e35115e1d1a88c1de80b39f9b6c6c5c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::MultipoleExpansion::~MultipoleExpansion</definition>
+        <argsstring>()</argsstring>
+        <name>~MultipoleExpansion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="21" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double libcppe::MultipoleExpansion::calculate_interaction_energy</definition>
+        <argsstring>()</argsstring>
+        <name>calculate_interaction_energy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="23" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.cc" bodystart="8" bodyend="32"/>
+        <references refid="namespacelibcppe_1a97556873162363c2affbca8253042729" compoundref="math_8cc" startline="118" endline="152">libcppe::Tk_coefficients</references>
+        <references refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" compoundref="multipole__expansion_8hh" startline="13">m_potentials</references>
+        <references refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" compoundref="multipole_8hh" startline="102" endline="102">libcppe::Potential::get_site_position</references>
+        <references refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" compoundref="multipole_8hh" startline="94" endline="94">libcppe::Potential::get_multipoles</references>
+        <references refid="namespacelibcppe_1ae68605edfeae6c5741f5ec4c17bc0e0f" compoundref="math_8cc" startline="205" endline="218">libcppe::prefactors_nuclei</references>
+        <references refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" compoundref="multipole__expansion_8hh" startline="12">m_mol</references>
+        <references refid="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" compoundref="math_8cc" startline="21" endline="36">libcppe::Tk_tensor</references>
+        <referencedby refid="classlibcppe_1_1_cppe_state_1a1106aef8284b272bc5460031b08b238f" compoundref="cppe__state_8cc" startline="38" endline="52">libcppe::CppeState::calculate_static_energies_and_fields</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="26">
+        <label>std::vector&lt; Atom &gt;</label>
+      </node>
+      <node id="25">
+        <label>libcppe::Molecule</label>
+        <link refid="structlibcppe_1_1_molecule"/>
+        <childnode refid="26" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>libcppe::MultipoleExpansion</label>
+        <link refid="classlibcppe_1_1_multipole_expansion"/>
+        <childnode refid="25" relation="usage">
+          <edgelabel>m_mol</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" line="10" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh" bodystart="10" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" prot="public" virt="non-virtual"><scope>libcppe::MultipoleExpansion</scope><name>calculate_interaction_energy</name></member>
+      <member refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" prot="private" virt="non-virtual"><scope>libcppe::MultipoleExpansion</scope><name>m_mol</name></member>
+      <member refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" prot="private" virt="non-virtual"><scope>libcppe::MultipoleExpansion</scope><name>m_potentials</name></member>
+      <member refid="classlibcppe_1_1_multipole_expansion_1ae2391f0e45982d4241bede61c620d560" prot="public" virt="non-virtual"><scope>libcppe::MultipoleExpansion</scope><name>MultipoleExpansion</name></member>
+      <member refid="classlibcppe_1_1_multipole_expansion_1a6e35115e1d1a88c1de80b39f9b6c6c5c" prot="public" virt="non-virtual"><scope>libcppe::MultipoleExpansion</scope><name>~MultipoleExpansion</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

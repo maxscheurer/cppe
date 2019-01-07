@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="string__utils_8cc" kind="file" language="C++">
+    <compoundname>string_utils.cc</compoundname>
+    <includes refid="string__utils_8hh" local="yes">string_utils.hh</includes>
+    <incdepgraph>
+      <node id="348">
+        <label>string_utils.hh</label>
+        <link refid="string__utils_8hh"/>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="350" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+      </node>
+      <node id="347">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc</label>
+        <link refid="string__utils_8cc"/>
+        <childnode refid="348" relation="include">
+        </childnode>
+      </node>
+      <node id="350">
+        <label>string</label>
+      </node>
+      <node id="351">
+        <label>vector</label>
+      </node>
+      <node id="349">
+        <label>sstream</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Out</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void split</definition>
+        <argsstring>(const std::string &amp;s, char delim, Out result)</argsstring>
+        <name>split</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>delim</declname>
+        </param>
+        <param>
+          <type>Out</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" line="4" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" bodystart="4" bodyend="11"/>
+        <referencedby refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" compoundref="pe__energies_8cc" startline="19" endline="41">libcppe::PeEnergy::get</referencedby>
+        <referencedby refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" compoundref="pe__energies_8cc" startline="43" endline="54">libcppe::PeEnergy::set</referencedby>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+        <referencedby refid="string__utils_8hh_1ae924c9b43cd7b086945003c09c294d2b" compoundref="string__utils_8cc" startline="13" endline="17">split</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="string__utils_8cc_1ae924c9b43cd7b086945003c09c294d2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; split</definition>
+        <argsstring>(const std::string &amp;s, char delim)</argsstring>
+        <name>split</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>delim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" line="13" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" bodystart="13" bodyend="17"/>
+        <references refid="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" compoundref="string__utils_8cc" startline="4" endline="11">split</references>
+      </memberdef>
+      <memberdef kind="function" id="string__utils_8cc_1a61bb9a4530ff40c81495172a56719e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string trim</definition>
+        <argsstring>(const std::string &amp;str, const std::string &amp;whitespace)</argsstring>
+        <name>trim</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>whitespace</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" line="19" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" bodystart="19" bodyend="27"/>
+        <referencedby refid="string__utils_8hh_1ab5456014419648811b8c9ba2000cf82f" compoundref="string__utils_8cc" startline="29" endline="47">reduce</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="string__utils_8cc_1aec4af1992aece5a76e4805bba75a8bac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string reduce</definition>
+        <argsstring>(const std::string &amp;str, const std::string &amp;fill, const std::string &amp;whitespace)</argsstring>
+        <name>reduce</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fill</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>whitespace</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" line="29" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc" bodystart="29" bodyend="47"/>
+        <references refid="string__utils_8cc_1a61bb9a4530ff40c81495172a56719e36" compoundref="string__utils_8cc" startline="19" endline="27">trim</references>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="string__utils_8hh" kindref="compound">string_utils.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Out&gt;</highlight></codeline>
+<codeline lineno="4" refid="string__utils_8hh_1a03529396588a5d4dac36c432989fdfaa" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" kindref="member">split</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>delim,<sp/>Out<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/>std::stringstream<sp/>ss;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>ss.str(s);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>std::string<sp/>item;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(std::getline(ss,<sp/>item,<sp/>delim))<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>*(result++)<sp/>=<sp/>item;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="string__utils_8hh_1ae924c9b43cd7b086945003c09c294d2b" refkind="member"><highlight class="normal">std::vector&lt;std::string&gt;<sp/><ref refid="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" kindref="member">split</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>delim)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>elems;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><ref refid="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" kindref="member">split</ref>(s,<sp/>delim,<sp/>std::back_inserter(elems));</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>elems;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="string__utils_8hh_1af0673e28e62387813b2a2ee5b3f98948" refkind="member"><highlight class="normal">std::string<sp/><ref refid="string__utils_8cc_1a61bb9a4530ff40c81495172a56719e36" kindref="member">trim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;str,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;whitespace)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>strBegin<sp/>=<sp/>str.find_first_not_of(whitespace);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(strBegin<sp/>==<sp/>std::string::npos)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>no<sp/>content</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>strEnd<sp/>=<sp/>str.find_last_not_of(whitespace);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>strRange<sp/>=<sp/>strEnd<sp/>-<sp/>strBegin<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>str.substr(strBegin,<sp/>strRange);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="string__utils_8hh_1ab5456014419648811b8c9ba2000cf82f" refkind="member"><highlight class="normal">std::string<sp/><ref refid="string__utils_8cc_1aec4af1992aece5a76e4805bba75a8bac" kindref="member">reduce</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;str,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;fill,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;whitespace)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>trim<sp/>first</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>=<sp/><ref refid="string__utils_8cc_1a61bb9a4530ff40c81495172a56719e36" kindref="member">trim</ref>(str,<sp/>whitespace);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>replace<sp/>sub<sp/>ranges</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>beginSpace<sp/>=<sp/>result.find_first_of(whitespace);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(beginSpace<sp/>!=<sp/>std::string::npos)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>endSpace<sp/>=<sp/>result.find_first_not_of(whitespace,<sp/>beginSpace);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/>endSpace<sp/>-<sp/>beginSpace;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>result.replace(beginSpace,<sp/>range,<sp/>fill);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>newStart<sp/>=<sp/>beginSpace<sp/>+<sp/>fill.length();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>beginSpace<sp/>=<sp/>result.find_first_of(whitespace,<sp/>newStart);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/string_utils.cc"/>
+  </compounddef>
+</doxygen>

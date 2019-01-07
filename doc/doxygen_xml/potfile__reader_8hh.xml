@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="potfile__reader_8hh" kind="file" language="C++">
+    <compoundname>potfile_reader.hh</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="multipole_8hh" local="yes">../core/multipole.hh</includes>
+    <includedby refid="cppe__state_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</includedby>
+    <includedby refid="libcppe_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc</includedby>
+    <includedby refid="export__utils_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</includedby>
+    <includedby refid="potfile__reader_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc</includedby>
+    <incdepgraph>
+      <node id="336">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.hh</label>
+        <link refid="potfile__reader_8hh"/>
+        <childnode refid="337" relation="include">
+        </childnode>
+        <childnode refid="338" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
+        </childnode>
+        <childnode refid="340" relation="include">
+        </childnode>
+      </node>
+      <node id="340">
+        <label>../core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="341" relation="include">
+        </childnode>
+        <childnode refid="337" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
+        </childnode>
+      </node>
+      <node id="341">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="338">
+        <label>string</label>
+      </node>
+      <node id="339">
+        <label>vector</label>
+      </node>
+      <node id="337">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="342">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.hh</label>
+        <link refid="potfile__reader_8hh"/>
+        <childnode refid="343" relation="include">
+        </childnode>
+        <childnode refid="344" relation="include">
+        </childnode>
+        <childnode refid="345" relation="include">
+        </childnode>
+        <childnode refid="346" relation="include">
+        </childnode>
+      </node>
+      <node id="346">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc</label>
+        <link refid="potfile__reader_8cc"/>
+      </node>
+      <node id="343">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</label>
+        <link refid="cppe__state_8cc"/>
+      </node>
+      <node id="344">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc</label>
+        <link refid="libcppe_8cc"/>
+      </node>
+      <node id="345">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</label>
+        <link refid="export__utils_8cc"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlibcppe_1_1_potfile_reader" prot="public">libcppe::PotfileReader</innerclass>
+    <innernamespace refid="namespacelibcppe">libcppe</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>LIBCPPE_CORE_POTFILE_READER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIBCPPE_CORE_POTFILE_READER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/multipole.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelibcppe" kindref="compound">libcppe</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classlibcppe_1_1_potfile_reader" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_potfile_reader" kindref="compound">PotfileReader</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14" refid="classlibcppe_1_1_potfile_reader_1ac5890a62a337da5d68552d52a6dd7b3e" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classlibcppe_1_1_potfile_reader_1ac5890a62a337da5d68552d52a6dd7b3e" kindref="member">m_potfile</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_potfile_reader_1a051f72052f8f0da4f9143906d8e15c34" kindref="member">PotfileReader</ref>(std::string<sp/>potfile_name);</highlight></codeline>
+<codeline lineno="18" refid="classlibcppe_1_1_potfile_reader_1ab76a832a86babe5e8da5407e6e10ee8c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_potfile_reader_1ab76a832a86babe5e8da5407e6e10ee8c" kindref="member">~PotfileReader</ref>(){};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>std::vector&lt;Potential&gt;<sp/><ref refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" kindref="member">read</ref>();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>libcppe</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>LIBCPPE_CORE_POTFILE_READER_H</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.hh"/>
+  </compounddef>
+</doxygen>

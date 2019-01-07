@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="cppe__state_8cc" kind="file" language="C++">
+    <compoundname>cppe_state.cc</compoundname>
+    <includes local="no">iomanip</includes>
+    <includes local="no">iostream</includes>
+    <includes refid="cppe__state_8hh" local="yes">cppe_state.hh</includes>
+    <includes refid="electric__fields_8hh" local="yes">electric_fields.hh</includes>
+    <includes refid="molecule_8hh" local="yes">molecule.hh</includes>
+    <includes refid="multipole_8hh" local="yes">multipole.hh</includes>
+    <includes refid="multipole__expansion_8hh" local="yes">multipole_expansion.hh</includes>
+    <includes refid="pe__energies_8hh" local="yes">pe_energies.hh</includes>
+    <includes refid="pe__options_8hh" local="yes">pe_options.hh</includes>
+    <includes refid="pot__manipulation_8hh" local="yes">../utils/pot_manipulation.hh</includes>
+    <includes refid="potfile__reader_8hh" local="yes">../utils/potfile_reader.hh</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>iomanip</label>
+      </node>
+      <node id="15">
+        <label>multipole_expansion.hh</label>
+        <link refid="multipole__expansion_8hh"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>molecule.hh</label>
+        <link refid="molecule_8hh"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>../utils/string_utils.hh</label>
+        <link refid="string__utils_8hh"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>../utils/potfile_reader.hh</label>
+        <link refid="potfile__reader_8hh"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="0">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</label>
+        <link refid="cppe__state_8cc"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>pe_energies.hh</label>
+        <link refid="pe__energies_8hh"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="3">
+        <label>cppe_state.hh</label>
+        <link refid="cppe__state_8hh"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>string</label>
+      </node>
+      <node id="12">
+        <label>map</label>
+      </node>
+      <node id="16">
+        <label>math.hh</label>
+        <link refid="math_8hh"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>../utils/pot_manipulation.hh</label>
+        <link refid="pot__manipulation_8hh"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>pe_options.hh</label>
+        <link refid="pe__options_8hh"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>vector</label>
+      </node>
+      <node id="10">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>electric_fields.hh</label>
+        <link refid="electric__fields_8hh"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacelibcppe">libcppe</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;iomanip&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="cppe__state_8hh" kindref="compound">cppe_state.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="electric__fields_8hh" kindref="compound">electric_fields.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="molecule_8hh" kindref="compound">molecule.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="multipole_8hh" kindref="compound">multipole.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="multipole__expansion_8hh" kindref="compound">multipole_expansion.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pe__energies_8hh" kindref="compound">pe_energies.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pe__options_8hh" kindref="compound">pe_options.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../utils/pot_manipulation.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../utils/potfile_reader.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="namespacelibcppe" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelibcppe" kindref="compound">libcppe</ref><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classlibcppe_1_1_cppe_state_1a3e009bd65d3d65dbdf25c2f5cc10b2f9" refkind="member"><highlight class="normal"><ref refid="classlibcppe_1_1_cppe_state_1ac35cdd08cfd4642b0c8468ebe5fcbcab" kindref="member">CppeState::CppeState</ref>(<ref refid="structlibcppe_1_1_pe_options" kindref="compound">PeOptions</ref><sp/>options,<sp/><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref><sp/>mol,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostream<sp/>&amp;output_stream)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_options(options),<sp/>m_output_stream(output_stream),<sp/>m_mol(mol)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref><sp/>=<sp/><ref refid="structlibcppe_1_1_pe_energy" kindref="compound">PeEnergy</ref>{};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>std::vector&lt;Potential&gt;<sp/>potentials<sp/>=<sp/><ref refid="classlibcppe_1_1_potfile_reader" kindref="compound">PotfileReader</ref>(<ref refid="classlibcppe_1_1_cppe_state_1af938c4608736265c5199f580bc66afbc" kindref="member">m_options</ref>.<ref refid="structlibcppe_1_1_pe_options_1aa6c66344a44aefc917f41c2353a5a3d5" kindref="member">potfile</ref>).<ref refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" kindref="member">read</ref>();</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>potentials<sp/>=<sp/><ref refid="classlibcppe_1_1_pot_manipulator" kindref="compound">PotManipulator</ref>(potentials,<sp/><ref refid="classlibcppe_1_1_cppe_state_1a6b4e4f9299ac8ed32c53b4b304278eb3" kindref="member">m_mol</ref>).<ref refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" kindref="member">manipulate</ref>(<ref refid="classlibcppe_1_1_cppe_state_1af938c4608736265c5199f580bc66afbc" kindref="member">m_options</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a24325836928abc2841d28d0099894300" kindref="member">set_potentials</ref>(potentials);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="classlibcppe_1_1_cppe_state_1a24325836928abc2841d28d0099894300" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_cppe_state_1a24325836928abc2841d28d0099894300" kindref="member">CppeState::set_potentials</ref>(std::vector&lt;Potential&gt;<sp/>potentials)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref><sp/>=<sp/>potentials;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a7650a158a5e74178c772cd5241189f62" kindref="member">m_polarizable_sites</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;site<sp/>:<sp/><ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(site.is_polarizable())<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a7650a158a5e74178c772cd5241189f62" kindref="member">m_polarizable_sites</ref>++;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref><sp/>=<sp/>Eigen::VectorXd::Zero(<ref refid="classlibcppe_1_1_cppe_state_1a7650a158a5e74178c772cd5241189f62" kindref="member">m_polarizable_sites</ref><sp/>*<sp/>3);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="classlibcppe_1_1_cppe_state_1a1106aef8284b272bc5460031b08b238f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_cppe_state_1a1106aef8284b272bc5460031b08b238f" kindref="member">CppeState::calculate_static_energies_and_fields</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Electrostatic<sp/>energy<sp/>(nuclei-multipoles)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_expansion" kindref="compound">MultipoleExpansion</ref><sp/>mexp(<ref refid="classlibcppe_1_1_cppe_state_1a6b4e4f9299ac8ed32c53b4b304278eb3" kindref="member">m_mol</ref>,<sp/><ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref>);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nuc_mul_energy<sp/>=<sp/>mexp.<ref refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" kindref="member">calculate_interaction_energy</ref>();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;Electrostatic/Nuclear&quot;</highlight><highlight class="normal">,<sp/>nuc_mul_energy);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>static<sp/>fields</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Nuclear<sp/>fields</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_nuclear_fields" kindref="compound">NuclearFields</ref><sp/>nfields(<ref refid="classlibcppe_1_1_cppe_state_1a6b4e4f9299ac8ed32c53b4b304278eb3" kindref="member">m_mol</ref>,<sp/><ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref>);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a88755cd3c0a488f7d80ae9d3ce3572a3" kindref="member">m_nuc_fields</ref><sp/>=<sp/>nfields.<ref refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" kindref="member">compute</ref>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Multipole<sp/>fields</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_fields" kindref="compound">MultipoleFields</ref><sp/>mul_fields(<ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1aa8867e576f8b514038b39abacbcb5193" kindref="member">m_multipole_fields</ref><sp/>=<sp/>mul_fields.<ref refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" kindref="member">compute</ref>();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="classlibcppe_1_1_cppe_state_1a621563ac88666eed8920aa0eec6eaedc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_cppe_state_1a621563ac88666eed8920aa0eec6eaedc" kindref="member">CppeState::update_induced_moments</ref>(Eigen::VectorXd<sp/>elec_fields,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>elec_only)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>Eigen::VectorXd<sp/>tmp_total_fields<sp/>=</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::VectorXd::Zero(<ref refid="classlibcppe_1_1_cppe_state_1a7650a158a5e74178c772cd5241189f62" kindref="member">m_polarizable_sites</ref><sp/>*<sp/>3);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(elec_only)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>tmp_total_fields<sp/>=<sp/>elec_fields;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>tmp_total_fields<sp/>=<sp/>elec_fields<sp/>+<sp/><ref refid="classlibcppe_1_1_cppe_state_1a88755cd3c0a488f7d80ae9d3ce3572a3" kindref="member">m_nuc_fields</ref><sp/>+<sp/><ref refid="classlibcppe_1_1_cppe_state_1aa8867e576f8b514038b39abacbcb5193" kindref="member">m_multipole_fields</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_induced_moments" kindref="compound">InducedMoments</ref><sp/>ind(<ref refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kindref="member">m_potentials</ref>,<sp/><ref refid="classlibcppe_1_1_cppe_state_1af938c4608736265c5199f580bc66afbc" kindref="member">m_options</ref>);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>ind.<ref refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" kindref="member">compute</ref>(tmp_total_fields,<sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref>,<sp/><ref refid="classlibcppe_1_1_cppe_state_1a3f369a5f2744af23b28952c47449efe8" kindref="member">m_make_guess</ref>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classlibcppe_1_1_cppe_state_1a3f369a5f2744af23b28952c47449efe8" kindref="member">m_make_guess</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1a3f369a5f2744af23b28952c47449efe8" kindref="member">m_make_guess</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(elec_only)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>epol_elec<sp/>=<sp/>-0.5<sp/>*<sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref>.dot(elec_fields);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>std::setprecision(15)<sp/>&lt;&lt;<sp/>&quot;epol_elec<sp/>=<sp/>&quot;<sp/>&lt;&lt;<sp/>epol_elec<sp/>&lt;&lt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Electronic&quot;</highlight><highlight class="normal">,<sp/>epol_elec);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>epol_elec<sp/>=<sp/>-0.5<sp/>*<sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref>.dot(elec_fields);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>epol_nuclear<sp/>=<sp/>-0.5<sp/>*<sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref>.dot(<ref refid="classlibcppe_1_1_cppe_state_1a88755cd3c0a488f7d80ae9d3ce3572a3" kindref="member">m_nuc_fields</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>epol_multipoles<sp/>=<sp/>-0.5<sp/>*<sp/><ref refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kindref="member">m_induced_moments</ref>.dot(<ref refid="classlibcppe_1_1_cppe_state_1aa8867e576f8b514038b39abacbcb5193" kindref="member">m_multipole_fields</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;epol_elec<sp/>=<sp/>&quot;<sp/>&lt;&lt;<sp/>epol_elec<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;epol_nuclear<sp/>=<sp/>&quot;<sp/>&lt;&lt;<sp/>epol_nuclear<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;epol_multipoles<sp/>=<sp/>&quot;<sp/>&lt;&lt;<sp/>epol_multipoles<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Electronic&quot;</highlight><highlight class="normal">,<sp/>epol_elec);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Nuclear&quot;</highlight><highlight class="normal">,<sp/>epol_nuclear);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Multipoles&quot;</highlight><highlight class="normal">,<sp/>epol_multipoles);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classlibcppe_1_1_cppe_state_1a2138da2978dc861a32b5be29c0e00253" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_cppe_state_1a2138da2978dc861a32b5be29c0e00253" kindref="member">CppeState::print_summary</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>30;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>std::string<sp/>off(3,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>std::string<sp/>off2(6,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>off<sp/>&lt;&lt;<sp/>&quot;Corrected<sp/>Excitation<sp/>Energy<sp/>(&quot;<sp/>&lt;&lt;<sp/>energy_name<sp/>&lt;&lt;<sp/>&quot;):<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>52,<sp/>&apos;<sp/>&apos;);<sp/>std::cout<sp/>&lt;&lt;<sp/>std::setw(11)<sp/>&lt;&lt;<sp/>(state.energy<sp/>+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ene)<sp/>*<sp/>conversion::au2ev<sp/>&lt;&lt;<sp/>&quot;<sp/>eV&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>std::string(2<sp/>*<sp/>w<sp/>+<sp/>10,<sp/></highlight><highlight class="charliteral">&apos;-&apos;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>m_output_stream<sp/>&lt;&lt;<sp/>&quot;__________<sp/><sp/><sp/><sp/><sp/><sp/>.__<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.__<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>___.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>.__<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;\\______<sp/><sp/><sp/>\\____<sp/>|<sp/><sp/>|<sp/>_____<sp/>_______|__|____________<sp/>\\_<sp/>|__<sp/>|<sp/><sp/>|<sp/><sp/><sp/>____</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>\n&quot;<sp/>&quot;<sp/>|<sp/><sp/><sp/><sp/><sp/>___/<sp/><sp/>_<sp/>\\|<sp/><sp/>|<sp/>\\__<sp/><sp/>\\\\_<sp/><sp/>__<sp/>\\<sp/><sp/>\\___<sp/><sp/><sp/>/\\__<sp/><sp/>\\<sp/>|<sp/>__<sp/>\\|</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>|<sp/>_/<sp/>__<sp/>\\<sp/>\n&quot;<sp/>&quot;<sp/>|<sp/><sp/><sp/><sp/>|<sp/><sp/>(<sp/><sp/>&lt;_&gt;<sp/>)<sp/><sp/>|__/<sp/>__<sp/>\\|<sp/><sp/>|<sp/>\\/<sp/><sp/>|/<sp/><sp/><sp/><sp/>/<sp/><sp/>/<sp/>__<sp/>\\|</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>\\_\\<sp/>\\<sp/><sp/>|_\\<sp/><sp/>___/<sp/>\n&quot;<sp/>&quot;<sp/>|____|<sp/><sp/><sp/>\\____/|____(____<sp/><sp/>/__|<sp/><sp/>|__/_____</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>\\(____<sp/><sp/>/___<sp/><sp/>/____/\\___<sp/><sp/>&gt;\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;___________<sp/><sp/><sp/><sp/><sp/><sp/>___.<sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>.___<sp/><sp/>.___.__<sp/><sp/>\\/<sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;\\_<sp/><sp/><sp/>_____/<sp/>_____\\_<sp/>|__<sp/><sp/><sp/>____<sp/><sp/><sp/>__|<sp/>_/__|<sp/>_/|__|<sp/>____<sp/><sp/><sp/><sp/>____<sp/>\n&quot;<sp/>&quot;<sp/>|</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>__)_<sp/>/<sp/><sp/><sp/><sp/><sp/>\\|<sp/>__<sp/>\\_/<sp/>__<sp/>\\<sp/>/<sp/>__<sp/>|/<sp/>__<sp/>|<sp/>|<sp/><sp/>|/<sp/><sp/><sp/><sp/>\\<sp/><sp/>/<sp/>___\\<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\<sp/><sp/>Y<sp/>Y<sp/><sp/>\\<sp/>\\_\\<sp/>\\<sp/><sp/>___//<sp/>/_/<sp/>/<sp/>/_/<sp/>|<sp/>|<sp/><sp/>|<sp/><sp/><sp/>|<sp/><sp/>\\/<sp/>/_/<sp/><sp/>&gt;<sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;/_______<sp/><sp/>/__|_|<sp/><sp/>/___<sp/><sp/>/\\___<sp/><sp/>&gt;____<sp/>\\____<sp/>|<sp/>|__|___|<sp/><sp/>/\\___<sp/><sp/>/<sp/>\n&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>_________<sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\//_____/<sp/>\n&quot;<sp/>&quot;<sp/>/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>_____/__<sp/>__<sp/><sp/>_____<sp/><sp/><sp/>_____<sp/>_____<sp/>_______<sp/>___.__.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>\\_____<sp/><sp/>\\|<sp/><sp/>|<sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/>\\<sp/>/<sp/><sp/><sp/><sp/><sp/>\\\\__<sp/><sp/>\\\\_<sp/><sp/>__<sp/>&lt;<sp/><sp/><sp/>|<sp/><sp/>|<sp/>\n&quot;<sp/>&quot;<sp/>/<sp/>\\<sp/><sp/>|</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>/<sp/><sp/>Y<sp/>Y<sp/><sp/>\\<sp/><sp/>Y<sp/>Y<sp/><sp/>\\/<sp/>__<sp/>\\|<sp/><sp/>|<sp/>\\/\\___<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;/_______<sp/><sp/>/____/|__|_|<sp/><sp/>/__|_|<sp/><sp/>(____<sp/><sp/>/__|<sp/><sp/><sp/>/<sp/>____|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/>\\/<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\\/<sp/>&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Polarizable<sp/>Embedding<sp/>Summary:&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>std::setprecision(12)<sp/>&lt;&lt;<sp/>std::endl<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Electrostatics:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Electronic:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>11,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Electrostatic/Electronic&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Nuclear:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>8,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Electrostatic/Nuclear&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Multipole:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>10,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Electrostatic/Multipoles&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Total:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>6,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Electrostatic&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Polarization:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Electronic:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>11,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Electronic&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Nuclear:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>8,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Nuclear&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Multipole:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>10,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Polarization/Multipoles&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off2<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Total:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>6,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;Polarization&quot;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>off<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Total<sp/>Energy:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::string(w<sp/>-<sp/>10,<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kindref="member">m_pe_energy</ref>.<ref refid="structlibcppe_1_1_pe_energy_1a81fdc40b5295bdfe23e52c44e3103d73" kindref="member">get_total_energy</ref>()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kindref="member">m_output_stream</ref><sp/>&lt;&lt;<sp/>std::string(2<sp/>*<sp/>w<sp/>+<sp/>10,<sp/></highlight><highlight class="charliteral">&apos;-&apos;</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/>std::endl<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>libcppe</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structlibcppe_1_1_site" kind="struct" language="C++" prot="public">
+    <compoundname>libcppe::Site</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlibcppe_1_1_site_1a571ad798cf95d9a0f88e1ab4f791c7c8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Site::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" bodystart="16" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_site_1a4872f6c3ee74bd87cd76e047155fb76a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Site::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" bodystart="16" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_site_1a047eb0328b176f9fd57a58216f50f58d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Site::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" bodystart="16" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" line="15" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc" bodystart="15" bodyend="17"/>
+    <listofallmembers>
+      <member refid="structlibcppe_1_1_site_1a571ad798cf95d9a0f88e1ab4f791c7c8" prot="public" virt="non-virtual"><scope>libcppe::Site</scope><name>x</name></member>
+      <member refid="structlibcppe_1_1_site_1a4872f6c3ee74bd87cd76e047155fb76a" prot="public" virt="non-virtual"><scope>libcppe::Site</scope><name>y</name></member>
+      <member refid="structlibcppe_1_1_site_1a047eb0328b176f9fd57a58216f50f58d" prot="public" virt="non-virtual"><scope>libcppe::Site</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

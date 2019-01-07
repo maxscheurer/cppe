@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.14">
+  <compound refid="structlibcppe_1_1_atom" kind="struct"><name>libcppe::Atom</name>
+    <member refid="structlibcppe_1_1_atom_1a7d69b84e07a95afdaf031d0c8bfd6194" kind="variable"><name>atomic_number</name></member>
+    <member refid="structlibcppe_1_1_atom_1addcaec69596bfc6e69dae360a29fc9c9" kind="variable"><name>charge</name></member>
+    <member refid="structlibcppe_1_1_atom_1a4f455271506d6abd6d7aad6802bab100" kind="variable"><name>m_x</name></member>
+    <member refid="structlibcppe_1_1_atom_1ab83c5d9e9a576fca8f9be4f007935678" kind="variable"><name>m_y</name></member>
+    <member refid="structlibcppe_1_1_atom_1a9871d78702db2db2c2c3bba819f13bee" kind="variable"><name>m_z</name></member>
+    <member refid="structlibcppe_1_1_atom_1aac22269becbd607ad9fc1f80bc34e1ac" kind="function"><name>Atom</name></member>
+    <member refid="structlibcppe_1_1_atom_1a6c19e6fb839e57b798f1dd68cea2a2b8" kind="function"><name>Atom</name></member>
+    <member refid="structlibcppe_1_1_atom_1aa897a7ae285f6e5a766e5918d4f5fe4f" kind="function"><name>get_pos</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_border_options" kind="struct"><name>libcppe::BorderOptions</name>
+    <member refid="structlibcppe_1_1_border_options_1a1636906038a91edd26f96a44e5c84b4b" kind="variable"><name>border_type</name></member>
+    <member refid="structlibcppe_1_1_border_options_1a1aa9386bc0d0d85710b41ec73c294aef" kind="variable"><name>rmin</name></member>
+    <member refid="structlibcppe_1_1_border_options_1add1c2f997e2eace07a4a228a2ee41cac" kind="variable"><name>nredist</name></member>
+    <member refid="structlibcppe_1_1_border_options_1a07cc8505b7c433c068cf400e8239efeb" kind="variable"><name>redist_order</name></member>
+    <member refid="structlibcppe_1_1_border_options_1a1317f5d3abb692642c9c67f2e7b37930" kind="variable"><name>redist_pol</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_c_p_p_e" kind="class"><name>libcppe::CPPE</name>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a802bca8cb5bbe9e8f0b6aff2c96996d7" kind="variable"><name>m_gen1int_initialized</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a074fd2f8e6a8323a2d19cbd0ad87b5ac" kind="variable"><name>m_pe_initialized</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a7c0b7645fb2cfc22018305274a968406" kind="variable"><name>m_nbas</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a0629a48687503d9428abfe7dbdb1f70c" kind="variable"><name>m_nnbas</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a3ebec8fcb42c454065416698cc176b35" kind="variable"><name>m_natoms</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1a00df555829f44da470396eb897c91523" kind="function"><name>CPPE</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1aae1b8d61cb7305011f3ac2f5b870a622" kind="function"><name>~CPPE</name></member>
+    <member refid="classlibcppe_1_1_c_p_p_e_1aaa7a8a306e74ebaf6785dfa22c14e44c" kind="function"><name>read_potfile</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_cppe_state" kind="class"><name>libcppe::CppeState</name>
+    <member refid="classlibcppe_1_1_cppe_state_1a4f30926545ca0fb01e52c53354b108ce" kind="variable"><name>m_es_operator</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1ac47e350d74678074f65a693be934f851" kind="variable"><name>m_pe_energy</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a6b4e4f9299ac8ed32c53b4b304278eb3" kind="variable"><name>m_mol</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a30dfbba15da71304d47fe06f2ce61b00" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a7650a158a5e74178c772cd5241189f62" kind="variable"><name>m_polarizable_sites</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a88755cd3c0a488f7d80ae9d3ce3572a3" kind="variable"><name>m_nuc_fields</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1aa8867e576f8b514038b39abacbcb5193" kind="variable"><name>m_multipole_fields</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1af7033ba8a1c0aee83031de62894e8cce" kind="variable"><name>m_induced_moments</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1af938c4608736265c5199f580bc66afbc" kind="variable"><name>m_options</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1ab8747f5c2454e069758bdfa18232bb3b" kind="variable"><name>m_output_stream</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a3f369a5f2744af23b28952c47449efe8" kind="variable"><name>m_make_guess</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1ac35cdd08cfd4642b0c8468ebe5fcbcab" kind="function"><name>CppeState</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a3e009bd65d3d65dbdf25c2f5cc10b2f9" kind="function"><name>CppeState</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a7beac7a61d5837c1307c7b5f3aa16093" kind="function"><name>~CppeState</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1aa35bda35b89371005651516319b4a5ad" kind="function"><name>set_options</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a7a7b7f6bedfb9dd12062aa8ceff817da" kind="function"><name>set_molecule</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a24325836928abc2841d28d0099894300" kind="function"><name>set_potentials</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1ab1df41f6e87ceb9f5684d660808d0c6c" kind="function"><name>get_potentials</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a0a90da6389979695a48c1bb68fcc644b" kind="function"><name>get_energies</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1acdfe79579273f569bddcf08454a3ba76" kind="function"><name>set_energies</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a1106aef8284b272bc5460031b08b238f" kind="function"><name>calculate_static_energies_and_fields</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a33a3d82ec70932c3a2e42926e2668101" kind="function"><name>get_induced_moments</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1aab94feb0cf059bbb3d15452fdb473416" kind="function"><name>get_induced_moments_vec</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a621563ac88666eed8920aa0eec6eaedc" kind="function"><name>update_induced_moments</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a5e697bdbab59f90c72ff9fd187f1f51a" kind="function"><name>get_polarizable_site_number</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a6154bab538a4c22f8a8472ea13d777c8" kind="function"><name>get_static_fields</name></member>
+    <member refid="classlibcppe_1_1_cppe_state_1a2138da2978dc861a32b5be29c0e00253" kind="function"><name>print_summary</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_induced_moments" kind="class"><name>libcppe::InducedMoments</name>
+    <member refid="classlibcppe_1_1_induced_moments_1a16b4ae37194b588f414ab35aafecd354" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1a60e60218ba44af9952a0f52d6e0c7db4" kind="variable"><name>m_polsites</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1aae2b928d367a63af4db8223ebca0b23a" kind="variable"><name>m_n_polsites</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1a62bbb17e4f8c0654a9f19cb6952504e8" kind="variable"><name>m_options</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1ab17d1689c9d9f4f2901fe1ff8c831e07" kind="function"><name>InducedMoments</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1ae91f801eb375ba44eba82172b80c9b47" kind="function"><name>~InducedMoments</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" kind="function"><name>compute</name></member>
+    <member refid="classlibcppe_1_1_induced_moments_1a7ffd118578ce786c8eab6789159acfaa" kind="function"><name>compute</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_molecule" kind="struct"><name>libcppe::Molecule</name>
+    <member refid="structlibcppe_1_1_molecule_1a4e1f11e4f1bcda522d619cc2a9465630" kind="function"><name>get_atom_position</name></member>
+    <member refid="structlibcppe_1_1_molecule_1a416d187640ae6fcf2315e8585f219972" kind="function"><name>~Molecule</name></member>
+    <member refid="structlibcppe_1_1_molecule_1ab63a494b1e4e2d56c90d8f48c29fed69" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_multipole" kind="class"><name>libcppe::Multipole</name>
+    <member refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kind="variable"><name>m_values</name></member>
+    <member refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kind="variable"><name>m_k</name></member>
+    <member refid="classlibcppe_1_1_multipole_1a47d99945db513a7adb09d687128e4ee3" kind="function"><name>Multipole</name></member>
+    <member refid="classlibcppe_1_1_multipole_1a035131c546693ddcb7e43c6c0cdce0bc" kind="function"><name>~Multipole</name></member>
+    <member refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" kind="function"><name>add_value</name></member>
+    <member refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" kind="function"><name>remove_trace</name></member>
+    <member refid="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" kind="function"><name>get_values</name></member>
+    <member refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" kind="function"><name>get_values_vec</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_multipole_expansion" kind="class"><name>libcppe::MultipoleExpansion</name>
+    <member refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" kind="variable"><name>m_mol</name></member>
+    <member refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_multipole_expansion_1ae2391f0e45982d4241bede61c620d560" kind="function"><name>MultipoleExpansion</name></member>
+    <member refid="classlibcppe_1_1_multipole_expansion_1a6e35115e1d1a88c1de80b39f9b6c6c5c" kind="function"><name>~MultipoleExpansion</name></member>
+    <member refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" kind="function"><name>calculate_interaction_energy</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_multipole_fields" kind="class"><name>libcppe::MultipoleFields</name>
+    <member refid="classlibcppe_1_1_multipole_fields_1ae91773e2c5684d17b3cd765eb53df020" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_multipole_fields_1adbed71fcf2642d21e9d3302ee18b073d" kind="variable"><name>m_polsites</name></member>
+    <member refid="classlibcppe_1_1_multipole_fields_1ae990445b58a37798f45aaf73598861f2" kind="variable"><name>m_n_polsites</name></member>
+    <member refid="classlibcppe_1_1_multipole_fields_1ae05af9f04c40a7161daff8785ef1f642" kind="function"><name>MultipoleFields</name></member>
+    <member refid="classlibcppe_1_1_multipole_fields_1a46c39b3a3d02e3a92778392f7802a0eb" kind="function"><name>~MultipoleFields</name></member>
+    <member refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" kind="function"><name>compute</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_nuclear_fields" kind="class"><name>libcppe::NuclearFields</name>
+    <member refid="classlibcppe_1_1_nuclear_fields_1abfaa0446428c52edd4ccc7e35171acaa" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1a8aa1c41f71b1c6d349a176054edfd464" kind="variable"><name>m_polsites</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1af1468ec6b031905705c76e25de8762c0" kind="variable"><name>m_n_polsites</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1ae50ea454a1bf747dc29dc4d4241b1ada" kind="variable"><name>m_mol</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1a85ca5f1ce931a44f57b57252cacefd07" kind="function"><name>NuclearFields</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1a94092540761af37b89afa13b75781b38" kind="function"><name>~NuclearFields</name></member>
+    <member refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" kind="function"><name>compute</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_pe_energy" kind="struct"><name>libcppe::PeEnergy</name>
+    <member refid="structlibcppe_1_1_pe_energy_1afa6a65740850dbef92b123c974cd2d07" kind="variable"><name>m_energies</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_1abffbd2637e45a248bf14d0744ca01dcb" kind="function"><name>PeEnergy</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_1add508370dc5e95e2709517019d138ab8" kind="function"><name>get</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_1aa809505d827c8c656e5e90ca87630fe7" kind="function"><name>set</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_1a81fdc40b5295bdfe23e52c44e3103d73" kind="function"><name>get_total_energy</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_pe_energy_contribution" kind="struct"><name>libcppe::PeEnergyContribution</name>
+    <member refid="structlibcppe_1_1_pe_energy_contribution_1a85b799e6fd6a469403faab86c5fa1946" kind="variable"><name>m_category</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_contribution_1a5690d7901030e8af69c40872ea29d667" kind="variable"><name>m_name</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_contribution_1a0b6daa6fdf6d83f23e7b634b2d301aad" kind="variable"><name>m_value</name></member>
+    <member refid="structlibcppe_1_1_pe_energy_contribution_1ab39400985ec7ebc0ad74f28573683465" kind="function"><name>PeEnergyContribution</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_pe_options" kind="struct"><name>libcppe::PeOptions</name>
+    <member refid="structlibcppe_1_1_pe_options_1aa6c66344a44aefc917f41c2353a5a3d5" kind="variable"><name>potfile</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a3bc282af35755fcf302df6e9344183cf" kind="variable"><name>print_level</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1abd416f45414d3bb7c1f9276399e4e1d4" kind="variable"><name>damp_induced</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a306f13b1c7dcd2bfe4255ff23e069b6c" kind="variable"><name>damp_multipoles</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a2de554a2409871bcfffb97be7be53c46" kind="variable"><name>damp_core</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a59932d6106d479f638d85c719926d5e0" kind="variable"><name>damp_coeff_ind</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1aa0fd8c9747ca7d23b69ec06800752379" kind="variable"><name>damp_coeff_mult</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a2cfbf273f7b41fe72bec1faef25d9d55" kind="variable"><name>damp_coeff_core</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a80e6a9b943b76f9050f96782f093fec2" kind="variable"><name>zero_pol</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a7d704c8516590a6a736e8a6ae2d02624" kind="variable"><name>zero_mul</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a4090073e39109e3470d8539e0c424c9f" kind="variable"><name>zero_mul_order</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1ad99969e65edca6881c9e2a4214a503ef" kind="variable"><name>induced_thresh</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1ada11154434c81e29d9f840f1bfba767e" kind="variable"><name>do_diis</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a852703387d1b252a8cc8ab3b64bcb992" kind="variable"><name>diis_maxiter</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1af76b1e9827ece57e605e19ec63dd305d" kind="variable"><name>diis_start_norm</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a25f94af2ce3ce19497eceba71ece41e2" kind="variable"><name>pe_border</name></member>
+    <member refid="structlibcppe_1_1_pe_options_1a78b401c6ba444fc25a96d6cad9027200" kind="variable"><name>border_options</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_polarizability" kind="class"><name>libcppe::Polarizability</name>
+    <member refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kind="variable"><name>m_values</name></member>
+    <member refid="classlibcppe_1_1_polarizability_1a500fea53cfd23d1cb4a0d4ea648ac0b6" kind="function"><name>Polarizability</name></member>
+    <member refid="classlibcppe_1_1_polarizability_1a57444800aa549d714e57087afa3f2076" kind="function"><name>~Polarizability</name></member>
+    <member refid="classlibcppe_1_1_polarizability_1a7a02a7800c7a0de658daaa5d376bfa84" kind="function"><name>add_value</name></member>
+    <member refid="classlibcppe_1_1_polarizability_1adb733e5d6c1446df39bf3f438f233af5" kind="function"><name>get_values_vec</name></member>
+    <member refid="classlibcppe_1_1_polarizability_1a44c866303ca56ad05f32b0cec60252df" kind="function"><name>get_values</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_potential" kind="class"><name>libcppe::Potential</name>
+    <member refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" kind="variable"><name>m_multipoles</name></member>
+    <member refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" kind="variable"><name>m_polarizabilities</name></member>
+    <member refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kind="variable"><name>m_exclusions</name></member>
+    <member refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" kind="variable"><name>m_x</name></member>
+    <member refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" kind="variable"><name>m_y</name></member>
+    <member refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" kind="variable"><name>m_z</name></member>
+    <member refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" kind="variable"><name>index</name></member>
+    <member refid="classlibcppe_1_1_potential_1a8fd77b75fa07894cdf56ae4460c98d21" kind="function"><name>Potential</name></member>
+    <member refid="classlibcppe_1_1_potential_1a88a900527c1ee8e86278f5ce93459501" kind="function"><name>~Potential</name></member>
+    <member refid="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" kind="function"><name>add_multipole</name></member>
+    <member refid="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" kind="function"><name>add_polarizability</name></member>
+    <member refid="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" kind="function"><name>add_exclusion</name></member>
+    <member refid="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" kind="function"><name>excludes_site</name></member>
+    <member refid="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" kind="function"><name>get_exclusions</name></member>
+    <member refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" kind="function"><name>get_multipoles</name></member>
+    <member refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" kind="function"><name>get_polarizabilities</name></member>
+    <member refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" kind="function"><name>is_polarizable</name></member>
+    <member refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" kind="function"><name>get_site_position</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_potfile_reader" kind="class"><name>libcppe::PotfileReader</name>
+    <member refid="classlibcppe_1_1_potfile_reader_1ac5890a62a337da5d68552d52a6dd7b3e" kind="variable"><name>m_potfile</name></member>
+    <member refid="classlibcppe_1_1_potfile_reader_1a051f72052f8f0da4f9143906d8e15c34" kind="function"><name>PotfileReader</name></member>
+    <member refid="classlibcppe_1_1_potfile_reader_1ab76a832a86babe5e8da5407e6e10ee8c" kind="function"><name>~PotfileReader</name></member>
+    <member refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" kind="function"><name>read</name></member>
+  </compound>
+  <compound refid="classlibcppe_1_1_pot_manipulator" kind="class"><name>libcppe::PotManipulator</name>
+    <member refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" kind="variable"><name>m_potentials</name></member>
+    <member refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" kind="variable"><name>m_mol</name></member>
+    <member refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" kind="variable"><name>m_output_stream</name></member>
+    <member refid="classlibcppe_1_1_pot_manipulator_1abe7b678ecf0f070b0ce2da8ec71a0f96" kind="function"><name>PotManipulator</name></member>
+    <member refid="classlibcppe_1_1_pot_manipulator_1af3209209a0765b5cbc837f81fa7a3336" kind="function"><name>~PotManipulator</name></member>
+    <member refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" kind="function"><name>manipulate</name></member>
+  </compound>
+  <compound refid="structlibcppe_1_1_site" kind="struct"><name>libcppe::Site</name>
+    <member refid="structlibcppe_1_1_site_1a571ad798cf95d9a0f88e1ab4f791c7c8" kind="variable"><name>x</name></member>
+    <member refid="structlibcppe_1_1_site_1a4872f6c3ee74bd87cd76e047155fb76a" kind="variable"><name>y</name></member>
+    <member refid="structlibcppe_1_1_site_1a047eb0328b176f9fd57a58216f50f58d" kind="variable"><name>z</name></member>
+  </compound>
+  <compound refid="namespacegen1int__api" kind="namespace"><name>gen1int_api</name>
+  </compound>
+  <compound refid="namespacelibcppe" kind="namespace"><name>libcppe</name>
+    <member refid="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5" kind="enum"><name>BorderType</name></member>
+    <member refid="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a9bcbc216894f4447ff243898acb74391" kind="enumvalue"><name>rem</name></member>
+    <member refid="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a1f666ad63b0c3399e3ee18bdf9d13f6a" kind="enumvalue"><name>redist</name></member>
+    <member refid="namespacelibcppe_1ab6e69c5d199e4c49abb3f4975b46f172" kind="variable"><name>ens</name></member>
+    <member refid="namespacelibcppe_1a7513df43417a5cf4db9187abfd22fbea" kind="function"><name>get_polarizable_sites</name></member>
+    <member refid="namespacelibcppe_1ab3345600c4bcba48203bc9ebf0bfa26b" kind="function"><name>smat_vec</name></member>
+    <member refid="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" kind="function"><name>Tk_tensor</name></member>
+    <member refid="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" kind="function"><name>multipole_derivative</name></member>
+    <member refid="namespacelibcppe_1ae154b65087da1892fd7ab0f1da8152b0" kind="function"><name>xyz2idx</name></member>
+    <member refid="namespacelibcppe_1adffd860092c2f5b3cfd872ed27d727dc" kind="function"><name>T</name></member>
+    <member refid="namespacelibcppe_1a97556873162363c2affbca8253042729" kind="function"><name>Tk_coefficients</name></member>
+    <member refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" kind="function"><name>factorial</name></member>
+    <member refid="namespacelibcppe_1a7501ee95ce7c58b05d8d856397bfed40" kind="function"><name>make_df</name></member>
+    <member refid="namespacelibcppe_1ad06531d448492562498d98ef6b1be53e" kind="function"><name>trinom</name></member>
+    <member refid="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" kind="function"><name>symmetry_factors</name></member>
+    <member refid="namespacelibcppe_1adcabc059a00716d45ddca295dc0b93d5" kind="function"><name>prefactors</name></member>
+    <member refid="namespacelibcppe_1ae68605edfeae6c5741f5ec4c17bc0e0f" kind="function"><name>prefactors_nuclei</name></member>
+    <member refid="namespacelibcppe_1a805981c691429e1882cc7e4613128374" kind="function"><name>multipole_components</name></member>
+    <member refid="namespacelibcppe_1ad88d79aa1c677e9730d1f733f0e1fa60" kind="function"><name>sortbysec</name></member>
+  </compound>
+  <compound refid="namespacelibcppe_1_1_0D27" kind="namespace"><name>libcppe::@27</name>
+  </compound>
+  <compound refid="namespacepe__variables" kind="namespace"><name>pe_variables</name>
+  </compound>
+  <compound refid="namespacepolarizable__embedding" kind="namespace"><name>polarizable_embedding</name>
+  </compound>
+  <compound refid="cppe__state_8cc" kind="file"><name>cppe_state.cc</name>
+  </compound>
+  <compound refid="cppe__state_8hh" kind="file"><name>cppe_state.hh</name>
+  </compound>
+  <compound refid="electric__fields_8cc" kind="file"><name>electric_fields.cc</name>
+  </compound>
+  <compound refid="electric__fields_8hh" kind="file"><name>electric_fields.hh</name>
+  </compound>
+  <compound refid="math_8cc" kind="file"><name>math.cc</name>
+  </compound>
+  <compound refid="math_8hh" kind="file"><name>math.hh</name>
+  </compound>
+  <compound refid="molecule_8hh" kind="file"><name>molecule.hh</name>
+  </compound>
+  <compound refid="multipole_8cc" kind="file"><name>multipole.cc</name>
+  </compound>
+  <compound refid="multipole_8hh" kind="file"><name>multipole.hh</name>
+  </compound>
+  <compound refid="multipole__expansion_8cc" kind="file"><name>multipole_expansion.cc</name>
+  </compound>
+  <compound refid="multipole__expansion_8hh" kind="file"><name>multipole_expansion.hh</name>
+  </compound>
+  <compound refid="pe__energies_8cc" kind="file"><name>pe_energies.cc</name>
+  </compound>
+  <compound refid="pe__energies_8hh" kind="file"><name>pe_energies.hh</name>
+  </compound>
+  <compound refid="pe__options_8hh" kind="file"><name>pe_options.hh</name>
+  </compound>
+  <compound refid="interface_8h" kind="file"><name>interface.h</name>
+    <member refid="interface_8h_1ad6ff2722b8ca8ff9f00b15585011f457" kind="function"><name>pe_interface_init_</name></member>
+    <member refid="interface_8h_1a3eb022ed45127dd6460139f5c3085dba" kind="function"><name>pe_set_potfile_</name></member>
+    <member refid="interface_8h_1a7abd1c0be1fc378fc935789a421ab9d9" kind="function"><name>pe_interface_energy_</name></member>
+    <member refid="interface_8h_1adac78992b7499b7bb63d99f2d5d5fabf" kind="function"><name>pe_interface_pol_energy_</name></member>
+    <member refid="interface_8h_1adae72ba8481aff05d3ca17e5546f5ef8" kind="function"><name>pe_interface_fock_</name></member>
+    <member refid="interface_8h_1ab258325a5f465eee729973443643e733" kind="function"><name>gen1int_api_initialized_</name></member>
+    <member refid="interface_8h_1a037ec445803d1dcade3436b3983231e9" kind="function"><name>print_shells_</name></member>
+    <member refid="interface_8h_1a7644642065278e8f83683ce75e6718d2" kind="function"><name>finalize_all_</name></member>
+    <member refid="interface_8h_1a58b0e56bdfca194b66fbc8894a140946" kind="function"><name>gen1int_api_initialize_</name></member>
+    <member refid="interface_8h_1a02a7dcb223568f2e3b7fd5c5933b7940" kind="function"><name>gen1int_create_shell_</name></member>
+    <member refid="interface_8h_1a82b4ec8171b781d634b8a0fee278a64d" kind="function"><name>pe_set_border_options_</name></member>
+    <member refid="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" kind="function"><name>pe_interface_init</name></member>
+    <member refid="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" kind="function"><name>pe_set_potfile</name></member>
+    <member refid="interface_8h_1a35b94530ddd056acbf367d7867038179" kind="function"><name>pe_interface_energy</name></member>
+    <member refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" kind="function"><name>pe_interface_fock</name></member>
+    <member refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" kind="function"><name>pe_interface_pol_energy</name></member>
+    <member refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" kind="function"><name>gen1int_api_initialized</name></member>
+    <member refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" kind="function"><name>gen1int_api_initialize</name></member>
+    <member refid="interface_8h_1a6141649fc6eae3b4b940f4f251dbd2d1" kind="function"><name>gen1int_api_add_shell</name></member>
+    <member refid="interface_8h_1abf518e085748564030f1c598e824b6c4" kind="function"><name>print_shells</name></member>
+    <member refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" kind="function"><name>finalize_all</name></member>
+    <member refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" kind="function"><name>pe_set_border_options</name></member>
+  </compound>
+  <compound refid="libcppe_8cc" kind="file"><name>libcppe.cc</name>
+  </compound>
+  <compound refid="libcppe_8hh" kind="file"><name>libcppe.hh</name>
+  </compound>
+  <compound refid="pe__interface_8_f90" kind="file"><name>pe_interface.F90</name>
+    <member refid="pe__interface_8_f90_1a256a2523ed3a4b7ba5c4ed52daf421e4" kind="function"><name>gen1int_api_initialize</name></member>
+    <member refid="pe__interface_8_f90_1a75f8a60511f7eb3cbbb4203e84c17ef7" kind="function"><name>gen1int_create_shell</name></member>
+    <member refid="pe__interface_8_f90_1a8df0910f99d2b8294fcb9d0ffa7511fb" kind="function"><name>gen1int_api_initialized</name></member>
+    <member refid="pe__interface_8_f90_1a64c49226c1161acb621fbe1932064469" kind="function"><name>pe_set_potfile</name></member>
+    <member refid="pe__interface_8_f90_1af86a4b0e2f87108a72fe11a99f5cf04f" kind="function"><name>pe_interface_init</name></member>
+    <member refid="pe__interface_8_f90_1ac6deb8cb06215ea9e950aafc85b3f64d" kind="function"><name>print_shells</name></member>
+    <member refid="pe__interface_8_f90_1a7f519d9d027c8d6b39d4ab26d40a3d50" kind="function"><name>pe_interface_energy</name></member>
+    <member refid="pe__interface_8_f90_1ac7f8079a0c0579cdabd457fc9931d913" kind="function"><name>pe_interface_fock</name></member>
+    <member refid="pe__interface_8_f90_1a92bcb1e948b96e29a43e155d58b87d1e" kind="function"><name>pe_interface_pol_energy</name></member>
+    <member refid="pe__interface_8_f90_1a7f713a595238ca3380cf63685e81074e" kind="function"><name>pe_set_border_options</name></member>
+    <member refid="pe__interface_8_f90_1a8961db08302d1df4f2bbb3951b6c8c89" kind="function"><name>finalize_all</name></member>
+  </compound>
+  <compound refid="export__fields_8cc" kind="file"><name>export_fields.cc</name>
+    <member refid="export__fields_8cc_1a39dfbcb573d9180eeacde079fa78898a" kind="function"><name>export_fields</name></member>
+  </compound>
+  <compound refid="export__math_8cc" kind="file"><name>export_math.cc</name>
+    <member refid="export__math_8cc_1a859c374327accb4a46e2d4a6fb8b66eb" kind="function"><name>export_math</name></member>
+  </compound>
+  <compound refid="export__molecule_8cc" kind="file"><name>export_molecule.cc</name>
+    <member refid="export__molecule_8cc_1a1d549cd4aa88d6b91b78a552a636275d" kind="function"><name>export_molecule</name></member>
+  </compound>
+  <compound refid="export__multipole_8cc" kind="file"><name>export_multipole.cc</name>
+    <member refid="export__multipole_8cc_1af2e116a5f9f67a228a25d8f21d3f650d" kind="function"><name>export_multipole</name></member>
+  </compound>
+  <compound refid="export__options_8cc" kind="file"><name>export_options.cc</name>
+    <member refid="export__options_8cc_1a9f00b1f569d4682953aaadd4009ea555" kind="function"><name>export_options</name></member>
+  </compound>
+  <compound refid="export__state_8cc" kind="file"><name>export_state.cc</name>
+    <member refid="export__state_8cc_1a6f10a4fbacf6a5c10e3d9cc1b0d1390c" kind="function"><name>export_state</name></member>
+  </compound>
+  <compound refid="export__utils_8cc" kind="file"><name>export_utils.cc</name>
+    <member refid="export__utils_8cc_1a60163ad4483a28b56c29de483bd10f6a" kind="function"><name>export_utils</name></member>
+  </compound>
+  <compound refid="pycppe_8cc" kind="file"><name>pycppe.cc</name>
+    <member refid="pycppe_8cc_1a66df1935ea84ab1aa70f1bbc941a7a56" kind="function"><name>export_molecule</name></member>
+    <member refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" kind="function"><name>export_multipole</name></member>
+    <member refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" kind="function"><name>export_options</name></member>
+    <member refid="pycppe_8cc_1a0163311bf9de2706077e5c5ebbc368b5" kind="function"><name>export_utils</name></member>
+    <member refid="pycppe_8cc_1ac1d537337e1549f7f4cc6bc6f76d9d95" kind="function"><name>export_state</name></member>
+    <member refid="pycppe_8cc_1a9cea21d86c07b65d985f3bd0354f9d5f" kind="function"><name>export_fields</name></member>
+    <member refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" kind="function"><name>export_math</name></member>
+    <member refid="pycppe_8cc_1aede4ed36a00185bbc1f705fc2add7f46" kind="function"><name>PYBIND11_MODULE</name></member>
+  </compound>
+  <compound refid="pot__manipulation_8cc" kind="file"><name>pot_manipulation.cc</name>
+  </compound>
+  <compound refid="pot__manipulation_8hh" kind="file"><name>pot_manipulation.hh</name>
+  </compound>
+  <compound refid="potfile__reader_8cc" kind="file"><name>potfile_reader.cc</name>
+    <member refid="potfile__reader_8cc_1ab9e6f959cf080a0a2753ef0951a20604" kind="define"><name>ang2bohr</name></member>
+  </compound>
+  <compound refid="potfile__reader_8hh" kind="file"><name>potfile_reader.hh</name>
+  </compound>
+  <compound refid="string__utils_8cc" kind="file"><name>string_utils.cc</name>
+    <member refid="string__utils_8cc_1a03529396588a5d4dac36c432989fdfaa" kind="function"><name>split</name></member>
+    <member refid="string__utils_8cc_1ae924c9b43cd7b086945003c09c294d2b" kind="function"><name>split</name></member>
+    <member refid="string__utils_8cc_1a61bb9a4530ff40c81495172a56719e36" kind="function"><name>trim</name></member>
+    <member refid="string__utils_8cc_1aec4af1992aece5a76e4805bba75a8bac" kind="function"><name>reduce</name></member>
+  </compound>
+  <compound refid="string__utils_8hh" kind="file"><name>string_utils.hh</name>
+    <member refid="string__utils_8hh_1a03529396588a5d4dac36c432989fdfaa" kind="function"><name>split</name></member>
+    <member refid="string__utils_8hh_1ae924c9b43cd7b086945003c09c294d2b" kind="function"><name>split</name></member>
+    <member refid="string__utils_8hh_1af0673e28e62387813b2a2ee5b3f98948" kind="function"><name>trim</name></member>
+    <member refid="string__utils_8hh_1ab5456014419648811b8c9ba2000cf82f" kind="function"><name>reduce</name></member>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="md___users_maxscheurer__projects_cppe__r_e_a_d_m_e" kind="page"><name>md__Users_maxscheurer_Projects_cppe_README</name>
+  </compound>
+  <compound refid="dir_53f1138f3f5c4b11e9518e7b6d18a2eb" kind="dir"><name>/Users/maxscheurer/Projects/cppe/cppe/core</name>
+  </compound>
+  <compound refid="dir_10e4f7b4cfe79cadc3b1bd1deca3ddf7" kind="dir"><name>/Users/maxscheurer/Projects/cppe</name>
+  </compound>
+  <compound refid="dir_4ef915e641514ebc91bdfc914537ff46" kind="dir"><name>/Users/maxscheurer/Projects/cppe/cppe</name>
+  </compound>
+  <compound refid="dir_eb05382a6b76d2ee1afeadfd5a23001f" kind="dir"><name>/Users/maxscheurer/Projects/cppe/cppe/pelib_interface</name>
+  </compound>
+  <compound refid="dir_7a6499598ddcfcabe96e224cb4a6d834" kind="dir"><name>/Users/maxscheurer/Projects</name>
+  </compound>
+  <compound refid="dir_34ef9b77aeabc5ec58939d80c2e43bc3" kind="dir"><name>/Users/maxscheurer/Projects/cppe/cppe/pycppe</name>
+  </compound>
+  <compound refid="dir_f98a5f65b8c4f880c583640445bd1dcf" kind="dir"><name>/Users/maxscheurer/Projects/cppe/cppe/utils</name>
+  </compound>
+</doxygenindex>

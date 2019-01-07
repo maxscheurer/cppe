@@ -6,12 +6,6 @@
 Welcome to CPPE's documentation!
 ================================
 
-.. toctree::
-   :maxdepth: 2
-   
-   
-   cpp_api
-
 CPPE has been interfaced to the follow quantum chemical program
 packages:
     + `Psi4 <http://www.psicode.org/>`_
@@ -19,6 +13,11 @@ packages:
     + `Q-Chem <http://www.q-chem.com/>`_
 
 
+.. toctree::
+   :caption: Table of Contents
+   :hidden:
+   
+   cpp_api
 
 Indices and tables
 ==================
