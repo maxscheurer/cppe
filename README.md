@@ -1,6 +1,8 @@
 # CPPE
 
 [![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
+[![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
+
 
 CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
