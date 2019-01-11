@@ -22,7 +22,8 @@ env:
  - CC=gcc-8 && CXX=g++-8 && FC=gfortran-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib
 
 before_script:
-  - sudo pip3 install pytest numpy h5py
+  - sudo pip3 install pytest numpy
+  - sudo pip3 install h5py
   - mkdir build
   - cd build
   - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC -DCMAKE_Fortran_COMPILER=$FC ..

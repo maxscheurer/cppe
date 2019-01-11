@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="dir_34ef9b77aeabc5ec58939d80c2e43bc3" kind="dir">
+    <compoundname>/Users/maxscheurer/Projects/cppe/cppe/pycppe</compoundname>
+    <innerfile refid="export__fields_8cc">export_fields.cc</innerfile>
+    <innerfile refid="export__math_8cc">export_math.cc</innerfile>
+    <innerfile refid="export__molecule_8cc">export_molecule.cc</innerfile>
+    <innerfile refid="export__multipole_8cc">export_multipole.cc</innerfile>
+    <innerfile refid="export__options_8cc">export_options.cc</innerfile>
+    <innerfile refid="export__state_8cc">export_state.cc</innerfile>
+    <innerfile refid="export__utils_8cc">export_utils.cc</innerfile>
+    <innerfile refid="pycppe_8cc">pycppe.cc</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/"/>
+  </compounddef>
+</doxygen>

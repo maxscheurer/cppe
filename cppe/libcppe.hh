@@ -4,16 +4,14 @@
 #include <string>
 #include <vector>
 
-#include <armadillo>
-
-#include "core/molecule.hh"
+// #include "core/molecule.hh"
 #include "core/multipole.hh"
-#include "core/pe_options.hh"
+// #include "core/pe_options.hh"
 
 namespace libcppe {
 
 class CPPE {
-public:
+ public:
   CPPE();
   ~CPPE();
   // void call_pe_energy(const double *densmat);
@@ -32,15 +30,15 @@ public:
 
   std::vector<Potential> read_potfile(std::string potfile_name);
 
-private:
+ private:
   bool m_gen1int_initialized;
   bool m_pe_initialized;
   // TODO: build a struct/class with the basis set info?
-  int m_nbas;  // number of basis functions
-  int m_nnbas; // nbas*(nbas+1)/2
+  int m_nbas;   // number of basis functions
+  int m_nnbas;  // nbas*(nbas+1)/2
   int m_natoms;
 };
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // LIBCPPE_INCLUDE_H
+#endif  // LIBCPPE_INCLUDE_H

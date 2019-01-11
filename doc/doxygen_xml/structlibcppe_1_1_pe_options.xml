@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structlibcppe_1_1_pe_options" kind="struct" language="C++" prot="public">
+    <compoundname>libcppe::PeOptions</compoundname>
+    <includes refid="pe__options_8hh" local="no">pe_options.hh</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1aa6c66344a44aefc917f41c2353a5a3d5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string libcppe::PeOptions::potfile</definition>
+        <argsstring></argsstring>
+        <name>potfile</name>
+        <initializer>{&quot;potential.pot&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="25" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="25" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_cppe_state_1a3e009bd65d3d65dbdf25c2f5cc10b2f9" compoundref="cppe__state_8cc" startline="18" endline="25">libcppe::CppeState::CppeState</referencedby>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a3bc282af35755fcf302df6e9344183cf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::PeOptions::print_level</definition>
+        <argsstring></argsstring>
+        <name>print_level</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="27" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="27" bodyend="-1"/>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1abd416f45414d3bb7c1f9276399e4e1d4" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::damp_induced</definition>
+        <argsstring></argsstring>
+        <name>damp_induced</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="29" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a306f13b1c7dcd2bfe4255ff23e069b6c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::damp_multipoles</definition>
+        <argsstring></argsstring>
+        <name>damp_multipoles</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="30" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a2de554a2409871bcfffb97be7be53c46" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::damp_core</definition>
+        <argsstring></argsstring>
+        <name>damp_core</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="31" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a59932d6106d479f638d85c719926d5e0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::PeOptions::damp_coeff_ind</definition>
+        <argsstring></argsstring>
+        <name>damp_coeff_ind</name>
+        <initializer>= 2.1304</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="33" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1aa0fd8c9747ca7d23b69ec06800752379" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::PeOptions::damp_coeff_mult</definition>
+        <argsstring></argsstring>
+        <name>damp_coeff_mult</name>
+        <initializer>= 2.1304</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="34" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a2cfbf273f7b41fe72bec1faef25d9d55" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::PeOptions::damp_coeff_core</definition>
+        <argsstring></argsstring>
+        <name>damp_coeff_core</name>
+        <initializer>= 2.1304</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="35" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a80e6a9b943b76f9050f96782f093fec2" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::zero_pol</definition>
+        <argsstring></argsstring>
+        <name>zero_pol</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="37" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a7d704c8516590a6a736e8a6ae2d02624" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::zero_mul</definition>
+        <argsstring></argsstring>
+        <name>zero_mul</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="38" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a4090073e39109e3470d8539e0c424c9f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::PeOptions::zero_mul_order</definition>
+        <argsstring></argsstring>
+        <name>zero_mul_order</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="39" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1ad99969e65edca6881c9e2a4214a503ef" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::PeOptions::induced_thresh</definition>
+        <argsstring></argsstring>
+        <name>induced_thresh</name>
+        <initializer>= 8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="41" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="41" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1ada11154434c81e29d9f840f1bfba767e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::do_diis</definition>
+        <argsstring></argsstring>
+        <name>do_diis</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="42" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="42" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a852703387d1b252a8cc8ab3b64bcb992" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::PeOptions::diis_maxiter</definition>
+        <argsstring></argsstring>
+        <name>diis_maxiter</name>
+        <initializer>= 50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="43" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="43" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1af76b1e9827ece57e605e19ec63dd305d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::PeOptions::diis_start_norm</definition>
+        <argsstring></argsstring>
+        <name>diis_start_norm</name>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="44" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="44" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a25f94af2ce3ce19497eceba71ece41e2" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool libcppe::PeOptions::pe_border</definition>
+        <argsstring></argsstring>
+        <name>pe_border</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="46" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="46" bodyend="-1"/>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structlibcppe_1_1_pe_options_1a78b401c6ba444fc25a96d6cad9027200" prot="public" static="no" mutable="no">
+        <type><ref refid="structlibcppe_1_1_border_options" kindref="compound">BorderOptions</ref></type>
+        <definition>BorderOptions libcppe::PeOptions::border_options</definition>
+        <argsstring></argsstring>
+        <name>border_options</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="47" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="47" bodyend="-1"/>
+        <referencedby refid="pycppe_8cc_1a8ebace197e24488ac718d83dd89763fd" compoundref="export__options_8cc" startline="8" endline="35">export_options</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="39">
+        <label>libcppe::BorderOptions</label>
+        <link refid="structlibcppe_1_1_border_options"/>
+      </node>
+      <node id="38">
+        <label>libcppe::PeOptions</label>
+        <link refid="structlibcppe_1_1_pe_options"/>
+        <childnode refid="39" relation="usage">
+          <edgelabel>border_options</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="24" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="24" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structlibcppe_1_1_pe_options_1a78b401c6ba444fc25a96d6cad9027200" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>border_options</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a2cfbf273f7b41fe72bec1faef25d9d55" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_coeff_core</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a59932d6106d479f638d85c719926d5e0" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_coeff_ind</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1aa0fd8c9747ca7d23b69ec06800752379" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_coeff_mult</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a2de554a2409871bcfffb97be7be53c46" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_core</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1abd416f45414d3bb7c1f9276399e4e1d4" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_induced</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a306f13b1c7dcd2bfe4255ff23e069b6c" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>damp_multipoles</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a852703387d1b252a8cc8ab3b64bcb992" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>diis_maxiter</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1af76b1e9827ece57e605e19ec63dd305d" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>diis_start_norm</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1ada11154434c81e29d9f840f1bfba767e" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>do_diis</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1ad99969e65edca6881c9e2a4214a503ef" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>induced_thresh</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a25f94af2ce3ce19497eceba71ece41e2" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>pe_border</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1aa6c66344a44aefc917f41c2353a5a3d5" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>potfile</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a3bc282af35755fcf302df6e9344183cf" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>print_level</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a7d704c8516590a6a736e8a6ae2d02624" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>zero_mul</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a4090073e39109e3470d8539e0c424c9f" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>zero_mul_order</name></member>
+      <member refid="structlibcppe_1_1_pe_options_1a80e6a9b943b76f9050f96782f093fec2" prot="public" virt="non-virtual"><scope>libcppe::PeOptions</scope><name>zero_pol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

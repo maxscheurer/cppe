@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="pe__interface_8_f90" kind="file" language="Fortran">
+    <compoundname>pe_interface.F90</compoundname>
+    <innernamespace refid="namespacegen1int__api">gen1int_api</innernamespace>
+    <innernamespace refid="namespacepe__variables">pe_variables</innernamespace>
+    <innernamespace refid="namespacepolarizable__embedding">polarizable_embedding</innernamespace>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pe__interface_8_f90_1a256a2523ed3a4b7ba5c4ed52daf421e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine gen1int_api_initialize</definition>
+        <argsstring>(natoms, num_shells, coords, charges)</argsstring>
+        <name>gen1int_api_initialize</name>
+        <param>
+          <type>natoms</type>
+          <defname>natoms</defname>
+        </param>
+        <param>
+          <type>num_shells</type>
+          <defname>num_shells</defname>
+        </param>
+        <param>
+          <type>coords</type>
+          <defname>coords</defname>
+        </param>
+        <param>
+          <type>charges</type>
+          <defname>charges</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="1" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="2" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a75f8a60511f7eb3cbbb4203e84c17ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine gen1int_create_shell</definition>
+        <argsstring>(spher_gto, idx_center, coord_center, ang_num, num_prim, exponents, num_contr, contr_coef)</argsstring>
+        <name>gen1int_create_shell</name>
+        <param>
+          <type>spher_gto</type>
+          <defname>spher_gto</defname>
+        </param>
+        <param>
+          <type>idx_center</type>
+          <defname>idx_center</defname>
+        </param>
+        <param>
+          <type>coord_center</type>
+          <defname>coord_center</defname>
+        </param>
+        <param>
+          <type>ang_num</type>
+          <defname>ang_num</defname>
+        </param>
+        <param>
+          <type>num_prim</type>
+          <defname>num_prim</defname>
+        </param>
+        <param>
+          <type>exponents</type>
+          <defname>exponents</defname>
+        </param>
+        <param>
+          <type>num_contr</type>
+          <defname>num_contr</defname>
+        </param>
+        <param>
+          <type>contr_coef</type>
+          <defname>contr_coef</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="11" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="13" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a8df0910f99d2b8294fcb9d0ffa7511fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>logical function</type>
+        <definition>logical function gen1int_api_initialized</definition>
+        <argsstring>()</argsstring>
+        <name>gen1int_api_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="27" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="28" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a64c49226c1161acb621fbe1932064469" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_set_potfile</definition>
+        <argsstring>(potfileName)</argsstring>
+        <name>pe_set_potfile</name>
+        <param>
+          <type>potfileName</type>
+          <defname>potfileName</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="36" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="37" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1af86a4b0e2f87108a72fe11a99f5cf04f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_interface_init</definition>
+        <argsstring>(nAtoms, coords, charges)</argsstring>
+        <name>pe_interface_init</name>
+        <param>
+          <type>nAtoms</type>
+          <defname>nAtoms</defname>
+        </param>
+        <param>
+          <type>coords</type>
+          <defname>coords</defname>
+        </param>
+        <param>
+          <type>charges</type>
+          <defname>charges</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="42" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="43" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1ac6deb8cb06215ea9e950aafc85b3f64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine print_shells</definition>
+        <argsstring>()</argsstring>
+        <name>print_shells</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="58" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="59" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a7f519d9d027c8d6b39d4ab26d40a3d50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_interface_energy</definition>
+        <argsstring>(densmatrix, ndim, nnbas)</argsstring>
+        <name>pe_interface_energy</name>
+        <param>
+          <type>densmatrix</type>
+          <defname>densmatrix</defname>
+        </param>
+        <param>
+          <type>ndim</type>
+          <defname>ndim</defname>
+        </param>
+        <param>
+          <type>nnbas</type>
+          <defname>nnbas</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="63" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="64" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1ac7f8079a0c0579cdabd457fc9931d913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_interface_fock</definition>
+        <argsstring>(densmatrix, ndim, nnbas, fckmatrix, energy)</argsstring>
+        <name>pe_interface_fock</name>
+        <param>
+          <type>densmatrix</type>
+          <defname>densmatrix</defname>
+        </param>
+        <param>
+          <type>ndim</type>
+          <defname>ndim</defname>
+        </param>
+        <param>
+          <type>nnbas</type>
+          <defname>nnbas</defname>
+        </param>
+        <param>
+          <type>fckmatrix</type>
+          <defname>fckmatrix</defname>
+        </param>
+        <param>
+          <type>energy</type>
+          <defname>energy</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="73" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="74" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a92bcb1e948b96e29a43e155d58b87d1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_interface_pol_energy</definition>
+        <argsstring>(densmatrix, ndim, nnbas, energy)</argsstring>
+        <name>pe_interface_pol_energy</name>
+        <param>
+          <type>densmatrix</type>
+          <defname>densmatrix</defname>
+        </param>
+        <param>
+          <type>ndim</type>
+          <defname>ndim</defname>
+        </param>
+        <param>
+          <type>nnbas</type>
+          <defname>nnbas</defname>
+        </param>
+        <param>
+          <type>energy</type>
+          <defname>energy</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="89" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="90" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a7f713a595238ca3380cf63685e81074e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine pe_set_border_options</definition>
+        <argsstring>(m_pe_border, m_rmin, type_flag, m_redist_order, m_nredist)</argsstring>
+        <name>pe_set_border_options</name>
+        <param>
+          <type>m_pe_border</type>
+          <defname>m_pe_border</defname>
+        </param>
+        <param>
+          <type>m_rmin</type>
+          <defname>m_rmin</defname>
+        </param>
+        <param>
+          <type>type_flag</type>
+          <defname>type_flag</defname>
+        </param>
+        <param>
+          <type>m_redist_order</type>
+          <defname>m_redist_order</defname>
+        </param>
+        <param>
+          <type>m_nredist</type>
+          <defname>m_nredist</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="102" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="103" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="pe__interface_8_f90_1a8961db08302d1df4f2bbb3951b6c8c89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine finalize_all</definition>
+        <argsstring>()</argsstring>
+        <name>finalize_all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" line="122" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90" bodystart="123" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" kindref="member">gen1int_api_initialize</ref>(natoms,<sp/>num_shells,<sp/>coords,<sp/>charges)</highlight></codeline>
+<codeline lineno="2" refid="pe__interface_8_f90_1a256a2523ed3a4b7ba5c4ed52daf421e4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>natoms</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>num_shells</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(REALK)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>coords(3,<sp/>natoms)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(REALK)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>charges(natoms)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">gen1intapicreateeasy(natoms,<sp/>num_shells,<sp/>coords,<sp/>charges)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" kindref="member">gen1int_api_initialize</ref></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="pe__interface_8_f90_1a75f8a60511f7eb3cbbb4203e84c17ef7" kindref="member">gen1int_create_shell</ref>(spher_gto,<sp/>idx_center,<sp/>coord_center,<sp/>&amp;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>ang_num,<sp/>num_prim,<sp/>exponents,<sp/>num_contr,<sp/>contr_coef)</highlight></codeline>
+<codeline lineno="13" refid="pe__interface_8_f90_1a75f8a60511f7eb3cbbb4203e84c17ef7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">logical</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>spher_gto</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>idx_center</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(REALK)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>coord_center(3)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>ang_num</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>num_prim</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(REALK)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>exponents(num_prim)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>num_contr</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(REALK)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>contr_coef(num_prim)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">gen1intapicreateshell(spher_gto,<sp/>idx_center,<sp/>coord_center,<sp/>&amp;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>ang_num,<sp/>num_prim,<sp/>exponents,<sp/>num_contr,<sp/>contr_coef)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="pe__interface_8_f90_1a75f8a60511f7eb3cbbb4203e84c17ef7" kindref="member">gen1int_create_shell</ref></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">function<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" kindref="member">gen1int_api_initialized</ref>()</highlight></codeline>
+<codeline lineno="28" refid="pe__interface_8_f90_1a8df0910f99d2b8294fcb9d0ffa7511fb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/>test_init<sp/>=&gt;<sp/>gen1intapiinited</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">logical</highlight><highlight class="normal"><sp/>::<sp/><ref refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" kindref="member">gen1int_api_initialized</ref></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">write</highlight><highlight class="normal"><sp/>(*,*)<sp/></highlight><highlight class="stringliteral">&quot;gen1int<sp/>initialized:<sp/>&quot;</highlight><highlight class="normal">,<sp/>test_init()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>gen1int_api_initialized()<sp/>=<sp/>test_init()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>function<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" kindref="member">gen1int_api_initialized</ref></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" kindref="member">pe_set_potfile</ref>(potfileName)</highlight></codeline>
+<codeline lineno="37" refid="pe__interface_8_f90_1a64c49226c1161acb621fbe1932064469" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">pe_variables</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">character(len=80)</highlight><highlight class="normal"><sp/>::<sp/>potfileName</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>potfile<sp/>=<sp/>potfilename</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" kindref="member">pe_interface_init</ref>(nAtoms,<sp/>coords,<sp/>charges)</highlight></codeline>
+<codeline lineno="43" refid="pe__interface_8_f90_1af86a4b0e2f87108a72fe11a99f5cf04f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">polarizable_embedding,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/>pe_init</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">pe_variables</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!implicit<sp/>none</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,</highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>nAtoms</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(dp)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">optional</highlight><highlight class="normal"><sp/>::<sp/>charges(nAtoms)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(dp)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">optional</highlight><highlight class="normal"><sp/>::<sp/>coords(3,<sp/>nAtoms)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!double<sp/>precision<sp/>::<sp/>parseArray</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>set<sp/>to<sp/>6<sp/>for<sp/>stdout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!double<sp/>precision,dimension(no),intent(in)<sp/>::<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>lupri,<sp/>...,<sp/>...</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">pe_init(6,<sp/>coords,<sp/>charges)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1abf518e085748564030f1c598e824b6c4" kindref="member">print_shells</ref>()</highlight></codeline>
+<codeline lineno="59" refid="pe__interface_8_f90_1ac6deb8cb06215ea9e950aafc85b3f64d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">gen1intprintshells()</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1abf518e085748564030f1c598e824b6c4" kindref="member">print_shells</ref></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1a35b94530ddd056acbf367d7867038179" kindref="member">pe_interface_energy</ref>(densmatrix,<sp/>ndim,<sp/>nnbas)</highlight></codeline>
+<codeline lineno="64" refid="pe__interface_8_f90_1a7f519d9d027c8d6b39d4ab26d40a3d50" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">polarizable_embedding,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/>pe_master</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>ndim</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>nnbas</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(nnbas)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>densmatrix</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">pe_master(</highlight><highlight class="stringliteral">&quot;print_energy&quot;</highlight><highlight class="normal">,<sp/>.true.,<sp/>ndim,<sp/>1,<sp/>densmatrix)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>call<sp/>pe_master(runtype,<sp/>triang,<sp/>ndim,<sp/>nmats,<sp/>denmats,<sp/>fckmats,<sp/>expvals)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1a35b94530ddd056acbf367d7867038179" kindref="member">pe_interface_energy</ref></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" kindref="member">pe_interface_fock</ref>(densmatrix,<sp/>ndim,<sp/>nnbas,<sp/>fckmatrix,<sp/>energy)</highlight></codeline>
+<codeline lineno="74" refid="pe__interface_8_f90_1ac7f8079a0c0579cdabd457fc9931d913" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">polarizable_embedding,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/>pe_master</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>ndim</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>nnbas</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(nnbas)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>densmatrix</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>give<sp/>storage<sp/>for<sp/>fckmatrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(nnbas)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(out)</highlight><highlight class="normal"><sp/>::<sp/>fckmatrix</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(out)</highlight><highlight class="normal"><sp/>::<sp/>energy</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(1)</highlight><highlight class="normal"><sp/>::<sp/>energies</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">pe_master(</highlight><highlight class="stringliteral">&quot;full_fock&quot;</highlight><highlight class="normal">,<sp/>.true.,<sp/>ndim,<sp/>1,<sp/>densmatrix,<sp/>fckmatrix,<sp/>energies)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">!<sp/>call<sp/>pe_master(&quot;print_energy&quot;,<sp/>.true.,<sp/>ndim,<sp/>1,<sp/>densmatrix)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>energy<sp/>=<sp/>energies(1)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" kindref="member">pe_interface_fock</ref></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" kindref="member">pe_interface_pol_energy</ref>(densmatrix,<sp/>ndim,<sp/>nnbas,<sp/>energy)</highlight></codeline>
+<codeline lineno="90" refid="pe__interface_8_f90_1a92bcb1e948b96e29a43e155d58b87d1e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">polarizable_embedding,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/>pe_master</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>ndim</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>nnbas</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(nnbas)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>densmatrix</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(out)</highlight><highlight class="normal"><sp/>::<sp/>energy</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(8)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">dimension(1)</highlight><highlight class="normal"><sp/>::<sp/>energies</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">pe_master(runtype=</highlight><highlight class="stringliteral">&quot;get_pol_energy&quot;</highlight><highlight class="normal">,<sp/>triang=.true.,<sp/>ndim=ndim,<sp/>nmats=1,<sp/>denmats=densmatrix,<sp/>expvals=energies)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>energy<sp/>=<sp/>energies(1)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" kindref="member">pe_interface_pol_energy</ref></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" kindref="member">pe_set_border_options</ref>(m_pe_border,<sp/>m_rmin,<sp/>type_flag,<sp/>m_redist_order,<sp/>m_nredist)</highlight></codeline>
+<codeline lineno="103" refid="pe__interface_8_f90_1a7f713a595238ca3380cf63685e81074e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">pe_variables</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">logical</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>m_pe_border</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">real(dp)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>m_rmin</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>type_flag</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>m_redist_order</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">intent(in)</highlight><highlight class="normal"><sp/>::<sp/>m_nredist</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>type_flag<sp/>==<sp/>0<sp/>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>border_type<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;REMOVE&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">elseif</highlight><highlight class="normal"><sp/>(<sp/>type_flag<sp/>==<sp/>1<sp/>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>border_type<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;REDIST&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/>endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>pe_border<sp/>=<sp/>m_pe_border</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>rmin<sp/>=<sp/>m_rmin</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>redist_order<sp/>=<sp/>m_redist_order</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>nredist<sp/>=<sp/>m_nredist</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" kindref="member">pe_set_border_options</ref></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keyword">subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" kindref="member">finalize_all</ref>()</highlight></codeline>
+<codeline lineno="123" refid="pe__interface_8_f90_1a8961db08302d1df4f2bbb3951b6c8c89" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">polarizable_embedding</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal">gen1int_api</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">pe_finalize()</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">gen1intapidestroy()</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>subroutine<sp/></highlight><highlight class="normal"><ref refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" kindref="member">finalize_all</ref></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">!<sp/>subroutine<sp/>pe_interface_response(densmatrix,<sp/>ndim,<sp/>nnbas,<sp/>fckmatrix,<sp/>energy)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>use<sp/>polarizable_embedding,<sp/>only:<sp/>pe_master</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>use<sp/>gen1int_api</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>integer,<sp/>intent(in)<sp/>::<sp/>ndim</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>integer,<sp/>intent(in)<sp/>::<sp/>nnbas</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>real(8),<sp/>dimension(nnbas),<sp/>intent(in)<sp/>::<sp/>densmatrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>!<sp/>give<sp/>storage<sp/>for<sp/>fckmatrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>real(8),<sp/>dimension(nnbas),<sp/>intent(out)<sp/>::<sp/>fckmatrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>real(8),<sp/>intent(out)<sp/>::<sp/>energy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>!<sp/>call<sp/>pe_master(&quot;print_energy&quot;,<sp/>.true.,<sp/>ndim,<sp/>1,<sp/>densmatrix)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/>call<sp/>pe_master(&quot;dynamic_response&quot;,<sp/>.true.,<sp/>ndim,<sp/>1,<sp/>densmatrix,<sp/>fckmatrix)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">!<sp/>end<sp/>subroutine<sp/>pe_interface_response</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/pelib_interface/pe_interface.F90"/>
+  </compounddef>
+</doxygen>

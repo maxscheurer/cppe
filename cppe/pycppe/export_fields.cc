@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <pybind11/eigen.h>
 #include <pybind11/iostream.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -7,8 +8,6 @@
 #include "../core/electric_fields.hh"
 #include "../core/molecule.hh"
 #include "../core/pe_options.hh"
-
-#include "pybind_arma.h"
 
 namespace py = pybind11;
 
@@ -27,7 +26,7 @@ void export_fields(py::module &m) {
   ind_moments
       .def(py::init<std::vector<libcppe::Potential>, libcppe::PeOptions>())
       .def("compute",
-           py::overload_cast<arma::vec &, bool>(
+           py::overload_cast<Eigen::VectorXd &, bool>(
                &libcppe::InducedMoments::compute),
            "Compute the induced moments solving the classical response "
            "equation",

@@ -10,15 +10,15 @@
 namespace libcppe {
 
 class PotfileReader {
-private:
+ private:
   std::string m_potfile;
 
-public:
+ public:
   PotfileReader(std::string potfile_name);
   ~PotfileReader(){};
   std::vector<Potential> read();
 };
 
-} // namespace libcppe
+}  // namespace libcppe
 
-#endif // LIBCPPE_CORE_POTFILE_READER_H
+#endif  // LIBCPPE_CORE_POTFILE_READER_H

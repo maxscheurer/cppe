@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="export__utils_8cc" kind="file" language="C++">
+    <compoundname>export_utils.cc</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">pybind11/iostream.h</includes>
+    <includes local="no">pybind11/pybind11.h</includes>
+    <includes local="no">pybind11/stl.h</includes>
+    <includes refid="molecule_8hh" local="yes">../core/molecule.hh</includes>
+    <includes refid="multipole_8hh" local="yes">../core/multipole.hh</includes>
+    <includes refid="pot__manipulation_8hh" local="yes">../utils/pot_manipulation.hh</includes>
+    <includes refid="potfile__reader_8hh" local="yes">../utils/potfile_reader.hh</includes>
+    <incdepgraph>
+      <node id="284">
+        <label>../core/molecule.hh</label>
+        <link refid="molecule_8hh"/>
+        <childnode refid="285" relation="include">
+        </childnode>
+        <childnode refid="286" relation="include">
+        </childnode>
+      </node>
+      <node id="291">
+        <label>../utils/potfile_reader.hh</label>
+        <link refid="potfile__reader_8hh"/>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="285" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+      </node>
+      <node id="287">
+        <label>../core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="286" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="285" relation="include">
+        </childnode>
+      </node>
+      <node id="286">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="290">
+        <label>string</label>
+      </node>
+      <node id="288">
+        <label>../utils/pot_manipulation.hh</label>
+        <link refid="pot__manipulation_8hh"/>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+      </node>
+      <node id="281">
+        <label>pybind11/iostream.h</label>
+      </node>
+      <node id="289">
+        <label>../core/pe_options.hh</label>
+        <link refid="pe__options_8hh"/>
+        <childnode refid="290" relation="include">
+        </childnode>
+      </node>
+      <node id="285">
+        <label>vector</label>
+      </node>
+      <node id="282">
+        <label>pybind11/pybind11.h</label>
+      </node>
+      <node id="280">
+        <label>iostream</label>
+      </node>
+      <node id="279">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</label>
+        <link refid="export__utils_8cc"/>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="281" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="291" relation="include">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>pybind11/stl.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="export__utils_8cc_1a60163ad4483a28b56c29de483bd10f6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void export_utils</definition>
+        <argsstring>(py::module &amp;m)</argsstring>
+        <name>export_utils</name>
+        <param>
+          <type>py::module &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc" line="14" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc" bodystart="14" bodyend="23"/>
+        <references refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</references>
+        <referencedby refid="pycppe_8cc_1aede4ed36a00185bbc1f705fc2add7f46" compoundref="pycppe_8cc" startline="13" endline="22">PYBIND11_MODULE</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/iostream.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/pybind11.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/stl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/molecule.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/multipole.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../utils/pot_manipulation.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../utils/potfile_reader.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">py<sp/>=<sp/>pybind11;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="pycppe_8cc_1a0163311bf9de2706077e5c5ebbc368b5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="export__utils_8cc_1a60163ad4483a28b56c29de483bd10f6a" kindref="member">export_utils</ref>(py::module<sp/>&amp;m)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::PotfileReader&gt;<sp/>potfile_reader(</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m,<sp/></highlight><highlight class="stringliteral">&quot;PotfileReader&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Reader<sp/>for<sp/>potential<sp/>files&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>potfile_reader.def(py::init&lt;std::string&gt;())</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;read&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" kindref="member">libcppe::PotfileReader::read</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Read<sp/>the<sp/>potential<sp/>file&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::PotManipulator&gt;<sp/>pot_manip(m,<sp/></highlight><highlight class="stringliteral">&quot;PotManipulator&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Manipulator<sp/>for<sp/>potentials&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>pot_manip.def(py::init&lt;std::vector&lt;libcppe::Potential&gt;,<sp/><ref refid="structlibcppe_1_1_molecule" kindref="compound">libcppe::Molecule</ref>&gt;());</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespacelibcppe" kind="namespace" language="C++">
+    <compoundname>libcppe</compoundname>
+    <innerclass refid="structlibcppe_1_1_atom" prot="public">libcppe::Atom</innerclass>
+    <innerclass refid="structlibcppe_1_1_border_options" prot="public">libcppe::BorderOptions</innerclass>
+    <innerclass refid="classlibcppe_1_1_c_p_p_e" prot="public">libcppe::CPPE</innerclass>
+    <innerclass refid="classlibcppe_1_1_cppe_state" prot="public">libcppe::CppeState</innerclass>
+    <innerclass refid="classlibcppe_1_1_induced_moments" prot="public">libcppe::InducedMoments</innerclass>
+    <innerclass refid="structlibcppe_1_1_molecule" prot="public">libcppe::Molecule</innerclass>
+    <innerclass refid="classlibcppe_1_1_multipole" prot="public">libcppe::Multipole</innerclass>
+    <innerclass refid="classlibcppe_1_1_multipole_expansion" prot="public">libcppe::MultipoleExpansion</innerclass>
+    <innerclass refid="classlibcppe_1_1_multipole_fields" prot="public">libcppe::MultipoleFields</innerclass>
+    <innerclass refid="classlibcppe_1_1_nuclear_fields" prot="public">libcppe::NuclearFields</innerclass>
+    <innerclass refid="structlibcppe_1_1_pe_energy" prot="public">libcppe::PeEnergy</innerclass>
+    <innerclass refid="structlibcppe_1_1_pe_energy_contribution" prot="public">libcppe::PeEnergyContribution</innerclass>
+    <innerclass refid="structlibcppe_1_1_pe_options" prot="public">libcppe::PeOptions</innerclass>
+    <innerclass refid="classlibcppe_1_1_polarizability" prot="public">libcppe::Polarizability</innerclass>
+    <innerclass refid="classlibcppe_1_1_potential" prot="public">libcppe::Potential</innerclass>
+    <innerclass refid="classlibcppe_1_1_potfile_reader" prot="public">libcppe::PotfileReader</innerclass>
+    <innerclass refid="classlibcppe_1_1_pot_manipulator" prot="public">libcppe::PotManipulator</innerclass>
+    <innerclass refid="structlibcppe_1_1_site" prot="public">libcppe::Site</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5" prot="public" static="no" strong="no">
+        <type></type>
+        <name>BorderType</name>
+        <enumvalue id="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a9bcbc216894f4447ff243898acb74391" prot="public">
+          <name>rem</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacelibcppe_1af4e1923b6696b00b6c52d942db3340a5a1f666ad63b0c3399e3ee18bdf9d13f6a" prot="public">
+          <name>redist</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" line="7" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_options.hh" bodystart="7" bodyend="7"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacelibcppe_1ab6e69c5d199e4c49abb3f4975b46f172" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::vector&lt; std::string &gt; &gt;</type>
+        <definition>std::map&lt;std::string, std::vector&lt;std::string&gt; &gt; libcppe::ens</definition>
+        <argsstring></argsstring>
+        <name>ens</name>
+        <initializer>{
+    {&quot;Electrostatic&quot;, {&quot;Electronic&quot;, &quot;Nuclear&quot;, &quot;Multipoles&quot;}},
+    {&quot;Polarization&quot;, {&quot;Electronic&quot;, &quot;Nuclear&quot;, &quot;Multipoles&quot;}}}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/pe_energies.cc" line="6" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/pe_energies.cc" bodystart="6" bodyend="-1"/>
+        <referencedby refid="structlibcppe_1_1_pe_energy_1abffbd2637e45a248bf14d0744ca01dcb" compoundref="pe__energies_8cc" startline="10" endline="17">libcppe::PeEnergy::PeEnergy</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacelibcppe_1a7513df43417a5cf4db9187abfd22fbea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+        <definition>std::vector&lt; Potential &gt; libcppe::get_polarizable_sites</definition>
+        <argsstring>(std::vector&lt; Potential &gt; potentials)</argsstring>
+        <name>get_polarizable_sites</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref> &gt;</type>
+          <declname>potentials</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.cc" line="205" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.cc" bodystart="205" bodyend="214"/>
+        <referencedby refid="classlibcppe_1_1_nuclear_fields_1a85ca5f1ce931a44f57b57252cacefd07" compoundref="electric__fields_8hh" startline="23" endline="27">libcppe::NuclearFields::NuclearFields</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1ae05af9f04c40a7161daff8785ef1f642" compoundref="electric__fields_8hh" startline="41" endline="45">libcppe::MultipoleFields::MultipoleFields</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1ab17d1689c9d9f4f2901fe1ff8c831e07" compoundref="electric__fields_8hh" startline="60" endline="64">libcppe::InducedMoments::InducedMoments</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ab3345600c4bcba48203bc9ebf0bfa26b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d libcppe::smat_vec</definition>
+        <argsstring>(const Eigen::VectorXd &amp;mat, const Eigen::Vector3d &amp;vec, double alpha)</argsstring>
+        <name>smat_vec</name>
+        <param>
+          <type>const Eigen::VectorXd &amp;</type>
+          <declname>mat</declname>
+        </param>
+        <param>
+          <type>const Eigen::Vector3d &amp;</type>
+          <declname>vec</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>alpha</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="9" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="9" bodyend="18"/>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Eigen::VectorXd</type>
+        <definition>Eigen::VectorXd libcppe::Tk_tensor</definition>
+        <argsstring>(int k, const Eigen::Vector3d &amp;Rij, std::vector&lt; Eigen::MatrixXi &gt; &amp;Tk_coeffs)</argsstring>
+        <name>Tk_tensor</name>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>const Eigen::Vector3d &amp;</type>
+          <declname>Rij</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::MatrixXi &gt; &amp;</type>
+          <declname>Tk_coeffs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="21" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="21" bodyend="36"/>
+        <references refid="namespacelibcppe_1a805981c691429e1882cc7e4613128374" compoundref="math_8cc" startline="220" endline="220">multipole_components</references>
+        <references refid="namespacelibcppe_1adffd860092c2f5b3cfd872ed27d727dc" compoundref="math_8cc" startline="99" endline="116">T</references>
+        <referencedby refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" compoundref="electric__fields_8cc" startline="9" endline="30">libcppe::NuclearFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" compoundref="math_8cc" startline="40" endline="79">multipole_derivative</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">libcppe::MultipoleExpansion::calculate_interaction_energy</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Eigen::VectorXd</type>
+        <definition>Eigen::VectorXd libcppe::multipole_derivative</definition>
+        <argsstring>(int k, int l, const Eigen::Vector3d &amp;Rji, Eigen::VectorXd Mkj, std::vector&lt; Eigen::MatrixXi &gt; &amp;Tk_coeffs)</argsstring>
+        <name>multipole_derivative</name>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>const Eigen::Vector3d &amp;</type>
+          <declname>Rji</declname>
+        </param>
+        <param>
+          <type>Eigen::VectorXd</type>
+          <declname>Mkj</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::MatrixXi &gt; &amp;</type>
+          <declname>Tk_coeffs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="40" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="40" bodyend="79"/>
+        <references refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" compoundref="math_8cc" startline="154" endline="159">factorial</references>
+        <references refid="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" compoundref="math_8cc" startline="21" endline="36">Tk_tensor</references>
+        <references refid="namespacelibcppe_1ae154b65087da1892fd7ab0f1da8152b0" compoundref="math_8cc" startline="82" endline="97">xyz2idx</references>
+        <references refid="namespacelibcppe_1ad06531d448492562498d98ef6b1be53e" compoundref="math_8cc" startline="174" endline="176">trinom</references>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ae154b65087da1892fd7ab0f1da8152b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int libcppe::xyz2idx</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>xyz2idx</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="82" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="82" bodyend="97"/>
+        <referencedby refid="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" compoundref="math_8cc" startline="40" endline="79">multipole_derivative</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1adffd860092c2f5b3cfd872ed27d727dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double libcppe::T</definition>
+        <argsstring>(const Eigen::Vector3d &amp;Rij, int x, int y, int z, std::vector&lt; Eigen::MatrixXi &gt; &amp;Cijn)</argsstring>
+        <name>T</name>
+        <param>
+          <type>const Eigen::Vector3d &amp;</type>
+          <declname>Rij</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::MatrixXi &gt; &amp;</type>
+          <declname>Cijn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="99" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="99" bodyend="116"/>
+        <referencedby refid="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" compoundref="math_8cc" startline="21" endline="36">Tk_tensor</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1a97556873162363c2affbca8253042729" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; Eigen::MatrixXi &gt;</type>
+        <definition>std::vector&lt; Eigen::MatrixXi &gt; libcppe::Tk_coefficients</definition>
+        <argsstring>(int max_order)</argsstring>
+        <name>Tk_coefficients</name>
+        <param>
+          <type>int</type>
+          <declname>max_order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="118" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="118" bodyend="152"/>
+        <referencedby refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" compoundref="electric__fields_8cc" startline="9" endline="30">libcppe::NuclearFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">libcppe::MultipoleExpansion::calculate_interaction_energy</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double libcppe::factorial</definition>
+        <argsstring>(int n)</argsstring>
+        <name>factorial</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="154" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="154" bodyend="159"/>
+        <referencedby refid="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" compoundref="math_8cc" startline="40" endline="79">multipole_derivative</referencedby>
+        <referencedby refid="namespacelibcppe_1a7501ee95ce7c58b05d8d856397bfed40" compoundref="math_8cc" startline="161" endline="172">make_df</referencedby>
+        <referencedby refid="namespacelibcppe_1ad06531d448492562498d98ef6b1be53e" compoundref="math_8cc" startline="174" endline="176">trinom</referencedby>
+        <referencedby refid="namespacelibcppe_1adcabc059a00716d45ddca295dc0b93d5" compoundref="math_8cc" startline="194" endline="203">prefactors</referencedby>
+        <referencedby refid="namespacelibcppe_1ae68605edfeae6c5741f5ec4c17bc0e0f" compoundref="math_8cc" startline="205" endline="218">prefactors_nuclei</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1a7501ee95ce7c58b05d8d856397bfed40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::make_df</definition>
+        <argsstring>(unsigned k, std::vector&lt; double &gt; &amp;df)</argsstring>
+        <name>make_df</name>
+        <param>
+          <type>unsigned</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; double &gt; &amp;</type>
+          <declname>df</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="161" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="161" bodyend="172"/>
+        <references refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" compoundref="math_8cc" startline="154" endline="159">factorial</references>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ad06531d448492562498d98ef6b1be53e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int libcppe::trinom</definition>
+        <argsstring>(int i, int j, int k)</argsstring>
+        <name>trinom</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="174" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="174" bodyend="176"/>
+        <references refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" compoundref="math_8cc" startline="154" endline="159">factorial</references>
+        <referencedby refid="namespacelibcppe_1ad8720df1e0ef45bf4bf85f41cefe06e4" compoundref="math_8cc" startline="40" endline="79">multipole_derivative</referencedby>
+        <referencedby refid="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" compoundref="math_8cc" startline="178" endline="192">symmetry_factors</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; libcppe::symmetry_factors</definition>
+        <argsstring>(unsigned k)</argsstring>
+        <name>symmetry_factors</name>
+        <param>
+          <type>unsigned</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="178" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="178" bodyend="192"/>
+        <references refid="namespacelibcppe_1a805981c691429e1882cc7e4613128374" compoundref="math_8cc" startline="220" endline="220">multipole_components</references>
+        <references refid="namespacelibcppe_1ad06531d448492562498d98ef6b1be53e" compoundref="math_8cc" startline="174" endline="176">trinom</references>
+        <referencedby refid="namespacelibcppe_1adcabc059a00716d45ddca295dc0b93d5" compoundref="math_8cc" startline="194" endline="203">prefactors</referencedby>
+        <referencedby refid="namespacelibcppe_1ae68605edfeae6c5741f5ec4c17bc0e0f" compoundref="math_8cc" startline="205" endline="218">prefactors_nuclei</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1adcabc059a00716d45ddca295dc0b93d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; libcppe::prefactors</definition>
+        <argsstring>(unsigned k)</argsstring>
+        <name>prefactors</name>
+        <param>
+          <type>unsigned</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="194" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="194" bodyend="203"/>
+        <references refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" compoundref="math_8cc" startline="154" endline="159">factorial</references>
+        <references refid="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" compoundref="math_8cc" startline="178" endline="192">symmetry_factors</references>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ae68605edfeae6c5741f5ec4c17bc0e0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; libcppe::prefactors_nuclei</definition>
+        <argsstring>(unsigned k)</argsstring>
+        <name>prefactors_nuclei</name>
+        <param>
+          <type>unsigned</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="205" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="205" bodyend="218"/>
+        <references refid="namespacelibcppe_1aa592960766a82f25a26aedd55ca25d4e" compoundref="math_8cc" startline="154" endline="159">factorial</references>
+        <references refid="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" compoundref="math_8cc" startline="178" endline="192">symmetry_factors</references>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">libcppe::MultipoleExpansion::calculate_interaction_energy</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1a805981c691429e1882cc7e4613128374" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int libcppe::multipole_components</definition>
+        <argsstring>(int k)</argsstring>
+        <name>multipole_components</name>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" line="220" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/math.cc" bodystart="220" bodyend="220"/>
+        <referencedby refid="namespacelibcppe_1a3a5eca65d4ae00dea484f437797349a6" compoundref="math_8cc" startline="21" endline="36">Tk_tensor</referencedby>
+        <referencedby refid="namespacelibcppe_1a0427d5cd7fdd232f829e3dc48524d8d0" compoundref="math_8cc" startline="178" endline="192">symmetry_factors</referencedby>
+        <referencedby refid="pycppe_8cc_1ac7db1ce11900efbf510bcd171590ccd5" compoundref="export__math_8cc" startline="11" endline="26">export_math</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacelibcppe_1ad88d79aa1c677e9730d1f733f0e1fa60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool libcppe::sortbysec</definition>
+        <argsstring>(const std::pair&lt; int, double &gt; &amp;a, const std::pair&lt; int, double &gt; &amp;b)</argsstring>
+        <name>sortbysec</name>
+        <param>
+          <type>const std::pair&lt; int, double &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::pair&lt; int, double &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc" line="11" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc" bodystart="11" bodyend="14"/>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc" line="16" column="1"/>
+  </compounddef>
+</doxygen>

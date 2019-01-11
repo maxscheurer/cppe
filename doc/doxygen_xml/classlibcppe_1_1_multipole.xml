@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="classlibcppe_1_1_multipole" kind="class" language="C++" prot="public">
+    <compoundname>libcppe::Multipole</compoundname>
+    <includes refid="multipole_8hh" local="no">multipole.hh</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; libcppe::Multipole::m_values</definition>
+        <argsstring></argsstring>
+        <name>m_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="13" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="13" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" compoundref="multipole_8hh" startline="20" endline="20">add_value</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" compoundref="multipole_8hh" startline="23" endline="36">remove_trace</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" compoundref="multipole_8hh" startline="38" endline="38">get_values</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" compoundref="multipole_8hh" startline="39" endline="42">get_values_vec</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned libcppe::Multipole::m_k</definition>
+        <argsstring></argsstring>
+        <name>m_k</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="43" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="43" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" compoundref="multipole_8hh" startline="23" endline="36">remove_trace</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1a47d99945db513a7adb09d687128e4ee3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::Multipole::Multipole</definition>
+        <argsstring>(unsigned k)</argsstring>
+        <name>Multipole</name>
+        <param>
+          <type>unsigned</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="16" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1a035131c546693ddcb7e43c6c0cdce0bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::Multipole::~Multipole</definition>
+        <argsstring>()</argsstring>
+        <name>~Multipole</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="17" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::Multipole::add_value</definition>
+        <argsstring>(double val)</argsstring>
+        <name>add_value</name>
+        <param>
+          <type>double</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="20" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="20" bodyend="20"/>
+        <references refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" compoundref="multipole_8hh" startline="13">m_values</references>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+        <referencedby refid="classlibcppe_1_1_potfile_reader_1a4f9a3c16cc038583a5b5312ad120294f" compoundref="potfile__reader_8cc" startline="33" endline="203">libcppe::PotfileReader::read</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::Multipole::remove_trace</definition>
+        <argsstring>()</argsstring>
+        <name>remove_trace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="23" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="23" bodyend="36"/>
+        <references refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" compoundref="multipole_8hh" startline="43">m_k</references>
+        <references refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" compoundref="multipole_8hh" startline="13">m_values</references>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; double &gt; &amp;</type>
+        <definition>std::vector&lt;double&gt;&amp; libcppe::Multipole::get_values</definition>
+        <argsstring>()</argsstring>
+        <name>get_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="38" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="38" bodyend="38"/>
+        <references refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" compoundref="multipole_8hh" startline="13">m_values</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Eigen::VectorXd</type>
+        <definition>Eigen::VectorXd libcppe::Multipole::get_values_vec</definition>
+        <argsstring>()</argsstring>
+        <name>get_values_vec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="39" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="39" bodyend="42"/>
+        <references refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" compoundref="multipole_8hh" startline="13">m_values</references>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="11" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="11" bodyend="44"/>
+    <listofallmembers>
+      <member refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>add_value</name></member>
+      <member refid="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>get_values</name></member>
+      <member refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>get_values_vec</name></member>
+      <member refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>m_k</name></member>
+      <member refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" prot="private" virt="non-virtual"><scope>libcppe::Multipole</scope><name>m_values</name></member>
+      <member refid="classlibcppe_1_1_multipole_1a47d99945db513a7adb09d687128e4ee3" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>Multipole</name></member>
+      <member refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>remove_trace</name></member>
+      <member refid="classlibcppe_1_1_multipole_1a035131c546693ddcb7e43c6c0cdce0bc" prot="public" virt="non-virtual"><scope>libcppe::Multipole</scope><name>~Multipole</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

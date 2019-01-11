@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="export__multipole_8cc" kind="file" language="C++">
+    <compoundname>export_multipole.cc</compoundname>
+    <includes local="no">pybind11/eigen.h</includes>
+    <includes local="no">pybind11/pybind11.h</includes>
+    <includes local="no">pybind11/stl.h</includes>
+    <includes local="no">pybind11/stl_bind.h</includes>
+    <includes refid="math_8hh" local="yes">../core/math.hh</includes>
+    <includes refid="multipole_8hh" local="yes">../core/multipole.hh</includes>
+    <incdepgraph>
+      <node id="253">
+        <label>../core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="246">
+        <label>pybind11/eigen.h</label>
+      </node>
+      <node id="250">
+        <label>../core/math.hh</label>
+        <link refid="math_8hh"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="252">
+        <label>vector</label>
+      </node>
+      <node id="247">
+        <label>pybind11/pybind11.h</label>
+      </node>
+      <node id="254">
+        <label>iostream</label>
+      </node>
+      <node id="245">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc</label>
+        <link refid="export__multipole_8cc"/>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+      </node>
+      <node id="249">
+        <label>pybind11/stl_bind.h</label>
+      </node>
+      <node id="248">
+        <label>pybind11/stl.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="export__multipole_8cc_1af2e116a5f9f67a228a25d8f21d3f650d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void export_multipole</definition>
+        <argsstring>(py::module &amp;m)</argsstring>
+        <name>export_multipole</name>
+        <param>
+          <type>py::module &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc" line="11" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc" bodystart="11" bodyend="37"/>
+        <references refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" compoundref="multipole_8hh" startline="43">libcppe::Multipole::m_k</references>
+        <references refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" compoundref="multipole_8hh" startline="39" endline="42">libcppe::Multipole::get_values_vec</references>
+        <references refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" compoundref="multipole_8hh" startline="23" endline="36">libcppe::Multipole::remove_trace</references>
+        <references refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" compoundref="multipole_8hh" startline="20" endline="20">libcppe::Multipole::add_value</references>
+        <references refid="classlibcppe_1_1_polarizability_1adb733e5d6c1446df39bf3f438f233af5" compoundref="multipole_8hh" startline="57" endline="59">libcppe::Polarizability::get_values_vec</references>
+        <references refid="classlibcppe_1_1_polarizability_1a7a02a7800c7a0de658daaa5d376bfa84" compoundref="multipole_8hh" startline="55" endline="55">libcppe::Polarizability::add_value</references>
+        <references refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" compoundref="multipole_8hh" startline="73">libcppe::Potential::m_x</references>
+        <references refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" compoundref="multipole_8hh" startline="73">libcppe::Potential::m_y</references>
+        <references refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" compoundref="multipole_8hh" startline="73">libcppe::Potential::m_z</references>
+        <references refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" compoundref="multipole_8hh" startline="100" endline="100">libcppe::Potential::is_polarizable</references>
+        <references refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" compoundref="multipole_8hh" startline="102" endline="102">libcppe::Potential::get_site_position</references>
+        <references refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" compoundref="multipole_8hh" startline="94" endline="94">libcppe::Potential::get_multipoles</references>
+        <references refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" compoundref="multipole_8hh" startline="96" endline="98">libcppe::Potential::get_polarizabilities</references>
+        <references refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" compoundref="multipole_8hh" startline="76">libcppe::Potential::index</references>
+        <referencedby refid="pycppe_8cc_1aede4ed36a00185bbc1f705fc2add7f46" compoundref="pycppe_8cc" startline="13" endline="22">PYBIND11_MODULE</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;pybind11/eigen.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/pybind11.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/stl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pybind11/stl_bind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/math.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/multipole.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">py<sp/>=<sp/>pybind11;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="export__multipole_8cc_1af2e116a5f9f67a228a25d8f21d3f650d" kindref="member">export_multipole</ref>(py::module<sp/>&amp;m)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>libcppe::Multipole</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::Multipole&gt;<sp/>mul(m,<sp/></highlight><highlight class="stringliteral">&quot;Multipole&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>mul.def(py::init&lt;unsigned&gt;())</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(</highlight><highlight class="stringliteral">&quot;k&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">libcppe::Multipole::m_k</ref>)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;get_values&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" kindref="member">libcppe::Multipole::get_values_vec</ref>)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;remove_trace&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" kindref="member">libcppe::Multipole::remove_trace</ref>)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;add_value&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" kindref="member">libcppe::Multipole::add_value</ref>);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>libcppe::Polarizability</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::Polarizability&gt;<sp/>polarizability(m,<sp/></highlight><highlight class="stringliteral">&quot;Polarizability&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>polarizability.def(py::init&lt;&gt;())</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;get_values&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_polarizability_1adb733e5d6c1446df39bf3f438f233af5" kindref="member">libcppe::Polarizability::get_values_vec</ref>)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;add_value&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_polarizability_1a7a02a7800c7a0de658daaa5d376bfa84" kindref="member">libcppe::Polarizability::add_value</ref>);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>libcppe::Potential</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>py::class_&lt;libcppe::Potential&gt;<sp/>pot(m,<sp/></highlight><highlight class="stringliteral">&quot;Potential&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Potential<sp/>(Site)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>pot.def(py::init&lt;double,<sp/>double,<sp/>double,<sp/>int&gt;())</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" kindref="member">libcppe::Potential::m_x</ref>,<sp/></highlight><highlight class="stringliteral">&quot;x<sp/>coordinate&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(</highlight><highlight class="stringliteral">&quot;y&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" kindref="member">libcppe::Potential::m_y</ref>,<sp/></highlight><highlight class="stringliteral">&quot;y<sp/>coordinate&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(</highlight><highlight class="stringliteral">&quot;z&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" kindref="member">libcppe::Potential::m_z</ref>,<sp/></highlight><highlight class="stringliteral">&quot;z<sp/>coordinate&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;is_polarizable&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" kindref="member">libcppe::Potential::is_polarizable</ref>)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;get_site_position&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" kindref="member">libcppe::Potential::get_site_position</ref>)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;get_multipoles&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" kindref="member">libcppe::Potential::get_multipoles</ref>)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def(</highlight><highlight class="stringliteral">&quot;get_polarizabilities&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" kindref="member">libcppe::Potential::get_polarizabilities</ref>)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(</highlight><highlight class="stringliteral">&quot;index&quot;</highlight><highlight class="normal">,<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" kindref="member">libcppe::Potential::index</ref>,<sp/></highlight><highlight class="stringliteral">&quot;site<sp/>index&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="classlibcppe_1_1_potential" kind="class" language="C++" prot="public">
+    <compoundname>libcppe::Potential</compoundname>
+    <includes refid="multipole_8hh" local="no">multipole.hh</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_multipole" kindref="compound">Multipole</ref> &gt;</type>
+        <definition>std::vector&lt;Multipole&gt; libcppe::Potential::m_multipoles</definition>
+        <argsstring></argsstring>
+        <name>m_multipoles</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="65" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="65" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" compoundref="multipole_8hh" startline="78" endline="78">add_multipole</referencedby>
+        <referencedby refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" compoundref="multipole_8hh" startline="94" endline="94">get_multipoles</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_polarizability" kindref="compound">Polarizability</ref> &gt;</type>
+        <definition>std::vector&lt;Polarizability&gt; libcppe::Potential::m_polarizabilities</definition>
+        <argsstring></argsstring>
+        <name>m_polarizabilities</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="66" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="66" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" compoundref="multipole_8hh" startline="80" endline="82">add_polarizability</referencedby>
+        <referencedby refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" compoundref="multipole_8hh" startline="96" endline="98">get_polarizabilities</referencedby>
+        <referencedby refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" compoundref="multipole_8hh" startline="100" endline="100">is_polarizable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; libcppe::Potential::m_exclusions</definition>
+        <argsstring></argsstring>
+        <name>m_exclusions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="68" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="68" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" compoundref="multipole_8hh" startline="85" endline="85">add_exclusion</referencedby>
+        <referencedby refid="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" compoundref="multipole_8hh" startline="87" endline="90">excludes_site</referencedby>
+        <referencedby refid="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" compoundref="multipole_8hh" startline="92" endline="92">get_exclusions</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Potential::m_x</definition>
+        <argsstring></argsstring>
+        <name>m_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="75" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="73" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" compoundref="multipole_8hh" startline="102" endline="102">get_site_position</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Potential::m_y</definition>
+        <argsstring></argsstring>
+        <name>m_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="75" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="73" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" compoundref="multipole_8hh" startline="102" endline="102">get_site_position</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double libcppe::Potential::m_z</definition>
+        <argsstring></argsstring>
+        <name>m_z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="75" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="73" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" compoundref="multipole_8hh" startline="102" endline="102">get_site_position</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int libcppe::Potential::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="76" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="76" bodyend="-1"/>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a8fd77b75fa07894cdf56ae4460c98d21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::Potential::Potential</definition>
+        <argsstring>(double x, double y, double z, int idx)</argsstring>
+        <name>Potential</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="71" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="71" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a88a900527c1ee8e86278f5ce93459501" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::Potential::~Potential</definition>
+        <argsstring>()</argsstring>
+        <name>~Potential</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="73" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::Potential::add_multipole</definition>
+        <argsstring>(Multipole mul)</argsstring>
+        <name>add_multipole</name>
+        <param>
+          <type><ref refid="classlibcppe_1_1_multipole" kindref="compound">Multipole</ref></type>
+          <declname>mul</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="78" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="78" bodyend="78"/>
+        <references refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" compoundref="multipole_8hh" startline="65">m_multipoles</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::Potential::add_polarizability</definition>
+        <argsstring>(Polarizability pol)</argsstring>
+        <name>add_polarizability</name>
+        <param>
+          <type><ref refid="classlibcppe_1_1_polarizability" kindref="compound">Polarizability</ref></type>
+          <declname>pol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="80" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="80" bodyend="82"/>
+        <references refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" compoundref="multipole_8hh" startline="66">m_polarizabilities</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void libcppe::Potential::add_exclusion</definition>
+        <argsstring>(int excl)</argsstring>
+        <name>add_exclusion</name>
+        <param>
+          <type>int</type>
+          <declname>excl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="85" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="85" bodyend="85"/>
+        <references refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" compoundref="multipole_8hh" startline="68">m_exclusions</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool libcppe::Potential::excludes_site</definition>
+        <argsstring>(int other_site)</argsstring>
+        <name>excludes_site</name>
+        <param>
+          <type>int</type>
+          <declname>other_site</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="87" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="87" bodyend="90"/>
+        <references refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" compoundref="multipole_8hh" startline="68">m_exclusions</references>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; int &gt; &amp;</type>
+        <definition>std::vector&lt;int&gt;&amp; libcppe::Potential::get_exclusions</definition>
+        <argsstring>()</argsstring>
+        <name>get_exclusions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="92" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="92" bodyend="92"/>
+        <references refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" compoundref="multipole_8hh" startline="68">m_exclusions</references>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_multipole" kindref="compound">Multipole</ref> &gt; &amp;</type>
+        <definition>std::vector&lt;Multipole&gt;&amp; libcppe::Potential::get_multipoles</definition>
+        <argsstring>()</argsstring>
+        <name>get_multipoles</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="94" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="94" bodyend="94"/>
+        <references refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" compoundref="multipole_8hh" startline="65">m_multipoles</references>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">libcppe::MultipoleExpansion::calculate_interaction_energy</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classlibcppe_1_1_polarizability" kindref="compound">Polarizability</ref> &gt; &amp;</type>
+        <definition>std::vector&lt;Polarizability&gt;&amp; libcppe::Potential::get_polarizabilities</definition>
+        <argsstring>()</argsstring>
+        <name>get_polarizabilities</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="96" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="96" bodyend="98"/>
+        <references refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" compoundref="multipole_8hh" startline="66">m_polarizabilities</references>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+        <referencedby refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" compoundref="pot__manipulation_8cc" startline="16" endline="144">libcppe::PotManipulator::manipulate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool libcppe::Potential::is_polarizable</definition>
+        <argsstring>()</argsstring>
+        <name>is_polarizable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="100" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="100" bodyend="100"/>
+        <references refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" compoundref="multipole_8hh" startline="66">m_polarizabilities</references>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d libcppe::Potential::get_site_position</definition>
+        <argsstring>()</argsstring>
+        <name>get_site_position</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="102" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="102" bodyend="102"/>
+        <references refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" compoundref="multipole_8hh" startline="73">m_x</references>
+        <references refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" compoundref="multipole_8hh" startline="73">m_y</references>
+        <references refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" compoundref="multipole_8hh" startline="73">m_z</references>
+        <referencedby refid="classlibcppe_1_1_nuclear_fields_1a9f49933ca9e5135bc602cbd66bbcdf33" compoundref="electric__fields_8cc" startline="9" endline="30">libcppe::NuclearFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_fields_1a5f2f55413be903581cf92e26b00a65c1" compoundref="electric__fields_8cc" startline="32" endline="67">libcppe::MultipoleFields::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_induced_moments_1a113f328469b36d75b2eb0a1b61820017" compoundref="electric__fields_8cc" startline="69" endline="202">libcppe::InducedMoments::compute</referencedby>
+        <referencedby refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" compoundref="multipole__expansion_8cc" startline="8" endline="32">libcppe::MultipoleExpansion::calculate_interaction_energy</referencedby>
+        <referencedby refid="pycppe_8cc_1a2b13e44e264b5a7f42d4f03f5612a403" compoundref="export__multipole_8cc" startline="11" endline="37">export_multipole</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" line="63" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh" bodystart="63" bodyend="103"/>
+    <listofallmembers>
+      <member refid="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>add_exclusion</name></member>
+      <member refid="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>add_multipole</name></member>
+      <member refid="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>add_polarizability</name></member>
+      <member refid="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>excludes_site</name></member>
+      <member refid="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>get_exclusions</name></member>
+      <member refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>get_multipoles</name></member>
+      <member refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>get_polarizabilities</name></member>
+      <member refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>get_site_position</name></member>
+      <member refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>index</name></member>
+      <member refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>is_polarizable</name></member>
+      <member refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" prot="private" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_exclusions</name></member>
+      <member refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" prot="private" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_multipoles</name></member>
+      <member refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" prot="private" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_polarizabilities</name></member>
+      <member refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_x</name></member>
+      <member refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_y</name></member>
+      <member refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>m_z</name></member>
+      <member refid="classlibcppe_1_1_potential_1a8fd77b75fa07894cdf56ae4460c98d21" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>Potential</name></member>
+      <member refid="classlibcppe_1_1_potential_1a88a900527c1ee8e86278f5ce93459501" prot="public" virt="non-virtual"><scope>libcppe::Potential</scope><name>~Potential</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

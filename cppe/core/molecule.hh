@@ -1,7 +1,9 @@
 #ifndef LIBCPPE_CPPE_CORE_MOLECULE_H
 #define LIBCPPE_CPPE_CORE_MOLECULE_H
 
-#include <armadillo>
+#include <vector>
+
+#include <Eigen/Core>
 
 namespace libcppe {
 
@@ -15,19 +17,12 @@ struct Atom {
     charge = an;
   }
 
-  arma::vec get_pos() {
-    arma::vec pos(3);
-    pos[0] = m_x;
-    pos[1] = m_y;
-    pos[2] = m_z;
-    return pos;
-  }
+  Eigen::Vector3d get_pos() { return Eigen::Vector3d(m_x, m_y, m_z); }
 };
 
 // Molecule is a slightly decorated std::vector
 struct Molecule : std::vector<Atom> {
-  // TODO: ugly, probably highly stupid code?
-  arma::vec get_atom_position(int atom) {
+  Eigen::Vector3d get_atom_position(int atom) {
     if (this->size() <= atom) {
       throw std::out_of_range("Not enough atoms in Molecule.");
     }

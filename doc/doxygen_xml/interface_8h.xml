@@ -1,0 +1,656 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="interface_8h" kind="file" language="C++">
+    <compoundname>interface.h</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="interface_8h_1ad6ff2722b8ca8ff9f00b15585011f457" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_init_</definition>
+        <argsstring>(int *, const double *, const double *)</argsstring>
+        <name>pe_interface_init_</name>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>const double *</type>
+        </param>
+        <param>
+          <type>const double *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="5" column="1"/>
+        <referencedby refid="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" compoundref="interface_8h" startline="30" endline="32">pe_interface_init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a3eb022ed45127dd6460139f5c3085dba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_set_potfile_</definition>
+        <argsstring>(const char *, int)</argsstring>
+        <name>pe_set_potfile_</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="6" column="1"/>
+        <referencedby refid="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" compoundref="interface_8h" startline="33" endline="33">pe_set_potfile</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a7abd1c0be1fc378fc935789a421ab9d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_energy_</definition>
+        <argsstring>(const double *, int *, int *)</argsstring>
+        <name>pe_interface_energy_</name>
+        <param>
+          <type>const double *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="7" column="1"/>
+        <referencedby refid="interface_8h_1a35b94530ddd056acbf367d7867038179" compoundref="interface_8h" startline="34" endline="36">pe_interface_energy</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1adac78992b7499b7bb63d99f2d5d5fabf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_pol_energy_</definition>
+        <argsstring>(const double *, int *, int *, double *)</argsstring>
+        <name>pe_interface_pol_energy_</name>
+        <param>
+          <type>const double *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>double *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="8" column="1"/>
+        <referencedby refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" compoundref="interface_8h" startline="43" endline="46">pe_interface_pol_energy</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1adae72ba8481aff05d3ca17e5546f5ef8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_fock_</definition>
+        <argsstring>(const double *, int *, int *, const double *, double *)</argsstring>
+        <name>pe_interface_fock_</name>
+        <param>
+          <type>const double *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>int *</type>
+        </param>
+        <param>
+          <type>const double *</type>
+        </param>
+        <param>
+          <type>double *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="10" column="1"/>
+        <referencedby refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" compoundref="interface_8h" startline="38" endline="41">pe_interface_fock</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1ab258325a5f465eee729973443643e733" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gen1int_api_initialized_</definition>
+        <argsstring>()</argsstring>
+        <name>gen1int_api_initialized_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="14" column="1"/>
+        <referencedby refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" compoundref="interface_8h" startline="53" endline="53">gen1int_api_initialized</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a037ec445803d1dcade3436b3983231e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_shells_</definition>
+        <argsstring>()</argsstring>
+        <name>print_shells_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="15" column="1"/>
+        <referencedby refid="interface_8h_1abf518e085748564030f1c598e824b6c4" compoundref="interface_8h" startline="68" endline="68">print_shells</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a7644642065278e8f83683ce75e6718d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void finalize_all_</definition>
+        <argsstring>()</argsstring>
+        <name>finalize_all_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="16" column="1"/>
+        <referencedby refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" compoundref="interface_8h" startline="70" endline="70">finalize_all</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a58b0e56bdfca194b66fbc8894a140946" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gen1int_api_initialize_</definition>
+        <argsstring>(int *natoms, int *num_shells, const double *coords, const double *charges)</argsstring>
+        <name>gen1int_api_initialize_</name>
+        <param>
+          <type>int *</type>
+          <declname>natoms</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>num_shells</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>charges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="18" column="1"/>
+        <referencedby refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" compoundref="interface_8h" startline="55" endline="58">gen1int_api_initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a02a7dcb223568f2e3b7fd5c5933b7940" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gen1int_create_shell_</definition>
+        <argsstring>(int *spher_gto, int *idx_center, const double *coord_center, int *ang_num, int *num_prim, const double *exponents, int *num_contr, const double *contr_coef)</argsstring>
+        <name>gen1int_create_shell_</name>
+        <param>
+          <type>int *</type>
+          <declname>spher_gto</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>idx_center</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>coord_center</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>ang_num</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>num_prim</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>exponents</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>num_contr</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>contr_coef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="21" column="1"/>
+        <referencedby refid="interface_8h_1a6141649fc6eae3b4b940f4f251dbd2d1" compoundref="interface_8h" startline="60" endline="66">gen1int_api_add_shell</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a82b4ec8171b781d634b8a0fee278a64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_set_border_options_</definition>
+        <argsstring>(int *m_pe_border, double *m_rmin, int *type_flag, int *redist_order, int *nredist)</argsstring>
+        <name>pe_set_border_options_</name>
+        <param>
+          <type>int *</type>
+          <declname>m_pe_border</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>m_rmin</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>type_flag</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>redist_order</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>nredist</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="26" column="1"/>
+        <referencedby refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" compoundref="interface_8h" startline="72" endline="76">pe_set_border_options</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_init</definition>
+        <argsstring>(int n, const double *coords, const double *charges)</argsstring>
+        <name>pe_interface_init</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>charges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="30" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="30" bodyend="32"/>
+        <references refid="interface_8h_1ad6ff2722b8ca8ff9f00b15585011f457">pe_interface_init_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_set_potfile</definition>
+        <argsstring>(const char *c, int n)</argsstring>
+        <name>pe_set_potfile</name>
+        <param>
+          <type>const char *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="33" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="33" bodyend="33"/>
+        <references refid="interface_8h_1a3eb022ed45127dd6460139f5c3085dba">pe_set_potfile_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a35b94530ddd056acbf367d7867038179" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_energy</definition>
+        <argsstring>(const double *densmat, int ndim, int nnbas)</argsstring>
+        <name>pe_interface_energy</name>
+        <param>
+          <type>const double *</type>
+          <declname>densmat</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ndim</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nnbas</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="34" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="34" bodyend="36"/>
+        <references refid="interface_8h_1a7abd1c0be1fc378fc935789a421ab9d9">pe_interface_energy_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1accffbf2f41888fb7c43de0059f775b97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_fock</definition>
+        <argsstring>(const double *densmat, int ndim, int nnbas, const double *fckmat, double *energy)</argsstring>
+        <name>pe_interface_fock</name>
+        <param>
+          <type>const double *</type>
+          <declname>densmat</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ndim</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nnbas</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>fckmat</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>energy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="38" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="38" bodyend="41"/>
+        <references refid="interface_8h_1adae72ba8481aff05d3ca17e5546f5ef8">pe_interface_fock_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_interface_pol_energy</definition>
+        <argsstring>(const double *densmat, int ndim, int nnbas, double *energy)</argsstring>
+        <name>pe_interface_pol_energy</name>
+        <param>
+          <type>const double *</type>
+          <declname>densmat</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ndim</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nnbas</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>energy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="43" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="43" bodyend="46"/>
+        <references refid="interface_8h_1adac78992b7499b7bb63d99f2d5d5fabf">pe_interface_pol_energy_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1ab194083cf89efaa8941ee367706487f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gen1int_api_initialized</definition>
+        <argsstring>()</argsstring>
+        <name>gen1int_api_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="53" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="53" bodyend="53"/>
+        <references refid="interface_8h_1ab258325a5f465eee729973443643e733">gen1int_api_initialized_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1af18e6d402797cdec19dcf36cab742cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gen1int_api_initialize</definition>
+        <argsstring>(int natoms, int num_shells, const double *coords, const double *charges)</argsstring>
+        <name>gen1int_api_initialize</name>
+        <param>
+          <type>int</type>
+          <declname>natoms</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_shells</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>charges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="55" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="55" bodyend="58"/>
+        <references refid="interface_8h_1a58b0e56bdfca194b66fbc8894a140946">gen1int_api_initialize_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1a6141649fc6eae3b4b940f4f251dbd2d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gen1int_api_add_shell</definition>
+        <argsstring>(int spher_gto, int idx_center, const double *coord_center, int ang_num, int num_prim, const double *exponents, int num_contr, const double *contr_coef)</argsstring>
+        <name>gen1int_api_add_shell</name>
+        <param>
+          <type>int</type>
+          <declname>spher_gto</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>idx_center</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>coord_center</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ang_num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_prim</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>exponents</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_contr</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>contr_coef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="60" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="60" bodyend="66"/>
+        <references refid="interface_8h_1a02a7dcb223568f2e3b7fd5c5933b7940">gen1int_create_shell_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1abf518e085748564030f1c598e824b6c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_shells</definition>
+        <argsstring>()</argsstring>
+        <name>print_shells</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="68" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="68" bodyend="68"/>
+        <references refid="interface_8h_1a037ec445803d1dcade3436b3983231e9">print_shells_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void finalize_all</definition>
+        <argsstring>()</argsstring>
+        <name>finalize_all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="70" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="70" bodyend="70"/>
+        <references refid="interface_8h_1a7644642065278e8f83683ce75e6718d2">finalize_all_</references>
+      </memberdef>
+      <memberdef kind="function" id="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pe_set_border_options</definition>
+        <argsstring>(int m_pe_border, double m_rmin, int type_flag, int redist_order, int nredist)</argsstring>
+        <name>pe_set_border_options</name>
+        <param>
+          <type>int</type>
+          <declname>m_pe_border</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>m_rmin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>type_flag</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>redist_order</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nredist</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h" line="72" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/interface.h" bodystart="72" bodyend="76"/>
+        <references refid="interface_8h_1a82b4ec8171b781d634b8a0fee278a64d">pe_set_border_options_</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>CPPE_INTERFACE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CPPE_INTERFACE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>&quot;C&quot;<sp/>avoids<sp/>C++<sp/>mangling<sp/>of<sp/>names.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ad6ff2722b8ca8ff9f00b15585011f457" kindref="member">pe_interface_init_</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a3eb022ed45127dd6460139f5c3085dba" kindref="member">pe_set_potfile_</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a7abd1c0be1fc378fc935789a421ab9d9" kindref="member">pe_interface_energy_</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1adac78992b7499b7bb63d99f2d5d5fabf" kindref="member">pe_interface_pol_energy_</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1adae72ba8481aff05d3ca17e5546f5ef8" kindref="member">pe_interface_fock_</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*,</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>&quot;C&quot;<sp/>void<sp/>pe_interface_response_(const<sp/>double*,<sp/>int*,<sp/>int*,<sp/>const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>double*,<sp/>double*);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ab258325a5f465eee729973443643e733" kindref="member">gen1int_api_initialized_</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a037ec445803d1dcade3436b3983231e9" kindref="member">print_shells_</ref>();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a7644642065278e8f83683ce75e6718d2" kindref="member">finalize_all_</ref>();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a58b0e56bdfca194b66fbc8894a140946" kindref="member">gen1int_api_initialize_</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*natoms,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*num_shells,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*coords,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*charges);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a02a7dcb223568f2e3b7fd5c5933b7940" kindref="member">gen1int_create_shell_</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*spher_gto,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*idx_center,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*coord_center,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*ang_num,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*num_prim,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*exponents,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*num_contr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*contr_coef);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a82b4ec8171b781d634b8a0fee278a64d" kindref="member">pe_set_border_options_</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*m_pe_border,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*m_rmin,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*type_flag,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*redist_order,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*nredist);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1aa6fa260b944ddba558d06048d7f85dc9" kindref="member">pe_interface_init</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*charges)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ad6ff2722b8ca8ff9f00b15585011f457" kindref="member">pe_interface_init_</ref>(&amp;n,<sp/>coords,<sp/>charges);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33" refid="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a9c53b2900f31ab86d5b818557ab34d3c" kindref="member">pe_set_potfile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*c,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a3eb022ed45127dd6460139f5c3085dba" kindref="member">pe_set_potfile_</ref>(c,<sp/>n);<sp/>}</highlight></codeline>
+<codeline lineno="34" refid="interface_8h_1a35b94530ddd056acbf367d7867038179" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a35b94530ddd056acbf367d7867038179" kindref="member">pe_interface_energy</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*densmat,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ndim,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nnbas)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a7abd1c0be1fc378fc935789a421ab9d9" kindref="member">pe_interface_energy_</ref>(densmat,<sp/>&amp;ndim,<sp/>&amp;nnbas);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1accffbf2f41888fb7c43de0059f775b97" kindref="member">pe_interface_fock</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*densmat,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ndim,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nnbas,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*fckmat,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*energy)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1adae72ba8481aff05d3ca17e5546f5ef8" kindref="member">pe_interface_fock_</ref>(densmat,<sp/>&amp;ndim,<sp/>&amp;nnbas,<sp/>fckmat,<sp/>energy);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1afff09ad946cb8e4d784b2ac1c07cf294" kindref="member">pe_interface_pol_energy</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*densmat,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ndim,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nnbas,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*energy)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1adac78992b7499b7bb63d99f2d5d5fabf" kindref="member">pe_interface_pol_energy_</ref>(densmat,<sp/>&amp;ndim,<sp/>&amp;nnbas,<sp/>energy);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>void<sp/>pe_interface_response(const<sp/>double<sp/>*densmat,<sp/>int<sp/>ndim,<sp/>int<sp/>nnbas,<sp/>const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>double<sp/>*fckmat,<sp/>double*<sp/>energy)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>return<sp/>pe_interface_response_(densmat,<sp/>&amp;ndim,<sp/>&amp;nnbas,<sp/>fckmat,<sp/>energy);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ab194083cf89efaa8941ee367706487f4" kindref="member">gen1int_api_initialized</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ab258325a5f465eee729973443643e733" kindref="member">gen1int_api_initialized_</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1af18e6d402797cdec19dcf36cab742cee" kindref="member">gen1int_api_initialize</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>natoms,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_shells,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*coords,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*charges)<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a58b0e56bdfca194b66fbc8894a140946" kindref="member">gen1int_api_initialize_</ref>(&amp;natoms,<sp/>&amp;num_shells,<sp/>coords,<sp/>charges);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="interface_8h_1a6141649fc6eae3b4b940f4f251dbd2d1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a6141649fc6eae3b4b940f4f251dbd2d1" kindref="member">gen1int_api_add_shell</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>spher_gto,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>idx_center,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*coord_center,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ang_num,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_prim,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*exponents,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_contr,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*contr_coef)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a02a7dcb223568f2e3b7fd5c5933b7940" kindref="member">gen1int_create_shell_</ref>(&amp;spher_gto,<sp/>&amp;idx_center,<sp/>coord_center,<sp/>&amp;ang_num,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;num_prim,<sp/>exponents,<sp/>&amp;num_contr,<sp/>contr_coef);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="interface_8h_1abf518e085748564030f1c598e824b6c4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1abf518e085748564030f1c598e824b6c4" kindref="member">print_shells</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a037ec445803d1dcade3436b3983231e9" kindref="member">print_shells_</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1ac59e5b5dd04e45a9274b7c9071c57262" kindref="member">finalize_all</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a7644642065278e8f83683ce75e6718d2" kindref="member">finalize_all_</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1adfe2a2c4f585042746b6fe8694aa59b4" kindref="member">pe_set_border_options</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m_pe_border,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_rmin,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>type_flag,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>redist_order,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nredist)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="interface_8h_1a82b4ec8171b781d634b8a0fee278a64d" kindref="member">pe_set_border_options_</ref>(&amp;m_pe_border,<sp/>&amp;m_rmin,<sp/>&amp;type_flag,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;redist_order,<sp/>&amp;nredist);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>CPPE_INTERFACE_H</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/interface.h"/>
+  </compounddef>
+</doxygen>

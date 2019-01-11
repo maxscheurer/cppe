@@ -1,36 +1,40 @@
-#include "electric_fields.hh"
+#include <Eigen/Dense>
+
 #include <iomanip>
+#include "electric_fields.hh"
 #include "math.hh"
 
 namespace libcppe {
 
-void NuclearFields::compute(arma::vec &nuc_fields, bool damp_core) {
+Eigen::VectorXd NuclearFields::compute(bool damp_core) {
   if (damp_core) {
     throw std::runtime_error("damping not implemented");
   }
-  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
-
+  std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
+  Eigen::VectorXd nuc_fields =  Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for firstprivate(Tk_coeffs)
   for (size_t i = 0; i < m_n_polsites; i++) {
     size_t site_counter = 3 * i;
     Potential &potential = m_polsites[i];
-    arma::vec site_position = potential.get_site_position();
+    Eigen::Vector3d site_position = potential.get_site_position();
     for (auto &atom : m_mol) {
-      arma::vec core_position = atom.get_pos();
-      arma::vec diff = site_position - core_position;
-      arma::vec Tms = Tk_tensor(1, diff, Tk_coeffs);
+      Eigen::Vector3d core_position = atom.get_pos();
+      Eigen::Vector3d diff = site_position - core_position;
+      Eigen::VectorXd Tms = Tk_tensor(1, diff, Tk_coeffs);
       nuc_fields(site_counter) -= atom.charge * Tms(0);
       nuc_fields(site_counter + 1) -= atom.charge * Tms(1);
       nuc_fields(site_counter + 2) -= atom.charge * Tms(2);
     }
   }
+  return nuc_fields;
 }
 
-void MultipoleFields::compute(arma::vec &mult_fields, bool damp) {
+Eigen::VectorXd MultipoleFields::compute(bool damp) {
   if (damp) {
     throw std::runtime_error("damping not implemented");
   }
-  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
+  std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
+  Eigen::VectorXd mult_fields = Eigen::VectorXd::Zero(3 * m_n_polsites);
 // Field at site of potential1 caused by all other sites (also non-polarizable
 // sites!!!) size_t site_counter = 0;
 #pragma omp parallel for firstprivate(Tk_coeffs)
@@ -42,7 +46,7 @@ void MultipoleFields::compute(arma::vec &mult_fields, bool damp) {
           m_potentials[j];  // all other multipoles create el. field at site i
       if (potential1.index == potential2.index) continue;
       if (potential1.excludes_site(potential2.index)) continue;
-      arma::vec diff =
+      Eigen::Vector3d diff =
           potential1.get_site_position() - potential2.get_site_position();
       // std::cout << "-- created by site " << potential2.index << std::endl;
       for (auto &mul : potential2.get_multipoles()) {
@@ -51,32 +55,31 @@ void MultipoleFields::compute(arma::vec &mult_fields, bool damp) {
         // mul.get_values().end(), [](double val){return fabs(val) > 0.0;} );
         // std::cout << "non-zeros: " << non_zeros << std::endl;
         // if (non_zeros == 0) continue;
-        arma::vec Fi =
-            multipole_derivative(mul.m_k, 1, diff, mul.get_values(), Tk_coeffs);
+        Eigen::VectorXd Fi = multipole_derivative(
+            mul.m_k, 1, diff, mul.get_values_vec(), Tk_coeffs);
         mult_fields(site_counter) += Fi(0);
         mult_fields(site_counter + 1) += Fi(1);
         mult_fields(site_counter + 2) += Fi(2);
       }
     }
   }
+  return mult_fields;
 }
 
-void InducedMoments::compute(arma::vec &total_fields,
-                             arma::vec &induced_moments, bool make_guess,
+void InducedMoments::compute(const Eigen::VectorXd &total_fields,
+                             Eigen::VectorXd &induced_moments, bool make_guess,
                              std::ostream &output_stream) {
-  arma::set_cerr_stream(output_stream);
-  arma::set_cout_stream(output_stream);
   output_stream << "        Running solver for induced moments." << std::endl;
-  std::vector<arma::Mat<int>> Tk_coeffs = Tk_coefficients(5);
+  std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
     size_t site_counter = 0;
     for (auto &pot : m_potentials) {
       if (!pot.is_polarizable()) continue;
-      arma::vec res =
-          smat_vec(pot.get_polarizabilities()[0].get_values(),
-                   total_fields.subvec(site_counter, site_counter + 2), 1.0);
-      induced_moments.subvec(site_counter, site_counter + 2) = res;
+      Eigen::Vector3d res =
+          smat_vec(pot.get_polarizabilities()[0].get_values_vec(),
+                   total_fields.segment(site_counter, 3), 1.0);
+      induced_moments.segment(site_counter, 3) = res;
       site_counter += 3;
     }
   }
@@ -91,15 +94,11 @@ void InducedMoments::compute(arma::vec &total_fields,
   bool converged = false;
   double norm = 0.0;
 
-  // int l, m;
-  // arma::vec Ftmp(3, arma::fill::zeros);
-  // arma::vec M1tmp(3, arma::fill::zeros);
-
   bool diis = false;
   int diis_maxvec = 10;
-  std::vector<arma::vec> diis_prev_moments;
-  std::vector<arma::vec> diis_residuals;
-  arma::vec diis_old_moments = induced_moments;
+  std::vector<Eigen::VectorXd> diis_prev_moments;
+  std::vector<Eigen::VectorXd> diis_residuals;
+  Eigen::VectorXd diis_old_moments = induced_moments;
 
   // iterations
   while (!converged) {
@@ -112,8 +111,8 @@ void InducedMoments::compute(arma::vec &total_fields,
     norm = 0.0;
 #pragma omp parallel for reduction(+ : norm)
     for (int i = 0; i < m_n_polsites; ++i) {
-      arma::vec Ftmp(3, arma::fill::zeros);
-      arma::vec M1tmp(3);
+      Eigen::Vector3d Ftmp = Eigen::Vector3d::Zero();
+      Eigen::Vector3d M1tmp = Eigen::Vector3d::Zero();
       int l = i * 3;
       Potential &pot1 = m_polsites[i];
       for (int j = 0; j < m_n_polsites; ++j) {
@@ -122,18 +121,19 @@ void InducedMoments::compute(arma::vec &total_fields,
         if (pot1.excludes_site(pot2.index) || i == j) {
           continue;
         }
-        arma::vec diff = pot2.get_site_position() - pot1.get_site_position();
-        arma::vec T2 = Tk_tensor(2, diff, Tk_coeffs);
-        Ftmp += smat_vec(T2, induced_moments.subvec(m, m + 2), 1.0);
+        Eigen::Vector3d diff =
+            pot2.get_site_position() - pot1.get_site_position();
+        Eigen::VectorXd T2 = Tk_tensor(2, diff, Tk_coeffs);
+        Ftmp += smat_vec(T2, induced_moments.segment(m, 3), 1.0);
       }
       // keep value to calculate residual
-      M1tmp = induced_moments.subvec(l, l + 2);
-      Ftmp += total_fields.subvec(l, l + 2);
-      induced_moments.subvec(l, l + 2) =
-          smat_vec(pot1.get_polarizabilities()[0].get_values(), Ftmp, 1.0);
+      M1tmp = induced_moments.segment(l, 3);
+      Ftmp += total_fields.segment(l, 3);
+      induced_moments.segment(l, 3) =
+          smat_vec(pot1.get_polarizabilities()[0].get_values_vec(), Ftmp, 1.0);
       // Calculate the residual
-      M1tmp = induced_moments.subvec(l, l + 2) - M1tmp;
-      norm += arma::norm(M1tmp);
+      M1tmp = induced_moments.segment(l, 3) - M1tmp;
+      norm += M1tmp.norm();
     }
 
     diis_prev_moments.push_back(induced_moments);
@@ -147,23 +147,23 @@ void InducedMoments::compute(arma::vec &total_fields,
 
     if (diis_residuals.size() > 2 && diis) {
       int diis_size = diis_residuals.size() + 1;
-      arma::mat B(diis_size, diis_size, arma::fill::zeros);
+      Eigen::MatrixXd B = Eigen::MatrixXd::Zero(diis_size, diis_size);
       for (size_t i = 1; i < diis_size; i++) {
         B(i, 0) = -1.0;
         B(0, i) = -1.0;
       }
       for (size_t i = 1; i < diis_size; i++) {
         for (size_t j = 1; j < diis_size; j++) {
-          B(i, j) = arma::dot(diis_residuals[i - 1], diis_residuals[j - 1]);
+          B(i, j) = diis_residuals[i - 1].dot(diis_residuals[j - 1]);
           B(j, i) = B(i, j);
         }
       }
       // std::cout << "B-matrix" << std::endl;
       // std::cout << B << std::endl;
-      arma::vec rhs(diis_size, arma::fill::zeros);
+      Eigen::VectorXd rhs = Eigen::VectorXd::Zero(diis_size);
       rhs(0) = -1.0;
 
-      arma::vec weights = arma::solve(B, rhs);
+      Eigen::VectorXd weights = B.colPivHouseholderQr().solve(rhs);
       // std::cout << weights << std::endl;
       induced_moments.fill(0.0);
       for (size_t i = 0; i < diis_size - 1; i++) {
@@ -172,7 +172,7 @@ void InducedMoments::compute(arma::vec &total_fields,
     }
 
     if (diis) {
-      norm = arma::norm(induced_moments - diis_old_moments);
+      norm = (induced_moments - diis_old_moments).norm();
     }
 
     diis_old_moments = induced_moments;
@@ -192,7 +192,7 @@ void InducedMoments::compute(arma::vec &total_fields,
   double nrm = 0.0;
   for (int j = 0; j < m_n_polsites; ++j) {
     int m = 3 * j;
-    nrm = arma::norm(induced_moments.subvec(m, m + 2));
+    nrm = (induced_moments.segment(m, 3)).norm();
     if (nrm > 1.0) {
       int site = m_polsites[j].index;
       output_stream << "WARNING: Induced moment on site " << site

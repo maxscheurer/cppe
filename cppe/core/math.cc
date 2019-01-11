@@ -6,11 +6,9 @@ namespace libcppe {
 
 // this only works for the contraction of polarizability/interaction tensors
 // with vectors of size 3
-// TODO: need to make this faster
-arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha) {
-  assert(mat.n_elem == 6);
-  assert(vec.n_elem == 3);
-  arma::vec result(3, arma::fill::zeros);
+Eigen::Vector3d smat_vec(const Eigen::VectorXd &mat, const Eigen::Vector3d &vec,
+                         double alpha) {
+  Eigen::Vector3d result;
   // expect upper triangle be provided
   result[0] = mat[0] * vec[0] + mat[1] * vec[1] + mat[2] * vec[2];
   result[1] = mat[1] * vec[0] + mat[3] * vec[1] + mat[4] * vec[2];
@@ -20,10 +18,10 @@ arma::vec smat_vec(arma::vec mat, arma::vec vec, double alpha) {
 }
 
 // TODO: add option for damping
-arma::vec Tk_tensor(int k, arma::vec Rij,
-                    std::vector<arma::Mat<int>> &Tk_coeffs) {
+Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d &Rij,
+                          std::vector<Eigen::MatrixXi> &Tk_coeffs) {
   int x, y, z;
-  arma::vec Tk(multipole_components(k));
+  Eigen::VectorXd Tk(multipole_components(k));
   int idx = 0;
   for (x = k; x > -1; x--) {
     for (y = k; y > -1; y--) {
@@ -39,11 +37,12 @@ arma::vec Tk_tensor(int k, arma::vec Rij,
 
 // TODO: there must be a way to make this more efficient...
 // only 1st derivative supported
-arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
-                               std::vector<arma::Mat<int>> &Tk_coeffs) {
+Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
+                                     Eigen::VectorXd Mkj,
+                                     std::vector<Eigen::MatrixXi> &Tk_coeffs) {
   if (l > 1)
     throw std::runtime_error("Only 1st derivatives supported for multipoles");
-  arma::vec Fi(3, arma::fill::zeros);
+  Eigen::VectorXd Fi = Eigen::VectorXd::Zero(3);
 
   double taylor;
   if ((k + l) % 2 == 0) {
@@ -56,7 +55,7 @@ arma::vec multipole_derivative(int k, int l, arma::vec Rji, arma::vec Mkj,
   double symfac;
   // std::cout << "mul k = " << k << std::endl;
   // std::cout << "l = " << l << std::endl;
-  arma::vec Tk = Tk_tensor(k + l, Rji, Tk_coeffs);
+  Eigen::VectorXd Tk = Tk_tensor(k + l, Rji, Tk_coeffs);
   for (x = k + l; x > -1; x--) {
     for (y = k + l; y > -1; y--) {
       for (z = k + l; z > -1; z--) {
@@ -97,10 +96,10 @@ int xyz2idx(int x, int y, int z) {
   }
 }
 
-double T(arma::vec Rij, int x, int y, int z,
-         std::vector<arma::Mat<int>> &Cijn) {
+double T(const Eigen::Vector3d &Rij, int x, int y, int z,
+         std::vector<Eigen::MatrixXi> &Cijn) {
   double t = 0.0;
-  double R = arma::norm(Rij);
+  double R = Rij.norm();
   double Cx, Cy, Cz;
   for (size_t l = 0; l <= x; l++) {
     Cx = Cijn[0](x, l) * pow((Rij(0) / R), l);
@@ -116,14 +115,12 @@ double T(arma::vec Rij, int x, int y, int z,
   return t;
 }
 
-std::vector<arma::Mat<int>> Tk_coefficients(int max_order) {
+std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {
   int maxi = 2 * max_order + 3;
-  // arma::Cube<int> Cijn(max_order + 2, max_order + 2, maxi,
-  // arma::fill::zeros);
-  std::vector<arma::Mat<int>> Cijn;
+  std::vector<Eigen::MatrixXi> Cijn;
   for (int n = 0; n < maxi; ++n) {
     int k;
-    arma::Mat<int> mat(max_order + 2, max_order + 2, arma::fill::zeros);
+    Eigen::MatrixXi mat = Eigen::MatrixXi::Zero(max_order + 2, max_order + 2);
     mat(0, 0) = 1;
     if ((n + 1) % 2 == 0) {
       Cijn.push_back(mat);
@@ -178,7 +175,8 @@ int trinom(int i, int j, int k) {
   return factorial(i + j + k) / (factorial(i) * factorial(j) * factorial(k));
 }
 
-void symmetry_factors(unsigned k, std::vector<double> &pf) {
+std::vector<double> symmetry_factors(unsigned k) {
+  std::vector<double> pf(multipole_components(k));
   int x, y, z, idx;
   idx = 0;
   for (x = k; x > -1; x--) {
@@ -190,28 +188,21 @@ void symmetry_factors(unsigned k, std::vector<double> &pf) {
       }
     }
   }
-}
-
-void prefactors(unsigned k, std::vector<double> &pf) {
-  double taylor = -1.0 / factorial(k);
-  ;
-  // changed signs here because electron charges are included downstream
-  // (integral library)
-
-  symmetry_factors(k, pf);
-  for (size_t i = 0; i < pf.size(); i++) {
-    pf[i] *= taylor;
-  }
+  return pf;
 }
 
 std::vector<double> prefactors(unsigned k) {
-  int sz = multipole_components(k);
-  std::vector<double> pref(sz);
-  prefactors(k, pref);
+  double taylor = -1.0 / factorial(k);
+  // changed signs here because electron charges are included downstream
+  // (integral library)
+  std::vector<double> pref = symmetry_factors(k);
+  for (size_t i = 0; i < pref.size(); i++) {
+    pref[i] *= taylor;
+  }
   return pref;
 }
 
-void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
+std::vector<double> prefactors_nuclei(unsigned k) {
   double taylor;
   if (k % 2 == 0) {
     taylor = 1.0 / factorial(k);
@@ -219,10 +210,11 @@ void prefactors_nuclei(unsigned k, std::vector<double> &pf) {
     taylor = -1.0 / factorial(k);
   }
 
-  symmetry_factors(k, pf);
+  std::vector<double> pf = symmetry_factors(k);
   for (size_t i = 0; i < pf.size(); i++) {
     pf[i] *= taylor;
   }
+  return pf;
 }
 
 int multipole_components(int k) { return (k + 1) * (k + 2) / 2; }

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="dir_4ef915e641514ebc91bdfc914537ff46" kind="dir">
+    <compoundname>/Users/maxscheurer/Projects/cppe/cppe</compoundname>
+    <innerdir refid="dir_53f1138f3f5c4b11e9518e7b6d18a2eb">/Users/maxscheurer/Projects/cppe/cppe/core</innerdir>
+    <innerdir refid="dir_eb05382a6b76d2ee1afeadfd5a23001f">/Users/maxscheurer/Projects/cppe/cppe/pelib_interface</innerdir>
+    <innerdir refid="dir_34ef9b77aeabc5ec58939d80c2e43bc3">/Users/maxscheurer/Projects/cppe/cppe/pycppe</innerdir>
+    <innerdir refid="dir_f98a5f65b8c4f880c583640445bd1dcf">/Users/maxscheurer/Projects/cppe/cppe/utils</innerdir>
+    <innerfile refid="interface_8h">interface.h</innerfile>
+    <innerfile refid="libcppe_8cc">libcppe.cc</innerfile>
+    <innerfile refid="libcppe_8hh">libcppe.hh</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/"/>
+  </compounddef>
+</doxygen>

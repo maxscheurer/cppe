@@ -21,11 +21,10 @@ inline bool file_exists(const std::string &name) {
   std::ifstream f(name.c_str());
   return f.good();
 }
-} // unnamed namespace
+}  // unnamed namespace
 
 PotfileReader::PotfileReader(std::string potfile_name)
     : m_potfile(potfile_name) {
-
   if (!file_exists(m_potfile)) {
     throw std::runtime_error("Potential file does not exist.");
   }
@@ -123,12 +122,13 @@ std::vector<Potential> PotfileReader::read() {
             }
           }
         }
-      } else if (temp.size() == 3) { // polarizabilities
+      } else if (temp.size() == 3) {  // polarizabilities
         int order1 = stoi(temp[1]);
         int order2 = stoi(temp[2]);
         if (order1 != 1 || order2 != 1) {
-          throw std::runtime_error("Only dipole-dipole polarizabilities "
-                                   "are currently supported.");
+          throw std::runtime_error(
+              "Only dipole-dipole polarizabilities "
+              "are currently supported.");
         }
         getline(infile, line);
         int num_polarizabilities = stoi(line);
@@ -146,7 +146,7 @@ std::vector<Potential> PotfileReader::read() {
           }
           potentials[site_num].add_polarizability(pol);
         }
-      } else { // unhandled
+      } else {  // unhandled
         throw std::runtime_error("Invalid number in potfile ORDER.");
       }
     }
@@ -202,4 +202,4 @@ std::vector<Potential> PotfileReader::read() {
   return potentials;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

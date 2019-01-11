@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="pot__manipulation_8hh" kind="file" language="C++">
+    <compoundname>pot_manipulation.hh</compoundname>
+    <includes local="no">iostream</includes>
+    <includes refid="molecule_8hh" local="yes">../core/molecule.hh</includes>
+    <includes refid="multipole_8hh" local="yes">../core/multipole.hh</includes>
+    <includes refid="pe__options_8hh" local="yes">../core/pe_options.hh</includes>
+    <includedby refid="cppe__state_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</includedby>
+    <includedby refid="export__utils_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</includedby>
+    <includedby refid="pot__manipulation_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc</includedby>
+    <incdepgraph>
+      <node id="311">
+        <label>../core/molecule.hh</label>
+        <link refid="molecule_8hh"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="313" relation="include">
+        </childnode>
+      </node>
+      <node id="314">
+        <label>../core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="313" relation="include">
+        </childnode>
+        <childnode refid="310" relation="include">
+        </childnode>
+        <childnode refid="312" relation="include">
+        </childnode>
+      </node>
+      <node id="313">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="316">
+        <label>string</label>
+      </node>
+      <node id="309">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh</label>
+        <link refid="pot__manipulation_8hh"/>
+        <childnode refid="310" relation="include">
+        </childnode>
+        <childnode refid="311" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+        <childnode refid="315" relation="include">
+        </childnode>
+      </node>
+      <node id="315">
+        <label>../core/pe_options.hh</label>
+        <link refid="pe__options_8hh"/>
+        <childnode refid="316" relation="include">
+        </childnode>
+      </node>
+      <node id="312">
+        <label>vector</label>
+      </node>
+      <node id="310">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="318">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</label>
+        <link refid="cppe__state_8cc"/>
+      </node>
+      <node id="317">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh</label>
+        <link refid="pot__manipulation_8hh"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+      </node>
+      <node id="320">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc</label>
+        <link refid="pot__manipulation_8cc"/>
+      </node>
+      <node id="319">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</label>
+        <link refid="export__utils_8cc"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlibcppe_1_1_pot_manipulator" prot="public">libcppe::PotManipulator</innerclass>
+    <innernamespace refid="namespacelibcppe">libcppe</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>CPPE_UTILS_POT_MANIPULATION</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CPPE_UTILS_POT_MANIPULATION</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/molecule.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/multipole.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../core/pe_options.hh&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelibcppe" kindref="compound">libcppe</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classlibcppe_1_1_pot_manipulator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_pot_manipulator" kindref="compound">PotManipulator</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14" refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Potential&gt;<sp/><ref refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" kindref="member">m_potentials</ref>;</highlight></codeline>
+<codeline lineno="15" refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref><sp/><ref refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" kindref="member">m_mol</ref>;</highlight></codeline>
+<codeline lineno="16" refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" refkind="member"><highlight class="normal"><sp/><sp/>std::ostream<sp/>&amp;<ref refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" kindref="member">m_output_stream</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19" refid="classlibcppe_1_1_pot_manipulator_1abe7b678ecf0f070b0ce2da8ec71a0f96" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_pot_manipulator_1abe7b678ecf0f070b0ce2da8ec71a0f96" kindref="member">PotManipulator</ref>(std::vector&lt;Potential&gt;<sp/>potentials,<sp/><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref><sp/>mol,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostream<sp/>&amp;output_stream<sp/>=<sp/>std::cout)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classlibcppe_1_1_pot_manipulator_1a46ead22648e3895960a4f28af99fada4" kindref="member">m_potentials</ref>(potentials),<sp/><ref refid="classlibcppe_1_1_pot_manipulator_1a7e5c6b3d73b158e84db6e39130d1c47f" kindref="member">m_mol</ref>(mol),<sp/><ref refid="classlibcppe_1_1_pot_manipulator_1af5c7e04ad5f80fc2887d4db88ee1b991" kindref="member">m_output_stream</ref>(output_stream){};</highlight></codeline>
+<codeline lineno="22" refid="classlibcppe_1_1_pot_manipulator_1af3209209a0765b5cbc837f81fa7a3336" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_pot_manipulator_1af3209209a0765b5cbc837f81fa7a3336" kindref="member">~PotManipulator</ref>(){};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::vector&lt;Potential&gt;<sp/><ref refid="classlibcppe_1_1_pot_manipulator_1ae707cd15159991add6f0d180a9ce6617" kindref="member">manipulate</ref>(<ref refid="structlibcppe_1_1_pe_options" kindref="compound">PeOptions</ref><sp/>&amp;pe_options);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>libcppe</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>CPPE_UTILS_POT_MANIPULATION</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh"/>
+  </compounddef>
+</doxygen>

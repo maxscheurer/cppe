@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="multipole__expansion_8hh" kind="file" language="C++">
+    <compoundname>multipole_expansion.hh</compoundname>
+    <includes refid="math_8hh" local="yes">math.hh</includes>
+    <includes refid="molecule_8hh" local="yes">molecule.hh</includes>
+    <includes refid="multipole_8hh" local="yes">multipole.hh</includes>
+    <includedby refid="electric__fields_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.hh</includedby>
+    <includedby refid="cppe__state_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</includedby>
+    <includedby refid="multipole__expansion_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.cc</includedby>
+    <includedby refid="libcppe_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc</includedby>
+    <includedby refid="potfile__reader_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc</includedby>
+    <incdepgraph>
+      <node id="137">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh</label>
+        <link refid="multipole__expansion_8hh"/>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>molecule.hh</label>
+        <link refid="molecule_8hh"/>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="139">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="138">
+        <label>math.hh</label>
+        <link refid="math_8hh"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>vector</label>
+      </node>
+      <node id="143">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="144">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh</label>
+        <link refid="multipole__expansion_8hh"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.cc</label>
+        <link refid="multipole__expansion_8cc"/>
+      </node>
+      <node id="151">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc</label>
+        <link refid="potfile__reader_8cc"/>
+      </node>
+      <node id="146">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</label>
+        <link refid="cppe__state_8cc"/>
+      </node>
+      <node id="148">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc</label>
+        <link refid="libcppe_8cc"/>
+      </node>
+      <node id="149">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc</label>
+        <link refid="export__fields_8cc"/>
+      </node>
+      <node id="147">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.cc</label>
+        <link refid="electric__fields_8cc"/>
+      </node>
+      <node id="145">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.hh</label>
+        <link refid="electric__fields_8hh"/>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlibcppe_1_1_multipole_expansion" prot="public">libcppe::MultipoleExpansion</innerclass>
+    <innernamespace refid="namespacelibcppe">libcppe</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>LIBCPPE_CPPE_CORE_MULTIPOLE_EXPANSION_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIBCPPE_CPPE_CORE_MULTIPOLE_EXPANSION_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="math_8hh" kindref="compound">math.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="molecule_8hh" kindref="compound">molecule.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="multipole_8hh" kindref="compound">multipole.hh</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelibcppe" kindref="compound">libcppe</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classlibcppe_1_1_multipole_expansion" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_multipole_expansion" kindref="compound">MultipoleExpansion</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12" refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref><sp/><ref refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" kindref="member">m_mol</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="13" refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Potential&gt;<sp/><ref refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" kindref="member">m_potentials</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="classlibcppe_1_1_multipole_expansion_1ae2391f0e45982d4241bede61c620d560" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_expansion_1ae2391f0e45982d4241bede61c620d560" kindref="member">MultipoleExpansion</ref>(<ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref><sp/>core,<sp/>std::vector&lt;Potential&gt;<sp/>potentials)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classlibcppe_1_1_multipole_expansion_1a65c9ebc58ad0dbeb3046ec48fb59c611" kindref="member">m_mol</ref>(core),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_multipole_expansion_1aae43c9070e41ba0da639ddae4a3170c8" kindref="member">m_potentials</ref>(potentials){</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="21" refid="classlibcppe_1_1_multipole_expansion_1a6e35115e1d1a88c1de80b39f9b6c6c5c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_expansion_1a6e35115e1d1a88c1de80b39f9b6c6c5c" kindref="member">~MultipoleExpansion</ref>(){};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_multipole_expansion_1af90841d1325084210f6ea0cefaef2c8c" kindref="member">calculate_interaction_energy</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>libcppe</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh"/>
+  </compounddef>
+</doxygen>

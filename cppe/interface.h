@@ -75,4 +75,4 @@ void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag,
                                 &redist_order, &nredist);
 }
 
-#endif // CPPE_INTERFACE_H
+#endif  // CPPE_INTERFACE_H

@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="multipole_8hh" kind="file" language="C++">
+    <compoundname>multipole.hh</compoundname>
+    <includes local="no">Eigen/Core</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">vector</includes>
+    <includedby refid="cppe__state_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.hh</includedby>
+    <includedby refid="multipole__expansion_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh</includedby>
+    <includedby refid="cppe__state_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</includedby>
+    <includedby refid="pot__manipulation_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh</includedby>
+    <includedby refid="potfile__reader_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.hh</includedby>
+    <includedby refid="libcppe_8hh" local="yes">/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh</includedby>
+    <includedby refid="export__multipole_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc</includedby>
+    <includedby refid="export__utils_8cc" local="yes">/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</includedby>
+    <incdepgraph>
+      <node id="106">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>Eigen/Core</label>
+      </node>
+      <node id="109">
+        <label>vector</label>
+      </node>
+      <node id="108">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="114">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.hh</label>
+        <link refid="multipole__expansion_8hh"/>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole_expansion.cc</label>
+        <link refid="multipole__expansion_8cc"/>
+      </node>
+      <node id="124">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.hh</label>
+        <link refid="potfile__reader_8hh"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="120">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/potfile_reader.cc</label>
+        <link refid="potfile__reader_8cc"/>
+      </node>
+      <node id="112">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.cc</label>
+        <link refid="cppe__state_8cc"/>
+      </node>
+      <node id="110">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh</label>
+        <link refid="multipole_8hh"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/cppe_state.hh</label>
+        <link refid="cppe__state_8hh"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="117">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/libcppe.cc</label>
+        <link refid="libcppe_8cc"/>
+      </node>
+      <node id="121">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.hh</label>
+        <link refid="pot__manipulation_8hh"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_state.cc</label>
+        <link refid="export__state_8cc"/>
+      </node>
+      <node id="125">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/libcppe.hh</label>
+        <link refid="libcppe_8hh"/>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="123">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/utils/pot_manipulation.cc</label>
+        <link refid="pot__manipulation_8cc"/>
+      </node>
+      <node id="118">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_fields.cc</label>
+        <link refid="export__fields_8cc"/>
+      </node>
+      <node id="116">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.cc</label>
+        <link refid="electric__fields_8cc"/>
+      </node>
+      <node id="115">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/core/electric_fields.hh</label>
+        <link refid="electric__fields_8hh"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_multipole.cc</label>
+        <link refid="export__multipole_8cc"/>
+      </node>
+      <node id="122">
+        <label>/Users/maxscheurer/Projects/cppe/cppe/pycppe/export_utils.cc</label>
+        <link refid="export__utils_8cc"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlibcppe_1_1_multipole" prot="public">libcppe::Multipole</innerclass>
+    <innerclass refid="classlibcppe_1_1_polarizability" prot="public">libcppe::Polarizability</innerclass>
+    <innerclass refid="classlibcppe_1_1_potential" prot="public">libcppe::Potential</innerclass>
+    <innernamespace refid="namespacelibcppe">libcppe</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>LIBCPPE_CORE_MULTIPOLE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIBCPPE_CORE_MULTIPOLE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Eigen/Core&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelibcppe" kindref="compound">libcppe</ref><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classlibcppe_1_1_multipole" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_multipole" kindref="compound">Multipole</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13" refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="classlibcppe_1_1_multipole_1a47d99945db513a7adb09d687128e4ee3" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_1a47d99945db513a7adb09d687128e4ee3" kindref="member">Multipole</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>k)<sp/>:<sp/><ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">m_k</ref>(k){};</highlight></codeline>
+<codeline lineno="17" refid="classlibcppe_1_1_multipole_1a035131c546693ddcb7e43c6c0cdce0bc" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_multipole_1a035131c546693ddcb7e43c6c0cdce0bc" kindref="member">~Multipole</ref>(){};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>add<sp/>check<sp/>if<sp/>too<sp/>many<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_multipole_1a229b44c4e38806286a61d8de7cfa8bfa" kindref="member">add_value</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>.push_back(val);<sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>check<sp/>if<sp/>required<sp/>number<sp/>of<sp/>values<sp/>in<sp/>m_values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_multipole_1a99a8d54bf16eb42f3a6d111d05022c1c" kindref="member">remove_trace</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>trace;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">m_k</ref><sp/>==<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>trace<sp/>=<sp/>(<ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[0]<sp/>+<sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[3]<sp/>+<sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[5])<sp/>/<sp/>3.0;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[0]<sp/>-=<sp/>trace;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[3]<sp/>-=<sp/>trace;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>[5]<sp/>-=<sp/>trace;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">m_k</ref><sp/>&gt;<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;remove_trace()<sp/>not<sp/>implemented<sp/>for<sp/>multipoles<sp/>of<sp/>order<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">m_k</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Results<sp/>from<sp/>integral<sp/>calculations<sp/>could<sp/>be<sp/>wrong.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>&amp;<ref refid="classlibcppe_1_1_multipole_1ac5fa56ca87ad2f206119bb09f5eda7f2" kindref="member">get_values</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="39" refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" refkind="member"><highlight class="normal"><sp/><sp/>Eigen::VectorXd<sp/><ref refid="classlibcppe_1_1_multipole_1accd5ba6880716fdda9b81c204885b3e3" kindref="member">get_values_vec</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Eigen::Map&lt;Eigen::VectorXd&gt;(<ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>.data(),<sp/><ref refid="classlibcppe_1_1_multipole_1abc4fa811fa757c66769fb60866a2ea63" kindref="member">m_values</ref>.size());</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43" refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_multipole_1a6c075a81f37b29b1a2f41663c6af7735" kindref="member">m_k</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Currently,<sp/>only<sp/>dipole-dipole<sp/>polarizabilities<sp/>are<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="classlibcppe_1_1_polarizability" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_polarizability" kindref="compound">Polarizability</ref><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="49" refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kindref="member">m_values</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="52" refid="classlibcppe_1_1_polarizability_1a500fea53cfd23d1cb4a0d4ea648ac0b6" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_polarizability_1a500fea53cfd23d1cb4a0d4ea648ac0b6" kindref="member">Polarizability</ref>(){};</highlight></codeline>
+<codeline lineno="53" refid="classlibcppe_1_1_polarizability_1a57444800aa549d714e57087afa3f2076" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_polarizability_1a57444800aa549d714e57087afa3f2076" kindref="member">~Polarizability</ref>(){};</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classlibcppe_1_1_polarizability_1a7a02a7800c7a0de658daaa5d376bfa84" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_polarizability_1a7a02a7800c7a0de658daaa5d376bfa84" kindref="member">add_value</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/><ref refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kindref="member">m_values</ref>.push_back(val);<sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="classlibcppe_1_1_polarizability_1adb733e5d6c1446df39bf3f438f233af5" refkind="member"><highlight class="normal"><sp/><sp/>Eigen::VectorXd<sp/><ref refid="classlibcppe_1_1_polarizability_1adb733e5d6c1446df39bf3f438f233af5" kindref="member">get_values_vec</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Eigen::Map&lt;Eigen::VectorXd&gt;(<ref refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kindref="member">m_values</ref>.data(),<sp/><ref refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kindref="member">m_values</ref>.size());</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60" refid="classlibcppe_1_1_polarizability_1a44c866303ca56ad05f32b0cec60252df" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>&amp;<ref refid="classlibcppe_1_1_polarizability_1a44c866303ca56ad05f32b0cec60252df" kindref="member">get_values</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_polarizability_1ad9f45dbe378f8b90a96f09170ba27320" kindref="member">m_values</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="classlibcppe_1_1_potential" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlibcppe_1_1_potential" kindref="compound">Potential</ref><sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="65" refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Multipole&gt;<sp/><ref refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" kindref="member">m_multipoles</ref>;</highlight></codeline>
+<codeline lineno="66" refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Polarizability&gt;<sp/><ref refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" kindref="member">m_polarizabilities</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>sites<sp/>to<sp/>exclude,<sp/>0-based<sp/>index</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="71" refid="classlibcppe_1_1_potential_1a8fd77b75fa07894cdf56ae4460c98d21" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_potential_1a8fd77b75fa07894cdf56ae4460c98d21" kindref="member">Potential</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>idx)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" kindref="member">m_x</ref>(x),<sp/><ref refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" kindref="member">m_y</ref>(y),<sp/><ref refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" kindref="member">m_z</ref>(z),<sp/><ref refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" kindref="member">index</ref>(idx){};</highlight></codeline>
+<codeline lineno="73" refid="classlibcppe_1_1_potential_1a88a900527c1ee8e86278f5ce93459501" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlibcppe_1_1_potential_1a88a900527c1ee8e86278f5ce93459501" kindref="member">~Potential</ref>(){};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" kindref="member">m_x</ref>,<sp/><ref refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" kindref="member">m_y</ref>,<sp/><ref refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" kindref="member">m_z</ref>;</highlight></codeline>
+<codeline lineno="76" refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1af979a374a2a59be6b614bfdcc3382a54" kindref="member">index</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1a78b3e7c6a05591cd8838c128616d2efa" kindref="member">add_multipole</ref>(<ref refid="classlibcppe_1_1_multipole" kindref="compound">Multipole</ref><sp/>mul)<sp/>{<sp/><ref refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" kindref="member">m_multipoles</ref>.push_back(mul);<sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1afb74777953e70305998c1fe88985111b" kindref="member">add_polarizability</ref>(<ref refid="classlibcppe_1_1_polarizability" kindref="compound">Polarizability</ref><sp/>pol)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" kindref="member">m_polarizabilities</ref>.push_back(pol);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>0-based!!!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1a5833e69a20c9e25f3c6f2c00e340b655" kindref="member">add_exclusion</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>excl)<sp/>{<sp/><ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>.push_back(excl);<sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1abb7d278cbd4dd1f62e58535161403901" kindref="member">excludes_site</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>other_site)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(std::find(<ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>.begin(),<sp/><ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>.end(),<sp/>other_site)<sp/>!=</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>.end());</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a3c330e469ae619d9c5fcb06fc05fab42" kindref="member">get_exclusions</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1a2c434f94dff05124ce4c22885e557135" kindref="member">m_exclusions</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Multipole&gt;<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a71c594246d6dee1ced07b79363ce2ac3" kindref="member">get_multipoles</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1a59fcce9283fb0d6cacb50bc0fd2e4f16" kindref="member">m_multipoles</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;Polarizability&gt;<sp/>&amp;<ref refid="classlibcppe_1_1_potential_1a99b850c1b1d97248769a5abf749140fc" kindref="member">get_polarizabilities</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" kindref="member">m_polarizabilities</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classlibcppe_1_1_potential_1af87bc6158f5bbae45be467b3a24990b3" kindref="member">is_polarizable</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="classlibcppe_1_1_potential_1af0cbf64efb0a6739e3fbd68751b4214f" kindref="member">m_polarizabilities</ref>.size()<sp/>&gt;<sp/>0);<sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" refkind="member"><highlight class="normal"><sp/><sp/>Eigen::Vector3d<sp/><ref refid="classlibcppe_1_1_potential_1ac2e845f27e6742134a1d57a5f2b66db5" kindref="member">get_site_position</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Eigen::Vector3d(<ref refid="classlibcppe_1_1_potential_1a4587898aa9820d1e8fed52c1f76a975c" kindref="member">m_x</ref>,<sp/><ref refid="classlibcppe_1_1_potential_1a765c7801dcf3bf452e6ba7ec99cae145" kindref="member">m_y</ref>,<sp/><ref refid="classlibcppe_1_1_potential_1ab7d4b5ad3582f2883895e598467f4b98" kindref="member">m_z</ref>);<sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>libcppe</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>LIBCPPE_CORE_MULTIPOLE_H</highlight></codeline>
+    </programlisting>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/multipole.hh"/>
+  </compounddef>
+</doxygen>

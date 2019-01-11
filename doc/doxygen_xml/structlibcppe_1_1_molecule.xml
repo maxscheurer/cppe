@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structlibcppe_1_1_molecule" kind="struct" language="C++" prot="public">
+    <compoundname>libcppe::Molecule</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::vector&lt; Atom &gt;</basecompoundref>
+    <includes refid="molecule_8hh" local="no">molecule.hh</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structlibcppe_1_1_molecule_1a4e1f11e4f1bcda522d619cc2a9465630" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d libcppe::Molecule::get_atom_position</definition>
+        <argsstring>(int atom)</argsstring>
+        <name>get_atom_position</name>
+        <param>
+          <type>int</type>
+          <declname>atom</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" line="25" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="structlibcppe_1_1_molecule_1a416d187640ae6fcf2315e8585f219972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>libcppe::Molecule::~Molecule</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Molecule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structlibcppe_1_1_molecule_1ab63a494b1e4e2d56c90d8f48c29fed69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref> &amp;</type>
+        <definition>Molecule&amp; libcppe::Molecule::operator=</definition>
+        <argsstring>(const Molecule &amp;)=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="structlibcppe_1_1_molecule" kindref="compound">Molecule</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" line="33" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="18">
+        <label>std::vector&lt; Atom &gt;</label>
+      </node>
+      <node id="17">
+        <label>libcppe::Molecule</label>
+        <link refid="structlibcppe_1_1_molecule"/>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="20">
+        <label>std::vector&lt; Atom &gt;</label>
+      </node>
+      <node id="19">
+        <label>libcppe::Molecule</label>
+        <link refid="structlibcppe_1_1_molecule"/>
+        <childnode refid="20" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" line="24" column="1" bodyfile="/Users/maxscheurer/Projects/cppe/cppe/core/molecule.hh" bodystart="24" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structlibcppe_1_1_molecule_1a4e1f11e4f1bcda522d619cc2a9465630" prot="public" virt="non-virtual"><scope>libcppe::Molecule</scope><name>get_atom_position</name></member>
+      <member refid="structlibcppe_1_1_molecule_1ab63a494b1e4e2d56c90d8f48c29fed69" prot="public" virt="non-virtual"><scope>libcppe::Molecule</scope><name>operator=</name></member>
+      <member refid="structlibcppe_1_1_molecule_1a416d187640ae6fcf2315e8585f219972" prot="public" virt="non-virtual"><scope>libcppe::Molecule</scope><name>~Molecule</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

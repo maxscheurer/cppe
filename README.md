@@ -1,6 +1,8 @@
 # CPPE
 
 [![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
+[![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
+
 
 CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
@@ -36,7 +38,6 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 
 ### Dependencies
 - C++ 11 compiler
-- [armadillo](http://arma.sourceforge.net/docs.html) (CMake will at least try to install armadillo from sources if not installed)
 - Python 3.6 (interpreter and development packages)
 
 
