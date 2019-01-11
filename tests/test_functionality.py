@@ -28,6 +28,6 @@ class TestFunctionality(unittest.TestCase):
             mol.append(Atom(z, *coord))
         cppe_state = CppeState(options, mol)
         cppe_state.calculate_static_energies_and_fields()
-        en_el_nuc = cppe_state.get_current_energies().get("Electrostatic/Nuclear")
+        en_el_nuc = cppe_state.get_energies().get("Electrostatic/Nuclear")
         ref = -0.321349401430  # pelib
         np.testing.assert_almost_equal(en_el_nuc, ref, decimal=9)
