@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 cmake_policy(VERSION 3.0.0)
 
 # Prefer shared to static libs (cmake does the reverse by default)
-option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" OFF)
 
 ##########################################################################
 # Project setup
@@ -17,7 +17,8 @@ if (CMAKE_VERSION VERSION_GREATER 3.5.0)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 endif()
 
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
+#set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
+set(STAGED_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/stage)
 
 set(pe_ext "")
 if(${ENABLE_PELIB})
@@ -55,6 +56,7 @@ ExternalProject_Add(cppe-core
 			  -DENABLE_PYTHON_INTERFACE=${ENABLE_PYTHON_INTERFACE}
 			  -DENABLE_PELIB=${ENABLE_PELIB}
 			  -Dpybind11_DIR=${pybind11_DIR}
+			  -DINSTALL_DEVEL_HEADERS=OFF
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 			  -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
    CMAKE_CACHE_ARGS -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}

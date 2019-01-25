@@ -69,7 +69,7 @@ Eigen::VectorXd MultipoleFields::compute(bool damp) {
 void InducedMoments::compute(const Eigen::VectorXd &total_fields,
                              Eigen::VectorXd &induced_moments, bool make_guess,
                              std::ostream &output_stream) {
-  output_stream << "        Running solver for induced moments." << std::endl;
+  // output_stream << "        Running solver for induced moments." << std::endl;
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
@@ -104,7 +104,7 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
   while (!converged) {
     if (iteration >= max_iter) break;
     if (norm <= diis_start_norm && iteration > 1 && !diis && do_diis) {
-      output_stream << "        --- Turning on DIIS. ---" << std::endl;
+      // output_stream << "        --- Turning on DIIS. ---" << std::endl;
       diis = true;
     }
 
@@ -177,8 +177,9 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
 
     diis_old_moments = induced_moments;
 
-    output_stream << iteration << std::setprecision(12)
-                  << "        --- Norm: " << norm << std::endl;
+    // output_stream << iteration << std::setprecision(12)
+    //               << "        --- Norm: " << norm << std::endl;
+    
     // calculate based on iteration
     if (norm < norm_thresh) converged = true;
 
