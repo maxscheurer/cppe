@@ -63,10 +63,10 @@ ExternalProject_Add(cppe-core
    BUILD_ALWAYS 1)
 
 
-install(DIRECTORY ${STAGED_INSTALL_PREFIX}/
-        DESTINATION ${CMAKE_INSTALL_PREFIX}
-        USE_SOURCE_PERMISSIONS
-        PATTERN "*.pyc" EXCLUDE)
+#install(DIRECTORY ${STAGED_INSTALL_PREFIX}/
+#        DESTINATION ${CMAKE_INSTALL_PREFIX}
+#        USE_SOURCE_PERMISSIONS
+#        PATTERN "*.pyc" EXCLUDE)
 
 ##########################################################################
 # Finish off
