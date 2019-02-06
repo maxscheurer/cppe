@@ -2,9 +2,6 @@ sudo: required
 language: cpp
 dist: trusty
 
-python:
-  - "3.6"
-
 compiler:
   - gcc
 
@@ -16,7 +13,10 @@ addons:
      - g++-8
      - gcc-8
      - gfortran-8
-     - python3-pip
+     - libhdf5-dev
+     - hdf5-tools
+     - python3.6-dev
+     - python3.6
 
 env:
  - CC=gcc-8 && CXX=g++-8 && FC=gfortran-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib
