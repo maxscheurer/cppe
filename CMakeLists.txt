@@ -8,9 +8,6 @@ option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" OFF)
 # Project setup
 
 project(cppe LANGUAGES CXX C Fortran)
-if(NOT CMAKE_REQUIRED_QUIET)
-	message("\n# Configuring ${PROJECT_NAME}\n#")
-endif()
 
 # Export compile commands if cmake supports it.
 if (CMAKE_VERSION VERSION_GREATER 3.5.0)
@@ -68,9 +65,3 @@ ExternalProject_Add(cppe-core
 #        USE_SOURCE_PERMISSIONS
 #        PATTERN "*.pyc" EXCLUDE)
 
-##########################################################################
-# Finish off
-
-if(NOT CMAKE_REQUIRED_QUIET)
-	message("#\n# Configuring ${PROJECT_NAME} done\n")
-endif()
