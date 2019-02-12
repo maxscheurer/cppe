@@ -7,6 +7,8 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(ExternalProject)
 
+set(CMAKE_INSTALL_LIBDIR "lib")
+
 if(ENABLE_OPENMP)
     find_package(OpenMP REQUIRED)
     if (OPENMP_FOUND)
