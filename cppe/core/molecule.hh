@@ -29,8 +29,8 @@ struct Molecule : std::vector<Atom> {
     return (*this)[atom].get_pos();
   }
 
-  ~Molecule() = default;
-  Molecule &operator=(const Molecule &) = default;
+  // ~Molecule() = default;
+  // Molecule &operator=(const Molecule &) = default;
 };
 
 }  // namespace libcppe
