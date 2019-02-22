@@ -10,7 +10,7 @@ It provides an easy-to-use API to implement PE for ground-state self-consistent 
 calculations and post-SCF methods. A convenient Python interface is also available.
 
 For testing purposes, CPPE is also interfaced to the original PE implementation, namely
-[PElib](https://gitlab.com/pe-software/pelib-public), used in the DALTON program package.
+[PElib](https://gitlab.com/pe-software/pelib-public), used in the [DALTON](http://daltonprogram.org/) program package.
 
 <!-- CPPE is currently implemented in the Q-Chem program package for PE-SCF
 and PE-ADC calculations <sup>3</sup>, and the open-source
@@ -42,6 +42,6 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 
 
 ## Literature
-<sup>1</sup> Olsen, J. M., Aidas, K., & Kongsted, J. (2010). Excited States in Solution through Polarizable Embedding. _J. Chem. Theory Comput._, **6** (12), 3721–3734.
+<sup>1</sup> Olsen, J. M., Aidas, K., & Kongsted, J. (2010). Excited States in Solution through Polarizable Embedding. _J. Chem. Theory Comput._, **6** (12), 3721–3734. https://doi.org/10.1021/ct1003803
 
 <sup>2</sup> Olsen, J. M. H., & Kongsted, J. (2011). Molecular Properties through Polarizable Embedding. _Advances in Quantum Chemistry_ (Vol. 61). https://doi.org/10.1016/B978-0-12-386013-2.00003-6
