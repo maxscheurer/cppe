@@ -3,6 +3,7 @@ cmake_policy(VERSION 3.0.0)
 
 # Prefer shared to static libs (cmake does the reverse by default)
 option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
+option(BUILD_FPIC "Build position-independent code" ON)
 
 ##########################################################################
 # Project setup
@@ -57,6 +58,7 @@ ExternalProject_Add(cppe-core
 			  -Dpybind11_DIR=${pybind11_DIR}
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 			  -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+			  -DCMAKE_POSITION_INDEPENDENT_CODE=${BUILD_FPIC}
    CMAKE_CACHE_ARGS -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
    BUILD_ALWAYS 1)
 
