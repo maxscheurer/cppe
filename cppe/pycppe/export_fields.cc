@@ -31,4 +31,6 @@ void export_fields(py::module &m) {
            "Compute the induced moments solving the classical response "
            "equation",
            py::arg("total_fields"), py::arg("make_guess"));
+
+  m.def("get_polarizable_sites", &libcppe::get_polarizable_sites);
 }

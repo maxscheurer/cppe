@@ -76,4 +76,4 @@ class TestMath(unittest.TestCase):
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_almost_equal(actual,
-                                           ref.take(sym_indices), decimal=11)
+                                           ref.take(sym_indices), decimal=10)

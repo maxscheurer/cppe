@@ -69,9 +69,13 @@ class CppeState {
     return std::vector<double>(static_fields.data(),
                                static_fields.data() + static_fields.size());
   }
+  
+  // Eigen::VectorXd get_static_fields() {
+  //     return m_nuc_fields + m_multipole_fields;
+  // }
 
-  // TODO: summary as string
   void print_summary();
+  // std::string get_energy_summary_string();
 };
 
 }  // namespace libcppe
