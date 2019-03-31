@@ -17,8 +17,8 @@ and PE-ADC calculations <sup>3</sup>, and the open-source
 packages [Psi4](http://psicode.org) and [pyscf](https://github.com/pyscf/pyscf).
 The latter implementation makes use of the Python interface. -->
 
-## Installation
-CPPE needs to be built from sources, i.e.,
+## Build
+If used in a C++ package, CPPE needs to be built from sources, i.e.,
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe; mkdir build; cd build
@@ -35,10 +35,12 @@ will automatically download `pybind11` and install it locally.
 To build PElib (together with `gen1int` and the appropriate interface), set the following option:
 `-DENABLE_PELIB=ON`.
 
-
 ### Dependencies
 - C++ 11 compiler
 - Python 3.6 (interpreter and development packages)
+
+## Installation via pip
+will be possible in the future.
 
 
 ## Literature
