@@ -1,11 +1,10 @@
-#ifndef LIBCPPE_INCLUDE_H
-#define LIBCPPE_INCLUDE_H
+#pragma once
 
 #include <string>
 #include <vector>
 
 // #include "core/molecule.hh"
-#include "core/multipole.hh"
+// #include "core/multipole.hh"
 // #include "core/pe_options.hh"
 
 namespace libcppe {
@@ -28,17 +27,15 @@ class CPPE {
   // void initialize_pelib(PeOptions &options, int natoms, int nbas,
   //                       const double *coords, const double *charges);
 
-  std::vector<Potential> read_potfile(std::string potfile_name);
+  // std::vector<Potential> read_potfile(std::string potfile_name);
 
  private:
-  bool m_gen1int_initialized;
-  bool m_pe_initialized;
+  // bool m_gen1int_initialized;
+  // bool m_pe_initialized;
   // TODO: build a struct/class with the basis set info?
-  int m_nbas;   // number of basis functions
-  int m_nnbas;  // nbas*(nbas+1)/2
-  int m_natoms;
+  // int m_nbas;   // number of basis functions
+  // int m_nnbas;  // nbas*(nbas+1)/2
+  // int m_natoms;
 };
 
 }  // namespace libcppe
-
-#endif  // LIBCPPE_INCLUDE_H

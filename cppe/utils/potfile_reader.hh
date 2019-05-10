@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CORE_POTFILE_READER_H
-#define LIBCPPE_CORE_POTFILE_READER_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -20,5 +19,3 @@ class PotfileReader {
 };
 
 }  // namespace libcppe
-
-#endif  // LIBCPPE_CORE_POTFILE_READER_H

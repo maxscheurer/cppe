@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
 
@@ -26,12 +27,9 @@ CppeState::CppeState(PeOptions options, Molecule mol,
 
 void CppeState::set_potentials(std::vector<Potential> potentials) {
   m_potentials = potentials;
-  m_polarizable_sites = 0;
-  for (auto &site : m_potentials) {
-    if (site.is_polarizable()) {
-      m_polarizable_sites++;
-    }
-  }
+  m_polarizable_sites =
+      std::count_if(m_potentials.begin(), m_potentials.end(),
+                    [](Potential p) { return p.is_polarizable(); });
   m_induced_moments = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
 }
 
@@ -141,4 +139,4 @@ void CppeState::print_summary() {
   m_output_stream << std::string(2 * w + 10, '-') << std::endl << std::endl;
 }
 
-}  // namespace libcppe
+} // namespace libcppe

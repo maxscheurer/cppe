@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CPPE_CORE_MOLECULE_H
-#define LIBCPPE_CPPE_CORE_MOLECULE_H
+#pragma once
 
 #include <vector>
 
@@ -34,4 +33,3 @@ struct Molecule : std::vector<Atom> {
 };
 
 }  // namespace libcppe
-#endif  // LIBCPPE_CPPE_CORE_MOLECULE_H

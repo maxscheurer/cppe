@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CPPE_CORE_MULTIPOLE_EXPANSION_H
-#define LIBCPPE_CPPE_CORE_MULTIPOLE_EXPANSION_H
+#pragma once
 
 #include "math.hh"
 #include "molecule.hh"
@@ -24,5 +23,3 @@ class MultipoleExpansion {
 };
 
 }  // namespace libcppe
-
-#endif

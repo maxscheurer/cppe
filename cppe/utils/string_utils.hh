@@ -1,6 +1,4 @@
-#ifndef LIBCPPE_UTILS_STRING_UTIL_H
-#define LIBCPPE_UTILS_STRING_UTIL_H
-
+#pragma once
 #include <sstream>
 #include <string>
 #include <vector>
@@ -14,5 +12,3 @@ std::string trim(const std::string& str, const std::string& whitespace = " \t");
 
 std::string reduce(const std::string& str, const std::string& fill = " ",
                    const std::string& whitespace = " \t\n");
-
-#endif  // LIBCPPE_UTILS_STRING_UTIL_H

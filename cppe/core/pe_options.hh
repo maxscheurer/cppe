@@ -1,5 +1,4 @@
-#ifndef CPPE_CORE_PE_OPTIONS_H
-#define CPPE_CORE_PE_OPTIONS_H
+#pragma once
 
 #include <string>
 namespace libcppe {
@@ -48,4 +47,3 @@ struct PeOptions {
 };
 
 }  // namespace libcppe
-#endif  // CPPE_CORE_PE_OPTIONS_H

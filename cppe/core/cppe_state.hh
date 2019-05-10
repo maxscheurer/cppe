@@ -1,5 +1,4 @@
-#ifndef INCLUDE_CPPE_STATE_H
-#define INCLUDE_CPPE_STATE_H
+#pragma once
 
 #include <iostream>
 
@@ -69,7 +68,7 @@ class CppeState {
     return std::vector<double>(static_fields.data(),
                                static_fields.data() + static_fields.size());
   }
-  
+
   // Eigen::VectorXd get_static_fields() {
   //     return m_nuc_fields + m_multipole_fields;
   // }
@@ -79,5 +78,3 @@ class CppeState {
 };
 
 }  // namespace libcppe
-
-#endif  // INCLUDE_CPPE_STATE_H

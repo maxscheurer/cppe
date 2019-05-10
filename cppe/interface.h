@@ -1,5 +1,4 @@
-#ifndef CPPE_INTERFACE_H
-#define CPPE_INTERFACE_H
+#pragma once
 
 // extern "C" avoids C++ mangling of names.
 extern "C" void pe_interface_init_(int *, const double *, const double *);
@@ -74,5 +73,3 @@ void pe_set_border_options(int m_pe_border, double m_rmin, int type_flag,
   return pe_set_border_options_(&m_pe_border, &m_rmin, &type_flag,
                                 &redist_order, &nredist);
 }
-
-#endif  // CPPE_INTERFACE_H

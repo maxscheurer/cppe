@@ -1,5 +1,4 @@
-#ifndef CPPE_UTILS_POT_MANIPULATION
-#define CPPE_UTILS_POT_MANIPULATION
+#pragma once
 
 #include <iostream>
 
@@ -24,5 +23,3 @@ class PotManipulator {
 };
 
 }  // namespace libcppe
-
-#endif  // CPPE_UTILS_POT_MANIPULATION

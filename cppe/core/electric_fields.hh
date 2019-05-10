@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CPPE_CORE_ELECTRIC_FIELDS_H
-#define LIBCPPE_CPPE_CORE_ELECTRIC_FIELDS_H
+#pragma once
 
 #include "molecule.hh"
 #include "multipole_expansion.hh"
@@ -79,5 +78,3 @@ class InducedMoments {
 };
 
 }  // namespace libcppe
-
-#endif  // LIBCPPE_CPPE_CORE_ELECTRIC_FIELDS_H

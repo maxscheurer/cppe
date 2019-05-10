@@ -12,8 +12,8 @@
 namespace libcppe {
 
 CPPE::CPPE() {
-  m_gen1int_initialized = false;
-  m_pe_initialized = false;
+  // m_gen1int_initialized = false;
+  // m_pe_initialized = false;
 }
 
 CPPE::~CPPE() {
@@ -92,11 +92,11 @@ CPPE::~CPPE() {
 //   pe_interface_fock(densmat, m_nbas, m_nnbas, fockmat, energy);
 // }
 
-std::vector<Potential> CPPE::read_potfile(std::string potfile_name) {
-  PotfileReader reader(potfile_name);
-  std::vector<Potential> result = reader.read();
-  assert(result.size() > 0);
-  return result;
-}
+// std::vector<Potential> CPPE::read_potfile(std::string potfile_name) {
+//   PotfileReader reader(potfile_name);
+//   std::vector<Potential> result = reader.read();
+//   assert(result.size() > 0);
+//   return result;
+// }
 
 }  // namespace libcppe

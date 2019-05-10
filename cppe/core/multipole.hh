@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CORE_MULTIPOLE_H
-#define LIBCPPE_CORE_MULTIPOLE_H
+#pragma once
 
 #include <Eigen/Core>
 
@@ -103,5 +102,3 @@ class Potential {
 };
 
 }  // namespace libcppe
-
-#endif  // LIBCPPE_CORE_MULTIPOLE_H

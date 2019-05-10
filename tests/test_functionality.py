@@ -27,6 +27,7 @@ class TestFunctionality(unittest.TestCase):
         for z, coord in zip(f['atom_charges'], f['atom_coords']):
             mol.append(Atom(z, *coord))
         cppe_state = CppeState(options, mol)
+        assert cppe_state.get_polarizable_site_number() == 18
         cppe_state.calculate_static_energies_and_fields()
         en_el_nuc = cppe_state.get_energies().get("Electrostatic/Nuclear")
         ref = -0.321349401430  # pelib

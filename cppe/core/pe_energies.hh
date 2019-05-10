@@ -1,5 +1,4 @@
-#ifndef LIBCPPE_CORE_PE_ENERGIES_H
-#define LIBCPPE_CORE_PE_ENERGIES_H
+#pragma once
 
 #include "../utils/string_utils.hh"
 #include <map>
@@ -42,5 +41,3 @@ private:
 };
 
 } // namespace libcppe
-
-#endif // LIBCPPE_CORE_PE_ENERGIES_H
