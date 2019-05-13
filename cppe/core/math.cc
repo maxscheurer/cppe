@@ -94,6 +94,7 @@ int xyz2idx(int x, int y, int z) {
       }
     }
   }
+  return -1;
 }
 
 double T(const Eigen::Vector3d &Rij, int x, int y, int z,

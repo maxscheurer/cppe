@@ -10,40 +10,36 @@ namespace libcppe {
 
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
 
-class NuclearFields {
- private:
+class ElectricFields {
+ protected:
   std::vector<Potential> m_potentials;  //!< vector with all site potentials
   std::vector<Potential>
       m_polsites;       //!< vector with all potentials of polarizable sites
   size_t m_n_polsites;  //!< number of polarizable sites
-  Molecule m_mol;       //!< core region molecule
+
+ public:
+  ElectricFields(std::vector<Potential> potentials) : m_potentials(potentials) {
+    m_polsites = get_polarizable_sites(m_potentials);
+    m_n_polsites = m_polsites.size();
+  };
+  ~ElectricFields(){};
+  virtual Eigen::VectorXd compute(bool damp = false) = 0;
+};
+
+class NuclearFields : public ElectricFields {
+ private:
+  Molecule m_mol;  //!< core region molecule
 
  public:
   NuclearFields(Molecule mol, std::vector<Potential> potentials)
-      : m_mol(mol), m_potentials(potentials) {
-    m_polsites = get_polarizable_sites(m_potentials);
-    m_n_polsites = m_polsites.size();
-  };
-  ~NuclearFields(){};
-  // nuc_fields has length of 3*n_polarizable_sites
-  Eigen::VectorXd compute(bool damp_core = false);
+      : ElectricFields(potentials), m_mol(mol){};
+  Eigen::VectorXd compute(bool damp = false);
 };
 
-class MultipoleFields {
- private:
-  std::vector<Potential> m_potentials;  //!< vector with all site potentials
-  std::vector<Potential>
-      m_polsites;       //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites;  //!< number of polarizable sites
-
+class MultipoleFields : public ElectricFields {
  public:
   MultipoleFields(std::vector<Potential> potentials)
-      : m_potentials(potentials) {
-    m_polsites = get_polarizable_sites(m_potentials);
-    m_n_polsites = m_polsites.size();
-  };
-  ~MultipoleFields(){};
-  // nuc_fields has length of 3*n_polarizable_sites
+      : ElectricFields(potentials){};
   Eigen::VectorXd compute(bool damp = false);
 };
 

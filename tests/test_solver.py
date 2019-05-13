@@ -32,7 +32,7 @@ class TestSolver(unittest.TestCase):
     potfile_path = "{}/potfiles/pna_6w.pot".format(dirname)
     pna_path = "{}/pna.hdf5".format(dirname)
 
-    def test_compute_nuclear_interaction_energy(self):
+    def test_solver_by_inversion(self):
         f = h5py.File(self.pna_path, 'r')
         mol = Molecule()
         options = PeOptions()
@@ -69,5 +69,3 @@ class TestSolver(unittest.TestCase):
         induced_moments_solver = cppe_state.get_induced_moments()
         np.testing.assert_almost_equal(induced_moments_solver,
                                        induced_moments_direct, decimal=10)
-
-
