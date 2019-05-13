@@ -3,8 +3,8 @@
 
 #include <Eigen/Core>
 
-#include "../core/math.hh"
 #include "pot_manipulation.hh"
+#include "math.hh"
 
 namespace libcppe {
 

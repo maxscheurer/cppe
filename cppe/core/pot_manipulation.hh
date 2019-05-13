@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "../core/molecule.hh"
-#include "../core/multipole.hh"
-#include "../core/pe_options.hh"
+#include "molecule.hh"
+#include "multipole.hh"
+#include "pe_options.hh"
 
 namespace libcppe {
 

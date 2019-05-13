@@ -6,8 +6,8 @@
 
 #include "../core/molecule.hh"
 #include "../core/multipole.hh"
-#include "../utils/pot_manipulation.hh"
-#include "../utils/potfile_reader.hh"
+#include "../core/pot_manipulation.hh"
+#include "../core/potfile_reader.hh"
 
 namespace py = pybind11;
 

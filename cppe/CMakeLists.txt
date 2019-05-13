@@ -25,14 +25,14 @@ if (${ENABLE_PYTHON_INTERFACE})
     # message(STATUS "Using pybind11: " ${pybind11_DIR})
 
     set(PYTHON_INTERFACE_SOURCES
-        pycppe/export_molecule.cc
-        pycppe/export_multipole.cc
-        pycppe/export_options.cc
-        pycppe/export_fields.cc
-        pycppe/export_utils.cc
-        pycppe/export_state.cc
-        pycppe/export_math.cc
-        pycppe/pycppe.cc)
+        python_iface/export_molecule.cc
+        python_iface/export_multipole.cc
+        python_iface/export_options.cc
+        python_iface/export_fields.cc
+        python_iface/export_utils.cc
+        python_iface/export_state.cc
+        python_iface/export_math.cc
+        python_iface/export_cppe.cc)
     set(PYTHON_SHARED SHARED)
 endif()
 
@@ -54,9 +54,9 @@ endif()
 
 add_library(cppe ${PYTHON_SHARED}
   libcppe.cc
-  utils/potfile_reader.cc
   utils/string_utils.cc
-  utils/pot_manipulation.cc
+  core/potfile_reader.cc
+  core/pot_manipulation.cc
   core/cppe_state.cc
   core/multipole_expansion.cc
   core/electric_fields.cc

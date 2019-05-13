@@ -11,8 +11,8 @@
 #include "pe_energies.hh"
 #include "pe_options.hh"
 
-#include "../utils/pot_manipulation.hh"
-#include "../utils/potfile_reader.hh"
+#include "pot_manipulation.hh"
+#include "potfile_reader.hh"
 
 namespace libcppe {
 

@@ -3,10 +3,9 @@
 #include <iostream>
 #include <sstream>
 
-#include "../core/math.hh"
-#include "../core/multipole_expansion.hh"
 #include "potfile_reader.hh"
-#include "string_utils.hh"
+#include "math.hh"
+#include "../utils/string_utils.hh"
 
 #define ang2bohr 1.8897261246
 

@@ -7,7 +7,7 @@
 
 #include "core/electric_fields.hh"
 #include "core/multipole_expansion.hh"
-#include "utils/potfile_reader.hh"
+#include "core/potfile_reader.hh"
 
 namespace libcppe {
 

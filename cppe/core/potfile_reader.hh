@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../core/multipole.hh"
+#include "multipole.hh"
 
 namespace libcppe {
 
