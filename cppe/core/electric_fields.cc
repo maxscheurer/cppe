@@ -108,7 +108,8 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
     }
 
     norm = 0.0;
-#pragma omp parallel for reduction(+ : norm)
+    // TODO: abstract matrix apply, generalized solver
+#pragma omp parallel for reduction(+ : norm) firstprivate(Tk_coeffs)
     for (int i = 0; i < m_n_polsites; ++i) {
       Eigen::Vector3d Ftmp = Eigen::Vector3d::Zero();
       Eigen::Vector3d M1tmp = Eigen::Vector3d::Zero();
