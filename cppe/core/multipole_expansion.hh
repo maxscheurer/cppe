@@ -2,7 +2,7 @@
 
 #include "math.hh"
 #include "molecule.hh"
-#include "multipole.hh"
+#include "potential.hh"
 
 namespace libcppe {
 

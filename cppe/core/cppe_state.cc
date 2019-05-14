@@ -6,7 +6,7 @@
 
 #include "electric_fields.hh"
 #include "molecule.hh"
-#include "multipole.hh"
+#include "potential.hh"
 #include "multipole_expansion.hh"
 #include "pe_energies.hh"
 #include "pe_options.hh"
@@ -22,7 +22,7 @@ CppeState::CppeState(PeOptions options, Molecule mol,
   m_pe_energy = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
   potentials = PotManipulator(potentials, m_mol).manipulate(m_options);
-  set_potentials(potentials);
+  set_potentials(std::move(potentials));
 }
 
 void CppeState::set_potentials(std::vector<Potential> potentials) {
@@ -67,17 +67,11 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
 
   if (elec_only) {
     double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
-    // std::cout << std::setprecision(15) << "epol_elec = " << epol_elec <<
-    // std::endl;
     m_pe_energy.set("Polarization/Electronic", epol_elec);
   } else {
     double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
     double epol_nuclear = -0.5 * m_induced_moments.dot(m_nuc_fields);
     double epol_multipoles = -0.5 * m_induced_moments.dot(m_multipole_fields);
-
-    // std::cout << "epol_elec = " << epol_elec << std::endl;
-    // std::cout << "epol_nuclear = " << epol_nuclear << std::endl;
-    // std::cout << "epol_multipoles = " << epol_multipoles << std::endl;
 
     m_pe_energy.set("Polarization/Electronic", epol_elec);
     m_pe_energy.set("Polarization/Nuclear", epol_nuclear);
@@ -139,4 +133,4 @@ void CppeState::print_summary() {
   m_output_stream << std::string(2 * w + 10, '-') << std::endl << std::endl;
 }
 
-} // namespace libcppe
+}  // namespace libcppe

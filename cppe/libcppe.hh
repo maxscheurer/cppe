@@ -4,7 +4,7 @@
 #include <vector>
 
 // #include "core/molecule.hh"
-// #include "core/multipole.hh"
+// #include "core/potential.hh"
 // #include "core/pe_options.hh"
 
 namespace libcppe {

@@ -5,7 +5,7 @@
 #include <pybind11/stl.h>
 
 #include "../core/molecule.hh"
-#include "../core/multipole.hh"
+#include "../core/potential.hh"
 #include "../core/pot_manipulation.hh"
 #include "../core/potfile_reader.hh"
 

@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "molecule.hh"
-#include "multipole.hh"
+#include "potential.hh"
 #include "pe_options.hh"
 
 namespace libcppe {

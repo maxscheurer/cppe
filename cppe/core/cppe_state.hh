@@ -5,7 +5,7 @@
 #include <Eigen/Core>
 
 #include "molecule.hh"
-#include "multipole.hh"
+#include "potential.hh"
 #include "pe_energies.hh"
 #include "pe_options.hh"
 
@@ -13,8 +13,6 @@ namespace libcppe {
 
 class CppeState {
  private:
-  Eigen::MatrixXd m_es_operator;  //!< PE electrostatics operator
-
   PeEnergy m_pe_energy;  //!< PE Energy Container
 
   // Molecule and Potentials

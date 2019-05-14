@@ -25,14 +25,6 @@ struct PeOptions {
 
   int print_level = 1;
 
-  bool damp_induced = false;
-  bool damp_multipoles = false;
-  bool damp_core = false;
-
-  double damp_coeff_ind = 2.1304;
-  double damp_coeff_mult = 2.1304;
-  double damp_coeff_core = 2.1304;
-
   bool zero_pol = false;
   bool zero_mul = false;
   int zero_mul_order = 1;

@@ -4,7 +4,7 @@
 #include <pybind11/stl_bind.h>
 
 #include "../core/math.hh"
-#include "../core/multipole.hh"
+#include "../core/potential.hh"
 
 namespace py = pybind11;
 
