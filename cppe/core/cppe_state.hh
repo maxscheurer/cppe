@@ -8,6 +8,7 @@
 #include "potential.hh"
 #include "pe_energies.hh"
 #include "pe_options.hh"
+#include "math.hh"
 
 namespace libcppe {
 
