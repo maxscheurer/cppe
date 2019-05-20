@@ -25,6 +25,7 @@ void export_options(py::module &m) {
   pe_options.def(py::init<>())
       .def_readwrite("potfile", &libcppe::PeOptions::potfile)
       .def_readwrite("print_level", &libcppe::PeOptions::print_level)
+      .def_readwrite("iso_pol", &libcppe::PeOptions::iso_pol)
 
       .def_readwrite("induced_thresh", &libcppe::PeOptions::induced_thresh)
       .def_readwrite("do_diis", &libcppe::PeOptions::do_diis)

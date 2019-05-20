@@ -3,8 +3,8 @@
 
 #include <Eigen/Core>
 
-#include "pot_manipulation.hh"
 #include "math.hh"
+#include "pot_manipulation.hh"
 
 namespace libcppe {
 
@@ -13,7 +13,18 @@ bool sortbysec(const std::pair<int, double> &a,
   return (a.second < b.second);
 }
 
-std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
+std::vector<Potential> PotManipulator::manipulate(const PeOptions &pe_options) {
+    if (pe_options.iso_pol) {
+      for (Potential &pot : m_potentials) {
+        for (Polarizability &p : pot.get_polarizabilities()) {
+          p.make_isotropic();
+        }
+      }
+    }
+    return manipulate_border(pe_options);
+}
+
+std::vector<Potential> PotManipulator::manipulate_border(const PeOptions &pe_options) {
   std::vector<Potential> new_potentials;
   std::set<int> changed_sites;
   if (!pe_options.pe_border) return m_potentials;  // do nothing
@@ -138,8 +149,12 @@ std::vector<Potential> PotManipulator::manipulate(PeOptions &pe_options) {
     m_output_stream << "    Total charge of the classical region: "
                     << total_charge << std::endl;
   }
-  assert(new_potentials.size() <= m_potentials.size());
-  assert(new_potentials.size() != 0);
+
+  if (new_potentials.size() > m_potentials.size()) {
+    throw std::runtime_error(
+        "Manipulated potentials cannot have more sites "
+        "than original ones.");
+  }
   return new_potentials;
 }
 

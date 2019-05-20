@@ -25,6 +25,8 @@ struct PeOptions {
 
   int print_level = 1;
 
+  bool iso_pol = false;
+
   bool zero_pol = false;
   bool zero_mul = false;
   int zero_mul_order = 1;

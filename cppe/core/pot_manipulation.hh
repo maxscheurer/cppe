@@ -19,7 +19,8 @@ class PotManipulator {
                  std::ostream &output_stream = std::cout)
       : m_potentials(potentials), m_mol(mol), m_output_stream(output_stream){};
   ~PotManipulator(){};
-  std::vector<Potential> manipulate(PeOptions &pe_options);
+  std::vector<Potential> manipulate(const PeOptions &pe_options);
+  std::vector<Potential> manipulate_border(const PeOptions &pe_options);
 };
 
 }  // namespace libcppe

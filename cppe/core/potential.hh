@@ -53,6 +53,14 @@ class Polarizability {
 
   void add_value(double val) { m_values.push_back(val); }
 
+  void make_isotropic() {
+    std::vector<double> new_values(6, 0.0);
+    double trace;
+    trace = (m_values[0] + m_values[3] + m_values[5]) / 3.0;
+    new_values[0] = new_values[3] = new_values[5] = trace;
+    m_values = new_values;
+  }
+
   Eigen::VectorXd get_values_vec() {
     return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
   }
