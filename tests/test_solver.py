@@ -68,4 +68,4 @@ class TestSolver(unittest.TestCase):
         induced_moments_direct = np.linalg.inv(bmat) @ static_fields
         induced_moments_solver = cppe_state.get_induced_moments()
         np.testing.assert_almost_equal(induced_moments_solver,
-                                       induced_moments_direct, decimal=10)
+                                       induced_moments_direct, decimal=9)
