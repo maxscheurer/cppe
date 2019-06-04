@@ -102,10 +102,12 @@ install(TARGETS cppe
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-install(TARGETS pycppe
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}  # will need to tack "/cppe" if ever more than the one lib file
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
+if(${ENABLE_PYTHON_INTERFACE})
+    install(TARGETS pycppe
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}  # will need to tack "/cppe" if ever more than the one lib file
+            RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
+endif()
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
 target_include_directories(cppe INTERFACE
