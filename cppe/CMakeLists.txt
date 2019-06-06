@@ -35,6 +35,7 @@ endif()
 
 
 list(APPEND CPPE_SOURCES
+  metadata.cc
   libcppe.cc
   utils/string_utils.cc
   core/potfile_reader.cc
