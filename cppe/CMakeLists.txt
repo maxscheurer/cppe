@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(cppe-core VERSION 0.1.0 LANGUAGES CXX)
+project(cppe-core VERSION 0.0.5 LANGUAGES CXX)
 
 if(${Fortran_ENABLED})
     enable_language(Fortran)
@@ -35,6 +35,7 @@ endif()
 
 
 list(APPEND CPPE_SOURCES
+  metadata.cc
   libcppe.cc
   utils/string_utils.cc
   core/potfile_reader.cc
