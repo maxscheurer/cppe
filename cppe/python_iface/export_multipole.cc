@@ -13,14 +13,14 @@ void export_multipole(py::module &m) {
   py::class_<libcppe::Multipole> mul(m, "Multipole");
   mul.def(py::init<unsigned>())
       .def_readwrite("k", &libcppe::Multipole::m_k)
-      .def("get_values", &libcppe::Multipole::get_values_vec)
+      .def_property_readonly("values", &libcppe::Multipole::get_values_vec)
       .def("remove_trace", &libcppe::Multipole::remove_trace)
       .def("add_value", &libcppe::Multipole::add_value);
 
   // libcppe::Polarizability
   py::class_<libcppe::Polarizability> polarizability(m, "Polarizability");
   polarizability.def(py::init<>())
-      .def("get_values", &libcppe::Polarizability::get_values_vec)
+      .def_property_readonly("values", &libcppe::Polarizability::get_values_vec)
       .def("add_value", &libcppe::Polarizability::add_value);
 
   // libcppe::Potential
@@ -29,10 +29,10 @@ void export_multipole(py::module &m) {
       .def_readwrite("x", &libcppe::Potential::m_x, "x coordinate")
       .def_readwrite("y", &libcppe::Potential::m_y, "y coordinate")
       .def_readwrite("z", &libcppe::Potential::m_z, "z coordinate")
-      .def("is_polarizable", &libcppe::Potential::is_polarizable)
+      .def_property_readonly("is_polarizable", &libcppe::Potential::is_polarizable)
       .def("excludes_site", &libcppe::Potential::excludes_site)
-      .def("get_site_position", &libcppe::Potential::get_site_position)
-      .def("get_multipoles", &libcppe::Potential::get_multipoles)
-      .def("get_polarizabilities", &libcppe::Potential::get_polarizabilities)
+      .def_property_readonly("position", &libcppe::Potential::get_site_position)
+      .def_property_readonly("multipoles", &libcppe::Potential::get_multipoles)
+      .def_property_readonly("polarizabilities", &libcppe::Potential::get_polarizabilities)
       .def_readwrite("index", &libcppe::Potential::index, "site index");
 }

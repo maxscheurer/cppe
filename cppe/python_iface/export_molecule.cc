@@ -16,7 +16,7 @@ void export_molecule(py::module &m) {
       .def_readwrite("x", &libcppe::Atom::m_x)
       .def_readwrite("y", &libcppe::Atom::m_y)
       .def_readwrite("z", &libcppe::Atom::m_z)
-      .def("get_position", &libcppe::Atom::get_pos);
+      .def_property_readonly("position", &libcppe::Atom::get_pos);
 
   // libcppe::Molecule
   py::bind_vector<libcppe::Molecule>(m, "Molecule");
