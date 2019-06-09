@@ -1,9 +1,9 @@
-sudo: required
-language: cpp
 dist: xenial
+sudo: required
+language: python
+python:
+  - "3.7"
 
-compiler:
-  - gcc
 
 addons:
  apt:
@@ -11,21 +11,19 @@ addons:
      - ubuntu-toolchain-r-test
    packages:
      - g++-8
-     - gcc-8
-     - gfortran-8
      - libhdf5-dev
      - hdf5-tools
-     - python3
 
 env:
- - CC=gcc-8 && CXX=g++-8 && FC=gfortran-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib
+ - CXX=g++-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/cppe
 
 before_script:
-  - sudo pip install pytest numpy
-  - sudo pip install h5py
+  - pip install pytest numpy
+  - pip install h5py
+  - pip install numba
   - mkdir build
   - cd build
-  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER=$CC -DCMAKE_Fortran_COMPILER=$FC ..
+  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DENABLE_PYTHON_INTERFACE=ON ..
 
 script:
   - cmake --version
