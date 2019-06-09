@@ -106,8 +106,13 @@ install(TARGETS cppe
 if(${ENABLE_PYTHON_INTERFACE})
     install(TARGETS pycppe
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}  # will need to tack "/cppe" if ever more than the one lib file
-            RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
+        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe)
+    
+    # install the Python tests
+    install(DIRECTORY "../tests"
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe/tests/
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.pot" PATTERN "*.hdf5")
 endif()
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
