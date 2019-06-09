@@ -51,13 +51,12 @@ if(${ENABLE_PYTHON_INTERFACE})
 	set(pybind_ext "pybind11_external")
 endif()
 
-add_subdirectory(external/upstream)
-
-
 include(GNUInstallDirs)
 include(autocmake_safeguards)
 include(custom_color_messages)
 include(ExternalProject)
+
+add_subdirectory(external/upstream)
 
 ExternalProject_Add(cppe-core
    DEPENDS ${pybind_ext} ${pe_ext} 

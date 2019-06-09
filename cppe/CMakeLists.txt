@@ -111,7 +111,7 @@ if(${ENABLE_PYTHON_INTERFACE})
     
     # install the Python tests
     install(DIRECTORY "../tests"
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe/tests/
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
         FILES_MATCHING PATTERN "*.py" PATTERN "*.pot" PATTERN "*.hdf5")
 endif()
 
