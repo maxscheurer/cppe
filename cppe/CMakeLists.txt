@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(cppe-core VERSION 0.0.5 LANGUAGES CXX)
 
-if(${Fortran_ENABLED})
+if(Fortran_ENABLED)
     enable_language(Fortran)
 endif()
 
@@ -19,7 +19,7 @@ endif()
 
 set(PELIB_LIBRARIES "")
 set(PELIB_INTERFACE_SOURCES "")
-if(${ENABLE_PELIB})
+if(ENABLE_PELIB)
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     add_subdirectory(pelib_interface)
     set(PELIB_LIBRARIES "pelib"
@@ -44,7 +44,6 @@ list(APPEND CPPE_SOURCES
   core/multipole_expansion.cc
   core/electric_fields.cc
   core/math.cc
-  core/pe_energies.cc
 )
 
 add_library(cppe
@@ -106,8 +105,8 @@ install(TARGETS cppe
 if(${ENABLE_PYTHON_INTERFACE})
     install(TARGETS pycppe
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe)
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
     
     # install the Python tests
     install(DIRECTORY "../tests"

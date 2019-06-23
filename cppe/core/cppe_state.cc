@@ -1,28 +1,33 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <map>
+#include <numeric>
 
 #include "cppe_state.hh"
-
 #include "electric_fields.hh"
-#include "molecule.hh"
-#include "potential.hh"
 #include "multipole_expansion.hh"
-#include "pe_energies.hh"
-#include "pe_options.hh"
-
 #include "pot_manipulation.hh"
 #include "potfile_reader.hh"
 
 namespace libcppe {
 
 CppeState::CppeState(PeOptions options, Molecule mol,
-                     std::ostream &output_stream)
+                     std::ostream& output_stream)
     : m_options(options), m_output_stream(output_stream), m_mol(mol) {
   m_pe_energy = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
   potentials = PotManipulator(potentials, m_mol).manipulate(m_options);
   set_potentials(std::move(potentials));
+  // create empty energy container
+  std::map<std::string, std::vector<std::string>> energy_terms{
+      {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}},
+      {"Polarization", {"Electronic", "Nuclear", "Multipoles"}}};
+  for (auto it : energy_terms) {
+    for (auto nm : it.second) {
+      m_pe_energy[it.first][nm] = 0.0;
+    }
+  }
 }
 
 void CppeState::set_potentials(std::vector<Potential> potentials) {
@@ -37,7 +42,7 @@ void CppeState::calculate_static_energies_and_fields() {
   // Electrostatic energy (nuclei-multipoles)
   MultipoleExpansion mexp(m_mol, m_potentials);
   double nuc_mul_energy = mexp.calculate_interaction_energy();
-  m_pe_energy.set("Electrostatic/Nuclear", nuc_mul_energy);
+  m_pe_energy["Electrostatic"]["Nuclear"] = nuc_mul_energy;
 
   // Calculate static fields
 
@@ -67,70 +72,64 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
 
   if (elec_only) {
     double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
-    m_pe_energy.set("Polarization/Electronic", epol_elec);
+    m_pe_energy["Polarization"]["Electronic"] = epol_elec;
   } else {
     double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
     double epol_nuclear = -0.5 * m_induced_moments.dot(m_nuc_fields);
     double epol_multipoles = -0.5 * m_induced_moments.dot(m_multipole_fields);
 
-    m_pe_energy.set("Polarization/Electronic", epol_elec);
-    m_pe_energy.set("Polarization/Nuclear", epol_nuclear);
-    m_pe_energy.set("Polarization/Multipoles", epol_multipoles);
+    m_pe_energy["Polarization"]["Electronic"] = epol_elec;
+    m_pe_energy["Polarization"]["Nuclear"] = epol_nuclear;
+    m_pe_energy["Polarization"]["Multipoles"] = epol_multipoles;
   }
 }
 
-void CppeState::print_summary() {
+double CppeState::get_total_energy_for_category(std::string category) {
+  auto energy_cat = m_pe_energy[category];
+  double acc_energy = std::accumulate(
+      energy_cat.begin(), energy_cat.end(), 0.0,
+      [](double value,
+         const std::unordered_map<std::string, double>::value_type& p) {
+        return value + p.second;
+      });
+  return acc_energy;
+}
+
+std::string CppeState::get_energy_summary_string() {
   size_t w = 30;
   std::string off(3, ' ');
   std::string off2(6, ' ');
-  // std::cout << off << "Corrected Excitation Energy (" << energy_name << "): "
-  // << std::string(w - 52, ' '); std::cout << std::setw(11) << (state.energy +
-  // ene) * conversion::au2ev << " eV" << std::endl;
-  m_output_stream << std::string(2 * w + 10, '-') << std::endl;
-  // m_output_stream << "__________      .__               .__              ___.
-  // .__          \n"
-  // "\\______   \\____ |  | _____ _______|__|____________ \\_ |__ |  |   ____
-  // \n" " |     ___/  _ \\|  | \\__  \\\\_  __ \\  \\___   /\\__  \\ | __ \\|
-  // | _/ __ \\ \n" " |    |  (  <_> )  |__/ __ \\|  | \\/  |/    /  / __ \\|
-  // \\_\\ \\  |_\\  ___/ \n" " |____|   \\____/|____(____  /__|  |__/_____
-  // \\(____  /___  /____/\\___  >\n"
-  // "___________      ___.     \\/       .___  .___.__  \\/    \\/          \\/
-  // \n"
-  // "\\_   _____/ _____\\_ |__   ____   __| _/__| _/|__| ____    ____ \n" " |
-  // __)_ /     \\| __ \\_/ __ \\ / __ |/ __ | |  |/    \\  / ___\\        \n"
-  // " |        \\  Y Y  \\ \\_\\ \\  ___// /_/ / /_/ | |  |   |  \\/ /_/  > \n"
-  // "/_______  /__|_|  /___  /\\___  >____ \\____ | |__|___|  /\\___  / \n" "
-  // _________     \\/    \\/     \\/     \\/    \\/         \\//_____/ \n" " /
-  // _____/__ __  _____   _____ _____ _______ ___.__.                  \n" "
-  // \\_____  \\|  |  \\/     \\ /     \\\\__  \\\\_  __ <   |  | \n" " / \\  |
-  // /  Y Y  \\  Y Y  \\/ __ \\|  | \\/\\___  |                  \n"
-  // "/_______  /____/|__|_|  /__|_|  (____  /__|   / ____|                  \n"
-  // "        \\/            \\/      \\/     \\/       \\/ " << std::endl;
-  m_output_stream << "Polarizable Embedding Summary:";
-  m_output_stream << std::setprecision(12) << std::endl << std::endl;
-  m_output_stream << off << "Electrostatics:" << std::endl;
-  m_output_stream << off2 << "Electronic:" << std::string(w - 11, ' ')
-                  << m_pe_energy.get("Electrostatic/Electronic") << std::endl;
-  m_output_stream << off2 << "Nuclear:" << std::string(w - 8, ' ')
-                  << m_pe_energy.get("Electrostatic/Nuclear") << std::endl;
-  m_output_stream << off2 << "Multipole:" << std::string(w - 10, ' ')
-                  << m_pe_energy.get("Electrostatic/Multipoles") << std::endl;
-  m_output_stream << off2 << "Total:" << std::string(w - 6, ' ')
-                  << m_pe_energy.get("Electrostatic") << std::endl;
-  m_output_stream << std::endl;
-  m_output_stream << off << "Polarization:" << std::endl;
-  m_output_stream << off2 << "Electronic:" << std::string(w - 11, ' ')
-                  << m_pe_energy.get("Polarization/Electronic") << std::endl;
-  m_output_stream << off2 << "Nuclear:" << std::string(w - 8, ' ')
-                  << m_pe_energy.get("Polarization/Nuclear") << std::endl;
-  m_output_stream << off2 << "Multipole:" << std::string(w - 10, ' ')
-                  << m_pe_energy.get("Polarization/Multipoles") << std::endl;
-  m_output_stream << off2 << "Total:" << std::string(w - 6, ' ')
-                  << m_pe_energy.get("Polarization") << std::endl;
-  m_output_stream << std::endl;
-  m_output_stream << off << "Total Energy:" << std::string(w - 10, ' ')
-                  << m_pe_energy.get_total_energy() << std::endl;
-  m_output_stream << std::string(2 * w + 10, '-') << std::endl << std::endl;
+  std::stringstream sstream;
+  sstream << std::string(2 * w + 10, '-') << std::endl;
+
+  sstream << "Polarizable Embedding Summary:";
+  sstream << std::setprecision(12) << std::endl << std::endl;
+  sstream << off << "Electrostatics:" << std::endl;
+  sstream << off2 << "Electronic:" << std::string(w - 11, ' ')
+          << m_pe_energy["Electrostatic"]["Electronic"] << std::endl;
+  sstream << off2 << "Nuclear:" << std::string(w - 8, ' ')
+          << m_pe_energy["Electrostatic"]["Nuclear"] << std::endl;
+  sstream << off2 << "Multipole:" << std::string(w - 10, ' ')
+          << m_pe_energy["Electrostatic"]["Multipoles"] << std::endl;
+  double electrostatic_energy = get_total_energy_for_category("Electrostatic");
+  sstream << off2 << "Total:" << std::string(w - 6, ' ') << electrostatic_energy
+          << std::endl;
+  sstream << std::endl;
+  sstream << off << "Polarization:" << std::endl;
+  sstream << off2 << "Electronic:" << std::string(w - 11, ' ')
+          << m_pe_energy["Polarization"]["Electronic"] << std::endl;
+  sstream << off2 << "Nuclear:" << std::string(w - 8, ' ')
+          << m_pe_energy["Polarizatio"]["Nuclear"] << std::endl;
+  sstream << off2 << "Multipole:" << std::string(w - 10, ' ')
+          << m_pe_energy["Polarization"]["Multipoles"] << std::endl;
+  double polarization_energy = get_total_energy_for_category("Polarization");
+  sstream << off2 << "Total:" << std::string(w - 6, ' ')
+          << get_total_energy_for_category("Polarization") << std::endl;
+  sstream << std::endl;
+  sstream << off << "Total Energy:" << std::string(w - 10, ' ')
+          << electrostatic_energy + polarization_energy << std::endl;
+  sstream << std::string(2 * w + 10, '-') << std::endl << std::endl;
+  return sstream.str();
 }
 
 }  // namespace libcppe

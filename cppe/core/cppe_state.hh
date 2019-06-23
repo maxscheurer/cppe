@@ -1,21 +1,23 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
+#include <unordered_map>
 
 #include <Eigen/Core>
 
-#include "molecule.hh"
-#include "potential.hh"
-#include "pe_energies.hh"
-#include "pe_options.hh"
 #include "math.hh"
+#include "molecule.hh"
+#include "pe_options.hh"
+#include "potential.hh"
 
 namespace libcppe {
 
+using PeEnergy =
+    std::unordered_map<std::string, std::unordered_map<std::string, double>>;
+
 class CppeState {
  private:
-  PeEnergy m_pe_energy;  //!< PE Energy Container
-
   // Molecule and Potentials
   Molecule m_mol;                       //!< core region molecule
   std::vector<Potential> m_potentials;  //!< vector with all site potentials
@@ -45,8 +47,6 @@ class CppeState {
   void set_potentials(std::vector<Potential> potentials);
   std::vector<Potential> get_potentials() { return m_potentials; }
 
-  PeEnergy& get_energies() { return m_pe_energy; }
-  void set_energies(PeEnergy energy) { m_pe_energy = energy; }
   void calculate_static_energies_and_fields();
 
   std::vector<double> get_induced_moments() const {
@@ -54,6 +54,9 @@ class CppeState {
         m_induced_moments.data(),
         m_induced_moments.data() + m_induced_moments.size());
   }
+
+  PeEnergy m_pe_energy;  //!< PE Energy Container
+  double get_total_energy_for_category(std::string);
 
   Eigen::VectorXd get_induced_moments_vec() const { return m_induced_moments; }
 
@@ -72,8 +75,7 @@ class CppeState {
   //     return m_nuc_fields + m_multipole_fields;
   // }
 
-  void print_summary();
-  // std::string get_energy_summary_string();
+  std::string get_energy_summary_string();
 };
 
 }  // namespace libcppe
