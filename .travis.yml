@@ -15,7 +15,7 @@ addons:
      - hdf5-tools
 
 env:
- - CXX=g++-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/cppe
+ - CXX=g++-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/
 
 before_script:
   - pip install pytest numpy

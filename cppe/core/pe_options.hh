@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
+#include <variant>
+using option_t = std::variant<int, double, bool, std::string>;
+
 namespace libcppe {
 
 enum BorderType { rem, redist };
@@ -21,9 +25,15 @@ struct BorderOptions {
 };
 
 struct PeOptions {
+  std::unordered_map<std::string, option_t> options;
+  PeOptions() {
+    options["potfile"] = std::string{"potential.pot"};
+    options["iso_pol"] = false;
+    options["induced_thresh"] = 1e-8;
+    options["diis_enabled"] = true;
+    options["zero_mul_order"] = 1;
+  }
   std::string potfile{"potential.pot"};
-
-  int print_level = 1;
 
   bool iso_pol = false;
 
