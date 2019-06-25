@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(cppe-core VERSION 0.0.6 LANGUAGES CXX)
+project(cppe-core VERSION 0.0.7 LANGUAGES CXX)
 
 if(Fortran_ENABLED)
     enable_language(Fortran)
