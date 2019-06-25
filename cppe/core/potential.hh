@@ -27,10 +27,8 @@ class Multipole {
       m_values[3] -= trace;
       m_values[5] -= trace;
     } else if (m_k > 2) {
-      std::cout << "remove_trace() not implemented for multipoles of order "
-                << m_k << std::endl;
-      std::cout << "Results from integral calculations could be wrong."
-                << std::endl;
+      throw std::runtime_error(
+          "remove_trace() not implemented for multipoles of order > 2");
     }
   }
 

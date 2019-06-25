@@ -1,7 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
+#include <iomanip>
+#include <string>
 #include <unordered_map>
 
 #include <Eigen/Core>
@@ -15,6 +15,12 @@ namespace libcppe {
 
 using PeEnergy =
     std::unordered_map<std::string, std::unordered_map<std::string, double>>;
+
+using PrintCallback = std::function<void(std::string)>;
+
+const PrintCallback default_printer = [](std::string print_string) {
+  std::cout << std::setprecision(12) << print_string << std::endl;
+};
 
 class CppeState {
  private:
@@ -32,13 +38,13 @@ class CppeState {
 
   PeOptions m_options;
 
-  std::ostream& m_output_stream = std::cout;  //!< Output stream for printing
-
   bool m_make_guess = true;
+  PrintCallback m_printer;
 
  public:
   CppeState(){};
-  CppeState(PeOptions options, Molecule mol, std::ostream& = std::cout);
+  explicit CppeState(PeOptions options, Molecule mol,
+                     PrintCallback printer = default_printer);
   ~CppeState(){};
 
   void set_options(PeOptions options) { m_options = options; }
@@ -57,6 +63,7 @@ class CppeState {
 
   PeEnergy m_pe_energy;  //!< PE Energy Container
   double get_total_energy_for_category(std::string);
+  double get_total_energy();
 
   Eigen::VectorXd get_induced_moments_vec() const { return m_induced_moments; }
 

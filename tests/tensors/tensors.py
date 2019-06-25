@@ -1,4 +1,3 @@
-from __future__ import division
 from numba import jit
 from numpy import sqrt
 import numpy as np

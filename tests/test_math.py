@@ -4,13 +4,7 @@ from cppe import (smat_vec, Tk_tensor, xyz2idx,
                   factorial, prefactors, Tk_coefficients,
                   multipole_components)
 
-from tensors import tensors
-from tensors import symmetry
-
-
-# m.def("multipole_derivative", &multipole_derivative);
-# m.def("trinom", &trinom);
-# m.def("symmetry_factors", &symmetry_factors);
+from .tensors import tensors, symmetry
 
 prefs = [
     [-1.0],

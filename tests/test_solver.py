@@ -11,6 +11,9 @@ from cppe import (Tk_tensor,
                   Tk_coefficients,
                   get_polarizable_sites)
 
+from .test_functionality import print_callback
+from .cache import cache
+
 
 def triangle_to_mat(y):
     mat = np.empty((3, 3))
@@ -30,17 +33,14 @@ def block(s1, s2):
 class TestSolver(unittest.TestCase):
     dirname = os.path.dirname(__file__)
     potfile_path = "{}/potfiles/pna_6w.pot".format(dirname)
-    pna_path = "{}/pna.hdf5".format(dirname)
 
     def test_solver_by_inversion(self):
-        f = h5py.File(self.pna_path, 'r')
-        mol = Molecule()
+        mol = cache.molecule["pna"]
         options = PeOptions()
         options.potfile = self.potfile_path
         options.induced_thresh = 12
-        for z, coord in zip(f['atom_charges'], f['atom_coords']):
-            mol.append(Atom(z, *coord))
-        cppe_state = CppeState(options, mol)
+        options.diis_start_norm = 10
+        cppe_state = CppeState(options, mol, print_callback)
         cppe_state.calculate_static_energies_and_fields()
 
         static_fields = np.array(cppe_state.get_static_fields())

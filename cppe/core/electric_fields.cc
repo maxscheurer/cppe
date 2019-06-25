@@ -66,9 +66,9 @@ Eigen::VectorXd MultipoleFields::compute(bool damp) {
 }
 
 void InducedMoments::compute(const Eigen::VectorXd &total_fields,
-                             Eigen::VectorXd &induced_moments, bool make_guess,
-                             std::ostream &output_stream) {
-  output_stream << "        Running solver for induced moments." << std::endl;
+                             Eigen::VectorXd &induced_moments,
+                             bool make_guess) {
+  m_printer("        Running solver for induced moments.");
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
   // guess
   if (make_guess) {
@@ -84,7 +84,7 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
   }
   // std::cout << "induced mom. guess" << std::endl;
   // induced_moments.raw_print(std::cout << std::setprecision(10));
-  int max_iter = m_options.diis_maxiter;
+  int max_iter = m_options.maxiter;
   bool do_diis = m_options.do_diis;
   double norm_thresh = std::pow(10, -m_options.induced_thresh);
   double diis_start_norm = m_options.diis_start_norm;
@@ -103,7 +103,7 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
   while (!converged) {
     if (iteration >= max_iter) break;
     if (norm <= diis_start_norm && iteration > 1 && !diis && do_diis) {
-      output_stream << "        --- Turning on DIIS. ---" << std::endl;
+      m_printer("        --- Turning on DIIS. ---");
       diis = true;
     }
 
@@ -177,8 +177,10 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
 
     diis_old_moments = induced_moments;
 
-    output_stream << iteration << std::setprecision(12)
-                  << "        --- Norm: " << norm << std::endl;
+    std::stringstream ss;
+    ss.precision(12);
+    ss << std::fixed << norm;
+    m_printer(std::to_string(iteration) + "        --- Norm: " + ss.str());
     // calculate based on iteration
     if (norm < norm_thresh) converged = true;
 
@@ -195,8 +197,8 @@ void InducedMoments::compute(const Eigen::VectorXd &total_fields,
     nrm = (induced_moments.segment(m, 3)).norm();
     if (nrm > 1.0) {
       int site = m_polsites[j].index;
-      output_stream << "WARNING: Induced moment on site " << site
-                    << " is greater than 1 a.u.!" << std::endl;
+      m_printer("WARNING: Induced moment on site " + std::to_string(site) +
+                " is greater than 1 a.u.!");
     }
   }
 }

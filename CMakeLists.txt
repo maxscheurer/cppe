@@ -24,7 +24,7 @@ option_with_default(CMAKE_BUILD_TYPE "Build type (Release or Debug)" Release)
 option_with_default(BUILD_FPIC "Compile static libraries with position independent code" ON)
 option_with_default(CMAKE_INSTALL_LIBDIR "Directory to which libraries installed" lib)
 option_with_default(PYMOD_INSTALL_LIBDIR "Location within CMAKE_INSTALL_LIBDIR to which python modules are installed" /)
-option_with_default(cppe_CXX_STANDARD "Specify C++ standard for core cppe" 17)
+option_with_default(cppe_CXX_STANDARD "Specify C++ standard for core cppe" 14)
 
 ##########################################################################
 # Project setup
