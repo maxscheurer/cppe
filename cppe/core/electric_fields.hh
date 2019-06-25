@@ -50,6 +50,7 @@ class InducedMoments {
       m_polsites;       //!< vector with all potentials of polarizable sites
   size_t m_n_polsites;  //!< number of polarizable sites
   PeOptions m_options;
+  std::function<void(std::string)> m_printer;
 
  public:
   InducedMoments(std::vector<Potential> potentials, PeOptions options)
@@ -58,9 +59,11 @@ class InducedMoments {
     m_n_polsites = m_polsites.size();
   };
   ~InducedMoments(){};
+  void set_print_callback(std::function<void(std::string)> printer) {
+    m_printer = printer;
+  }
   void compute(const Eigen::VectorXd &total_fields,
-               Eigen::VectorXd &induced_moments, bool make_guess,
-               std::ostream &output_stream = std::cout);
+               Eigen::VectorXd &induced_moments, bool make_guess);
   /**
       overloads the compute method for induced moments and returns
      a copy of the induced moments vector
@@ -68,7 +71,7 @@ class InducedMoments {
   Eigen::VectorXd compute(Eigen::VectorXd &total_fields, bool make_guess) {
     Eigen::VectorXd induced_moments =
         Eigen::VectorXd::Zero(total_fields.size());
-    compute(total_fields, induced_moments, make_guess, std::cout);
+    compute(total_fields, induced_moments, make_guess);
     return induced_moments;
   }
 };

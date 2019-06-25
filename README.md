@@ -36,11 +36,11 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 `-DENABLE_PELIB=ON`.
 
 ### Dependencies
-- C++ 11 compiler
+- C++ 14 compiler
 - Python 3.6 (interpreter and development packages)
 
-## Installation via pip
-will be possible in the future.
+<!-- ## Installation via pip
+will be possible in the future. -->
 
 
 ## Literature

@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <iomanip>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <numeric>
@@ -12,12 +12,13 @@
 
 namespace libcppe {
 
-CppeState::CppeState(PeOptions options, Molecule mol,
-                     std::ostream& output_stream)
-    : m_options(options), m_output_stream(output_stream), m_mol(mol) {
+CppeState::CppeState(PeOptions options, Molecule mol, PrintCallback printer)
+    : m_options(options), m_mol(mol), m_printer(printer) {
   m_pe_energy = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
-  potentials = PotManipulator(potentials, m_mol).manipulate(m_options);
+  auto manip = PotManipulator(potentials, m_mol);
+  manip.set_print_callback(m_printer);
+  potentials = manip.manipulate(m_options);
   set_potentials(std::move(potentials));
   // create empty energy container
   std::map<std::string, std::vector<std::string>> energy_terms{
@@ -64,8 +65,8 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
     tmp_total_fields = elec_fields + m_nuc_fields + m_multipole_fields;
   }
   InducedMoments ind(m_potentials, m_options);
-  ind.compute(tmp_total_fields, m_induced_moments, m_make_guess,
-              m_output_stream);
+  ind.set_print_callback(m_printer);
+  ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
   if (m_make_guess) {
     m_make_guess = false;
   }
@@ -93,6 +94,11 @@ double CppeState::get_total_energy_for_category(std::string category) {
         return value + p.second;
       });
   return acc_energy;
+}
+
+double CppeState::get_total_energy() {
+  return get_total_energy_for_category("Electrostatic") +
+         get_total_energy_for_category("Polarization");
 }
 
 std::string CppeState::get_energy_summary_string() {
