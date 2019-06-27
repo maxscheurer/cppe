@@ -47,7 +47,7 @@ class TestSolver(unittest.TestCase):
         zeros = np.zeros_like(static_fields)
         cppe_state.update_induced_moments(zeros, False)
 
-        potentials = cppe_state.get_potentials()
+        potentials = cppe_state.potentials
         polsites = get_polarizable_sites(potentials)
         npolsites = cppe_state.get_polarizable_site_number()
         bmat = np.zeros((3 * npolsites, 3 * npolsites))

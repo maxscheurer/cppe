@@ -81,8 +81,8 @@ class TestFunctionality(unittest.TestCase):
         induced_ref_state = solve_induced_moments(options, mol)
         induced_ref_moments = induced_ref_state.get_induced_moments()
 
-        test_pots = induced_test_state.get_potentials()
-        ref_pots = induced_ref_state.get_potentials()
+        test_pots = induced_test_state.potentials
+        ref_pots = induced_ref_state.potentials
 
         for pt, pr in zip(test_pots, ref_pots):
             for polt, polr in zip(pt.polarizabilities,

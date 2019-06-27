@@ -105,6 +105,7 @@ std::vector<Potential> PotfileReader::read() {
           for (size_t vl = 1; vl <= multipole_components(order); vl++) {
             mul.add_value(stod(temp[vl]));
           }
+          mul.remove_trace();
           potentials[site_num].add_multipole(mul);
           site_before = site_num;
 

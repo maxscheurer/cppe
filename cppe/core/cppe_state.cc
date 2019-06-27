@@ -125,7 +125,7 @@ std::string CppeState::get_energy_summary_string() {
   sstream << off2 << "Electronic:" << std::string(w - 11, ' ')
           << m_pe_energy["Polarization"]["Electronic"] << std::endl;
   sstream << off2 << "Nuclear:" << std::string(w - 8, ' ')
-          << m_pe_energy["Polarizatio"]["Nuclear"] << std::endl;
+          << m_pe_energy["Polarization"]["Nuclear"] << std::endl;
   sstream << off2 << "Multipole:" << std::string(w - 10, ' ')
           << m_pe_energy["Polarization"]["Multipoles"] << std::endl;
   double polarization_energy = get_total_energy_for_category("Polarization");

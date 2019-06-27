@@ -42,7 +42,7 @@ void export_state(py::module &m) {
       .def("get_static_fields", &libcppe::CppeState::get_static_fields)
       .def_property_readonly("summary_string",
                              &libcppe::CppeState::get_energy_summary_string)
-      .def("get_potentials", &libcppe::CppeState::get_potentials)
+      .def_property_readonly("potentials", &libcppe::CppeState::get_potentials)
       .def("get_polarizable_site_number",
            &libcppe::CppeState::get_polarizable_site_number);
 }
