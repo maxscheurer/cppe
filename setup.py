@@ -1,144 +1,161 @@
+#!/usr/bin/env python3
+"""Setup for cppe
+
+Contributed by M. F. Herbst
+"""
 import os
-import re
 import sys
-import platform
-import subprocess
+import setuptools
 
-from setuptools import setup, find_packages, Extension
-from setuptools.command.build_ext import build_ext
-from distutils.version import LooseVersion
+from os.path import join
+
+from setuptools import find_packages, setup
+from setuptools.command.test import test as TestCommand
+
+try:
+    from sphinx.setup_command import BuildDoc as BuildSphinxDoc
+except ImportError:
+    # No sphinx found -> make a dummy class
+    class BuildSphinxDoc(setuptools.Command):
+        user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
 
 
-class CMakeExtension(Extension):
-    def __init__(self, name, sourcedir=''):
-        Extension.__init__(self, name, sources=[])
-        self.sourcedir = os.path.abspath(sourcedir)
+# Version of the python bindings and adcc python package.
+__version__ = '0.0.8'
 
 
-class CMakeBuild(build_ext):
+#
+# Compile and install cppe library
+#
+def trigger_cppe_build():
+    """
+    Trigger a build of the adccore library, if it exists in source form.
+    """
+    if os.path.isfile("build_core.py"):
+        abspath = os.path.abspath(".")
+        if abspath not in sys.path:
+            sys.path.insert(0, abspath)
+
+        import build_core
+
+        build_dir = "build_core"
+        install_dir = "pycppe/core"
+        build_core.build_install(build_dir, install_dir,
+                                 features=["python_iface"])
+
+
+class BuildDocs(BuildSphinxDoc):
     def run(self):
-        try:
-            out = subprocess.check_output(['cmake', '--version'])
-        except OSError:
-            raise RuntimeError("CMake must be installed to build the following extensions: " + ", ".join(
-                e.name for e in self.extensions))
-
-        if platform.system() == "Windows":
-            cmake_version = LooseVersion(re.search(r'version\s*([\d.]+)', out.decode()).group(1))
-            if cmake_version < '3.1.0':
-                raise RuntimeError("CMake >= 3.1.0 is required on Windows")
-
-        for ext in self.extensions:
-            self.build_extension(ext)
-
-    def build_extension(self, ext):
-        global cmake_args
-
-        internal_cmake_args = ['-DPYTHON_EXECUTABLE=' + sys.executable]
-        internal_cmake_args += [k + "=" + v for k, v in cmake_args.items() if v]
-
-        cfg = 'Debug' if self.debug else 'Release'
-        build_args = ['--config', cfg]
-
-        if platform.system() == "Windows":
-            if sys.maxsize > 2**32:
-                cmake_args += ['-A', 'x64']
-            build_args += ['--', '/m']
+        this_dir = os.path.dirname(__file__)
+        if not os.path.isfile(join(this_dir, "build_core.py")):
+            raise SystemExit("Can only build documentation if build_core.py is"
+                             "available.")
         else:
-            internal_cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-            build_args += ['--', '-j2']
+            abspath = os.path.abspath(".")
+            if abspath not in sys.path:
+                sys.path.insert(0, abspath)
 
-        env = os.environ.copy()
-        env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''), self.distribution.get_version())
-        if not os.path.exists(self.build_temp):
-            os.makedirs(self.build_temp)
-        subprocess.check_call(['cmake', ext.sourcedir] + internal_cmake_args, cwd=self.build_temp, env=env)
-        subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
-        subprocess.check_call(['cmake', '--build', '.', '--target', 'install'], cwd=self.build_temp)
+        import build_core
+
+        coredoc_dir = join(this_dir, "docs/core")
+        build_core.build_documentation(coredoc_dir, latex=False,
+                                       html=False, xml=True)
+        try:
+            import sphinx  # noqa F401
+
+            import breathe  # noqa F401
+            import recommonmark  # noqa F401
+        except ImportError:
+            raise SystemExit("Sphinx or or one of its required plugins not "
+                             "found.\nTry 'pip install -U adcc[build_docs]")
+        super().run()
 
 
-if __name__ == "__main__":
+#
+# Pytest integration
+#
+class PyTest(TestCommand):
+    user_options = [
+        ('mode=', 'm', 'Mode for the testsuite (fast or full)'),
+        ('skip-update', 's', 'Skip updating testdata'),
+        ("pytest-args=", "a", "Arguments to pass to pytest"),
+    ]
 
-    # Valid CMake args
-    valid_args = {
-        '-DCMAKE_BUILD_TYPE': 'Release',
-        '-DCMAKE_CXX_FLAGS': False,
-        '-DCMAKE_CXX_COMPILER': False,
-        '-DCMAKE_PREFIX_PATH': False,
-        '-DENABLE_OPENMP': 'ON',
-    }
-    invalid_args = {
-        '-DBUILD_SHARED_LIBS': 'ON',
-        '-DBUILD_FPIC': 'ON',
-        '-DENABLE_PYTHON_INTERFACE': 'ON',
-        # '-DINSTALL_PYMOD': 'ON',
-        # '-DNATIVE_PYTHON_INSTALL': 'ON'
-    }
-    cmake_args = valid_args.copy()
-    cmake_args.update(invalid_args)
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = ""
+        self.mode = "fast"
+        self.skip_update = False
 
-    # Parse out CMake args
-    setup_args = []
-    for arg in sys.argv:
-        if "-D" not in arg:
-            setup_args.append(arg)
-            continue
+    def finalize_options(self):
+        if self.mode not in ["fast", "full"]:
+            raise Exception("Only test modes 'fast' and 'full' are supported")
 
-        split_arg = [x.strip() for x in arg.split('=')]
-        if len(split_arg) != 2:
-            raise KeyError("CMake argument %s not understood." % arg)
-        key, value = split_arg
+    def run_tests(self):
+        import shlex
 
-        if key not in cmake_args:
-            raise KeyError("CMake argument %s not understood." % arg)
+        # import here, cause outside the eggs aren't loaded
+        import pytest
 
-        if key in invalid_args:
-            raise KeyError("CMake argument %s cannot be changed with Python builds." % key)
+        if not os.path.isdir("adcc/testdata"):
+            raise RuntimeError("Can only test from git repository, "
+                               "not from installation tarball.")
 
-        cmake_args[key] = value
+        args = ["adcc"]
+        args += ["--mode", self.mode]
+        if self.skip_update:
+            args += ["--skip-update"]
+        args += shlex.split(self.pytest_args)
+        errno = pytest.main(args)
+        sys.exit(errno)
 
-    sys.argv = setup_args
 
-    # Build full cmdclass
-    cmdclass = {}
-    cmdclass["build_ext"] = CMakeBuild
-
-    setup(
-        name='cppe',
-        version="0.0.5",
-        description='C++ and Python library for Polarizable Embedding'
-                    ' calculations',
-        author='Maximilian Scheurer',
-        author_email='info@maxscheurer.com',
-        url="https://github.com/maxscheurer/cppe",
-        license='LGPLv3',
-        packages=find_packages(),
-        include_package_data=True,
-        ext_modules=[CMakeExtension('cppe')],
-        cmdclass=cmdclass,
-        install_requires=[
-            'numpy>=1.7',
-        ],
-        # extras_require={
-        #     'docs': [
-        #         'sphinx==1.2.3',  # autodoc was broken in 1.3.1
-        #         'sphinxcontrib-napoleon',
-        #         'sphinx_rtd_theme',
-        #         'numpydoc',
-        #     ],
-        #     'tests': [
-        #         'pytest',
-        #         'pytest-cov',
-        #     ],
-        # },
-        # tests_require=[
-        #     'pytest',
-        #     'pytest-cov',
-        # ],
-        classifiers=[
-            'Development Status :: 4 - Beta',
-            'Intended Audience :: Science/Research',
-            'Programming Language :: Python :: 3',
-        ],
-        zip_safe=False,
-    )
+trigger_cppe_build()
+setup(
+    name='cppe',
+    description='CPPE: ',
+    long_description="",
+    #
+    url='https://github.com/maxscheurer/cppe',
+    author="Maximilian Scheurer",
+    author_email='info@maxscheurer.com',
+    license="LGPL v3",
+    #
+    version=__version__,
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: '
+        'GNU Lesser General Public License v3 (LGPLv3)',
+        'License :: Free For Educational Use',
+        'Intended Audience :: Science/Research',
+        "Topic :: Scientific/Engineering :: Chemistry",
+        "Topic :: Education",
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Operating System :: Unix',
+    ],
+    #
+    packages=find_packages(exclude=["*.test*", "test"]),
+    package_data={'cppe': ["pycppe/core/*.so"],
+                  '': ["LICENSE*"]},
+    zip_safe=False,
+    #
+    platforms=["Linux", "Mac OS-X", "Unix"],
+    python_requires='>=3.5',
+    install_requires=[
+        'numpy (>= 1.13)',  # Maybe even higher?
+    ],
+    tests_require=["pytest", "h5py"],
+    extras_require={
+        "build_docs": ["sphinx>=2", "recommonmark>=0.5.0", "breathe"],
+    },
+    #
+    cmdclass={"build_docs": BuildDocs},
+)

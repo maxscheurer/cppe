@@ -23,7 +23,7 @@ option_with_flags(ENABLE_XHOST "Enables processor-specific optimization (with MS
 option_with_default(CMAKE_BUILD_TYPE "Build type (Release or Debug)" Release)
 option_with_default(BUILD_FPIC "Compile static libraries with position independent code" ON)
 option_with_default(CMAKE_INSTALL_LIBDIR "Directory to which libraries installed" lib)
-option_with_default(PYMOD_INSTALL_LIBDIR "Location within CMAKE_INSTALL_LIBDIR to which python modules are installed" /)
+option_with_default(PYMOD_INSTALL_LIBDIR "Location to which python modules are installed" lib)
 option_with_default(cppe_CXX_STANDARD "Specify C++ standard for core cppe" 14)
 
 ##########################################################################
@@ -60,7 +60,7 @@ add_subdirectory(external/upstream)
 
 ExternalProject_Add(cppe-core
    DEPENDS ${pybind_ext} ${pe_ext} 
-   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cppe
+   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src
    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
               -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
               -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}

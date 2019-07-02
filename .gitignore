@@ -38,3 +38,6 @@ build
 
 .DS_Store
 __pycache__
+build_core
+cppe.egg-info
+dist
