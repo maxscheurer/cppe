@@ -115,8 +115,7 @@ if(${ENABLE_PYTHON_INTERFACE})
 endif()
 
 target_compile_definitions(cppe INTERFACE USING_${PN})
-target_include_directories(cppe INTERFACE
-$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+target_include_directories(cppe INTERFACE $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
 configure_package_config_file(cmake/${PN}Config.cmake.in
