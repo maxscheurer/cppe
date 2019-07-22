@@ -42,6 +42,9 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 <!-- ## Installation via pip
 will be possible in the future. -->
 
+## Citation
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
+
 
 ## Literature
 <sup>1</sup> Olsen, J. M., Aidas, K., & Kongsted, J. (2010). Excited States in Solution through Polarizable Embedding. _J. Chem. Theory Comput._, **6** (12), 3721–3734. https://doi.org/10.1021/ct1003803
