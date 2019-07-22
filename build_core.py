@@ -41,8 +41,8 @@ def configure(build_dir, source_dir, install_dir, build_type=None, features=[]):
     if build_type in ["Release", "Debug", "MinSizeRel", "RelWithDebInfo"]:
         args += ["-DCMAKE_BUILD_TYPE=" + build_type]
     elif build_type == "SanitizeAddress":
-        cpflags = "-O1 -g -fsanitize=address -fno-omit-frame-pointer"
-        ldflags = "-fsanitize=address"
+        cpflags = "-O1 -g -fsanitize=address -fsanitize=thread -fno-omit-frame-pointer"
+        ldflags = "-fsanitize=address -fsanitize=thread"
         args += ["-DCMAKE_CXX_FLAGS_DEBUG={}".format(cpflags),
                  "-DCMAKE_C_FLAGS_DEBUG={}".format(cpflags),
                  "-DCMAKE_EXE_LINKER_FLAGS_DEBUG=\"{}\"".format(ldflags),
@@ -55,6 +55,7 @@ def configure(build_dir, source_dir, install_dir, build_type=None, features=[]):
         args += ["-DENABLE_PYTHON_INTERFACE=ON"]
         args += ["-DINSTALL_DEVEL_HEADERS=OFF"]
         args += ["-DPYMOD_INSTALL_LIBDIR={}".format(install_dir)]
+    print(args)
     subprocess.check_call(args + [source_dir], cwd=build_dir)
 
 
