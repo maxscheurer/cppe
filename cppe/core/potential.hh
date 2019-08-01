@@ -28,11 +28,11 @@ class Multipole {
       m_values[5] -= trace;
     } else if (m_k > 2) {
       throw std::runtime_error(
-          "remove_trace() not implemented for multipoles of order > 2");
+            "remove_trace() not implemented for multipoles of order > 2");
     }
   }
 
-  std::vector<double> &get_values() { return m_values; }
+  std::vector<double>& get_values() { return m_values; }
   Eigen::VectorXd get_values_vec() {
     return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
     ;
@@ -54,15 +54,15 @@ class Polarizability {
   void make_isotropic() {
     std::vector<double> new_values(6, 0.0);
     double trace;
-    trace = (m_values[0] + m_values[3] + m_values[5]) / 3.0;
+    trace         = (m_values[0] + m_values[3] + m_values[5]) / 3.0;
     new_values[0] = new_values[3] = new_values[5] = trace;
-    m_values = new_values;
+    m_values                                      = new_values;
   }
 
   Eigen::VectorXd get_values_vec() {
     return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
   }
-  std::vector<double> &get_values() { return m_values; }
+  std::vector<double>& get_values() { return m_values; }
 };
 
 class Potential {
@@ -73,8 +73,7 @@ class Potential {
   std::vector<int> m_exclusions;
 
  public:
-  Potential(double x, double y, double z, int idx)
-      : m_x(x), m_y(y), m_z(z), index(idx){};
+  Potential(double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx){};
   ~Potential(){};
 
   double m_x, m_y, m_z;
@@ -82,9 +81,7 @@ class Potential {
 
   void add_multipole(Multipole mul) { m_multipoles.push_back(mul); }
 
-  void add_polarizability(Polarizability pol) {
-    m_polarizabilities.push_back(pol);
-  }
+  void add_polarizability(Polarizability pol) { m_polarizabilities.push_back(pol); }
 
   // 0-based!!!
   void add_exclusion(int excl) { m_exclusions.push_back(excl); }
@@ -94,13 +91,11 @@ class Potential {
             m_exclusions.end());
   }
 
-  std::vector<int> &get_exclusions() { return m_exclusions; }
+  std::vector<int>& get_exclusions() { return m_exclusions; }
 
-  std::vector<Multipole> &get_multipoles() { return m_multipoles; }
+  std::vector<Multipole>& get_multipoles() { return m_multipoles; }
 
-  std::vector<Polarizability> &get_polarizabilities() {
-    return m_polarizabilities;
-  }
+  std::vector<Polarizability>& get_polarizabilities() { return m_polarizabilities; }
 
   bool is_polarizable() { return (m_polarizabilities.size() > 0); }
 

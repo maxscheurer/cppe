@@ -6,7 +6,7 @@ namespace libcppe {
 
 // this only works for the contraction of polarizability/interaction tensors
 // with vectors of size 3
-Eigen::Vector3d smat_vec(const Eigen::VectorXd &mat, const Eigen::Vector3d &vec,
+Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
                          double alpha) {
   Eigen::Vector3d result;
   // expect upper triangle be provided
@@ -18,8 +18,8 @@ Eigen::Vector3d smat_vec(const Eigen::VectorXd &mat, const Eigen::Vector3d &vec,
 }
 
 // TODO: add option for damping
-Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d &Rij,
-                          std::vector<Eigen::MatrixXi> &Tk_coeffs) {
+Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
+                          std::vector<Eigen::MatrixXi>& Tk_coeffs) {
   int x, y, z;
   Eigen::VectorXd Tk(multipole_components(k));
   int idx = 0;
@@ -37,11 +37,10 @@ Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d &Rij,
 
 // TODO: there must be a way to make this more efficient...
 // only 1st derivative supported
-Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
+Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
-                                     std::vector<Eigen::MatrixXi> &Tk_coeffs) {
-  if (l > 1)
-    throw std::runtime_error("Only 1st derivatives supported for multipoles");
+                                     std::vector<Eigen::MatrixXi>& Tk_coeffs) {
+  if (l > 1) throw std::runtime_error("Only 1st derivatives supported for multipoles");
   Eigen::VectorXd Fi = Eigen::VectorXd::Zero(3);
 
   double taylor;
@@ -65,8 +64,8 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
           for (int b = y; b > -1; b--) {
             for (int c = z; c > -1; c--) {
               if (a + b + c != k) continue;
-              j = xyz2idx(a, b, c);
-              m = xyz2idx(x - a, y - b, z - c);
+              j      = xyz2idx(a, b, c);
+              m      = xyz2idx(x - a, y - b, z - c);
               symfac = trinom(a, b, c);
               Fi(m) += taylor * symfac * Tk(i) * Mkj(j);
             }
@@ -81,7 +80,7 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
 // x y z to index in contiguous array
 int xyz2idx(int x, int y, int z) {
   int idx = 0;
-  int k = x + y + z;
+  int k   = x + y + z;
   for (int a = k; a > -1; a--) {
     for (int b = k; b > -1; b--) {
       for (int c = k; c > -1; c--) {
@@ -97,8 +96,8 @@ int xyz2idx(int x, int y, int z) {
   return -1;
 }
 
-double T(const Eigen::Vector3d &Rij, int x, int y, int z,
-         std::vector<Eigen::MatrixXi> &Cijn) {
+double T(const Eigen::Vector3d& Rij, int x, int y, int z,
+         std::vector<Eigen::MatrixXi>& Cijn) {
   double t = 0.0;
   double R = Rij.norm();
   double Cx, Cy, Cz;
@@ -122,7 +121,7 @@ std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {
   for (int n = 0; n < maxi; ++n) {
     int k;
     Eigen::MatrixXi mat = Eigen::MatrixXi::Zero(max_order + 2, max_order + 2);
-    mat(0, 0) = 1;
+    mat(0, 0)           = 1;
     if ((n + 1) % 2 == 0) {
       Cijn.push_back(mat);
       continue;
@@ -140,7 +139,7 @@ std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {
         } else if (j != i) {
           mat(i, j) = (j + 1) * mat(i - 1, j + 1);
           mat(i, j) = mat(i, j) - ((n + 1) + k) * mat(i - 1, j - 1);
-          k = k + 2;
+          k         = k + 2;
         } else if (j == i) {
           mat(i, j) = -((n + 1) + k) * mat(i - 1, j - 1);
         }
@@ -159,7 +158,7 @@ double factorial(int n) {
   return x;
 }
 
-void make_df(unsigned k, std::vector<double> &df) {
+void make_df(unsigned k, std::vector<double>& df) {
   double f = -1.0;
   for (unsigned i = 1; i <= k; i++) {
     f *= double(i) / double(2 * i - 1);

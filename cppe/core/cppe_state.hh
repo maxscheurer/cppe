@@ -13,8 +13,7 @@
 
 namespace libcppe {
 
-using PeEnergy =
-    std::unordered_map<std::string, std::unordered_map<std::string, double>>;
+using PeEnergy = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 using PrintCallback = std::function<void(std::string)>;
 
@@ -30,9 +29,8 @@ class CppeState {
 
   size_t m_polarizable_sites;  //!< number of polarizable sites
   // Static Fields
-  Eigen::VectorXd m_nuc_fields;  //!< electric fields from nuclei
-  Eigen::VectorXd
-      m_multipole_fields;  //!< electric fields from multipole moments
+  Eigen::VectorXd m_nuc_fields;        //!< electric fields from nuclei
+  Eigen::VectorXd m_multipole_fields;  //!< electric fields from multipole moments
 
   Eigen::VectorXd m_induced_moments;  //!< Vector with induced moments
 
@@ -56,9 +54,8 @@ class CppeState {
   void calculate_static_energies_and_fields();
 
   std::vector<double> get_induced_moments() const {
-    return std::vector<double>(
-        m_induced_moments.data(),
-        m_induced_moments.data() + m_induced_moments.size());
+    return std::vector<double>(m_induced_moments.data(),
+                               m_induced_moments.data() + m_induced_moments.size());
   }
 
   PeEnergy m_pe_energy;  //!< PE Energy Container
@@ -67,8 +64,7 @@ class CppeState {
 
   Eigen::VectorXd get_induced_moments_vec() const { return m_induced_moments; }
 
-  void update_induced_moments(Eigen::VectorXd elec_fields,
-                              bool elec_only = false);
+  void update_induced_moments(Eigen::VectorXd elec_fields, bool elec_only = false);
 
   size_t get_polarizable_site_number() { return m_polarizable_sites; }
 

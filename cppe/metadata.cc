@@ -6,14 +6,13 @@ namespace libcppe {
 namespace {
 static const std::string static_version_string = "0.0.8";
 
-static const std::vector<std::string> version_split =
-    [](const std::string& in) {
-      std::vector<std::string> parts;
-      std::stringstream ss(in);
-      std::string item;
-      while (std::getline(ss, item, '.')) parts.push_back(item);
-      return parts;
-    }(static_version_string);
+static const std::vector<std::string> version_split = [](const std::string& in) {
+  std::vector<std::string> parts;
+  std::stringstream ss(in);
+  std::string item;
+  while (std::getline(ss, item, '.')) parts.push_back(item);
+  return parts;
+}(static_version_string);
 
 static int get_version_part(size_t part) {
   int ret;

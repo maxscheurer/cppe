@@ -13,13 +13,12 @@ std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
 class ElectricFields {
  protected:
   std::vector<Potential> m_potentials;  //!< vector with all site potentials
-  std::vector<Potential>
-      m_polsites;       //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites;  //!< number of polarizable sites
+  std::vector<Potential> m_polsites;  //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites;                //!< number of polarizable sites
 
  public:
   ElectricFields(std::vector<Potential> potentials) : m_potentials(potentials) {
-    m_polsites = get_polarizable_sites(m_potentials);
+    m_polsites   = get_polarizable_sites(m_potentials);
     m_n_polsites = m_polsites.size();
   };
   ~ElectricFields(){};
@@ -32,45 +31,42 @@ class NuclearFields : public ElectricFields {
 
  public:
   NuclearFields(Molecule mol, std::vector<Potential> potentials)
-      : ElectricFields(potentials), m_mol(mol){};
+        : ElectricFields(potentials), m_mol(mol){};
   Eigen::VectorXd compute(bool damp = false);
 };
 
 class MultipoleFields : public ElectricFields {
  public:
-  MultipoleFields(std::vector<Potential> potentials)
-      : ElectricFields(potentials){};
+  MultipoleFields(std::vector<Potential> potentials) : ElectricFields(potentials){};
   Eigen::VectorXd compute(bool damp = false);
 };
 
 class InducedMoments {
  private:
   std::vector<Potential> m_potentials;  //!< vector with all site potentials
-  std::vector<Potential>
-      m_polsites;       //!< vector with all potentials of polarizable sites
-  size_t m_n_polsites;  //!< number of polarizable sites
+  std::vector<Potential> m_polsites;  //!< vector with all potentials of polarizable sites
+  size_t m_n_polsites;                //!< number of polarizable sites
   PeOptions m_options;
   std::function<void(std::string)> m_printer;
 
  public:
   InducedMoments(std::vector<Potential> potentials, PeOptions options)
-      : m_potentials(potentials), m_options(options) {
-    m_polsites = get_polarizable_sites(m_potentials);
+        : m_potentials(potentials), m_options(options) {
+    m_polsites   = get_polarizable_sites(m_potentials);
     m_n_polsites = m_polsites.size();
   };
   ~InducedMoments(){};
   void set_print_callback(std::function<void(std::string)> printer) {
     m_printer = printer;
   }
-  void compute(const Eigen::VectorXd &total_fields,
-               Eigen::VectorXd &induced_moments, bool make_guess);
+  void compute(const Eigen::VectorXd& total_fields, Eigen::VectorXd& induced_moments,
+               bool make_guess);
   /**
       overloads the compute method for induced moments and returns
      a copy of the induced moments vector
   */
-  Eigen::VectorXd compute(Eigen::VectorXd &total_fields, bool make_guess) {
-    Eigen::VectorXd induced_moments =
-        Eigen::VectorXd::Zero(total_fields.size());
+  Eigen::VectorXd compute(Eigen::VectorXd& total_fields, bool make_guess) {
+    Eigen::VectorXd induced_moments = Eigen::VectorXd::Zero(total_fields.size());
     compute(total_fields, induced_moments, make_guess);
     return induced_moments;
   }
