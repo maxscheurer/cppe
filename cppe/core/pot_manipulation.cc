@@ -8,15 +8,14 @@
 
 namespace libcppe {
 
-bool sortbysec(const std::pair<int, double> &a,
-               const std::pair<int, double> &b) {
+bool sortbysec(const std::pair<int, double>& a, const std::pair<int, double>& b) {
   return (a.second < b.second);
 }
 
-std::vector<Potential> PotManipulator::manipulate(const PeOptions &pe_options) {
+std::vector<Potential> PotManipulator::manipulate(const PeOptions& pe_options) {
   if (pe_options.iso_pol) {
-    for (Potential &pot : m_potentials) {
-      for (Polarizability &p : pot.get_polarizabilities()) {
+    for (Potential& pot : m_potentials) {
+      for (Polarizability& p : pot.get_polarizabilities()) {
         p.make_isotropic();
       }
     }
@@ -24,8 +23,7 @@ std::vector<Potential> PotManipulator::manipulate(const PeOptions &pe_options) {
   return manipulate_border(pe_options);
 }
 
-std::vector<Potential> PotManipulator::manipulate_border(
-    const PeOptions &pe_options) {
+std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_options) {
   std::vector<Potential> new_potentials;
   std::set<int> changed_sites;
   if (!pe_options.pe_border) return m_potentials;  // do nothing
@@ -33,8 +31,7 @@ std::vector<Potential> PotManipulator::manipulate_border(
   for (Atom a : m_mol) {
     Eigen::Vector3d a_pos = a.get_pos();
     for (Potential pot : m_potentials) {
-      if ((a_pos - pot.get_site_position()).norm() <=
-          pe_options.border_options.rmin) {
+      if ((a_pos - pot.get_site_position()).norm() <= pe_options.border_options.rmin) {
         if (changed_sites.find(pot.index) == changed_sites.end()) {
           changed_sites.insert(pot.index);
         }
@@ -49,22 +46,19 @@ std::vector<Potential> PotManipulator::manipulate_border(
       if (changed_sites.find(pot.index) == changed_sites.end()) {
         new_potentials.push_back(pot);
       } else {
-        m_printer("     Removing all parameters on site: " +
-                  std::to_string(pot.index));
+        m_printer("     Removing all parameters on site: " + std::to_string(pot.index));
       }
     }
   } else if (pe_options.border_options.border_type == BorderType::redist) {
     m_printer("     Redistributing moments in " +
-              std::to_string(pe_options.border_options.rmin) +
-              " a.u. proximity.");
+              std::to_string(pe_options.border_options.rmin) + " a.u. proximity.");
     int nredist = pe_options.border_options.nredist;
     if (nredist == -1) {
       m_printer("     Border sites will be redistributed to all other sites.");
       nredist = m_potentials.size() - changed_sites.size();
     }
     if (nredist > m_potentials.size()) {
-      throw std::runtime_error(
-          "Cannot redistribute to more sites than available sites.");
+      throw std::runtime_error("Cannot redistribute to more sites than available sites.");
     }
     // loop over all sites that are in rmin of core
     // redistribute their multipoles/polarizabilities
@@ -76,18 +70,18 @@ std::vector<Potential> PotManipulator::manipulate_border(
       for (Potential pot : m_potentials) {
         if (changed_sites.find(pot.index) != changed_sites.end()) continue;
         Eigen::Vector3d dist_vec =
-            m_potentials[site].get_site_position() - pot.get_site_position();
+              m_potentials[site].get_site_position() - pot.get_site_position();
         double dist = dist_vec.norm();
         neighbor_list.push_back(std::pair<int, double>(pot.index, dist));
       }
       sort(neighbor_list.begin(), neighbor_list.end(), sortbysec);
       for (int k = 0; k < nredist; ++k) {
-        Potential &pot = m_potentials[neighbor_list[k].first];
+        Potential& pot = m_potentials[neighbor_list[k].first];
         if (pot.index == site) continue;
         m_printer("       to neighbor " + std::to_string(pot.index));
         // must have the same order of multipoles if we want to redist
         int m_idx = 0;
-        for (Multipole &m : pot.get_multipoles()) {
+        for (Multipole& m : pot.get_multipoles()) {
           if (m.m_k >= redist_order) {
             m_idx++;
             continue;
@@ -99,8 +93,8 @@ std::vector<Potential> PotManipulator::manipulate_border(
             // std::cout << m.get_values_vec() << std::endl;
             for (size_t i = 0; i < multipole_components(m.m_k); i++) {
               m.get_values()[i] +=
-                  m_potentials[site].get_multipoles()[m_idx].get_values()[i] /
-                  static_cast<double>(nredist);
+                    m_potentials[site].get_multipoles()[m_idx].get_values()[i] /
+                    static_cast<double>(nredist);
             }
             // std::cout << "After: " << std::endl;
             // std::cout << m.get_values_vec() << std::endl;
@@ -109,16 +103,15 @@ std::vector<Potential> PotManipulator::manipulate_border(
         }
         int p_idx = 0;
         if (pe_options.border_options.redist_pol) {
-          for (Polarizability &p : pot.get_polarizabilities()) {
+          for (Polarizability& p : pot.get_polarizabilities()) {
             // TODO: what if a site that has been chosen nearest neighbor
             // has no multipole moments/polarizability of the respective order?!
             // std::cout << "Before: " << std::endl;
             // std::cout << p.get_values_vec() << std::endl;
             for (size_t i = 0; i < multipole_components(2); i++) {
-              p.get_values()[i] += m_potentials[site]
-                                       .get_polarizabilities()[p_idx]
-                                       .get_values()[i] /
-                                   static_cast<double>(nredist);
+              p.get_values()[i] +=
+                    m_potentials[site].get_polarizabilities()[p_idx].get_values()[i] /
+                    static_cast<double>(nredist);
             }
             // std::cout << "After: " << std::endl;
             // std::cout << p.get_values_vec() << std::endl;
@@ -132,15 +125,14 @@ std::vector<Potential> PotManipulator::manipulate_border(
     for (Potential pot : m_potentials) {
       if (changed_sites.find(pot.index) == changed_sites.end()) {
         new_potentials.push_back(pot);
-        for (auto &m : pot.get_multipoles()) {
+        for (auto& m : pot.get_multipoles()) {
           if (m.m_k == 0) {
             total_charge += m.get_values()[0];
           } else
             break;
         }
       } else {
-        m_printer("     Removing all parameters on site: " +
-                  std::to_string(pot.index));
+        m_printer("     Removing all parameters on site: " + std::to_string(pot.index));
       }
     }
     m_printer("    Total charge of the classical region: " +
@@ -149,8 +141,8 @@ std::vector<Potential> PotManipulator::manipulate_border(
 
   if (new_potentials.size() > m_potentials.size()) {
     throw std::runtime_error(
-        "Manipulated potentials cannot have more sites "
-        "than original ones.");
+          "Manipulated potentials cannot have more sites "
+          "than original ones.");
   }
   return new_potentials;
 }

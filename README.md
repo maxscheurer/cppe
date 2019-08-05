@@ -1,4 +1,6 @@
-# CPPE
+<!-- # CPPE -->
+# <img src="https://gist.githubusercontent.com/maxscheurer/43b3dd040ea09ab06546bc6c2c771f56/raw/ced0c420e4840faf203dbca4d719f90cd66ca3fb/cppe_logo.png" height=150>
+
 
 [![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
@@ -41,6 +43,9 @@ To build PElib (together with `gen1int` and the appropriate interface), set the 
 
 <!-- ## Installation via pip
 will be possible in the future. -->
+
+## Citation
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
 
 ## Literature

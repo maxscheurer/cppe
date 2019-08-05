@@ -16,13 +16,13 @@ class PotManipulator {
 
  public:
   PotManipulator(std::vector<Potential> potentials, Molecule mol)
-      : m_potentials(potentials), m_mol(mol){};
+        : m_potentials(potentials), m_mol(mol){};
   ~PotManipulator(){};
   void set_print_callback(std::function<void(std::string)> printer) {
     m_printer = printer;
   }
-  std::vector<Potential> manipulate(const PeOptions &pe_options);
-  std::vector<Potential> manipulate_border(const PeOptions &pe_options);
+  std::vector<Potential> manipulate(const PeOptions& pe_options);
+  std::vector<Potential> manipulate_border(const PeOptions& pe_options);
 };
 
 }  // namespace libcppe

@@ -5,18 +5,18 @@
 
 namespace libcppe {
 
-Eigen::Vector3d smat_vec(const Eigen::VectorXd &mat, const Eigen::Vector3d &vec,
+Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
                          double alpha);
 
-Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d &Rji,
+Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
-                                     std::vector<Eigen::MatrixXi> &Tk_coeffs);
+                                     std::vector<Eigen::MatrixXi>& Tk_coeffs);
 
-double T(const Eigen::Vector3d &Rij, int x, int y, int z,
-         std::vector<Eigen::MatrixXi> &Cijn);
+double T(const Eigen::Vector3d& Rij, int x, int y, int z,
+         std::vector<Eigen::MatrixXi>& Cijn);
 
-Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d &Rij,
-                          std::vector<Eigen::MatrixXi> &Tk_coeffs);
+Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
+                          std::vector<Eigen::MatrixXi>& Tk_coeffs);
 
 std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order);
 
@@ -25,7 +25,7 @@ int xyz2idx(int x, int y, int z);
 // TODO: return type should be unsigned long
 double factorial(int n);
 
-void make_df(unsigned k, std::vector<double> &df);
+void make_df(unsigned k, std::vector<double>& df);
 
 int trinom(int i, int j, int k);
 

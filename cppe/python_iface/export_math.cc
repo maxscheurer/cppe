@@ -8,7 +8,7 @@ namespace py = pybind11;
 
 using namespace libcppe;
 
-void export_math(py::module &m) {
+void export_math(py::module& m) {
   m.def("smat_vec", &smat_vec);
   m.def("multipole_derivative", &multipole_derivative);
   m.def("T", &T);

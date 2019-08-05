@@ -3,9 +3,9 @@
 #include <iostream>
 #include <sstream>
 
-#include "potfile_reader.hh"
-#include "math.hh"
 #include "../utils/string_utils.hh"
+#include "math.hh"
+#include "potfile_reader.hh"
 
 #define ang2bohr 1.8897261246
 
@@ -16,14 +16,13 @@ struct Site {
 };
 
 namespace {
-inline bool file_exists(const std::string &name) {
+inline bool file_exists(const std::string& name) {
   std::ifstream f(name.c_str());
   return f.good();
 }
 }  // unnamed namespace
 
-PotfileReader::PotfileReader(std::string potfile_name)
-    : m_potfile(potfile_name) {
+PotfileReader::PotfileReader(std::string potfile_name) : m_potfile(potfile_name) {
   if (!file_exists(m_potfile)) {
     throw std::runtime_error("Potential file does not exist.");
   }
@@ -62,7 +61,7 @@ std::vector<Potential> PotfileReader::read() {
         Site site;
         getline(infile, line);
         std::vector<std::string> temp = split(reduce(line), ' ');
-        std::string element = temp[0];
+        std::string element           = temp[0];
 
         assert(temp.size() >= 4);
         site.x = stod(temp[1]) * conversion;
@@ -81,10 +80,10 @@ std::vector<Potential> PotfileReader::read() {
         int order = stoi(temp[1]);
         getline(infile, line);
         int num_multipoles = stoi(line);
-        int site_before = -1;
+        int site_before    = -1;
         for (size_t n_mul = 0; n_mul < num_multipoles; n_mul++) {
           getline(infile, line);
-          temp = split(reduce(line), ' ');
+          temp         = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
 
           // fill up the array if values were not defined for all sites
@@ -127,21 +126,20 @@ std::vector<Potential> PotfileReader::read() {
         int order2 = stoi(temp[2]);
         if (order1 != 1 || order2 != 1) {
           throw std::runtime_error(
-              "Only dipole-dipole polarizabilities "
-              "are currently supported.");
+                "Only dipole-dipole polarizabilities "
+                "are currently supported.");
         }
         getline(infile, line);
         int num_polarizabilities = stoi(line);
         for (size_t n_pol = 0; n_pol < num_polarizabilities; n_pol++) {
           getline(infile, line);
-          temp = split(reduce(line), ' ');
+          temp         = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
-          Site site = sites[site_num];
+          Site site    = sites[site_num];
           // std::cout << site.x << " " << site.y << " " << site.z << " " <<
           // site_num + 1 << std::endl;
           Polarizability pol{};
-          for (size_t vl = 1; vl <= multipole_components(order1 + order2);
-               vl++) {
+          for (size_t vl = 1; vl <= multipole_components(order1 + order2); vl++) {
             pol.add_value(stod(temp[vl]));
           }
           potentials[site_num].add_polarizability(pol);
@@ -156,7 +154,7 @@ std::vector<Potential> PotfileReader::read() {
       std::vector<std::string> temp;
       for (size_t i = 0; i < num_excl; i++) {
         getline(infile, line);
-        temp = split(reduce(line), ' ');
+        temp         = split(reduce(line), ' ');
         int site_num = stoi(temp[0]) - 1;
         int excl_site_number;
         int counter = 0;

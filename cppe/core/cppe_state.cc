@@ -13,17 +13,17 @@
 namespace libcppe {
 
 CppeState::CppeState(PeOptions options, Molecule mol, PrintCallback printer)
-    : m_options(options), m_mol(mol), m_printer(printer) {
-  m_pe_energy = PeEnergy{};
+      : m_options(options), m_mol(mol), m_printer(printer) {
+  m_pe_energy                       = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
-  auto manip = PotManipulator(potentials, m_mol);
+  auto manip                        = PotManipulator(potentials, m_mol);
   manip.set_print_callback(m_printer);
   potentials = manip.manipulate(m_options);
   set_potentials(std::move(potentials));
   // create empty energy container
   std::map<std::string, std::vector<std::string>> energy_terms{
-      {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}},
-      {"Polarization", {"Electronic", "Nuclear", "Multipoles"}}};
+        {"Electrostatic", {"Electronic", "Nuclear", "Multipoles"}},
+        {"Polarization", {"Electronic", "Nuclear", "Multipoles"}}};
   for (auto it : energy_terms) {
     for (auto nm : it.second) {
       m_pe_energy[it.first][nm] = 0.0;
@@ -32,17 +32,16 @@ CppeState::CppeState(PeOptions options, Molecule mol, PrintCallback printer)
 }
 
 void CppeState::set_potentials(std::vector<Potential> potentials) {
-  m_potentials = potentials;
-  m_polarizable_sites =
-      std::count_if(m_potentials.begin(), m_potentials.end(),
-                    [](Potential p) { return p.is_polarizable(); });
-  m_induced_moments = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+  m_potentials        = potentials;
+  m_polarizable_sites = std::count_if(m_potentials.begin(), m_potentials.end(),
+                                      [](Potential p) { return p.is_polarizable(); });
+  m_induced_moments   = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
 }
 
 void CppeState::calculate_static_energies_and_fields() {
   // Electrostatic energy (nuclei-multipoles)
   MultipoleExpansion mexp(m_mol, m_potentials);
-  double nuc_mul_energy = mexp.calculate_interaction_energy();
+  double nuc_mul_energy                   = mexp.calculate_interaction_energy();
   m_pe_energy["Electrostatic"]["Nuclear"] = nuc_mul_energy;
 
   // Calculate static fields
@@ -55,10 +54,8 @@ void CppeState::calculate_static_energies_and_fields() {
   m_multipole_fields = mul_fields.compute();
 }
 
-void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
-                                       bool elec_only) {
-  Eigen::VectorXd tmp_total_fields =
-      Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_only) {
+  Eigen::VectorXd tmp_total_fields = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
   if (elec_only) {
     tmp_total_fields = elec_fields;
   } else {
@@ -72,27 +69,26 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields,
   }
 
   if (elec_only) {
-    double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
+    double epol_elec                          = -0.5 * m_induced_moments.dot(elec_fields);
     m_pe_energy["Polarization"]["Electronic"] = epol_elec;
   } else {
-    double epol_elec = -0.5 * m_induced_moments.dot(elec_fields);
-    double epol_nuclear = -0.5 * m_induced_moments.dot(m_nuc_fields);
+    double epol_elec       = -0.5 * m_induced_moments.dot(elec_fields);
+    double epol_nuclear    = -0.5 * m_induced_moments.dot(m_nuc_fields);
     double epol_multipoles = -0.5 * m_induced_moments.dot(m_multipole_fields);
 
     m_pe_energy["Polarization"]["Electronic"] = epol_elec;
-    m_pe_energy["Polarization"]["Nuclear"] = epol_nuclear;
+    m_pe_energy["Polarization"]["Nuclear"]    = epol_nuclear;
     m_pe_energy["Polarization"]["Multipoles"] = epol_multipoles;
   }
 }
 
 double CppeState::get_total_energy_for_category(std::string category) {
-  auto energy_cat = m_pe_energy[category];
+  auto energy_cat   = m_pe_energy[category];
   double acc_energy = std::accumulate(
-      energy_cat.begin(), energy_cat.end(), 0.0,
-      [](double value,
-         const std::unordered_map<std::string, double>::value_type& p) {
-        return value + p.second;
-      });
+        energy_cat.begin(), energy_cat.end(), 0.0,
+        [](double value, const std::unordered_map<std::string, double>::value_type& p) {
+          return value + p.second;
+        });
   return acc_energy;
 }
 

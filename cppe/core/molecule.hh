@@ -11,8 +11,7 @@ struct Atom {
   int charge;
   double m_x, m_y, m_z;
   Atom(int an) : atomic_number(an) { charge = an; }
-  Atom(int an, double x, double y, double z)
-      : atomic_number(an), m_x(x), m_y(y), m_z(z) {
+  Atom(int an, double x, double y, double z) : atomic_number(an), m_x(x), m_y(y), m_z(z) {
     charge = an;
   }
 
@@ -28,8 +27,8 @@ struct Molecule : std::vector<Atom> {
     return (*this)[atom].get_pos();
   }
 
-  ~Molecule() = default;
-  Molecule &operator=(const Molecule &) = default;
+  ~Molecule()       = default;
+  Molecule& operator=(const Molecule&) = default;
 };
 
 }  // namespace libcppe
