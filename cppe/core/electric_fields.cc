@@ -84,7 +84,6 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
   // induced_moments.raw_print(std::cout << std::setprecision(10));
   int max_iter           = m_options.maxiter;
   bool do_diis           = m_options.do_diis;
-  double norm_thresh     = std::pow(10, -m_options.induced_thresh);
   double diis_start_norm = m_options.diis_start_norm;
 
   int iteration  = 0;
@@ -179,7 +178,7 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
     ss << std::fixed << norm;
     m_printer(std::to_string(iteration) + "        --- Norm: " + ss.str());
     // calculate based on iteration
-    if (norm < norm_thresh) converged = true;
+    if (norm < m_options.induced_thresh) converged = true;
 
     iteration++;
   }

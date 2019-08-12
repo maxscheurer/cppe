@@ -38,7 +38,7 @@ class TestSolver(unittest.TestCase):
         mol = cache.molecule["pna"]
         options = PeOptions()
         options.potfile = self.potfile_path
-        options.induced_thresh = 12
+        options.induced_thresh = 1e-12
         options.diis_start_norm = 10
         cppe_state = CppeState(options, mol, print_callback)
         cppe_state.calculate_static_energies_and_fields()
