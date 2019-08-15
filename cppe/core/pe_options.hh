@@ -33,9 +33,9 @@ struct PeOptions {
   // bool zero_mul = false;
   // int zero_mul_order = 1;
 
-  int induced_thresh = 8;     ///< Threshold for induced moments convergence
-  bool do_diis       = true;  ///< Use DIIS acceleration to obtain induced moments
-  int maxiter        = 50;    ///< Maximum number of iterations for induced moments
+  double induced_thresh = 1e-8;  ///< Threshold for induced moments convergence
+  bool do_diis          = true;  ///< Use DIIS acceleration to obtain induced moments
+  int maxiter           = 50;    ///< Maximum number of iterations for induced moments
   double diis_start_norm =
         1.0;  ///< maximal residual norm for which DIIS is being enabled
 

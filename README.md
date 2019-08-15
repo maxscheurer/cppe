@@ -4,15 +4,13 @@
 
 [![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
+![](https://img.shields.io/badge/ChemRxiv-%20preprint-critical?link=https://chemrxiv.org/articles/CPPE_An_Open-Source_C_and_Python_Library_for_Polarizable_Embedding/8949101)
 
 
 CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
 calculations and post-SCF methods. A convenient Python interface is also available.
-
-For testing purposes, CPPE is also interfaced to the original PE implementation, namely
-[PElib](https://gitlab.com/pe-software/pelib-public), used in the [DALTON](http://daltonprogram.org/) program package.
 
 <!-- CPPE is currently implemented in the Q-Chem program package for PE-SCF
 and PE-ADC calculations <sup>3</sup>, and the open-source
@@ -33,10 +31,6 @@ If the Python interface should be built, specify the CMake option
 `-DENABLE_PYTHON_INTERFACE=ON`. If `pybind11` is not installed, CMake
 will automatically download `pybind11` and install it locally.
 
-### PElib interface
-To build PElib (together with `gen1int` and the appropriate interface), set the following option:
-`-DENABLE_PELIB=ON`.
-
 ### Dependencies
 - C++ 14 compiler
 - Python 3.6 (interpreter and development packages)
@@ -46,6 +40,10 @@ will be possible in the future. -->
 
 ## Citation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
+
+A preprint of the paper describing the CPPE library can be found [here](https://chemrxiv.org/articles/CPPE_An_Open-Source_C_and_Python_Library_for_Polarizable_Embedding/8949101).
+
+
 
 
 ## Literature
