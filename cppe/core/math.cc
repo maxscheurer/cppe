@@ -141,7 +141,7 @@ double T(const Eigen::Vector3d& Rij, int x, int y, int z,
             if (k == 1) {
               Cz *= scr_facs[1];
             } else if (k == 3) {
-              Cz *= scr_facs[3];
+              Cz *= scr_facs[2];
             }
           } else if (kk == 2) {
             if (k == 2) Cz *= scr_facs[2];

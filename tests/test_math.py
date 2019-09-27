@@ -70,7 +70,8 @@ class TestMath(unittest.TestCase):
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_almost_equal(actual,
-                                           ref.take(sym_indices), decimal=10)
+                                           ref.take(sym_indices), decimal=10,
+                                           err_msg="T tensors do not match. Order = {}".format(k))
 
     def test_T_tensors_damped(self):
         # tests the T tensors against auto-generated Python code
