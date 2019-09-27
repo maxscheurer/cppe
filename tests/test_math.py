@@ -71,3 +71,21 @@ class TestMath(unittest.TestCase):
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_almost_equal(actual,
                                            ref.take(sym_indices), decimal=10)
+
+    def test_T_tensors_damped(self):
+        # tests the T tensors against auto-generated Python code
+        ref_T = tensors.T
+
+        for k in range(4):
+            R = np.random.random(3)
+            ref = ref_T[k](*R)
+
+            coeffs = Tk_coefficients(k)
+            # damped tensor: damping_factor, alpha_i, alpha_j
+            actual = Tk_tensor(k, R, coeffs, 1.0, 1.0, 1.0)
+
+            # gets the indices of non-redundant components
+            # e.g., takes only xy from (xy, yx) and so on ...
+            sym_indices = symmetry.get_symm_indices(k)
+#            np.testing.assert_almost_equal(actual,
+#                                           ref.take(sym_indices), decimal=10)
