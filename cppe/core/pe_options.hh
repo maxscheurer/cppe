@@ -40,10 +40,10 @@ struct PeOptions {
         1.0;  ///< maximal residual norm for which DIIS is being enabled
 
   bool damp_induced             = false;   ///< Enable Thole damping for induced moments
-  double damping_factor_induced = 2.1304;  ///< Default damping factor for induced moments
+  double damping_factor_induced = 2.1304;  ///< damping factor for induced moments
   bool damp_multipole =
         false;  ///< Enable Thole damping for electric fields created by multipole moments
-  double damping_factor_multipole = 2.1304;  ///< Default damping factor for electric
+  double damping_factor_multipole = 2.1304;  ///< damping factor for electric
                                              ///< fields created by multipole moments
 
   bool pe_border = false;          ///< Activate border options for sites in proximity

@@ -17,7 +17,6 @@ Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
   return result;
 }
 
-// TODO: add option for damping
 Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
                           std::vector<Eigen::MatrixXi>& Tk_coeffs, double damping_factor,
                           double alpha_i, double alpha_j) {
