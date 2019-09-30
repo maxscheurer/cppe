@@ -29,6 +29,12 @@ void export_options(py::module& m) {
         .def_readwrite("do_diis", &libcppe::PeOptions::do_diis)
         .def_readwrite("diis_start_norm", &libcppe::PeOptions::diis_start_norm)
         .def_readwrite("maxiter", &libcppe::PeOptions::maxiter)
+        .def_readwrite("damp_induced", &libcppe::PeOptions::damp_induced)
+        .def_readwrite("damping_factor_induced",
+                       &libcppe::PeOptions::damping_factor_induced)
+        .def_readwrite("damp_multipole", &libcppe::PeOptions::damp_multipole)
+        .def_readwrite("damping_factor_multipole",
+                       &libcppe::PeOptions::damping_factor_multipole)
 
         .def_readwrite("pe_border", &libcppe::PeOptions::pe_border)
         .def_readwrite("border_options", &libcppe::PeOptions::border_options);

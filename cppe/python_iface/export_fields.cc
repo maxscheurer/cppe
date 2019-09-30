@@ -16,7 +16,7 @@ void export_fields(py::module& m) {
 
   py::class_<libcppe::MultipoleFields> mul_fields(
         m, "MultipoleFields", "Electric fields created by multipoles");
-  mul_fields.def(py::init<std::vector<libcppe::Potential>>())
+  mul_fields.def(py::init<std::vector<libcppe::Potential>, libcppe::PeOptions>())
         .def("compute", &libcppe::MultipoleFields::compute);
 
   py::class_<libcppe::InducedMoments> ind_moments(m, "InducedMoments");

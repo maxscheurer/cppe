@@ -40,7 +40,9 @@ Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
 // only 1st derivative supported
 Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
-                                     std::vector<Eigen::MatrixXi>& Tk_coeffs) {
+                                     std::vector<Eigen::MatrixXi>& Tk_coeffs,
+                                     double damping_factor, double alpha_i,
+                                     double alpha_j) {
   if (l > 1) throw std::runtime_error("Only 1st derivatives supported for multipoles");
   Eigen::VectorXd Fi = Eigen::VectorXd::Zero(3);
 
@@ -55,7 +57,7 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
   double symfac;
   // std::cout << "mul k = " << k << std::endl;
   // std::cout << "l = " << l << std::endl;
-  Eigen::VectorXd Tk = Tk_tensor(k + l, Rji, Tk_coeffs);
+  Eigen::VectorXd Tk = Tk_tensor(k + l, Rji, Tk_coeffs, damping_factor, alpha_i, alpha_j);
   for (x = k + l; x > -1; x--) {
     for (y = k + l; y > -1; y--) {
       for (z = k + l; z > -1; z--) {
