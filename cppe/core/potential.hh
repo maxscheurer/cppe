@@ -59,6 +59,8 @@ class Polarizability {
     m_values                                      = new_values;
   }
 
+  double get_isotropic_value() { return (m_values[0] + m_values[3] + m_values[5]) / 3.0; }
+
   Eigen::VectorXd get_values_vec() {
     return Eigen::Map<Eigen::VectorXd>(m_values.data(), m_values.size());
   }

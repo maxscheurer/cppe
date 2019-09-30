@@ -6,10 +6,7 @@
 
 namespace libcppe {
 
-Eigen::VectorXd NuclearFields::compute(bool damp_core) {
-  if (damp_core) {
-    throw std::runtime_error("damping not implemented");
-  }
+Eigen::VectorXd NuclearFields::compute() {
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
   Eigen::VectorXd nuc_fields             = Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for firstprivate(Tk_coeffs)
@@ -29,10 +26,7 @@ Eigen::VectorXd NuclearFields::compute(bool damp_core) {
   return nuc_fields;
 }
 
-Eigen::VectorXd MultipoleFields::compute(bool damp) {
-  if (damp) {
-    throw std::runtime_error("damping not implemented");
-  }
+Eigen::VectorXd MultipoleFields::compute() {
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
   Eigen::VectorXd mult_fields            = Eigen::VectorXd::Zero(3 * m_n_polsites);
 // Field at site of potential1 caused by all other sites (also non-polarizable
@@ -41,6 +35,8 @@ Eigen::VectorXd MultipoleFields::compute(bool damp) {
   for (size_t i = 0; i < m_n_polsites; i++) {
     size_t site_counter   = 3 * i;
     Potential& potential1 = m_polsites[i];
+    double alpha_i_isotropic =
+          potential1.get_polarizabilities()[0].get_isotropic_value();  // for damping
     for (size_t j = 0; j < m_potentials.size(); j++) {
       Potential& potential2 =
             m_potentials[j];  // all other multipoles create el. field at site i
@@ -48,14 +44,31 @@ Eigen::VectorXd MultipoleFields::compute(bool damp) {
       if (potential1.excludes_site(potential2.index)) continue;
       Eigen::Vector3d diff =
             potential1.get_site_position() - potential2.get_site_position();
+
+      // Thole damping: potential2 needs to be polarizable
+      bool damp_enabled        = m_options.damp_multipole;
+      double alpha_j_isotropic = 0.0;
+      if (!potential2.is_polarizable()) {
+        damp_enabled = false;
+      } else {
+        alpha_j_isotropic =
+              potential2.get_polarizabilities()[0].get_isotropic_value();  // for damping
+      }
+
       // std::cout << "-- created by site " << potential2.index << std::endl;
       for (auto& mul : potential2.get_multipoles()) {
         // if (std::all_of(mul.get_values().begin(), mul.get_values().end(),
         //                 [](double v) { return std::abs(v) == 0.0; })) {
         //   continue;
         // }
-        Eigen::VectorXd Fi =
-              multipole_derivative(mul.m_k, 1, diff, mul.get_values_vec(), Tk_coeffs);
+        Eigen::VectorXd Fi;
+        if (damp_enabled) {
+          Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values_vec(), Tk_coeffs,
+                                    m_options.damping_factor_multipole, alpha_i_isotropic,
+                                    alpha_j_isotropic);
+        } else {
+          Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values_vec(), Tk_coeffs);
+        }
         mult_fields(site_counter) += Fi(0);
         mult_fields(site_counter + 1) += Fi(1);
         mult_fields(site_counter + 2) += Fi(2);
@@ -119,7 +132,15 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
           continue;
         }
         Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
-        Eigen::VectorXd T2   = Tk_tensor(2, diff, Tk_coeffs);
+        Eigen::VectorXd T2;
+        if (m_options.damp_induced) {
+          Polarizability& alpha_i = pot1.get_polarizabilities()[0];
+          Polarizability& alpha_j = pot2.get_polarizabilities()[0];
+          T2 = Tk_tensor(2, diff, Tk_coeffs, m_options.damping_factor_induced,
+                         alpha_i.get_isotropic_value(), alpha_j.get_isotropic_value());
+        } else {
+          T2 = Tk_tensor(2, diff, Tk_coeffs);
+        }
         Ftmp += smat_vec(T2, induced_moments.segment(m, 3), 1.0);
       }
       // keep value to calculate residual

@@ -50,7 +50,7 @@ void CppeState::calculate_static_energies_and_fields() {
   NuclearFields nfields(m_mol, m_potentials);
   m_nuc_fields = nfields.compute();
   // Multipole fields
-  MultipoleFields mul_fields(m_potentials);
+  MultipoleFields mul_fields(m_potentials, m_options);
   m_multipole_fields = mul_fields.compute();
 }
 

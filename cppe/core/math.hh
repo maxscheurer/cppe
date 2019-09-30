@@ -10,13 +10,20 @@ Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
 
 Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
-                                     std::vector<Eigen::MatrixXi>& Tk_coeffs);
+                                     std::vector<Eigen::MatrixXi>& Tk_coeffs,
+                                     double damping_factor = 0.0, double alpha_i = 0.0,
+                                     double alpha_j = 0.0);
 
 double T(const Eigen::Vector3d& Rij, int x, int y, int z,
-         std::vector<Eigen::MatrixXi>& Cijn);
+         std::vector<Eigen::MatrixXi>& Cijn, double damping_factor = 0.0,
+         double alpha_i = 0.0, double alpha_j = 0.0);
 
 Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
-                          std::vector<Eigen::MatrixXi>& Tk_coeffs);
+                          std::vector<Eigen::MatrixXi>& Tk_coeffs,
+                          double damping_factor = 0.0, double alpha_i = 0.0,
+                          double alpha_j = 0.0);
+
+std::vector<double> thole_screening_factors(double v, int k);
 
 std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order);
 

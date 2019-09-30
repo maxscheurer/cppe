@@ -70,4 +70,29 @@ class TestMath(unittest.TestCase):
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_almost_equal(actual,
-                                           ref.take(sym_indices), decimal=10)
+                                           ref.take(sym_indices), decimal=10,
+                                           err_msg="T tensors do not match. Order = {}".format(k))
+
+    def test_T_tensors_damped(self):
+        # tests the T tensors against auto-generated Python code
+        ref_T = tensors.T_damp_thole
+
+        for k in range(4):
+            R = np.random.random(3)
+            damp = 2.0
+            a_i = 4.0
+            a_j = 10.0
+            a = 1/(a_i*a_j)**(1/6)*damp
+            ref = ref_T[k](*R, a)
+
+            coeffs = Tk_coefficients(k)
+            # damped tensor: damping_factor, alpha_i, alpha_j
+            actual = Tk_tensor(k, R, coeffs, damp, a_i, a_j)
+
+            # gets the indices of non-redundant components
+            # e.g., takes only xy from (xy, yx) and so on ...
+            sym_indices = symmetry.get_symm_indices(k)
+            np.testing.assert_almost_equal(
+                actual, ref.take(sym_indices), decimal=10,
+                err_msg="Damped T tensors do not match. Order = {}".format(k)
+            )

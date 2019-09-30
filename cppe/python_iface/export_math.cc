@@ -11,8 +11,12 @@ using namespace libcppe;
 void export_math(py::module& m) {
   m.def("smat_vec", &smat_vec);
   m.def("multipole_derivative", &multipole_derivative);
-  m.def("T", &T);
-  m.def("Tk_tensor", &Tk_tensor);
+  m.def("T", &T, py::arg("Rij"), py::arg("x"), py::arg("y"), py::arg("z"),
+        py::arg("Cijn"), py::arg("damping_factor") = 0.0, py::arg("alpha_i") = 0.0,
+        py::arg("alpha_j") = 0.0);
+  m.def("Tk_tensor", &Tk_tensor, py::arg("k"), py::arg("Rij"), py::arg("Tk_coeffs"),
+        py::arg("damping_factor") = 0.0, py::arg("alpha_i") = 0.0,
+        py::arg("alpha_j") = 0.0);
   m.def("Tk_coefficients", &Tk_coefficients);
   m.def("xyz2idx", &xyz2idx);
   m.def("factorial", &factorial);

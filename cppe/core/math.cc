@@ -17,9 +17,9 @@ Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
   return result;
 }
 
-// TODO: add option for damping
 Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
-                          std::vector<Eigen::MatrixXi>& Tk_coeffs) {
+                          std::vector<Eigen::MatrixXi>& Tk_coeffs, double damping_factor,
+                          double alpha_i, double alpha_j) {
   int x, y, z;
   Eigen::VectorXd Tk(multipole_components(k));
   int idx = 0;
@@ -27,7 +27,7 @@ Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
     for (y = k; y > -1; y--) {
       for (z = k; z > -1; z--) {
         if (x + y + z != k) continue;
-        Tk[idx] = T(Rij, x, y, z, Tk_coeffs);
+        Tk[idx] = T(Rij, x, y, z, Tk_coeffs, damping_factor, alpha_i, alpha_j);
         idx++;
       }
     }
@@ -39,7 +39,9 @@ Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,
 // only 1st derivative supported
 Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
-                                     std::vector<Eigen::MatrixXi>& Tk_coeffs) {
+                                     std::vector<Eigen::MatrixXi>& Tk_coeffs,
+                                     double damping_factor, double alpha_i,
+                                     double alpha_j) {
   if (l > 1) throw std::runtime_error("Only 1st derivatives supported for multipoles");
   Eigen::VectorXd Fi = Eigen::VectorXd::Zero(3);
 
@@ -54,7 +56,7 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
   double symfac;
   // std::cout << "mul k = " << k << std::endl;
   // std::cout << "l = " << l << std::endl;
-  Eigen::VectorXd Tk = Tk_tensor(k + l, Rji, Tk_coeffs);
+  Eigen::VectorXd Tk = Tk_tensor(k + l, Rji, Tk_coeffs, damping_factor, alpha_i, alpha_j);
   for (x = k + l; x > -1; x--) {
     for (y = k + l; y > -1; y--) {
       for (z = k + l; z > -1; z--) {
@@ -97,22 +99,86 @@ int xyz2idx(int x, int y, int z) {
 }
 
 double T(const Eigen::Vector3d& Rij, int x, int y, int z,
-         std::vector<Eigen::MatrixXi>& Cijn) {
+         std::vector<Eigen::MatrixXi>& Cijn, double damping_factor, double alpha_i,
+         double alpha_j) {
   double t = 0.0;
   double R = Rij.norm();
   double Cx, Cy, Cz;
+  int k = x + y + z;
+
+  // Thole Damping
+  std::vector<double> scr_facs;
+  if (damping_factor != 0.0) {
+    if (alpha_i <= 0.0 || alpha_j <= 0.0) {
+      throw std::runtime_error(
+            "Thole damping only valid for non-zero"
+            " isotropic polarizabilities.");
+    }
+    if (k > 3) {
+      throw std::runtime_error("Thole damping only implemented up to third order.");
+    }
+    // Molecular Simulation, 32:6, 471-484, DOI: 10.1080/08927020600631270
+    // v = factor * u, with u = R / (alpha_i * alpha_j)**(1/6)
+    double v = damping_factor * R / std::pow(alpha_i * alpha_j, 1.0 / 6.0);
+    scr_facs = thole_screening_factors(v, k);
+  }
+
   for (size_t l = 0; l <= x; l++) {
     Cx = Cijn[0](x, l) * pow((Rij(0) / R), l);
     for (size_t m = 0; m <= y; m++) {
       Cy = Cx * Cijn[l + x](y, m) * pow((Rij(1) / R), m);
       for (size_t n = 0; n <= z; n++) {
-        Cz = Cy * Cijn[l + x + m + y](z, n) * pow((Rij(2) / R), n);
+        Cz     = Cy * Cijn[l + x + m + y](z, n) * pow((Rij(2) / R), n);
+        int kk = l + m + n;
+        // Thole damping
+        if (scr_facs.size()) {
+          if (kk == 0) {
+            if (k == 0) {
+              Cz *= scr_facs[0];
+            } else if (k == 2) {
+              Cz *= scr_facs[1];
+            }
+          } else if (kk == 1) {
+            if (k == 1) {
+              Cz *= scr_facs[1];
+            } else if (k == 3) {
+              Cz *= scr_facs[2];
+            }
+          } else if (kk == 2) {
+            if (k == 2) Cz *= scr_facs[2];
+          } else if (kk == 3) {
+            if (k == 3) Cz *= scr_facs[3];
+          }
+        }
         t += Cz;
       }
     }
   }
   t /= pow(R, x + y + z + 1);
   return t;
+}
+
+std::vector<double> thole_screening_factors(double v, int k) {
+  std::vector<double> ret;
+  // screening factors for potential, field, field gradient, field Hessian
+  double f_v, f_E, f_T, f_D = 1.0;
+  if (k >= 0) {
+    f_v = 1.0 - (0.5 * v + 1.0) * std::exp(-v);
+    ret.push_back(f_v);
+  }
+  if (k >= 1) {
+    f_E = f_v - (0.5 * std::pow(v, 2) + 0.5 * v) * std::exp(-v);
+    ret.push_back(f_E);
+  }
+  if (k >= 2) {
+    f_T = f_E - 1.0 / 6.0 * std::pow(v, 3) * std::exp(-v);
+    ret.push_back(f_T);
+  }
+  if (k >= 3) {
+    f_D = f_T - 1.0 / 30.0 * std::pow(v, 4) * std::exp(-v);
+    ret.push_back(f_D);
+  }
+  return ret;
 }
 
 std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {

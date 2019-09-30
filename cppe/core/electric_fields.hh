@@ -22,7 +22,7 @@ class ElectricFields {
     m_n_polsites = m_polsites.size();
   };
   ~ElectricFields(){};
-  virtual Eigen::VectorXd compute(bool damp = false) = 0;
+  virtual Eigen::VectorXd compute() = 0;
 };
 
 class NuclearFields : public ElectricFields {
@@ -32,13 +32,17 @@ class NuclearFields : public ElectricFields {
  public:
   NuclearFields(Molecule mol, std::vector<Potential> potentials)
         : ElectricFields(potentials), m_mol(mol){};
-  Eigen::VectorXd compute(bool damp = false);
+  Eigen::VectorXd compute();
 };
 
 class MultipoleFields : public ElectricFields {
  public:
-  MultipoleFields(std::vector<Potential> potentials) : ElectricFields(potentials){};
-  Eigen::VectorXd compute(bool damp = false);
+  MultipoleFields(std::vector<Potential> potentials, PeOptions options)
+        : ElectricFields(potentials), m_options(options){};
+  Eigen::VectorXd compute();
+
+ private:
+  PeOptions m_options;
 };
 
 class InducedMoments {
