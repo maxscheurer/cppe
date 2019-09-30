@@ -12,13 +12,20 @@ calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
 calculations and post-SCF methods. A convenient Python interface is also available.
 
+CPPE enables PE calculations in the following programs:
+- [PySCF](https://github.com/pyscf/pyscf)
+- [Psi4](https://github.com/psi4/psi4)
+- [Q-Chem](https://www.q-chem.com)
+
+__Examples__ for the open-source Python-driven programs can be found [here](https://github.com/maxscheurer/cppe_examples).
+
 <!-- CPPE is currently implemented in the Q-Chem program package for PE-SCF
 and PE-ADC calculations <sup>3</sup>, and the open-source
 packages [Psi4](http://psicode.org) and [pyscf](https://github.com/pyscf/pyscf).
 The latter implementation makes use of the Python interface. -->
 
 ## Build
-If used in a C++ package, CPPE needs to be built from sources, i.e.,
+CPPE needs to be built from sources, i.e.,
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe; mkdir build; cd build
