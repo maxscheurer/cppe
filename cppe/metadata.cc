@@ -4,7 +4,7 @@
 
 namespace libcppe {
 namespace {
-static const std::string static_version_string = "0.1.1";
+static const std::string static_version_string = "0.1.2";
 
 static const std::vector<std::string> version_split = [](const std::string& in) {
   std::vector<std::string> parts;
