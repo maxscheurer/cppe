@@ -51,7 +51,9 @@ class InducedMoments {
   std::vector<Potential> m_polsites;  //!< vector with all potentials of polarizable sites
   size_t m_n_polsites;                //!< number of polarizable sites
   PeOptions m_options;
-  std::function<void(std::string)> m_printer;
+  std::function<void(std::string)> m_printer = [](std::string str) {
+    std::cout << str << std::endl;
+  };
 
  public:
   InducedMoments(std::vector<Potential> potentials, PeOptions options)
