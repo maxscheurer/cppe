@@ -1,29 +1,26 @@
-dist: xenial
+dist: bionic
 sudo: required
 language: python
 python:
   - "3.7"
 
-
 addons:
  apt:
-   sources:
-     - ubuntu-toolchain-r-test
    packages:
-     - g++-8
      - libhdf5-dev
      - hdf5-tools
 
 env:
- - CXX=g++-8 && PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/
+ - PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/
 
 before_script:
+  - python -V
   - pip install pytest numpy
   - pip install h5py
   - pip install numba
   - mkdir build
   - cd build
-  - cmake -DBUILD_SHARED_LIBS=on -DCMAKE_CXX_COMPILER=$CXX -DENABLE_PYTHON_INTERFACE=ON ..
+  - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON ..
 
 script:
   - cmake --version
