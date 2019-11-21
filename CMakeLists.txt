@@ -47,8 +47,17 @@ if(${ENABLE_PELIB})
 endif()
 
 set(pybind_ext "")
+set(python_flags "")
 if(${ENABLE_PYTHON_INTERFACE})
-	set(pybind_ext "pybind11_external")
+    set(Python_ADDITIONAL_VERSIONS 3.8 3.7 3.6)  # adjust with CMake minimum FindPythonInterp
+    find_package(PythonLibsNew 3.6 REQUIRED)
+    message(STATUS "${Cyan}Found Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}${ColourReset}: ${PYTHON_EXECUTABLE} (found version ${PYTHON_VERSION_STRING})")
+    set(pybind_ext "pybind11_external")
+    set(python_flags
+              -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE}
+              -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}
+              -DPYTHON_LIBRARY=${PYTHON_LIBRARY}
+        )
 endif()
 
 include(GNUInstallDirs)
@@ -75,6 +84,7 @@ ExternalProject_Add(cppe-core
               -DEIGEN3_INCLUDE_DIRS=${PROJECT_SOURCE_DIR}/external/eigen3
               -DENABLE_OPENMP=${ENABLE_OPENMP}
               -DENABLE_PYTHON_INTERFACE=${ENABLE_PYTHON_INTERFACE}
+              ${python_flags}
               -DENABLE_PELIB=${ENABLE_PELIB}
               -Dpybind11_DIR=${pybind11_DIR}
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
