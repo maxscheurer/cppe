@@ -11,7 +11,7 @@ addons:
      - hdf5-tools
 
 env:
- - PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/
+ - PYTHONPATH=$PYTHONPATH:$(pwd)/build/stage/lib/ && PY_EXE=$(which python)
 
 before_script:
   - python -V
@@ -20,7 +20,7 @@ before_script:
   - pip install numba
   - mkdir build
   - cd build
-  - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON ..
+  - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON -DPYTHON_EXECUTABLE=$PY_EXE ..
 
 script:
   - cmake --version
