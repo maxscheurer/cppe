@@ -4,7 +4,6 @@
 
 [![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
-![](https://img.shields.io/badge/ChemRxiv-%20preprint-critical?link=https://chemrxiv.org/articles/CPPE_An_Open-Source_C_and_Python_Library_for_Polarizable_Embedding/8949101)
 
 
 CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
@@ -48,8 +47,13 @@ will be possible in the future. -->
 ## Citation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
-A preprint of the paper describing the CPPE library can be found [here](https://chemrxiv.org/articles/CPPE_An_Open-Source_C_and_Python_Library_for_Polarizable_Embedding/8949101).
+If you use CPPE in a scientific publication, please cite [our publication](https://pubs.acs.org/doi/10.1021/acs.jctc.9b00758).
 
+
+**CPPE: An Open-Source C++ and Python Library for Polarizable Embedding**</br>
+Maximilian Scheurer, Peter Reinholdt, Erik Rosendahl Kjellgren, Jógvan Magnus Haugaard Olsen, Andreas Dreuw, and Jacob Kongsted;
+_Journal of Chemical Theory and Computation_ 2019 15 (11), 6154-6163,
+DOI: 10.1021/acs.jctc.9b00758
 
 
 

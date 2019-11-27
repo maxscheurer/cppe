@@ -60,11 +60,12 @@ class TestMath(unittest.TestCase):
         ref_T = tensors.T
 
         for k in range(6):
-            R = np.random.random(3)
+            R = 10.0 * np.random.random(3) + 1
             ref = ref_T[k](*R)
 
             coeffs = Tk_coefficients(k)
             actual = Tk_tensor(k, R, coeffs)
+            print(np.max(actual))
 
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
@@ -78,7 +79,7 @@ class TestMath(unittest.TestCase):
         ref_T = tensors.T_damp_thole
 
         for k in range(4):
-            R = np.random.random(3)
+            R = 10.0 * np.random.random(3) + 1
             damp = 2.0
             a_i = 4.0
             a_j = 10.0
