@@ -47,7 +47,7 @@ will be possible in the future. -->
 ## Citation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
-If you use CPPE in a scientific publication, please cite [our publication](https://pubs.acs.org/doi/10.1021/acs.jctc.9b00758).
+The journal article describing CPPE can be found [here](https://pubs.acs.org/doi/10.1021/acs.jctc.9b00758).
 
 
 **CPPE: An Open-Source C++ and Python Library for Polarizable Embedding**</br>
