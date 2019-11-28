@@ -43,7 +43,7 @@ class TestSolver(unittest.TestCase):
         cppe_state = CppeState(options, mol, print_callback)
         cppe_state.calculate_static_energies_and_fields()
 
-        static_fields = np.array(cppe_state.get_static_fields())
+        static_fields = cppe_state.static_fields
         zeros = np.zeros_like(static_fields)
         cppe_state.update_induced_moments(zeros, False)
 
