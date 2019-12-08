@@ -36,7 +36,10 @@ void export_state(py::module& m) {
         .def_readwrite("energies", &libcppe::CppeState::m_pe_energy)
         .def_property_readonly("total_energy", &libcppe::CppeState::get_total_energy)
         .def("update_induced_moments", &libcppe::CppeState::update_induced_moments)
-        .def("get_static_fields", &libcppe::CppeState::get_static_fields)
+        .def_property_readonly("static_fields", &libcppe::CppeState::get_static_fields)
+        .def_property_readonly("nuclear_fields", &libcppe::CppeState::get_nuclear_fields)
+        .def_property_readonly("multipole_fields",
+                               &libcppe::CppeState::get_multipole_fields)
         .def_property_readonly("summary_string",
                                &libcppe::CppeState::get_energy_summary_string)
         .def_property_readonly("potentials", &libcppe::CppeState::get_potentials)

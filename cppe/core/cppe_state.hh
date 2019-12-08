@@ -68,15 +68,11 @@ class CppeState {
 
   size_t get_polarizable_site_number() { return m_polarizable_sites; }
 
-  std::vector<double> get_static_fields() {
-    Eigen::VectorXd static_fields = m_nuc_fields + m_multipole_fields;
-    return std::vector<double>(static_fields.data(),
-                               static_fields.data() + static_fields.size());
-  }
+  Eigen::VectorXd get_static_fields() { return m_nuc_fields + m_multipole_fields; }
 
-  // Eigen::VectorXd get_static_fields() {
-  //     return m_nuc_fields + m_multipole_fields;
-  // }
+  Eigen::VectorXd get_nuclear_fields() { return m_nuc_fields; }
+
+  Eigen::VectorXd get_multipole_fields() { return m_multipole_fields; }
 
   std::string get_energy_summary_string();
 };

@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(cppe-core VERSION 0.1.2 LANGUAGES CXX)
 
-if(Fortran_ENABLED)
-    enable_language(Fortran)
-endif()
-
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(ExternalProject)
@@ -17,26 +13,8 @@ if(ENABLE_OPENMP)
     endif()
 endif()
 
-set(PELIB_LIBRARIES "")
-set(PELIB_INTERFACE_SOURCES "")
-if(ENABLE_PELIB)
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-    add_subdirectory(pelib_interface)
-    set(PELIB_LIBRARIES "pelib"
-                        "gen1int"
-                        "pelib_interface"
-                        "gen1int_interface"
-                        "lapack"
-                        "blas"
-                        "gfortran")
-    link_directories(${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-    set(PELIB_INTERFACE_SOURCES pelib_interface/pe_interface.F90)
-endif()
-
-
 list(APPEND CPPE_SOURCES
   metadata.cc
-  libcppe.cc
   utils/string_utils.cc
   core/potfile_reader.cc
   core/pot_manipulation.cc
@@ -48,7 +26,6 @@ list(APPEND CPPE_SOURCES
 
 add_library(cppe
   ${CPPE_SOURCES}
-  ${PELIB_INTERFACE_SOURCES}
 )
 
 
@@ -130,7 +107,3 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
 install(EXPORT "${PN}Targets"
         NAMESPACE "${PN}::"
         DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-
-if(${ENABLE_PELIB})
-    install(EXPORT pelib_interface_install DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-endif()

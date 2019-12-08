@@ -5,18 +5,10 @@ project(cppe LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-
-if(ENABLE_PELIB)
-    enable_language(Fortran)
-    set(Fortran_ENABLED ON)  # communicate required languages with core project
-    message(STATUS "Enabling Fortran")
-endif()
-
 include(psi4OptionsTools)
 option_with_print(BUILD_SHARED_LIBS "Build shared libraries instead of static ones (CMake default is static)" ON)
 option_with_print(ENABLE_OPENMP "Enables OpenMP parallelization" ON)
 option_with_print(ENABLE_PYTHON_INTERFACE "Build the Python interface" OFF)
-option_with_print(ENABLE_PELIB "Build PElib and interface" OFF)
 option_with_print(INSTALL_DEVEL_HEADERS "Install devel headers" OFF)
 option_with_flags(ENABLE_XHOST "Enables processor-specific optimization (with MSVC, it enables AVX2 instructions)" ON
                   "-xHost" "-march=native" "/arch:AVX2")
@@ -40,15 +32,18 @@ endif()
 
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 
-set(pe_ext "")
-if(${ENABLE_PELIB})
-	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-	set(pe_ext pelib_external gen1int_external gen1int_interface)
-endif()
-
 set(pybind_ext "")
+set(python_flags "")
 if(${ENABLE_PYTHON_INTERFACE})
-	set(pybind_ext "pybind11_external")
+    set(Python_ADDITIONAL_VERSIONS 3.8 3.7 3.6)  # adjust with CMake minimum FindPythonInterp
+    find_package(PythonLibsNew 3.6 REQUIRED)
+    message(STATUS "${Cyan}Found Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}${ColourReset}: ${PYTHON_EXECUTABLE} (found version ${PYTHON_VERSION_STRING})")
+    set(pybind_ext "pybind11_external")
+    set(python_flags
+              -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE}
+              -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}
+              -DPYTHON_LIBRARY=${PYTHON_LIBRARY}
+        )
 endif()
 
 include(GNUInstallDirs)
@@ -59,23 +54,18 @@ include(ExternalProject)
 add_subdirectory(external/upstream)
 
 ExternalProject_Add(cppe-core
-   DEPENDS ${pybind_ext} ${pe_ext} 
+   DEPENDS ${pybind_ext}
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cppe
    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
               -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
               -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-              -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-              -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER}
               -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-              -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-              -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
               -DCMAKE_CXX_STANDARD=${cppe_CXX_STANDARD}
               -DCMAKE_CXX_STANDARD_REQUIRED=ON
-              -DFortran_ENABLED=${Fortran_ENABLED}
               -DEIGEN3_INCLUDE_DIRS=${PROJECT_SOURCE_DIR}/external/eigen3
               -DENABLE_OPENMP=${ENABLE_OPENMP}
               -DENABLE_PYTHON_INTERFACE=${ENABLE_PYTHON_INTERFACE}
-              -DENABLE_PELIB=${ENABLE_PELIB}
+              ${python_flags}
               -Dpybind11_DIR=${pybind11_DIR}
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
               -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
