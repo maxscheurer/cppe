@@ -6,15 +6,41 @@ namespace libcppe {
 
 // this only works for the contraction of polarizability/interaction tensors
 // with vectors of size 3
-Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
-                         double alpha) {
-  Eigen::Vector3d result;
-  // expect upper triangle be provided
-  result[0] = mat[0] * vec[0] + mat[1] * vec[1] + mat[2] * vec[2];
-  result[1] = mat[1] * vec[0] + mat[3] * vec[1] + mat[4] * vec[2];
-  result[2] = mat[2] * vec[0] + mat[4] * vec[1] + mat[5] * vec[2];
-  result *= alpha;
-  return result;
+// Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
+//                          double alpha) {
+//   Eigen::Vector3d result;
+//   // expect upper triangle be provided
+//   result[0] = mat[0] * vec[0] + mat[1] * vec[1] + mat[2] * vec[2];
+//   result[1] = mat[1] * vec[0] + mat[3] * vec[1] + mat[4] * vec[2];
+//   result[2] = mat[2] * vec[0] + mat[4] * vec[1] + mat[5] * vec[2];
+//   result *= alpha;
+//   return result;
+// }
+
+template <class T>
+Eigen::Matrix3d triangle_to_mat(T y) {
+  Eigen::Matrix3d ret;
+  ret(0, 0) = y[0];
+  ret(0, 1) = ret(1, 0) = y[1];
+  ret(0, 2) = ret(2, 0) = y[2];
+  ret(1, 1)             = y[3];
+  ret(1, 2) = ret(2, 1) = y[4];
+  ret(2, 2)             = y[5];
+  return ret;
+}
+
+template Eigen::Matrix3d triangle_to_mat(std::vector<double>);
+template Eigen::Matrix3d triangle_to_mat(Eigen::VectorXd);
+
+Eigen::VectorXd mat_to_triangle(Eigen::Matrix3d m) {
+  Eigen::VectorXd ret = Eigen::VectorXd::Zero(6);
+  ret[0]              = m(0, 0);
+  ret[1]              = m(0, 1);
+  ret[2]              = m(0, 2);
+  ret[3]              = m(1, 1);
+  ret[4]              = m(1, 2);
+  ret[5]              = m(2, 2);
+  return ret;
 }
 
 Eigen::VectorXd Tk_tensor(int k, const Eigen::Vector3d& Rij,

@@ -36,7 +36,7 @@ Eigen::VectorXd MultipoleFields::compute() {
     size_t site_counter   = 3 * i;
     Potential& potential1 = m_polsites[i];
     double alpha_i_isotropic =
-          potential1.get_polarizabilities()[0].get_isotropic_value();  // for damping
+          potential1.get_polarizability().get_isotropic_value();  // for damping
     for (size_t j = 0; j < m_potentials.size(); j++) {
       Potential& potential2 =
             m_potentials[j];  // all other multipoles create el. field at site i
@@ -52,7 +52,7 @@ Eigen::VectorXd MultipoleFields::compute() {
         damp_enabled = false;
       } else {
         alpha_j_isotropic =
-              potential2.get_polarizabilities()[0].get_isotropic_value();  // for damping
+              potential2.get_polarizability().get_isotropic_value();  // for damping
       }
 
       // std::cout << "-- created by site " << potential2.index << std::endl;
@@ -87,14 +87,11 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
     size_t site_counter = 0;
     for (auto& pot : m_potentials) {
       if (!pot.is_polarizable()) continue;
-      Eigen::Vector3d res = smat_vec(pot.get_polarizabilities()[0].get_values_vec(),
-                                     total_fields.segment(site_counter, 3), 1.0);
-      induced_moments.segment(site_counter, 3) = res;
+      induced_moments.segment<3>(site_counter) =
+            pot.get_polarizability().get_matrix() * total_fields.segment<3>(site_counter);
       site_counter += 3;
     }
   }
-  // std::cout << "induced mom. guess" << std::endl;
-  // induced_moments.raw_print(std::cout << std::setprecision(10));
   int max_iter           = m_options.maxiter;
   bool do_diis           = m_options.do_diis;
   double diis_start_norm = m_options.diis_start_norm;
@@ -134,22 +131,22 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
         Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
         Eigen::VectorXd T2;
         if (m_options.damp_induced) {
-          Polarizability& alpha_i = pot1.get_polarizabilities()[0];
-          Polarizability& alpha_j = pot2.get_polarizabilities()[0];
+          Polarizability& alpha_i = pot1.get_polarizability();
+          Polarizability& alpha_j = pot2.get_polarizability();
           T2 = Tk_tensor(2, diff, Tk_coeffs, m_options.damping_factor_induced,
                          alpha_i.get_isotropic_value(), alpha_j.get_isotropic_value());
         } else {
           T2 = Tk_tensor(2, diff, Tk_coeffs);
         }
-        Ftmp += smat_vec(T2, induced_moments.segment(m, 3), 1.0);
+        Eigen::Matrix3d T2m = triangle_to_mat(T2);
+        Ftmp += T2m * induced_moments.segment<3>(m);
       }
       // keep value to calculate residual
-      M1tmp = induced_moments.segment(l, 3);
-      Ftmp += total_fields.segment(l, 3);
-      induced_moments.segment(l, 3) =
-            smat_vec(pot1.get_polarizabilities()[0].get_values_vec(), Ftmp, 1.0);
+      M1tmp = induced_moments.segment<3>(l);
+      Ftmp += total_fields.segment<3>(l);
+      induced_moments.segment<3>(l) = pot1.get_polarizability().get_matrix() * Ftmp;
       // Calculate the residual
-      M1tmp = induced_moments.segment(l, 3) - M1tmp;
+      M1tmp = induced_moments.segment<3>(l) - M1tmp;
       norm += M1tmp.norm();
     }
 
@@ -175,13 +172,10 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
           B(j, i) = B(i, j);
         }
       }
-      // std::cout << "B-matrix" << std::endl;
-      // std::cout << B << std::endl;
       Eigen::VectorXd rhs = Eigen::VectorXd::Zero(diis_size);
       rhs(0)              = -1.0;
 
       Eigen::VectorXd weights = B.colPivHouseholderQr().solve(rhs);
-      // std::cout << weights << std::endl;
       induced_moments.fill(0.0);
       for (size_t i = 0; i < diis_size - 1; i++) {
         induced_moments += weights[i + 1] * diis_prev_moments[i];
@@ -211,7 +205,7 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
   double nrm = 0.0;
   for (int j = 0; j < m_n_polsites; ++j) {
     int m = 3 * j;
-    nrm   = (induced_moments.segment(m, 3)).norm();
+    nrm   = (induced_moments.segment<3>(m)).norm();
     if (nrm > 1.0) {
       int site = m_polsites[j].index;
       m_printer("WARNING: Induced moment on site " + std::to_string(site) +

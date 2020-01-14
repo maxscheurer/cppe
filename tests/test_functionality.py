@@ -88,10 +88,7 @@ class TestFunctionality(unittest.TestCase):
         ref_pots = induced_ref_state.potentials
 
         for pt, pr in zip(test_pots, ref_pots):
-            for polt, polr in zip(pt.polarizabilities,
-                                  pr.polarizabilities):
-                np.testing.assert_almost_equal(polt.values,
-                                               polr.values)
-
+            np.testing.assert_almost_equal(pt.polarizability.values,
+                                           pr.polarizability.values)
         np.testing.assert_almost_equal(induced_test_moments,
                                        induced_ref_moments, decimal=8)

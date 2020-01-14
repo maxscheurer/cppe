@@ -15,9 +15,7 @@ bool sortbysec(const std::pair<int, double>& a, const std::pair<int, double>& b)
 std::vector<Potential> PotManipulator::manipulate(const PeOptions& pe_options) {
   if (pe_options.iso_pol) {
     for (Potential& pot : m_potentials) {
-      for (Polarizability& p : pot.get_polarizabilities()) {
-        p.make_isotropic();
-      }
+      pot.get_polarizability().make_isotropic();
     }
   }
   return manipulate_border(pe_options);
@@ -101,22 +99,14 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
             m_idx++;
           }
         }
-        int p_idx = 0;
-        if (pe_options.border_options.redist_pol) {
-          for (Polarizability& p : pot.get_polarizabilities()) {
-            // TODO: what if a site that has been chosen nearest neighbor
-            // has no multipole moments/polarizability of the respective order?!
-            // std::cout << "Before: " << std::endl;
-            // std::cout << p.get_values_vec() << std::endl;
-            for (size_t i = 0; i < multipole_components(2); i++) {
-              p.get_values()[i] +=
-                    m_potentials[site].get_polarizabilities()[p_idx].get_values()[i] /
-                    static_cast<double>(nredist);
-            }
-            // std::cout << "After: " << std::endl;
-            // std::cout << p.get_values_vec() << std::endl;
-            p_idx++;
-          }
+        if (pe_options.border_options.redist_pol && pot.is_polarizable() &&
+            m_potentials[site].is_polarizable()) {
+          Polarizability& p = pot.get_polarizability();
+          // TODO: what if a site that has been chosen nearest neighbor
+          // has no multipole moments/polarizability of the respective order?!
+          Eigen::Matrix3d other_pol =
+                m_potentials[site].get_polarizability().get_matrix();
+          p.get_matrix() += other_pol / static_cast<double>(nredist);
         }
       }
     }

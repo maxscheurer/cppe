@@ -5,8 +5,8 @@
 
 namespace libcppe {
 
-Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
-                         double alpha);
+// Eigen::Vector3d smat_vec(const Eigen::VectorXd& mat, const Eigen::Vector3d& vec,
+//                          double alpha);
 
 Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
                                      Eigen::VectorXd Mkj,
@@ -43,5 +43,10 @@ std::vector<double> prefactors(unsigned k);
 std::vector<double> prefactors_nuclei(unsigned k);
 
 int multipole_components(int k);
+
+template <class T>
+Eigen::Matrix3d triangle_to_mat(T);
+
+Eigen::VectorXd mat_to_triangle(Eigen::Matrix3d);
 
 }  // namespace libcppe

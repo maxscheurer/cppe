@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from cppe import (smat_vec, Tk_tensor, xyz2idx,
+from cppe import (Tk_tensor, xyz2idx,
                   factorial, prefactors, Tk_coefficients,
                   multipole_components)
 
@@ -25,18 +25,18 @@ class TestMath(unittest.TestCase):
         for k in range(3):
             assert prefactors(k) == prefs[k]
 
-    def test_smat_vec(self):
-        x = np.random.random(3)
-        y = np.random.random(6)
-        z = smat_vec(y, x, 1.0)
-        mat = np.empty((3, 3))
-        mat[0, 0] = y[0]
-        mat[0, 1] = mat[1, 0] = y[1]
-        mat[0, 2] = mat[2, 0] = y[2]
-        mat[1, 1] = y[3]
-        mat[1, 2] = mat[2, 1] = y[4]
-        mat[2, 2] = y[5]
-        np.testing.assert_almost_equal(mat @ x, z, decimal=14)
+    # def test_smat_vec(self):
+    #     x = np.random.random(3)
+    #     y = np.random.random(6)
+    #     z = smat_vec(y, x, 1.0)
+    #     mat = np.empty((3, 3))
+    #     mat[0, 0] = y[0]
+    #     mat[0, 1] = mat[1, 0] = y[1]
+    #     mat[0, 2] = mat[2, 0] = y[2]
+    #     mat[1, 1] = y[3]
+    #     mat[1, 2] = mat[2, 1] = y[4]
+    #     mat[2, 2] = y[5]
+    #     np.testing.assert_almost_equal(mat @ x, z, decimal=14)
 
     def test_multipole_components(self):
         for k in range(6):

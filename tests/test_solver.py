@@ -54,9 +54,9 @@ class TestSolver(unittest.TestCase):
 
         coeffs = Tk_coefficients(5)
         for s1, pot1 in enumerate(polsites):
-            for pol in pot1.polarizabilities:
-                inv_alpha = triangle_to_mat(pol.values)
-                bmat[block(s1, s1)] = np.linalg.inv(inv_alpha)
+            pol = pot1.polarizability
+            inv_alpha = triangle_to_mat(pol.values)
+            bmat[block(s1, s1)] = np.linalg.inv(inv_alpha)
             for s2, pot2 in enumerate(polsites):
                 if pot1.excludes_site(pot2.index) or s1 == s2:
                     continue
