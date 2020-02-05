@@ -1,5 +1,6 @@
 #include <Eigen/Dense>
 
+#include "bmatrix.hh"
 #include "electric_fields.hh"
 #include "math.hh"
 #include <iomanip>
@@ -76,6 +77,45 @@ Eigen::VectorXd MultipoleFields::compute() {
     }
   }
   return mult_fields;
+}
+
+Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
+  BMatrix bmat(m_polsites, m_options);
+
+  Eigen::VectorXd x0 = bmat.compute_apply_diagonal(rhs);
+  Eigen::VectorXd r0 = rhs - bmat.compute_apply(x0);
+  Eigen::VectorXd z0 = bmat.compute_apply_diagonal(r0);
+  Eigen::VectorXd p  = z0;
+
+  Eigen::VectorXd x_k1, r_k1, z_k1;
+  double alpha_k, beta_k;
+
+  std::vector<Eigen::VectorXd> x{x0};
+  std::vector<Eigen::VectorXd> r{r0};
+  std::vector<Eigen::VectorXd> z{z0};
+  for (int k = 0; k < m_options.maxiter; ++k) {
+    Eigen::VectorXd Ap = bmat.compute_apply(p);
+    alpha_k            = r[k].dot(z[k]) / p.dot(Ap);
+    x_k1               = x[k] + alpha_k * p;
+    x.push_back(x_k1);
+    r_k1 = r[k] - alpha_k * Ap;
+    r.push_back(r_k1);
+    double rnorm = r_k1.norm();
+
+    std::stringstream ss;
+    ss.precision(12);
+    ss << std::fixed << rnorm;
+    m_printer(std::to_string(k) + " --- Norm: " + ss.str());
+    if (rnorm < m_options.induced_thresh) {
+      break;
+    }
+
+    z_k1 = bmat.compute_apply_diagonal(r_k1);
+    z.push_back(z_k1);
+    beta_k = z_k1.dot(r_k1) / z[k].dot(r[k]);
+    p      = z_k1 + beta_k * p;
+  }
+  return x.back();
 }
 
 void InducedMoments::compute(const Eigen::VectorXd& total_fields,

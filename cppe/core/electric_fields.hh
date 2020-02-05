@@ -67,6 +67,7 @@ class InducedMoments {
   }
   void compute(const Eigen::VectorXd& total_fields, Eigen::VectorXd& induced_moments,
                bool make_guess);
+  Eigen::VectorXd compute_cg(const Eigen::VectorXd& rhs);
   /**
       overloads the compute method for induced moments and returns
      a copy of the induced moments vector

@@ -1,18 +1,18 @@
 import unittest
 import os
-import h5py
 
 import numpy as np
 
-from cppe import Atom, Molecule
-from cppe import PeOptions, CppeState
+from cppe import PeOptions, CppeState, BMatrix
 
 from cppe import (Tk_tensor,
                   Tk_coefficients,
-                  get_polarizable_sites)
+                  get_polarizable_sites, InducedMoments)
 
 from .test_functionality import print_callback
 from .cache import cache
+
+from scipy.sparse.linalg import LinearOperator
 
 
 def triangle_to_mat(y):
@@ -65,7 +65,28 @@ class TestSolver(unittest.TestCase):
                 if s1 > s2:
                     bmat[block(s1, s2)] = -triangle_to_mat(T12)
                     bmat[block(s2, s1)] = -triangle_to_mat(T12)
+
+        # Test the matrix apply
+        bmatrix_cpp = BMatrix(polsites, options)
+        ret = bmatrix_cpp.compute_apply(static_fields)
+        ret_ref = bmat @ static_fields
+        np.testing.assert_allclose(ret, ret_ref, atol=1e-12)
+
+        ret1 = bmatrix_cpp.compute_apply_slice(static_fields, 0, 8)
+        ret2 = bmatrix_cpp.compute_apply_slice(static_fields, 8, npolsites)
+        ret_all = ret1 + ret2
+        np.testing.assert_allclose(ret_all, ret_ref, atol=1e-12)
+
+        # build the Bmatrix from C++
+        A = LinearOperator(2 * (static_fields.size,), matvec=bmatrix_cpp.compute_apply)
+        Afull = A @ np.eye(static_fields.size)
+        np.testing.assert_allclose(Afull, bmat, atol=1e-20)
+
         induced_moments_direct = np.linalg.inv(bmat) @ static_fields
         induced_moments_solver = cppe_state.get_induced_moments()
         np.testing.assert_almost_equal(induced_moments_solver,
                                        induced_moments_direct, decimal=9)
+
+        ind_mom = InducedMoments(potentials, options)
+        res_cg = ind_mom.compute_cg(static_fields)
+        np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
