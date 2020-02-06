@@ -125,20 +125,14 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
   return x.back();
 }
 
-// TODO: remove if not needed anymore
 void InducedMoments::compute(const Eigen::VectorXd& total_fields,
                              Eigen::VectorXd& induced_moments, bool make_guess) {
   m_printer("        Running solver for induced moments.");
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
+  BMatrix bmat{m_polsites, m_options};
   // guess
   if (make_guess) {
-    size_t site_counter = 0;
-    for (auto& pot : m_potentials) {
-      if (!pot.is_polarizable()) continue;
-      induced_moments.segment<3>(site_counter) =
-            pot.get_polarizability().get_matrix() * total_fields.segment<3>(site_counter);
-      site_counter += 3;
-    }
+    induced_moments = bmat.compute_apply_diagonal(total_fields);
   }
   int max_iter           = m_options.maxiter;
   bool do_diis           = m_options.do_diis;
@@ -162,41 +156,8 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
       diis = true;
     }
 
-    norm = 0.0;
-    // TODO: abstract matrix apply, generalized solver
-#pragma omp parallel for reduction(+ : norm) firstprivate(Tk_coeffs)
-    for (int i = 0; i < m_n_polsites; ++i) {
-      Eigen::Vector3d Ftmp  = Eigen::Vector3d::Zero();
-      Eigen::Vector3d M1tmp = Eigen::Vector3d::Zero();
-      int l                 = i * 3;
-      Potential& pot1       = m_polsites[i];
-      for (int j = 0; j < m_n_polsites; ++j) {
-        int m           = 3 * j;
-        Potential& pot2 = m_polsites[j];
-        if (pot1.excludes_site(pot2.index) || i == j) {
-          continue;
-        }
-        Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
-        Eigen::VectorXd T2;
-        if (m_options.damp_induced) {
-          Polarizability& alpha_i = pot1.get_polarizability();
-          Polarizability& alpha_j = pot2.get_polarizability();
-          T2 = Tk_tensor(2, diff, Tk_coeffs, m_options.damping_factor_induced,
-                         alpha_i.get_isotropic_value(), alpha_j.get_isotropic_value());
-        } else {
-          T2 = Tk_tensor(2, diff, Tk_coeffs);
-        }
-        Eigen::Matrix3d T2m = triangle_to_mat(T2);
-        Ftmp += T2m * induced_moments.segment<3>(m);
-      }
-      // keep value to calculate residual
-      M1tmp = induced_moments.segment<3>(l);
-      Ftmp += total_fields.segment<3>(l);
-      induced_moments.segment<3>(l) = pot1.get_polarizability().get_matrix() * Ftmp;
-      // Calculate the residual
-      M1tmp = induced_moments.segment<3>(l) - M1tmp;
-      norm += M1tmp.norm();
-    }
+    induced_moments = bmat.compute_gauss_seidel_update(induced_moments, total_fields);
+    norm            = (diis_old_moments - induced_moments).norm();
 
     diis_prev_moments.push_back(induced_moments);
     if (diis_prev_moments.size() > diis_maxvec) {

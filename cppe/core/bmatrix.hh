@@ -47,6 +47,8 @@ class BMatrix {
   Eigen::VectorXd compute_apply_slice(Eigen::VectorXd induced_moments, int start,
                                       int stop);
   Eigen::VectorXd compute_apply_diagonal(Eigen::VectorXd in);
+  Eigen::VectorXd compute_gauss_seidel_update(Eigen::VectorXd induced_moments,
+                                              const Eigen::VectorXd& total_fields);
   Eigen::MatrixXd direct_inverse();
 };
 
