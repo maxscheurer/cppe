@@ -47,6 +47,7 @@ class BMatrix {
   Eigen::VectorXd compute_apply_slice(Eigen::VectorXd induced_moments, int start,
                                       int stop);
   Eigen::VectorXd compute_apply_diagonal(Eigen::VectorXd in);
+  Eigen::MatrixXd direct_inverse();
 };
 
 }  // namespace libcppe

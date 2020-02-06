@@ -18,6 +18,7 @@ before_script:
   - pip install pytest numpy
   - pip install h5py
   - pip install numba
+  - pip install scipy
   - mkdir build
   - cd build
   - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON -DPYTHON_EXECUTABLE=$PY_EXE ..

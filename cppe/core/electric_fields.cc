@@ -80,7 +80,10 @@ Eigen::VectorXd MultipoleFields::compute() {
 }
 
 Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
+  // TODO: cleanup, print warning -> outside of solver
+  // TODO: probably not entirely correct...
   BMatrix bmat(m_polsites, m_options);
+  bool converged = false;
 
   Eigen::VectorXd x0 = bmat.compute_apply_diagonal(rhs);
   Eigen::VectorXd r0 = rhs - bmat.compute_apply(x0);
@@ -107,6 +110,7 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
     ss << std::fixed << rnorm;
     m_printer(std::to_string(k) + " --- Norm: " + ss.str());
     if (rnorm < m_options.induced_thresh) {
+      converged = true;
       break;
     }
 
@@ -115,9 +119,13 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
     beta_k = z_k1.dot(r_k1) / z[k].dot(r[k]);
     p      = z_k1 + beta_k * p;
   }
+  if (!converged) {
+    throw std::runtime_error("Failed to converge induced dipole moments.");
+  }
   return x.back();
 }
 
+// TODO: remove if not needed anymore
 void InducedMoments::compute(const Eigen::VectorXd& total_fields,
                              Eigen::VectorXd& induced_moments, bool make_guess) {
   m_printer("        Running solver for induced moments.");
@@ -239,7 +247,7 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
   }
 
   if (!converged) {
-    throw std::runtime_error("Failed to converge induced moments.");
+    throw std::runtime_error("Failed to converge induced dipole moments.");
   }
 
   double nrm = 0.0;

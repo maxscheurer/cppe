@@ -90,3 +90,6 @@ class TestSolver(unittest.TestCase):
         ind_mom = InducedMoments(potentials, options)
         res_cg = ind_mom.compute_cg(static_fields)
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
+
+        binv = bmatrix_cpp.direct_inverse()
+        np.testing.assert_allclose(binv @ static_fields, induced_moments_direct, atol=1e-15)
