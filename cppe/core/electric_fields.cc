@@ -1,5 +1,6 @@
 #include <Eigen/Dense>
 
+#include "bmatrix.hh"
 #include "electric_fields.hh"
 #include "math.hh"
 #include <iomanip>
@@ -36,7 +37,7 @@ Eigen::VectorXd MultipoleFields::compute() {
     size_t site_counter   = 3 * i;
     Potential& potential1 = m_polsites[i];
     double alpha_i_isotropic =
-          potential1.get_polarizabilities()[0].get_isotropic_value();  // for damping
+          potential1.get_polarizability().get_isotropic_value();  // for damping
     for (size_t j = 0; j < m_potentials.size(); j++) {
       Potential& potential2 =
             m_potentials[j];  // all other multipoles create el. field at site i
@@ -52,7 +53,7 @@ Eigen::VectorXd MultipoleFields::compute() {
         damp_enabled = false;
       } else {
         alpha_j_isotropic =
-              potential2.get_polarizabilities()[0].get_isotropic_value();  // for damping
+              potential2.get_polarizability().get_isotropic_value();  // for damping
       }
 
       // std::cout << "-- created by site " << potential2.index << std::endl;
@@ -78,23 +79,61 @@ Eigen::VectorXd MultipoleFields::compute() {
   return mult_fields;
 }
 
+Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
+  // TODO: cleanup, print warning -> outside of solver
+  // TODO: probably not entirely correct...
+  BMatrix bmat(m_polsites, m_options);
+  bool converged = false;
+
+  Eigen::VectorXd x0 = bmat.compute_apply_diagonal(rhs);
+  Eigen::VectorXd r0 = rhs - bmat.compute_apply(x0);
+  Eigen::VectorXd z0 = bmat.compute_apply_diagonal(r0);
+  Eigen::VectorXd p  = z0;
+
+  Eigen::VectorXd x_k1, r_k1, z_k1;
+  double alpha_k, beta_k;
+
+  std::vector<Eigen::VectorXd> x{x0};
+  std::vector<Eigen::VectorXd> r{r0};
+  std::vector<Eigen::VectorXd> z{z0};
+  for (int k = 0; k < m_options.maxiter; ++k) {
+    Eigen::VectorXd Ap = bmat.compute_apply(p);
+    alpha_k            = r[k].dot(z[k]) / p.dot(Ap);
+    x_k1               = x[k] + alpha_k * p;
+    x.push_back(x_k1);
+    r_k1 = r[k] - alpha_k * Ap;
+    r.push_back(r_k1);
+    double rnorm = r_k1.norm();
+
+    std::stringstream ss;
+    ss.precision(12);
+    ss << std::fixed << rnorm;
+    m_printer(std::to_string(k) + " --- Norm: " + ss.str());
+    if (rnorm < m_options.induced_thresh) {
+      converged = true;
+      break;
+    }
+
+    z_k1 = bmat.compute_apply_diagonal(r_k1);
+    z.push_back(z_k1);
+    beta_k = z_k1.dot(r_k1) / z[k].dot(r[k]);
+    p      = z_k1 + beta_k * p;
+  }
+  if (!converged) {
+    throw std::runtime_error("Failed to converge induced dipole moments.");
+  }
+  return x.back();
+}
+
 void InducedMoments::compute(const Eigen::VectorXd& total_fields,
                              Eigen::VectorXd& induced_moments, bool make_guess) {
   m_printer("        Running solver for induced moments.");
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
+  BMatrix bmat{m_polsites, m_options};
   // guess
   if (make_guess) {
-    size_t site_counter = 0;
-    for (auto& pot : m_potentials) {
-      if (!pot.is_polarizable()) continue;
-      Eigen::Vector3d res = smat_vec(pot.get_polarizabilities()[0].get_values_vec(),
-                                     total_fields.segment(site_counter, 3), 1.0);
-      induced_moments.segment(site_counter, 3) = res;
-      site_counter += 3;
-    }
+    induced_moments = bmat.compute_apply_diagonal(total_fields);
   }
-  // std::cout << "induced mom. guess" << std::endl;
-  // induced_moments.raw_print(std::cout << std::setprecision(10));
   int max_iter           = m_options.maxiter;
   bool do_diis           = m_options.do_diis;
   double diis_start_norm = m_options.diis_start_norm;
@@ -117,41 +156,8 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
       diis = true;
     }
 
-    norm = 0.0;
-    // TODO: abstract matrix apply, generalized solver
-#pragma omp parallel for reduction(+ : norm) firstprivate(Tk_coeffs)
-    for (int i = 0; i < m_n_polsites; ++i) {
-      Eigen::Vector3d Ftmp  = Eigen::Vector3d::Zero();
-      Eigen::Vector3d M1tmp = Eigen::Vector3d::Zero();
-      int l                 = i * 3;
-      Potential& pot1       = m_polsites[i];
-      for (int j = 0; j < m_n_polsites; ++j) {
-        int m           = 3 * j;
-        Potential& pot2 = m_polsites[j];
-        if (pot1.excludes_site(pot2.index) || i == j) {
-          continue;
-        }
-        Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
-        Eigen::VectorXd T2;
-        if (m_options.damp_induced) {
-          Polarizability& alpha_i = pot1.get_polarizabilities()[0];
-          Polarizability& alpha_j = pot2.get_polarizabilities()[0];
-          T2 = Tk_tensor(2, diff, Tk_coeffs, m_options.damping_factor_induced,
-                         alpha_i.get_isotropic_value(), alpha_j.get_isotropic_value());
-        } else {
-          T2 = Tk_tensor(2, diff, Tk_coeffs);
-        }
-        Ftmp += smat_vec(T2, induced_moments.segment(m, 3), 1.0);
-      }
-      // keep value to calculate residual
-      M1tmp = induced_moments.segment(l, 3);
-      Ftmp += total_fields.segment(l, 3);
-      induced_moments.segment(l, 3) =
-            smat_vec(pot1.get_polarizabilities()[0].get_values_vec(), Ftmp, 1.0);
-      // Calculate the residual
-      M1tmp = induced_moments.segment(l, 3) - M1tmp;
-      norm += M1tmp.norm();
-    }
+    induced_moments = bmat.compute_gauss_seidel_update(induced_moments, total_fields);
+    norm            = (diis_old_moments - induced_moments).norm();
 
     diis_prev_moments.push_back(induced_moments);
     if (diis_prev_moments.size() > diis_maxvec) {
@@ -175,13 +181,10 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
           B(j, i) = B(i, j);
         }
       }
-      // std::cout << "B-matrix" << std::endl;
-      // std::cout << B << std::endl;
       Eigen::VectorXd rhs = Eigen::VectorXd::Zero(diis_size);
       rhs(0)              = -1.0;
 
       Eigen::VectorXd weights = B.colPivHouseholderQr().solve(rhs);
-      // std::cout << weights << std::endl;
       induced_moments.fill(0.0);
       for (size_t i = 0; i < diis_size - 1; i++) {
         induced_moments += weights[i + 1] * diis_prev_moments[i];
@@ -205,13 +208,13 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
   }
 
   if (!converged) {
-    throw std::runtime_error("Failed to converge induced moments.");
+    throw std::runtime_error("Failed to converge induced dipole moments.");
   }
 
   double nrm = 0.0;
   for (int j = 0; j < m_n_polsites; ++j) {
     int m = 3 * j;
-    nrm   = (induced_moments.segment(m, 3)).norm();
+    nrm   = (induced_moments.segment<3>(m)).norm();
     if (nrm > 1.0) {
       int site = m_polsites[j].index;
       m_printer("WARNING: Induced moment on site " + std::to_string(site) +

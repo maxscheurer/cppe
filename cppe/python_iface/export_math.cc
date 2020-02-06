@@ -9,7 +9,9 @@ namespace py = pybind11;
 using namespace libcppe;
 
 void export_math(py::module& m) {
-  m.def("smat_vec", &smat_vec);
+  // m.def("smat_vec", &smat_vec);
+  m.def("triangle_to_mat", &triangle_to_mat<std::vector<double>>);
+  m.def("mat_to_triangle", &mat_to_triangle);
   m.def("multipole_derivative", &multipole_derivative);
   m.def("T", &T, py::arg("Rij"), py::arg("x"), py::arg("y"), py::arg("z"),
         py::arg("Cijn"), py::arg("damping_factor") = 0.0, py::arg("alpha_i") = 0.0,

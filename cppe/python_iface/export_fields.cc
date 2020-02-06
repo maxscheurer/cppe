@@ -6,6 +6,8 @@
 #include "../core/molecule.hh"
 #include "../core/pe_options.hh"
 
+#include "../core/bmatrix.hh"
+
 namespace py = pybind11;
 
 void export_fields(py::module& m) {
@@ -25,7 +27,14 @@ void export_fields(py::module& m) {
              py::overload_cast<Eigen::VectorXd&, bool>(&libcppe::InducedMoments::compute),
              "Compute the induced moments solving the classical response "
              "equation",
-             py::arg("total_fields"), py::arg("make_guess"));
+             py::arg("total_fields"), py::arg("make_guess"))
+        .def("compute_cg", &libcppe::InducedMoments::compute_cg);
 
   m.def("get_polarizable_sites", &libcppe::get_polarizable_sites);
+
+  py::class_<libcppe::BMatrix> bmatrix(m, "BMatrix");
+  bmatrix.def(py::init<std::vector<libcppe::Potential>, libcppe::PeOptions>())
+        .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
+        .def("compute_apply", &libcppe::BMatrix::compute_apply)
+        .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice);
 }

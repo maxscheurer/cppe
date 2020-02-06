@@ -22,6 +22,7 @@ list(APPEND CPPE_SOURCES
   core/multipole_expansion.cc
   core/electric_fields.cc
   core/math.cc
+  core/bmatrix.cc
 )
 
 add_library(cppe

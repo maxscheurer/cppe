@@ -138,11 +138,15 @@ std::vector<Potential> PotfileReader::read() {
           Site site    = sites[site_num];
           // std::cout << site.x << " " << site.y << " " << site.z << " " <<
           // site_num + 1 << std::endl;
-          Polarizability pol{};
+          std::vector<double> pol_tmp;
           for (size_t vl = 1; vl <= multipole_components(order1 + order2); vl++) {
-            pol.add_value(stod(temp[vl]));
+            pol_tmp.push_back(stod(temp[vl]));
           }
-          potentials[site_num].add_polarizability(pol);
+          Polarizability pol{pol_tmp};
+          if (potentials[site_num].is_polarizable()) {
+            throw std::runtime_error("Potential can only have one polarizability.");
+          }
+          potentials[site_num].set_polarizability(pol);
         }
       } else {  // unhandled
         throw std::runtime_error("Invalid number in potfile ORDER.");
