@@ -54,9 +54,17 @@ Eigen::VectorXd BMatrix::compute_apply_diagonal(Eigen::VectorXd in) {
 
 Eigen::VectorXd BMatrix::compute_gauss_seidel_update(
       Eigen::VectorXd induced_moments, const Eigen::VectorXd& total_fields) {
+          return compute_gauss_seidel_update_slice(induced_moments, total_fields, 0, m_n_polsites);
+}
+
+Eigen::VectorXd BMatrix::compute_gauss_seidel_update_slice(
+      Eigen::VectorXd induced_moments, const Eigen::VectorXd& total_fields, int start, int stop) {
   std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
+  if (start < 0 || stop > m_n_polsites) {
+    throw std::runtime_error("Invalid range in compute_gauss_seidel_update_slice.");
+  }
 #pragma omp parallel for firstprivate(Tk_coeffs)
-  for (int i = 0; i < m_n_polsites; ++i) {
+  for (int i = start; i < stop; ++i) {
     Eigen::Vector3d Ftmp = Eigen::Vector3d::Zero();
     int l                = i * 3;
     Potential& pot1      = m_polsites[i];

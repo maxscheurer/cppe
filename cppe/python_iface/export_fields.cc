@@ -36,5 +36,8 @@ void export_fields(py::module& m) {
   bmatrix.def(py::init<std::vector<libcppe::Potential>, libcppe::PeOptions>())
         .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
         .def("compute_apply", &libcppe::BMatrix::compute_apply)
-        .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice);
+        .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice)
+        .def("compute_apply_diagonal", &libcppe::BMatrix::compute_apply_diagonal)
+        .def("compute_gauss_seidel_update", &libcppe::BMatrix::compute_gauss_seidel_update)
+        .def("compute_gauss_seidel_update_slice", &libcppe::BMatrix::compute_gauss_seidel_update_slice);
 }
