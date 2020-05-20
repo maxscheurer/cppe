@@ -107,6 +107,30 @@ class BuildExt(BuildCommand):
 
 
 #
+# Pytest integration
+#
+class PyTest(TestCommand):
+    user_options = [
+        ("pytest-args=", "a", "Arguments to pass to pytest"),
+    ]
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = ""
+
+    def run_tests(self):
+        import shlex
+
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+
+        args = []
+        args += shlex.split(self.pytest_args)
+        errno = pytest.main(args)
+        sys.exit(errno)
+
+
+#
 # Main setup code
 #
 # Setup RPATH on Linux and MacOS
@@ -200,6 +224,7 @@ setup(
     # },
     #
     cmdclass={"build_ext": BuildExt,
+              "test": PyTest,
               # "build_docs": BuildDocs,
               },
 )
