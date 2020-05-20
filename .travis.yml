@@ -16,7 +16,7 @@ env:
 jobs:
     include:
         - name: CMake
-            before_script:
+            - before_script:
               - python -V
               - pip install pytest numpy
               - pip install h5py
@@ -26,11 +26,10 @@ jobs:
               - cd build
               - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON -DPYTHON_EXECUTABLE=$PY_EXE ..
 
-            script:
+            - script:
               - cmake --version
               - make
               - cd ..
               - pytest
         - name: Setuptools
-            script:
-                python setup.py test
+            script: python setup.py test
