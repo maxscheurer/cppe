@@ -6,7 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
 
 
-CPPE is an open-source, light-weight **C**-**P**lus-**P**lus library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
+CPPE is an open-source, light-weight C++ and Python library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
 calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
 calculations and post-SCF methods. A convenient Python interface is also available.
