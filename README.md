@@ -24,8 +24,8 @@ and PE-ADC calculations <sup>3</sup>, and the open-source
 packages [Psi4](http://psicode.org) and [pyscf](https://github.com/pyscf/pyscf).
 The latter implementation makes use of the Python interface. -->
 
-## Build
-CPPE needs to be built from sources, i.e.,
+## Installation
+CPPE needs to be built from sources, e.g., using CMake by running
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe; mkdir build; cd build
@@ -33,17 +33,34 @@ cmake ..
 make -j4
 ```
 
+Alternatively, CPPE can be installed using the `setup.py` script with
+```
+git clone https://github.com/maxscheurer/cppe
+cd cppe
+python setup.py install
+```
+
 ### Python interface
 If the Python interface should be built, specify the CMake option
 `-DENABLE_PYTHON_INTERFACE=ON`. If `pybind11` is not installed, CMake
 will automatically download `pybind11` and install it locally.
+Installing through `setup.py` will always build the Python interface.
 
 ### Dependencies
 - C++ 14 compiler
-- Python 3.6 (interpreter and development packages)
+- Python >= 3.6 (interpreter and development packages)
 
-<!-- ## Installation via pip
-will be possible in the future. -->
+### Tests
+The tests can be run with
+```
+python setup.py build_ext -i; python setup.py test
+```
+for the `setup.py` build, or
+```
+source setup_environment.sh; py.test
+```
+for the CMake build.
+
 
 ## Citation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
