@@ -6,7 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
 
 
-CPPE is an open-source, light-weight C++ and Python library for **P**olarizable **E**mbedding (PE)<sup>1,2</sup>
+CPPE is an open-source, light-weight C++ and Python library for Polarizable Embedding (PE)<sup>1,2</sup>
 calculations.
 It provides an easy-to-use API to implement PE for ground-state self-consistent field
 calculations and post-SCF methods. A convenient Python interface is also available.
@@ -15,6 +15,7 @@ CPPE enables PE calculations in the following programs:
 - [PySCF](https://github.com/pyscf/pyscf)
 - [Psi4](https://github.com/psi4/psi4)
 - [Q-Chem](https://www.q-chem.com)
+- [VeloxChem](https://veloxchem.org)
 
 __Examples__ for the open-source Python-driven programs can be found [here](https://github.com/maxscheurer/cppe_examples).
 
