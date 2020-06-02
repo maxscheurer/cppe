@@ -19,6 +19,12 @@ class TestOptions(unittest.TestCase):
         "damp_multipole": False,
         "damping_factor_induced": 2.1304,
         "damping_factor_multipole": 2.1304,
+        "pe_border": False,
+        "border_type": "remove",
+        "border_rmin": 2.2,
+        "border_nredist": -1,
+        "border_redist_order": 1,
+        "border_redist_pol": False,
     }
 
     def test_defaults(self):
@@ -27,6 +33,9 @@ class TestOptions(unittest.TestCase):
 
         defaults = self.default_options.copy()
         defaults.pop("potfile")
+        cppe_options = cppe_state.options.copy()
+        cppe_options.pop("potfile")
+        assert len(defaults) == len(cppe_options)
         for k in defaults:
             assert defaults[k] == cppe_state.options[k]
 
@@ -40,6 +49,13 @@ class TestOptions(unittest.TestCase):
             "damp_multipole": True,
             "damping_factor_induced": 213.04,
             "damping_factor_multipole": 213.04,
+            # border
+            "pe_border": True,
+            "border_type": "redist",
+            "border_rmin": 2.6,
+            "border_nredist": 2,
+            "border_redist_order": 2,
+            "border_redist_pol": True,
         }
         cppe_state = CppeState(custom_options)
         for k in custom_options:

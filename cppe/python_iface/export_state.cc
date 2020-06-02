@@ -43,6 +43,18 @@ libcppe::PeOptions _dict_to_options(py::dict py_options) {
       options.damping_factor_induced = value.cast<double>();
     } else if (key == "damping_factor_multipole") {
       options.damping_factor_multipole = value.cast<double>();
+    } else if (key == "pe_border") {
+      options.pe_border = value.cast<bool>();
+    } else if (key == "border_type") {
+      options.border_type = value.cast<std::string>();
+    } else if (key == "border_rmin") {
+      options.border_rmin = value.cast<double>();
+    } else if (key == "border_nredist") {
+      options.border_nredist = value.cast<int>();
+    } else if (key == "border_redist_order") {
+      options.border_redist_order = value.cast<int>();
+    } else if (key == "border_redist_pol") {
+      options.border_redist_pol = value.cast<bool>();
     }
   }
   return options;
@@ -77,6 +89,18 @@ static py::dict _options_to_dict(libcppe::CppeState state) {
       ret[pykey] = py::cast(self.damping_factor_induced);
     } else if (key == "damping_factor_multipole") {
       ret[pykey] = py::cast(self.damping_factor_multipole);
+    } else if (key == "pe_border") {
+      ret[pykey] = py::cast(self.pe_border);
+    } else if (key == "border_type") {
+      ret[pykey] = py::cast(self.border_type);
+    } else if (key == "border_rmin") {
+      ret[pykey] = py::cast(self.border_rmin);
+    } else if (key == "border_nredist") {
+      ret[pykey] = py::cast(self.border_nredist);
+    } else if (key == "border_redist_order") {
+      ret[pykey] = py::cast(self.border_redist_order);
+    } else if (key == "border_redist_pol") {
+      ret[pykey] = py::cast(self.border_redist_pol);
     }
   }
   return ret;
