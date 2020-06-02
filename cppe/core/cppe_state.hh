@@ -46,6 +46,7 @@ class CppeState {
   ~CppeState(){};
 
   void set_options(PeOptions options) { m_options = options; }
+  PeOptions get_options() { return m_options; }
   void set_molecule(Molecule mol) { m_mol = mol; }
 
   void set_potentials(std::vector<Potential> potentials);

@@ -3,7 +3,7 @@ import os
 
 import numpy as np
 
-from cppe import PeOptions, CppeState, BMatrix
+from cppe import CppeState, BMatrix
 
 from cppe import (Tk_tensor,
                   Tk_coefficients,
@@ -36,10 +36,8 @@ class TestSolver(unittest.TestCase):
 
     def test_solver_by_inversion(self):
         mol = cache.molecule["pna"]
-        options = PeOptions()
-        options.potfile = self.potfile_path
-        options.induced_thresh = 1e-12
-        options.diis_start_norm = 10
+        options = {"potfile": self.potfile_path,
+                   "induced_thresh": 1e-12}
         cppe_state = CppeState(options, mol, print_callback)
         cppe_state.calculate_static_energies_and_fields()
 
@@ -78,7 +76,8 @@ class TestSolver(unittest.TestCase):
         np.testing.assert_allclose(ret_all, ret_ref, atol=1e-12)
 
         # build the Bmatrix from C++
-        A = LinearOperator(2 * (static_fields.size,), matvec=bmatrix_cpp.compute_apply)
+        A = LinearOperator(2 * (static_fields.size,),
+                           matvec=bmatrix_cpp.compute_apply)
         Afull = A @ np.eye(static_fields.size)
         np.testing.assert_allclose(Afull, bmat, atol=1e-20)
 
@@ -92,4 +91,5 @@ class TestSolver(unittest.TestCase):
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
 
         binv = bmatrix_cpp.direct_inverse()
-        np.testing.assert_allclose(binv @ static_fields, induced_moments_direct, atol=1e-15)
+        np.testing.assert_allclose(binv @ static_fields,
+                                   induced_moments_direct, atol=1e-15)

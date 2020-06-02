@@ -29,7 +29,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
   for (Atom a : m_mol) {
     Eigen::Vector3d a_pos = a.get_pos();
     for (Potential pot : m_potentials) {
-      if ((a_pos - pot.get_site_position()).norm() <= pe_options.border_options.rmin) {
+      if ((a_pos - pot.get_site_position()).norm() <= pe_options.border_rmin) {
         if (changed_sites.find(pot.index) == changed_sites.end()) {
           changed_sites.insert(pot.index);
         }
@@ -39,7 +39,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
 
   if (changed_sites.size() == 0) return m_potentials;  // do nothing
 
-  if (pe_options.border_options.border_type == BorderType::rem) {
+  if (pe_options.border_type == "remove") {
     for (Potential pot : m_potentials) {
       if (changed_sites.find(pot.index) == changed_sites.end()) {
         new_potentials.push_back(pot);
@@ -47,10 +47,10 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
         m_printer("     Removing all parameters on site: " + std::to_string(pot.index));
       }
     }
-  } else if (pe_options.border_options.border_type == BorderType::redist) {
-    m_printer("     Redistributing moments in " +
-              std::to_string(pe_options.border_options.rmin) + " a.u. proximity.");
-    int nredist = pe_options.border_options.nredist;
+  } else if (pe_options.border_type == "redist") {
+    m_printer("     Redistributing moments in " + std::to_string(pe_options.border_rmin) +
+              " a.u. proximity.");
+    int nredist = pe_options.border_nredist;
     if (nredist == -1) {
       m_printer("     Border sites will be redistributed to all other sites.");
       nredist = m_potentials.size() - changed_sites.size();
@@ -61,7 +61,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
     // loop over all sites that are in rmin of core
     // redistribute their multipoles/polarizabilities
     for (auto site : changed_sites) {
-      int redist_order = pe_options.border_options.redist_order;
+      int redist_order = pe_options.border_redist_order;
       std::vector<std::pair<int, double>> neighbor_list;
       m_printer("     Redistributing site: " + std::to_string(site));
       // first element is pot.index, second the distance to site
@@ -99,7 +99,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
             m_idx++;
           }
         }
-        if (pe_options.border_options.redist_pol && pot.is_polarizable() &&
+        if (pe_options.border_redist_pol && pot.is_polarizable() &&
             m_potentials[site].is_polarizable()) {
           Polarizability& p = pot.get_polarizability();
           // TODO: what if a site that has been chosen nearest neighbor
