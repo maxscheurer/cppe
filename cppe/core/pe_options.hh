@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace libcppe {
 
@@ -49,6 +50,13 @@ struct PeOptions {
   bool pe_border = false;          ///< Activate border options for sites in proximity
                                    ///< to the QM/MM border
   BorderOptions border_options{};  ///< Options for QM/MM border
+};
+
+static const std::vector<std::string> valid_option_keys{
+      "potfile",        "iso_pol",
+      "induced_thresh", "maxiter",
+      "damp_induced",   "damping_factor_induced",
+      "damp_multipole", "damping_factor_multipole",
 };
 
 }  // namespace libcppe

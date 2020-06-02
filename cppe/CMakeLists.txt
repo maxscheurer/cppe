@@ -48,7 +48,6 @@ if(${ENABLE_PYTHON_INTERFACE})
         ${CPPE_SOURCES}
         python_iface/export_molecule.cc
         python_iface/export_multipole.cc
-        python_iface/export_options.cc
         python_iface/export_fields.cc
         python_iface/export_utils.cc
         python_iface/export_state.cc

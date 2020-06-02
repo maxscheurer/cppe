@@ -8,7 +8,6 @@
 #include <pybind11/stl_bind.h>
 
 #include "../core/cppe_state.hh"
-#include "../core/pe_options.hh"
 
 namespace py = pybind11;
 
@@ -19,16 +18,82 @@ using UnorderedMapMapStringDouble =
 PYBIND11_MAKE_OPAQUE(UnorderedMapStringDouble);
 PYBIND11_MAKE_OPAQUE(UnorderedMapMapStringDouble);
 
+libcppe::PeOptions _dict_to_options(py::dict py_options) {
+  libcppe::PeOptions options;
+  py::list valid_keys = py::cast(libcppe::valid_option_keys);
+  for (const auto& entry : py_options) {
+    std::string key = entry.first.cast<std::string>();
+    auto value      = entry.second;
+    if (!valid_keys.contains(entry.first)) {
+      throw std::invalid_argument("Option key \'" + key + "\' is invalid.");
+    }
+    if (key == "potfile") {
+      options.potfile = value.cast<std::string>();
+    } else if (key == "iso_pol") {
+      options.iso_pol = value.cast<bool>();
+    } else if (key == "induced_thresh") {
+      options.induced_thresh = value.cast<double>();
+    } else if (key == "maxiter") {
+      options.maxiter = value.cast<int>();
+    } else if (key == "damp_induced") {
+      options.damp_induced = value.cast<bool>();
+    } else if (key == "damp_multipole") {
+      options.damp_multipole = value.cast<bool>();
+    } else if (key == "damping_factor_induced") {
+      options.damping_factor_induced = value.cast<double>();
+    } else if (key == "damping_factor_multipole") {
+      options.damping_factor_multipole = value.cast<double>();
+    }
+  }
+  return options;
+}
+
+static std::shared_ptr<libcppe::CppeState> _init_state(py::dict py_options,
+                                                       libcppe::Molecule mol,
+                                                       libcppe::PrintCallback callback) {
+  libcppe::PeOptions options = _dict_to_options(py_options);
+  return std::make_shared<libcppe::CppeState>(options, mol, callback);
+}
+
+static py::dict _options_to_dict(libcppe::CppeState state) {
+  libcppe::PeOptions self = state.get_options();
+  py::list valid_keys     = py::cast(libcppe::valid_option_keys);
+  py::dict ret;
+  for (const auto& pykey : valid_keys) {
+    std::string key = pykey.cast<std::string>();
+    if (key == "potfile") {
+      ret[pykey] = py::cast(self.potfile);
+    } else if (key == "iso_pol") {
+      ret[pykey] = py::cast(self.iso_pol);
+    } else if (key == "induced_thresh") {
+      ret[pykey] = py::cast(self.induced_thresh);
+    } else if (key == "maxiter") {
+      ret[pykey] = py::cast(self.maxiter);
+    } else if (key == "damp_induced") {
+      ret[pykey] = py::cast(self.damp_induced);
+    } else if (key == "damp_multipole") {
+      ret[pykey] = py::cast(self.damp_multipole);
+    } else if (key == "damping_factor_induced") {
+      ret[pykey] = py::cast(self.damping_factor_induced);
+    } else if (key == "damping_factor_multipole") {
+      ret[pykey] = py::cast(self.damping_factor_multipole);
+    }
+  }
+  return ret;
+}
+
 void export_state(py::module& m) {
   py::bind_map<UnorderedMapStringDouble>(m, "UnorderedMapStringDouble");
   py::bind_map<UnorderedMapMapStringDouble>(m, "UnorderedMapMapStringDouble");
 
-  py::class_<libcppe::CppeState> cppe_state(m, "CppeState");
+  py::class_<libcppe::CppeState, std::shared_ptr<libcppe::CppeState>> cppe_state(
+        m, "CppeState");
   cppe_state
-        .def(py::init<libcppe::PeOptions, libcppe::Molecule, libcppe::PrintCallback>(),
-             "Constructor", py::arg("options") = libcppe::PeOptions(),
-             py::arg("molecule") = libcppe::Molecule(),
-             py::arg("printer")  = libcppe::default_printer)
+        .def(py::init(&_init_state),
+             "Create a CppeState using a dictionary with arguments, molecule, and print "
+             "callback",
+             py::arg("options") = py::dict(), py::arg("molecule") = libcppe::Molecule(),
+             py::arg("printer") = libcppe::default_printer)
         .def("set_potentials", &libcppe::CppeState::set_potentials)
         .def("calculate_static_energies_and_fields",
              &libcppe::CppeState::calculate_static_energies_and_fields)
@@ -44,5 +109,6 @@ void export_state(py::module& m) {
                                &libcppe::CppeState::get_energy_summary_string)
         .def_property_readonly("potentials", &libcppe::CppeState::get_potentials)
         .def("get_polarizable_site_number",
-             &libcppe::CppeState::get_polarizable_site_number);
+             &libcppe::CppeState::get_polarizable_site_number)
+        .def_property_readonly("options", &_options_to_dict);
 }

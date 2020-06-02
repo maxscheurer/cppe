@@ -5,8 +5,7 @@ import numpy as np
 
 from .cache import cache
 
-from cppe import PotfileReader
-from cppe import PeOptions, CppeState
+from cppe import PotfileReader, CppeState
 
 
 def print_callback(output):
@@ -38,8 +37,7 @@ class TestFunctionality(unittest.TestCase):
 
     def test_compute_nuclear_interaction_energy(self):
         mol = cache.molecule["pna"]
-        options = PeOptions()
-        options.potfile = self.potfile_path
+        options = {"potfile": self.potfile_path}
         cppe_state = CppeState(options, mol, print_callback)
         assert cppe_state.get_polarizable_site_number() == 18
         cppe_state.calculate_static_energies_and_fields()
@@ -73,14 +71,12 @@ class TestFunctionality(unittest.TestCase):
     def test_iso_pol(self):
         # use iso_pol option
         mol = cache.molecule["pna"]
-        options = PeOptions()
-        options.potfile = self.potfile_path
-        options.iso_pol = True
+        options = {"potfile": self.potfile_path,
+                   "iso_pol": True}
         induced_test_state = solve_induced_moments(options, mol)
         induced_test_moments = induced_test_state.get_induced_moments()
 
-        options = PeOptions()
-        options.potfile = self.potfile_iso_path
+        options = {"potfile": self.potfile_iso_path}
         induced_ref_state = solve_induced_moments(options, mol)
         induced_ref_moments = induced_ref_state.get_induced_moments()
 
