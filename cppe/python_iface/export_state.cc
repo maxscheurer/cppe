@@ -114,7 +114,7 @@ void export_state(py::module& m) {
         m, "CppeState");
   cppe_state
         .def(py::init(&_init_state),
-             "Create a CppeState using a dictionary with arguments, molecule, and print "
+             "Create a CppeState using a dictionary with options, molecule, and print "
              "callback",
              py::arg("options") = py::dict(), py::arg("molecule") = libcppe::Molecule(),
              py::arg("printer") = libcppe::default_printer)
@@ -135,4 +135,5 @@ void export_state(py::module& m) {
         .def("get_polarizable_site_number",
              &libcppe::CppeState::get_polarizable_site_number)
         .def_property_readonly("options", &_options_to_dict);
+    m.attr("valid_option_keys") = py::cast(libcppe::valid_option_keys);
 }
