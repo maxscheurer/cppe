@@ -1,16 +1,16 @@
 #include <Eigen/Dense>
 
 #include "multipole_expansion.hh"
+#include "tensors.hh"
 
 namespace libcppe {
 
 // calculates the multipole-nuclei interaction energy through the given order
 double MultipoleExpansion::calculate_interaction_energy() {
-  double total_energy                    = 0.0;
-  std::vector<Eigen::MatrixXi> Tk_coeffs = Tk_coefficients(5);
-  int npots                              = m_potentials.size();
+  double total_energy = 0.0;
+  int npots           = m_potentials.size();
 
-#pragma omp parallel for reduction(+ : total_energy) firstprivate(Tk_coeffs)
+#pragma omp parallel for reduction(+ : total_energy)
   for (size_t i = 0; i < npots; i++) {
     Potential& potential          = m_potentials[i];
     Eigen::Vector3d site_position = potential.get_site_position();
@@ -23,7 +23,7 @@ double MultipoleExpansion::calculate_interaction_energy() {
       for (auto& atom : m_mol) {
         Eigen::Vector3d core_position = atom.get_pos();
         Eigen::Vector3d diff          = core_position - site_position;
-        Eigen::VectorXd Tsm           = Tk_tensor(multipole.m_k, diff, Tk_coeffs);
+        Eigen::VectorXd Tsm           = tensors::T[multipole.m_k](diff(0), diff(1), diff(2));
         total_energy += pref_v.dot(mul_v.cwiseProduct(Tsm)) * atom.charge;
       }
     }

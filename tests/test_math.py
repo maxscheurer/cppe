@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-from cppe import (Tk_tensor, xyz2idx,
-                  factorial, prefactors, Tk_coefficients,
+from cppe.tensors import T_recursive, xyz2idx, T, T_damp_thole
+from cppe import (factorial, prefactors,
                   multipole_components)
 
 from cppe import multipole_derivative
@@ -48,25 +48,23 @@ class TestMath(unittest.TestCase):
                 assert xyz2idx(*c) == i
 
     def test_T_tensors(self):
-        # tests the T tensors against auto-generated Python code
         for k in range(7):
             R = 2.0 * np.random.random(3) + 1
             ref = tensors.T[k](R)
 
-            coeffs = Tk_coefficients(k)
-            actual = Tk_tensor(k, R, coeffs)
+            actual = T_recursive(k, R)
+            actual_autogen = T[k](*R)
 
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
-            np.testing.assert_almost_equal(
-                actual, ref.take(sym_indices), decimal=10,
-                err_msg="T tensors do not match. Order = {}".format(k)
-            )
+            np.testing.assert_allclose(actual, ref.take(sym_indices), atol=1e-10,
+                                       err_msg="T tensors do not match. Order = {}".format(k))
+            np.testing.assert_allclose(actual_autogen, ref.take(sym_indices), atol=1e-10,
+                                       err_msg="T tensors do not match. Order = {}".format(k))
 
     def test_T_tensors_damped(self):
-        # tests the T tensors against auto-generated Python code
-        for k in range(4):
+        for k in range(6):
             R = 2.0 * np.random.random(3) + 1
             damp = 2.0
             a_i = 4.0
@@ -74,15 +72,20 @@ class TestMath(unittest.TestCase):
             a = 1/(a_i*a_j)**(1/6)*damp
             ref = tensors.T_damp_thole[k](R, a)
 
-            coeffs = Tk_coefficients(k)
-            # damped tensor: damping_factor, alpha_i, alpha_j
-            actual = Tk_tensor(k, R, coeffs, damp, a_i, a_j)
+            actual = T_recursive(k, R, damp, a_i, a_j)
 
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
-            np.testing.assert_almost_equal(
-                actual, ref.take(sym_indices), decimal=10,
+            if k < 4:
+                actual = T_recursive(k, R, a)
+                np.testing.assert_allclose(
+                    actual, ref.take(sym_indices), atol=1e-10,
+                    err_msg="Damped T tensors do not match. Order = {}".format(k)
+                )
+            actual_autogen = T_damp_thole[k](*R, a)
+            np.testing.assert_allclose(
+                actual_autogen, ref.take(sym_indices), atol=1e-10,
                 err_msg="Damped T tensors do not match. Order = {}".format(k)
             )
 
@@ -98,8 +101,7 @@ class TestMath(unittest.TestCase):
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_allclose(M, M_full.take(sym_indices))
 
-            coeffs = Tk_coefficients(k + ll + 1)
-            res = multipole_derivative(k, ll, Rab, M, coeffs, 0.0, 0.0, 0.0)
+            res = multipole_derivative(k, ll, Rab, M, 0.0, 0.0, 0.0)
             ref_field = polfields.field(Rab, k, M_full, ll)
             np.testing.assert_allclose(ref_field, res, atol=1e-14)
 
@@ -108,7 +110,6 @@ class TestMath(unittest.TestCase):
                 a_i = 4.0
                 a_j = 10.0
                 a = 1/(a_i*a_j)**(1/6)*damp
-                res = multipole_derivative(k, ll, Rab, M, coeffs,
-                                           damp, a_i, a_j)
+                res = multipole_derivative(k, ll, Rab, M, damp, a_i, a_j)
                 ref_field = polfields.thole_exp_field(Rab, k, M_full, ll, a)
                 np.testing.assert_allclose(ref_field, res, atol=1e-14)

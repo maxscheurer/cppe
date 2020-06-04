@@ -4,9 +4,10 @@
 #include "multipole_expansion.hh"
 #include "pe_options.hh"
 
-// TODO: create Field class which others inherit
-
 namespace libcppe {
+
+Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
+                                     Eigen::VectorXd Mkj, double damping_factor = 0.0);
 
 std::vector<Potential> get_polarizable_sites(std::vector<Potential> potentials);
 
