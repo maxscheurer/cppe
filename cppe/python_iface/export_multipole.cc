@@ -20,7 +20,9 @@ void export_multipole(py::module& m) {
   // libcppe::Polarizability
   py::class_<libcppe::Polarizability> polarizability(m, "Polarizability");
   polarizability.def(py::init<>())
-        .def_property_readonly("values", &libcppe::Polarizability::get_values_vec);
+        .def_property_readonly("values", &libcppe::Polarizability::get_values_vec)
+        .def_property_readonly("isotropic_value",
+                               &libcppe::Polarizability::get_isotropic_value);
 
   // libcppe::Potential
   py::class_<libcppe::Potential> pot(m, "Potential", "Potential (Site)");
