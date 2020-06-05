@@ -52,4 +52,6 @@ void export_fields(py::module& m) {
         .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
         .def("compute_apply", &libcppe::BMatrix::compute_apply)
         .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice);
+
+m.def("multipole_derivative", &libcppe::multipole_derivative);
 }

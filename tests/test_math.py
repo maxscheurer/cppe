@@ -58,10 +58,14 @@ class TestMath(unittest.TestCase):
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
             sym_indices = symmetry.get_symm_indices(k)
-            np.testing.assert_allclose(actual, ref.take(sym_indices), atol=1e-10,
-                                       err_msg="T tensors do not match. Order = {}".format(k))
-            np.testing.assert_allclose(actual_autogen, ref.take(sym_indices), atol=1e-10,
-                                       err_msg="T tensors do not match. Order = {}".format(k))
+            np.testing.assert_allclose(
+                actual, ref.take(sym_indices), atol=1e-10,
+                err_msg="T tensors do not match. Order = {}".format(k)
+            )
+            np.testing.assert_allclose(
+                actual_autogen, ref.take(sym_indices), atol=1e-10,
+                err_msg="T tensors do not match. Order = {}".format(k)
+            )
 
     def test_T_tensors_damped(self):
         for k in range(6):
@@ -71,8 +75,6 @@ class TestMath(unittest.TestCase):
             a_j = 10.0
             a = 1/(a_i*a_j)**(1/6)*damp
             ref = tensors.T_damp_thole[k](R, a)
-
-            actual = T_recursive(k, R, damp, a_i, a_j)
 
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
@@ -101,7 +103,7 @@ class TestMath(unittest.TestCase):
             sym_indices = symmetry.get_symm_indices(k)
             np.testing.assert_allclose(M, M_full.take(sym_indices))
 
-            res = multipole_derivative(k, ll, Rab, M, 0.0, 0.0, 0.0)
+            res = multipole_derivative(k, ll, Rab, M, 0.0)
             ref_field = polfields.field(Rab, k, M_full, ll)
             np.testing.assert_allclose(ref_field, res, atol=1e-14)
 
@@ -110,6 +112,6 @@ class TestMath(unittest.TestCase):
                 a_i = 4.0
                 a_j = 10.0
                 a = 1/(a_i*a_j)**(1/6)*damp
-                res = multipole_derivative(k, ll, Rab, M, damp, a_i, a_j)
+                res = multipole_derivative(k, ll, Rab, M, a)
                 ref_field = polfields.thole_exp_field(Rab, k, M_full, ll, a)
                 np.testing.assert_allclose(ref_field, res, atol=1e-14)
