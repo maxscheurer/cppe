@@ -102,3 +102,13 @@ class TestMath(unittest.TestCase):
             res = multipole_derivative(k, ll, Rab, M, coeffs, 0.0, 0.0, 0.0)
             ref_field = polfields.field(Rab, k, M_full, ll)
             np.testing.assert_allclose(ref_field, res, atol=1e-14)
+
+            if k <= 2:
+                damp = 2.0
+                a_i = 4.0
+                a_j = 10.0
+                a = 1/(a_i*a_j)**(1/6)*damp
+                res = multipole_derivative(k, ll, Rab, M, coeffs,
+                                           damp, a_i, a_j)
+                ref_field = polfields.thole_exp_field(Rab, k, M_full, ll, a)
+                np.testing.assert_allclose(ref_field, res, atol=1e-14)
