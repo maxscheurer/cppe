@@ -135,5 +135,5 @@ void export_state(py::module& m) {
         .def("get_polarizable_site_number",
              &libcppe::CppeState::get_polarizable_site_number)
         .def_property_readonly("options", &_options_to_dict);
-    m.attr("valid_option_keys") = py::cast(libcppe::valid_option_keys);
+  m.attr("valid_option_keys") = py::cast(libcppe::valid_option_keys);
 }

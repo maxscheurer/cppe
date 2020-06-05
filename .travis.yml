@@ -22,6 +22,7 @@ jobs:
           - pip install h5py
           - pip install numba
           - pip install scipy
+          - pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
           - mkdir build
           - cd build
           - cmake -DBUILD_SHARED_LIBS=on -DENABLE_PYTHON_INTERFACE=ON -DPYTHON_EXECUTABLE=$PY_EXE ..
@@ -32,4 +33,6 @@ jobs:
           - cd ..
           - pytest
     - name: Setuptools
+      before_script:
+          - pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
       script: python setup.py test
