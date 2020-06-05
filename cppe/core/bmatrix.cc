@@ -30,7 +30,7 @@ Eigen::VectorXd BMatrix::compute_apply_slice(Eigen::VectorXd induced_moments, in
         double v                = m_options.damping_factor_induced /
                    std::pow(alpha_i.get_isotropic_value() * alpha_j.get_isotropic_value(),
                             1.0 / 6.0);
-        T2 = tensors_recursive::T_recursive(2, diff, v);
+        T2 = tensors::T2_damp_thole(diff(0), diff(1), diff(2), v);
       } else {
         T2 = tensors::T2(diff(0), diff(1), diff(2));
       }
@@ -75,7 +75,7 @@ Eigen::VectorXd BMatrix::compute_gauss_seidel_update(
         double v                = m_options.damping_factor_induced /
                    std::pow(alpha_i.get_isotropic_value() * alpha_j.get_isotropic_value(),
                             1.0 / 6.0);
-        T2 = tensors_recursive::T_recursive(2, diff, v);
+        T2 = tensors::T2_damp_thole(diff(0), diff(1), diff(2), v);
       } else {
         T2 = tensors::T2(diff(0), diff(1), diff(2));
       }
@@ -104,7 +104,7 @@ Eigen::MatrixXd BMatrix::direct_inverse() {
         double v                = m_options.damping_factor_induced /
                    std::pow(alpha_i.get_isotropic_value() * alpha_j.get_isotropic_value(),
                             1.0 / 6.0);
-        T2 = tensors_recursive::T_recursive(2, diff, v);
+        T2 = tensors::T2_damp_thole(diff(0), diff(1), diff(2), v);
       } else {
         T2 = tensors::T2(diff(0), diff(1), diff(2));
       }
