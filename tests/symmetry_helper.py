@@ -1,4 +1,5 @@
 import itertools
+import numpy as np
 
 
 def get_symm_indices(k):
@@ -19,3 +20,13 @@ def get_symm_indices(k):
     for tu in combinations:
         sym_indices.append(tuple_products.index(tu))
     return sym_indices
+
+
+def unfold_tensor(tensor, k):
+    out = np.zeros((3,) * k)
+    counter = 0
+    for c in itertools.combinations_with_replacement((0, 1, 2), k):
+        for index in list(set(itertools.permutations(c))):
+            out[index] = tensor[counter]
+        counter += 1
+    return out

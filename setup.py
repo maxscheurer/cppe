@@ -212,12 +212,9 @@ setup(
     install_requires=[
         "pybind11 >= 2.2",
     ],
-    tests_require=["pytest",
-                   "numpy",
-                   "h5py",
-                   "numba",
-                   "scipy",
-                   ],
+    tests_require=[
+        "pytest", "numpy", "h5py", "numba", "scipy",
+    ],
     # extras_require={
     #     "build_docs": ["sphinx>=2", "breathe", "sphinxcontrib-bibtex",
     #                    "sphinx-automodapi"],
