@@ -11,8 +11,8 @@ namespace py = pybind11;
 using namespace libcppe::tensors_recursive;
 using namespace libcppe::tensors;
 
-using Tfun      = std::function<Eigen::VectorXd(double, double, double)>;
-using Tfun_damp = std::function<Eigen::VectorXd(double, double, double, double)>;
+using Tfun      = std::function<Eigen::VectorXd(const Eigen::Vector3d&)>;
+using Tfun_damp = std::function<Eigen::VectorXd(const Eigen::Vector3d&, double)>;
 
 void export_tensors(py::module& m) {
   py::module ten = m.def_submodule("tensors", "Tensor submodule");

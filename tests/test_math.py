@@ -53,7 +53,7 @@ class TestMath(unittest.TestCase):
             ref = tensors.T[k](R)
 
             actual = T_recursive(k, R)
-            actual_autogen = T[k](*R)
+            actual_autogen = T[k](R)
 
             # gets the indices of non-redundant components
             # e.g., takes only xy from (xy, yx) and so on ...
@@ -85,7 +85,7 @@ class TestMath(unittest.TestCase):
                     actual, ref.take(sym_indices), atol=1e-10,
                     err_msg="Damped T tensors do not match. Order = {}".format(k)
                 )
-            actual_autogen = T_damp_thole[k](*R, a)
+            actual_autogen = T_damp_thole[k](R, a)
             np.testing.assert_allclose(
                 actual_autogen, ref.take(sym_indices), atol=1e-10,
                 err_msg="Damped T tensors do not match. Order = {}".format(k)

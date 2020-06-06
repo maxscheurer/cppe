@@ -3,14 +3,16 @@
 #include "tensors_autogen.hh"
 namespace libcppe {
 namespace tensors {
-Eigen::VectorXd T0(double x, double y, double z)
+Eigen::VectorXd T0(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(1);
     result[0] = pow(x*x + y*y + z*z, -0.5); // 
     return result;
 }
-Eigen::VectorXd T1(double x, double y, double z)
+Eigen::VectorXd T1(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(3);
     double x0 = pow(x*x + y*y + z*z, -1.5);
     result[0] = -x*x0; // x
@@ -18,8 +20,9 @@ Eigen::VectorXd T1(double x, double y, double z)
     result[2] = -x0*z; // z
     return result;
 }
-Eigen::VectorXd T2(double x, double y, double z)
+Eigen::VectorXd T2(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(6);
     double x0 = x*x;
     double x1 = y*y;
@@ -37,8 +40,9 @@ Eigen::VectorXd T2(double x, double y, double z)
     result[5] = x4*(x2*x5 - 1.0); // zz
     return result;
 }
-Eigen::VectorXd T3(double x, double y, double z)
+Eigen::VectorXd T3(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(10);
     double x0 = x*x;
     double x1 = y*y;
@@ -67,8 +71,9 @@ Eigen::VectorXd T3(double x, double y, double z)
     result[9] = -x14*(x11 - 3.0); // zzz
     return result;
 }
-Eigen::VectorXd T4(double x, double y, double z)
+Eigen::VectorXd T4(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(15);
     double x0 = x*x;
     double x1 = y*y;
@@ -114,8 +119,9 @@ Eigen::VectorXd T4(double x, double y, double z)
     result[14] = x7*(-x2*x26 + x6*(z*z*z*z) + 3.0); // zzzz
     return result;
 }
-Eigen::VectorXd T5(double x, double y, double z)
+Eigen::VectorXd T5(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(21);
     double x0 = x*x;
     double x1 = y*y;
@@ -183,8 +189,9 @@ Eigen::VectorXd T5(double x, double y, double z)
     result[20] = -x29*(x15*x40 - 70.0*x39 + 15.0); // zzzzz
     return result;
 }
-Eigen::VectorXd T6(double x, double y, double z)
+Eigen::VectorXd T6(const Eigen::Vector3d& rij)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(28);
     double x0 = x*x;
     double x1 = y*y;
@@ -280,16 +287,18 @@ Eigen::VectorXd T6(double x, double y, double z)
     result[27] = x12*(x10*pow(z, 6) + 105.0*x40 - x56*x62 - 5.0); // zzzzzz
     return result;
 }
-Eigen::VectorXd T0_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T0_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(1);
     double x0 = sqrt(x*x + y*y + z*z);
     double x1 = a*x0;
     result[0] = -(0.5*(x1 + 2.0)*exp(-x1) - 1.0)*1.0/x0; // 
     return result;
 }
-Eigen::VectorXd T1_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T1_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(3);
     double x0 = x*x + y*y + z*z;
     double x1 = a*sqrt(x0);
@@ -301,8 +310,9 @@ Eigen::VectorXd T1_damp_thole(double x, double y, double z, double a)
     result[2] = x4*z; // z
     return result;
 }
-Eigen::VectorXd T2_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T2_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(6);
     double x0 = x*x;
     double x1 = y*y;
@@ -337,8 +347,9 @@ Eigen::VectorXd T2_damp_thole(double x, double y, double z, double a)
     result[5] = -x14*(x10*x2 - 1.0) - x2*x8 - x21*(-x11*x2 - x17*x2 + x18*x2 + x2*x22 + x20); // zz
     return result;
 }
-Eigen::VectorXd T3_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T3_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(10);
     double x0 = x*x;
     double x1 = y*y;
@@ -432,8 +443,9 @@ Eigen::VectorXd T3_damp_thole(double x, double y, double z, double a)
     result[9] = 0.5*z*(x13*(3.0*x79 - 1.0) + x18*(5.0*x79 - 3.0) + x39*(x38 + x74) + x73*x78); // zzz
     return result;
 }
-Eigen::VectorXd T4_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T4_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(15);
     double x0 = x*x;
     double x1 = y*y;
@@ -682,8 +694,9 @@ Eigen::VectorXd T4_damp_thole(double x, double y, double z, double a)
     result[14] = -6.0*x2*x82*(5.0*x164 - 3.0) - x203*x25*(3.0*x164 - 1.0) - 2.0*x206*x224 - x22*(-30.0*x164 + x17*x226 + 3.0) - x74*(18.0*x163*x38 - 6.0*x165 - x18*x199 + x18*x227 + x18*x228 + x199 + 36.0*x2*x36 - x2*x67 - x226*x59 - x226*x60 - x227 - 4.0*x228 + x229*x70 + x229*x71 + x72); // zzzz
     return result;
 }
-Eigen::VectorXd T5_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T5_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(21);
     double x0 = x*x;
     double x1 = y*y;
@@ -1228,8 +1241,9 @@ Eigen::VectorXd T5_damp_thole(double x, double y, double z, double a)
     result[20] = z*(x112*(x109 - 150.0*x2*x75 - x20*x519 + 300.0*x357 + 40.0*x368 - 10.0*x370 - x371*x99 + 180.0*x371 + x481 + x519) + x18*(-30.0*x273 + 35.0*x518 + 3.0) + x23*(-70.0*x273 + 63.0*x518 + 15.0) + x274*x486*(5.0*x273 - 3.0) + x389*x58*(3.0*x273 - 1.0) + x477*x488); // zzzzz
     return result;
 }
-Eigen::VectorXd T6_damp_thole(double x, double y, double z, double a)
+Eigen::VectorXd T6_damp_thole(const Eigen::Vector3d& rij, double a)
 {
+    double x = rij(0); double y = rij(1); double z = rij(2);
     Eigen::VectorXd result(28);
     double x0 = x*x;
     double x1 = y*y;

@@ -23,7 +23,7 @@ double MultipoleExpansion::calculate_interaction_energy() {
       for (auto& atom : m_mol) {
         Eigen::Vector3d core_position = atom.get_pos();
         Eigen::Vector3d diff          = core_position - site_position;
-        Eigen::VectorXd Tsm           = tensors::T[multipole.m_k](diff(0), diff(1), diff(2));
+        Eigen::VectorXd Tsm           = tensors::T[multipole.m_k](diff);
         total_energy += pref_v.dot(mul_v.cwiseProduct(Tsm)) * atom.charge;
       }
     }

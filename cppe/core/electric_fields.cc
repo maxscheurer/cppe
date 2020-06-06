@@ -28,9 +28,9 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
 
   Eigen::VectorXd Tk;
   if (damping_factor > 0.0) {
-    Tk = tensors::T_damp_thole[k + l](Rji(0), Rji(1), Rji(2), damping_factor);
+    Tk = tensors::T_damp_thole[k + l](Rji, damping_factor);
   } else {
-    Tk = tensors::T[k + l](Rji(0), Rji(1), Rji(2));
+    Tk = tensors::T[k + l](Rji);
   }
   for (x = k + l; x > -1; x--) {
     for (y = k + l; y > -1; y--) {
@@ -64,7 +64,7 @@ Eigen::VectorXd NuclearFields::compute() {
     for (auto& atom : m_mol) {
       Eigen::Vector3d core_position = atom.get_pos();
       Eigen::Vector3d diff          = site_position - core_position;
-      Eigen::VectorXd Tms           = tensors::T1(diff(0), diff(1), diff(2));
+      Eigen::VectorXd Tms           = tensors::T1(diff);
       nuc_fields(site_counter) -= atom.charge * Tms(0);
       nuc_fields(site_counter + 1) -= atom.charge * Tms(1);
       nuc_fields(site_counter + 2) -= atom.charge * Tms(2);
