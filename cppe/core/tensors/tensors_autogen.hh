@@ -31,8 +31,9 @@ static const std::vector<Tfun> T = {
 };
 
 static const std::vector<Tfun_damp> T_damp_thole = {
-      Tfun_damp{T0_damp_thole}, Tfun_damp{T1_damp_thole}, Tfun_damp{T2_damp_thole}, Tfun_damp{T3_damp_thole},
-      Tfun_damp{T4_damp_thole}, Tfun_damp{T5_damp_thole}, Tfun_damp{T6_damp_thole},
+      Tfun_damp{T0_damp_thole}, Tfun_damp{T1_damp_thole}, Tfun_damp{T2_damp_thole},
+      Tfun_damp{T3_damp_thole}, Tfun_damp{T4_damp_thole}, Tfun_damp{T5_damp_thole},
+      Tfun_damp{T6_damp_thole},
 };
 
 }  // namespace tensors

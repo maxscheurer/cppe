@@ -100,8 +100,6 @@ Eigen::VectorXd MultipoleFields::compute() {
         alpha_j_isotropic =
               potential2.get_polarizability().get_isotropic_value();  // for damping
       }
-
-      // std::cout << "-- created by site " << potential2.index << std::endl;
       for (auto& mul : potential2.get_multipoles()) {
         // if (std::all_of(mul.get_values().begin(), mul.get_values().end(),
         //                 [](double v) { return std::abs(v) == 0.0; })) {
@@ -109,8 +107,8 @@ Eigen::VectorXd MultipoleFields::compute() {
         // }
         Eigen::VectorXd Fi;
         // Molecular Simulation, 32:6, 471-484, DOI: 10.1080/08927020600631270
-        // v = factor * u, with u = R / (alpha_i * alpha_j)**(1/6)
-        double v = m_options.damping_factor_multipole / std::pow(alpha_i_isotropic * alpha_j_isotropic, 1.0 / 6.0);
+        double v = m_options.damping_factor_multipole /
+                   std::pow(alpha_i_isotropic * alpha_j_isotropic, 1.0 / 6.0);
         if (damp_enabled) {
           Fi = multipole_derivative(mul.m_k, 1, diff, mul.get_values_vec(), v);
         } else {
