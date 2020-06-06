@@ -210,7 +210,7 @@ setup(
     #
     platforms=["Linux", "Mac OS-X"],
     python_requires=">=3.6",
-    build_requires=[
+    install_requires=[
         "pybind11 >= 2.2",
     ],
     tests_require=[
