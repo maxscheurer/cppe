@@ -23,6 +23,9 @@ list(APPEND CPPE_SOURCES
   core/electric_fields.cc
   core/math.cc
   core/bmatrix.cc
+  # tensors
+  core/tensors/tensors_autogen.cc
+  core/tensors/tensors_recursive.cc
 )
 
 add_library(cppe
@@ -47,11 +50,12 @@ if(${ENABLE_PYTHON_INTERFACE})
     pybind11_add_module(pycppe SHARED NO_EXTRAS
         ${CPPE_SOURCES}
         python_iface/export_molecule.cc
-        python_iface/export_multipole.cc
+        python_iface/export_potential.cc
         python_iface/export_fields.cc
         python_iface/export_utils.cc
         python_iface/export_state.cc
         python_iface/export_math.cc
+        python_iface/export_tensors.cc
         python_iface/export_cppe.cc
     )
     target_include_directories(pycppe PUBLIC ${EIGEN3_INCLUDE_DIRS})

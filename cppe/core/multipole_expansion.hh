@@ -1,6 +1,5 @@
 #pragma once
 
-#include "math.hh"
 #include "molecule.hh"
 #include "potential.hh"
 
