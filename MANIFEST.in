@@ -1,0 +1,13 @@
+# Exclude test stuff
+global-exclude test_*.py
+exclude tests
+exclude scripts
+
+include README.md
+include LICENSE*
+
+recursive-include cppe *.hh
+recursive-include cppe *.cc
+
+include external/eigen3/Eigen/*
+recursive-include external/eigen3/Eigen/src *.h
