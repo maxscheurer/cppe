@@ -16,6 +16,7 @@ env:
 jobs:
     include:
     - name: CMake
+      install: skip
       before_script:
           - python -V
           - pip install pytest numpy

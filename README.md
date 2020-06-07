@@ -19,13 +19,15 @@ CPPE enables PE calculations in the following programs:
 
 __Examples__ for the open-source Python-driven programs can be found [here](https://github.com/maxscheurer/cppe_examples).
 
-<!-- CPPE is currently implemented in the Q-Chem program package for PE-SCF
-and PE-ADC calculations <sup>3</sup>, and the open-source
-packages [Psi4](http://psicode.org) and [pyscf](https://github.com/pyscf/pyscf).
-The latter implementation makes use of the Python interface. -->
-
 ## Installation
-CPPE needs to be built from sources, e.g., using CMake by running
+The easiest way to install CPPE is via `pip`:
+```
+pip install cppe
+```
+Note that CPPE will be built from source and a C++14 compatible compiler is required (see below).
+If the compiler supports OpenMP, it will also be enabled for the CPPE build.
+
+Manual builds can be done using CMake by running
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe; mkdir build; cd build
