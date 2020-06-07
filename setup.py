@@ -180,7 +180,9 @@ setup(
         "electronic", "structure", "computational", "chemistry", "quantum",
         "spectroscopy",
     ],
-    author="Maximilian Scheurer",
+    author="Maximilian Scheurer, Peter Reinholdt,"
+           " Michael F. Herbst, Lori A. Burns",
+    autor_email="maximilian.scheurer@iwr.uni-heidelberg.de",
     license="LGPL v3",
     url="https://github.com/maxscheurer/cppe",
     project_urls={
@@ -192,7 +194,7 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU Lesser "
-        "General Public License v3 (LGPLv3)",
+        "Lesser General Public License v3 (LGPLv3)",
         "License :: Free For Educational Use",
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering :: Chemistry",
@@ -203,16 +205,13 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX :: Linux",
     ],
-    # packages=find_packages(exclude=["*.test*", "test"]),
     package_data={"": ["LICENSE*"]},
     ext_modules=ext_modules,
     zip_safe=False,
-    #
     platforms=["Linux", "Mac OS-X"],
     python_requires=">=3.6",
-    install_requires=[
-        "pybind11 >= 2.2",
-    ],
+    setup_requires=["pybind11 >= 2.2"],
+    install_requires=["pybind11 >= 2.2"],
     tests_require=[
         "pytest", "numpy", "h5py", "numba", "scipy",
     ],
@@ -220,7 +219,6 @@ setup(
     #     "build_docs": ["sphinx>=2", "breathe", "sphinxcontrib-bibtex",
     #                    "sphinx-automodapi"],
     # },
-    #
     cmdclass={"build_ext": BuildExt,
               "test": PyTest,
               # "build_docs": BuildDocs,

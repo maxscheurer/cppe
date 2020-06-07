@@ -40,3 +40,5 @@ dist
 .DS_Store
 __pycache__
 *.egg-info
+*.eggs
+.ipynb_checkpoints/
