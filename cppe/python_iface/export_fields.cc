@@ -50,6 +50,7 @@ void export_fields(py::module& m) {
   py::class_<libcppe::BMatrix, std::shared_ptr<libcppe::BMatrix>> bmatrix(m, "BMatrix");
   bmatrix.def(py::init(&_init_bmatrix))
         .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
+        .def("to_dense_matrix", &libcppe::BMatrix::to_dense_matrix)
         .def("compute_apply", &libcppe::BMatrix::compute_apply)
         .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice);
 
