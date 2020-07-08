@@ -24,15 +24,21 @@ static std::shared_ptr<libcppe::InducedMoments> _init_indmom(
   return std::make_shared<libcppe::InducedMoments>(potentials, options);
 }
 
+static std::shared_ptr<libcppe::MultipoleFields> _init_multipole_fields(
+      std::vector<libcppe::Potential> potentials, py::dict py_options) {
+  libcppe::PeOptions options = _dict_to_options(py_options);
+  return std::make_shared<libcppe::MultipoleFields>(potentials, options);
+}
+
 void export_fields(py::module& m) {
   py::class_<libcppe::NuclearFields> nuc_fields(m, "NuclearFields",
                                                 "Electric fields created by nuclei");
   nuc_fields.def(py::init<libcppe::Molecule, std::vector<libcppe::Potential>>())
         .def("compute", &libcppe::NuclearFields::compute);
 
-  py::class_<libcppe::MultipoleFields> mul_fields(
+  py::class_<libcppe::MultipoleFields, std::shared_ptr<libcppe::MultipoleFields>> mul_fields(
         m, "MultipoleFields", "Electric fields created by multipoles");
-  mul_fields.def(py::init<std::vector<libcppe::Potential>, libcppe::PeOptions>())
+  mul_fields.def(py::init(&_init_multipole_fields))
         .def("compute", &libcppe::MultipoleFields::compute);
 
   py::class_<libcppe::InducedMoments, std::shared_ptr<libcppe::InducedMoments>>
@@ -50,8 +56,12 @@ void export_fields(py::module& m) {
   py::class_<libcppe::BMatrix, std::shared_ptr<libcppe::BMatrix>> bmatrix(m, "BMatrix");
   bmatrix.def(py::init(&_init_bmatrix))
         .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
-        .def("compute_apply", &libcppe::BMatrix::compute_apply)
-        .def("compute_apply_slice", &libcppe::BMatrix::compute_apply_slice);
+        .def("to_dense_matrix", &libcppe::BMatrix::to_dense_matrix)
+        .def("apply", &libcppe::BMatrix::apply)
+        .def("apply_direct", &libcppe::BMatrix::apply_direct)
+        .def("apply_fast_summation", &libcppe::BMatrix::apply_fast_summation)
+        .def("apply_diagonal", &libcppe::BMatrix::apply_diagonal)
+        .def("apply_diagonal_inverse", &libcppe::BMatrix::apply_diagonal_inverse);
 
   m.def("multipole_derivative", &libcppe::multipole_derivative);
 }

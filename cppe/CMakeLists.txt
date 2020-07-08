@@ -26,6 +26,11 @@ list(APPEND CPPE_SOURCES
   # tensors
   core/tensors/tensors_autogen.cc
   core/tensors/tensors_recursive.cc
+  # fmm
+  core/fmm/calculate.cc
+  core/fmm/tree.cc
+  core/fmm/utils.cc
+  core/fmm/operators.cpp
 )
 
 add_library(cppe
@@ -56,6 +61,7 @@ if(${ENABLE_PYTHON_INTERFACE})
         python_iface/export_state.cc
         python_iface/export_math.cc
         python_iface/export_tensors.cc
+        python_iface/export_fmm.cc
         python_iface/export_cppe.cc
     )
     target_include_directories(pycppe PUBLIC ${EIGEN3_INCLUDE_DIRS})

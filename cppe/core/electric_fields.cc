@@ -129,9 +129,9 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
   BMatrix bmat(m_polsites, m_options);
   bool converged = false;
 
-  Eigen::VectorXd x0 = bmat.compute_apply_diagonal(rhs);
-  Eigen::VectorXd r0 = rhs - bmat.compute_apply(x0);
-  Eigen::VectorXd z0 = bmat.compute_apply_diagonal(r0);
+  Eigen::VectorXd x0 = bmat.apply_diagonal_inverse(rhs);
+  Eigen::VectorXd r0 = rhs - bmat.apply(x0);
+  Eigen::VectorXd z0 = bmat.apply_diagonal_inverse(r0);
   Eigen::VectorXd p  = z0;
 
   Eigen::VectorXd x_k1, r_k1, z_k1;
@@ -141,7 +141,7 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
   std::vector<Eigen::VectorXd> r{r0};
   std::vector<Eigen::VectorXd> z{z0};
   for (int k = 0; k < m_options.maxiter; ++k) {
-    Eigen::VectorXd Ap = bmat.compute_apply(p);
+    Eigen::VectorXd Ap = bmat.apply(p);
     alpha_k            = r[k].dot(z[k]) / p.dot(Ap);
     x_k1               = x[k] + alpha_k * p;
     x.push_back(x_k1);
@@ -158,7 +158,7 @@ Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
       break;
     }
 
-    z_k1 = bmat.compute_apply_diagonal(r_k1);
+    z_k1 = bmat.apply_diagonal_inverse(r_k1);
     z.push_back(z_k1);
     beta_k = z_k1.dot(r_k1) / z[k].dot(r[k]);
     p      = z_k1 + beta_k * p;
@@ -175,7 +175,7 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
   BMatrix bmat{m_polsites, m_options};
   // guess
   if (make_guess) {
-    induced_moments = bmat.compute_apply_diagonal(total_fields);
+    induced_moments = bmat.apply_diagonal_inverse(total_fields);
   }
   int max_iter           = m_options.maxiter;
   bool do_diis           = m_options.do_diis;
@@ -199,7 +199,7 @@ void InducedMoments::compute(const Eigen::VectorXd& total_fields,
       diis = true;
     }
 
-    induced_moments = bmat.compute_gauss_seidel_update(induced_moments, total_fields);
+    induced_moments = bmat.gauss_seidel_update(induced_moments, total_fields);
     norm            = (diis_old_moments - induced_moments).norm();
 
     diis_prev_moments.push_back(induced_moments);

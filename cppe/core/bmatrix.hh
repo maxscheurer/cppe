@@ -16,6 +16,8 @@ class BMatrix {
         m_alpha_inverse;  //!< List with inverse polarizability tensors
   std::vector<std::vector<int>>
         m_polmask;  //!< List for each polarizable sites with sites that are not excluded
+  std::vector<std::vector<int>>
+        m_exclusions;  //!< List for each polarizable sites with sites that are excluded
  public:
   BMatrix(std::vector<Potential> polsites, PeOptions options)
         : m_polsites(polsites), m_options(options) {
@@ -31,24 +33,28 @@ class BMatrix {
     for (int i = 0; i < m_n_polsites; ++i) {
       Potential& pot1 = m_polsites[i];
       std::vector<int> pot_pols;
+      std::vector<int> pot_excludes;
       for (int j = 0; j < m_n_polsites; ++j) {
         Potential& pot2 = m_polsites[j];
-        if (pot1.excludes_site(pot2.index) || i == j) {
-          continue;
-        } else {
+        if (pot1.excludes_site(pot2.index)) {
+            pot_excludes.push_back(j);
+        } else if (i != j) {
           pot_pols.push_back(j);
         }
       }
+      m_exclusions.push_back(pot_excludes);
       m_polmask.push_back(pot_pols);
     }
   }
 
-  Eigen::VectorXd compute_apply(Eigen::VectorXd induced_moments);
-  Eigen::VectorXd compute_apply_slice(Eigen::VectorXd induced_moments, int start,
-                                      int stop);
-  Eigen::VectorXd compute_apply_diagonal(Eigen::VectorXd in);
-  Eigen::VectorXd compute_gauss_seidel_update(Eigen::VectorXd induced_moments,
-                                              const Eigen::VectorXd& total_fields);
+  Eigen::VectorXd apply(const Eigen::VectorXd& induced_moments);
+  Eigen::VectorXd apply_direct(const Eigen::VectorXd& induced_moments);
+  Eigen::VectorXd apply_fast_summation(const Eigen::VectorXd& induced_moments, std::string scheme);
+  Eigen::VectorXd apply_diagonal_inverse(const Eigen::VectorXd& in);
+  Eigen::VectorXd apply_diagonal(const Eigen::VectorXd& in);
+  Eigen::VectorXd gauss_seidel_update(Eigen::VectorXd induced_moments,
+                                      const Eigen::VectorXd& total_fields);
+  Eigen::MatrixXd to_dense_matrix();
   Eigen::MatrixXd direct_inverse();
 };
 

@@ -24,6 +24,13 @@ struct PeOptions {
   double damping_factor_multipole = 2.1304;  ///< damping factor for electric
                                              ///< fields created by multipole moments
 
+  // Tree-Based Summation Schemes
+  std::string summation_induced_fields{
+        "direct"};  ///< Scheme to compute induced fields, "direct", "bh", "fmm"
+  int tree_ncrit           = 64;   ///< Maximum number of particles per tree node
+  int tree_expansion_order = 7;    ///< Expansion order for tree-based summation schemes
+  double theta             = 0.3;  ///< opening angle for tree-based summation schemes
+
   bool pe_border = false;             ///< Activate border options for sites in proximity
                                       ///< to the QM/MM border
   std::string border_type{"remove"};  ///< border type, either "remove" or "redist"
@@ -55,6 +62,10 @@ static const std::vector<std::string> valid_option_keys{"potfile",
                                                         "damping_factor_induced",
                                                         "damp_multipole",
                                                         "damping_factor_multipole",
+                                                        "summation_induced_fields",
+                                                        "tree_expansion_order",
+                                                        "tree_ncrit",
+                                                        "theta",
                                                         "pe_border",
                                                         "border_type",
                                                         "border_rmin",
