@@ -14,7 +14,7 @@ from timings import Timer
 
 # fl = "../mpi_cppe/nilered_in_blg_1000WAT.pot"
 # fl = "../mpi_cppe/GFP_cutoff_5.pot"
-fl = "../mpi_cppe/pft.pot"
+fl = "../fmm_benchmarks/other_pots/pft.pot"
 potentials = PotfileReader(fl).read()
 polsites = get_polarizable_sites(potentials)
 n_polsites = len(polsites)
@@ -35,15 +35,6 @@ positions = np.array([
     p.position for p in polsites
 ], order="C")
 
-# TODO: move to C++
-exclusion_lists = []
-for i, p1 in enumerate(polsites):
-    lst = []
-    for j, p2 in enumerate(polsites):
-        if p1.excludes_site(p2.index):
-            lst.append(j)
-    exclusion_lists.append(lst)
-
 ncrit = 64
 order = 7
 theta = 0.3
@@ -56,7 +47,7 @@ def field_fmm(indmom):
     sources = indmom.flatten(order="C")
     tree = fmm.build_tree(positions, sources,
                           n_polsites, ncrit, order, theta,
-                          exclusion_lists)
+                          bmatrix_cpp.exclusions)
     # tree.set_sources(sources)
     field = np.zeros_like(sources)
     tree.compute_field_fmm(field)
@@ -95,8 +86,6 @@ bmat_operator = LinearOperator(2 * (tot_field.size,),
 with timer.record("direct"):
     solution, status = linalg.cg(bmat_operator, rhs, x0, tol=1e-8,
                                  M=linear_Pinv, callback=callback)
-    # indmom = InducedMoments(potentials, {})
-    # solution = indmom.compute(rhs, True)
 print(n_polsites, n_iter)
 n_iter = 0
 

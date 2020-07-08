@@ -36,8 +36,8 @@ void export_fields(py::module& m) {
   nuc_fields.def(py::init<libcppe::Molecule, std::vector<libcppe::Potential>>())
         .def("compute", &libcppe::NuclearFields::compute);
 
-  py::class_<libcppe::MultipoleFields, std::shared_ptr<libcppe::MultipoleFields>> mul_fields(
-        m, "MultipoleFields", "Electric fields created by multipoles");
+  py::class_<libcppe::MultipoleFields, std::shared_ptr<libcppe::MultipoleFields>>
+        mul_fields(m, "MultipoleFields", "Electric fields created by multipoles");
   mul_fields.def(py::init(&_init_multipole_fields))
         .def("compute", &libcppe::MultipoleFields::compute);
 
@@ -62,6 +62,7 @@ void export_fields(py::module& m) {
         .def("apply_fast_summation", &libcppe::BMatrix::apply_fast_summation)
         .def("apply_diagonal", &libcppe::BMatrix::apply_diagonal)
         .def("apply_diagonal_inverse", &libcppe::BMatrix::apply_diagonal_inverse);
+  bmatrix.def_property_readonly("exclusions", &libcppe::BMatrix::get_exclusions);
 
   m.def("multipole_derivative", &libcppe::multipole_derivative);
 }

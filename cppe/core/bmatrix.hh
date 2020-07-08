@@ -37,7 +37,7 @@ class BMatrix {
       for (int j = 0; j < m_n_polsites; ++j) {
         Potential& pot2 = m_polsites[j];
         if (pot1.excludes_site(pot2.index)) {
-            pot_excludes.push_back(j);
+          pot_excludes.push_back(j);
         } else if (i != j) {
           pot_pols.push_back(j);
         }
@@ -49,13 +49,15 @@ class BMatrix {
 
   Eigen::VectorXd apply(const Eigen::VectorXd& induced_moments);
   Eigen::VectorXd apply_direct(const Eigen::VectorXd& induced_moments);
-  Eigen::VectorXd apply_fast_summation(const Eigen::VectorXd& induced_moments, std::string scheme);
+  Eigen::VectorXd apply_fast_summation(const Eigen::VectorXd& induced_moments,
+                                       std::string scheme);
   Eigen::VectorXd apply_diagonal_inverse(const Eigen::VectorXd& in);
   Eigen::VectorXd apply_diagonal(const Eigen::VectorXd& in);
   Eigen::VectorXd gauss_seidel_update(Eigen::VectorXd induced_moments,
                                       const Eigen::VectorXd& total_fields);
   Eigen::MatrixXd to_dense_matrix();
   Eigen::MatrixXd direct_inverse();
+  std::vector<std::vector<int>> get_exclusions() { return m_exclusions; }
 };
 
 }  // namespace libcppe
