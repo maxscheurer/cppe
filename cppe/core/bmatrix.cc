@@ -50,21 +50,16 @@ Eigen::VectorXd BMatrix::apply_fast_summation(const Eigen::VectorXd& induced_mom
   int n_crit   = m_options.tree_ncrit;
   int order    = m_options.tree_expansion_order;
   double theta = m_options.theta;
-  std::vector<double> r(3 * m_n_polsites);
   std::vector<double> S(3 * m_n_polsites);
   for (int i = 0; i < m_n_polsites; ++i) {
-    Potential& pot1   = m_polsites[i];
     int l             = i * 3;
     Eigen::Vector3d s = induced_moments.segment<3>(l);
-    r[i * 3 + 0]      = pot1.m_x;
-    r[i * 3 + 1]      = pot1.m_y;
-    r[i * 3 + 2]      = pot1.m_z;
     S[i * 3 + 0]      = s(0);
     S[i * 3 + 1]      = s(1);
     S[i * 3 + 2]      = s(2);
   }
-  std::shared_ptr<Tree> tree = build_shared_tree(r.data(), S.data(), m_n_polsites, n_crit,
-                                                 order, theta, m_exclusions);
+  std::shared_ptr<Tree> tree = build_shared_tree(
+        m_positions.data(), S.data(), m_n_polsites, n_crit, order, theta, m_exclusions);
   std::vector<double> induced_fields_v(3 * m_n_polsites);
   if (scheme == "bh") {
     tree->compute_field_bh(induced_fields_v.data());

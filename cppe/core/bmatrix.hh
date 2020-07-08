@@ -18,12 +18,15 @@ class BMatrix {
         m_polmask;  //!< List for each polarizable sites with sites that are not excluded
   std::vector<std::vector<int>>
         m_exclusions;  //!< List for each polarizable sites with sites that are excluded
+  std::vector<double> m_positions;  //! list of all polarizabile site positions
  public:
   BMatrix(std::vector<Potential> polsites, PeOptions options)
         : m_polsites(polsites), m_options(options) {
     m_n_polsites = polsites.size();
     m_alpha_inverse.clear();
     m_polmask.clear();
+    m_exclusions.clear();
+    m_positions = std::vector<double>(3 * m_n_polsites);
     std::transform(m_polsites.begin(), m_polsites.end(),
                    std::back_inserter(m_alpha_inverse),
                    [](Potential& p) -> Eigen::Matrix3d {
@@ -31,7 +34,10 @@ class BMatrix {
                    });
 
     for (int i = 0; i < m_n_polsites; ++i) {
-      Potential& pot1 = m_polsites[i];
+      Potential& pot1        = m_polsites[i];
+      m_positions[i * 3 + 0] = pot1.m_x;
+      m_positions[i * 3 + 1] = pot1.m_y;
+      m_positions[i * 3 + 2] = pot1.m_z;
       std::vector<int> pot_pols;
       std::vector<int> pot_excludes;
       for (int j = 0; j < m_n_polsites; ++j) {

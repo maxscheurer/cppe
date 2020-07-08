@@ -279,6 +279,7 @@ void Tree::compute_field_fmm(double *F) {
 }
 
 void Tree::compute_field_bh(double *F) {
+    std::cout << "Computing BH fields." << std::endl;
   for(size_t i = 0; i < FMMGEN_OUTPUTSIZE*particles.size(); i++) {
     F[i] = 0.0;
   }
