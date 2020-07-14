@@ -30,7 +30,7 @@ list(APPEND CPPE_SOURCES
   core/fmm/calculate.cc
   core/fmm/tree.cc
   core/fmm/utils.cc
-  core/fmm/operators.cpp
+  core/fmm/operators.cc
 )
 
 add_library(cppe

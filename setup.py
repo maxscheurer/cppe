@@ -151,6 +151,7 @@ else:
 sources = glob.glob("cppe/*.cc")
 sources += glob.glob("cppe/core/*.cc")
 sources += glob.glob("cppe/core/tensors/*.cc")
+sources += glob.glob("cppe/core/fmm/*.cc")
 sources += glob.glob("cppe/utils/*.cc")
 sources += glob.glob("cppe/python_iface/*.cc")
 
