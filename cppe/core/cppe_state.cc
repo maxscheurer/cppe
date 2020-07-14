@@ -36,6 +36,22 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
   m_polarizable_sites = std::count_if(m_potentials.begin(), m_potentials.end(),
                                       [](Potential p) { return p.is_polarizable(); });
   m_induced_moments   = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+
+  m_positions             = Eigen::MatrixXd::Zero(m_potentials.size(), 3);
+  m_positions_polarizable = Eigen::MatrixXd::Zero(m_polarizable_sites, 3);
+
+  for (int i = 0; i < m_potentials.size(); ++i) {
+    m_positions(i, 0) = m_potentials[i].m_x;
+    m_positions(i, 1) = m_potentials[i].m_y;
+    m_positions(i, 2) = m_potentials[i].m_z;
+  }
+
+  auto m_potentials_polarizable = get_polarizable_sites(m_potentials);
+  for (int i = 0; i < m_polarizable_sites; ++i) {
+    m_positions_polarizable(i, 0) = m_potentials_polarizable[i].m_x;
+    m_positions_polarizable(i, 1) = m_potentials_polarizable[i].m_y;
+    m_positions_polarizable(i, 2) = m_potentials_polarizable[i].m_z;
+  }
 }
 
 void CppeState::calculate_static_energies_and_fields() {
@@ -63,7 +79,11 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
   }
   InducedMoments ind(m_potentials, m_options);
   ind.set_print_callback(m_printer);
-  ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
+  if (m_options.summation_induced_fields == "direct") {
+    ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
+  } else {
+    m_induced_moments = ind.compute_cg(tmp_total_fields);
+  }
   if (m_make_guess) {
     m_make_guess = false;
   }

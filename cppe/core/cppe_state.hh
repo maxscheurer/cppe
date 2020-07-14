@@ -33,6 +33,9 @@ class CppeState {
   Eigen::VectorXd m_multipole_fields;  //!< electric fields from multipole moments
 
   Eigen::VectorXd m_induced_moments;  //!< Vector with induced moments
+  
+  Eigen::MatrixXd m_positions;  //!< Vector with positions of all sites
+  Eigen::MatrixXd m_positions_polarizable;  //!< Vector with positions of all polarizable sites
 
   PeOptions m_options;
 
@@ -51,6 +54,9 @@ class CppeState {
 
   void set_potentials(std::vector<Potential> potentials);
   std::vector<Potential> get_potentials() { return m_potentials; }
+  
+  Eigen::MatrixXd get_positions() { return m_positions; }
+  Eigen::MatrixXd get_positions_polarizable() { return m_positions_polarizable; }
 
   void calculate_static_energies_and_fields();
 
