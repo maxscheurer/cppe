@@ -22,8 +22,6 @@ class ElectricFields {
     m_polsites   = get_polarizable_sites(m_potentials);
     m_n_polsites = m_polsites.size();
   };
-  ~ElectricFields(){};
-  virtual Eigen::VectorXd compute() = 0;
 };
 
 class NuclearFields : public ElectricFields {
@@ -38,7 +36,7 @@ class NuclearFields : public ElectricFields {
 
 class MultipoleFields : public ElectricFields {
  public:
-  MultipoleFields(std::vector<Potential> potentials, PeOptions options)
+  MultipoleFields(std::vector<Potential> potentials, const PeOptions& options)
         : ElectricFields(potentials), m_options(options){};
   Eigen::VectorXd compute();
 
@@ -57,12 +55,11 @@ class InducedMoments {
   };
 
  public:
-  InducedMoments(std::vector<Potential> potentials, PeOptions options)
+  InducedMoments(std::vector<Potential> potentials, const PeOptions& options)
         : m_potentials(potentials), m_options(options) {
     m_polsites   = get_polarizable_sites(m_potentials);
     m_n_polsites = m_polsites.size();
   };
-  ~InducedMoments(){};
   void set_print_callback(std::function<void(std::string)> printer) {
     m_printer = printer;
   }

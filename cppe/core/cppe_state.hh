@@ -44,11 +44,11 @@ class CppeState {
 
  public:
   CppeState(){};
-  explicit CppeState(PeOptions options, Molecule mol,
+  explicit CppeState(const PeOptions& options, Molecule mol,
                      PrintCallback printer = default_printer);
   ~CppeState(){};
 
-  void set_options(PeOptions options) { m_options = options; }
+  void set_options(const PeOptions& options) { m_options = options; }
   PeOptions get_options() { return m_options; }
   void set_molecule(Molecule mol) { m_mol = mol; }
 

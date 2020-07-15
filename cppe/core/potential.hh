@@ -100,7 +100,7 @@ class Potential {
 
   std::vector<Multipole>& get_multipoles() { return m_multipoles; }
 
-  void set_polarizability(Polarizability pol) {
+  void set_polarizability(const Polarizability& pol) {
     m_polarizability = pol;
     m_is_polarizable = true;
   }

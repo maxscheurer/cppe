@@ -62,7 +62,7 @@ Eigen::VectorXd NuclearFields::compute() {
     Potential& potential          = m_polsites[i];
     Eigen::Vector3d site_position = potential.get_site_position();
     for (auto& atom : m_mol) {
-      Eigen::Vector3d core_position = atom.get_pos();
+      Eigen::Vector3d core_position = atom.get_position();
       Eigen::Vector3d diff          = site_position - core_position;
       Eigen::VectorXd Tms           = tensors::T1(diff);
       nuc_fields(site_counter) -= atom.charge * Tms(0);

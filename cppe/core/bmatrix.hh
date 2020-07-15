@@ -20,7 +20,7 @@ class BMatrix {
         m_exclusions;  //!< List for each polarizable sites with sites that are excluded
   std::vector<double> m_positions;  //! list of all polarizabile site positions
  public:
-  BMatrix(std::vector<Potential> polsites, PeOptions options)
+  BMatrix(std::vector<Potential> polsites, const PeOptions& options)
         : m_polsites(polsites), m_options(options) {
     m_n_polsites = polsites.size();
     m_alpha_inverse.clear();

@@ -27,7 +27,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
   if (!pe_options.pe_border) return m_potentials;  // do nothing
 
   for (Atom a : m_mol) {
-    Eigen::Vector3d a_pos = a.get_pos();
+    Eigen::Vector3d a_pos = a.get_position();
     for (Potential pot : m_potentials) {
       if ((a_pos - pot.get_site_position()).norm() <= pe_options.border_rmin) {
         if (changed_sites.find(pot.index) == changed_sites.end()) {

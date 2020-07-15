@@ -15,20 +15,9 @@ struct Atom {
     charge = an;
   }
 
-  Eigen::Vector3d get_pos() { return Eigen::Vector3d(m_x, m_y, m_z); }
+  Eigen::Vector3d get_position() { return Eigen::Vector3d(m_x, m_y, m_z); }
 };
 
-// Molecule is a slightly decorated std::vector
-struct Molecule : std::vector<Atom> {
-  Eigen::Vector3d get_atom_position(int atom) {
-    if (this->size() <= atom) {
-      throw std::out_of_range("Not enough atoms in Molecule.");
-    }
-    return (*this)[atom].get_pos();
-  }
-
-  ~Molecule()       = default;
-  Molecule& operator=(const Molecule&) = default;
-};
+using Molecule = std::vector<Atom>;
 
 }  // namespace libcppe
