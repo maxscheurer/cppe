@@ -15,16 +15,14 @@ class BMatrix {
   std::vector<Eigen::Matrix3d>
         m_alpha_inverse;  //!< List with inverse polarizability tensors
   std::vector<std::vector<int>>
-        m_polmask;  //!< List for each polarizable sites with sites that are not excluded
-  std::vector<std::vector<int>>
         m_exclusions;  //!< List for each polarizable sites with sites that are excluded
   std::vector<double> m_positions;  //! list of all polarizabile site positions
  public:
   BMatrix(std::vector<Potential> polsites, const PeOptions& options)
         : m_polsites(polsites), m_options(options) {
+		std::cout << "bmatrix ctor" << std::endl;
     m_n_polsites = polsites.size();
     m_alpha_inverse.clear();
-    m_polmask.clear();
     m_exclusions.clear();
     m_positions = std::vector<double>(3 * m_n_polsites);
     std::transform(m_polsites.begin(), m_polsites.end(),
@@ -33,24 +31,23 @@ class BMatrix {
                      return p.get_polarizability().get_matrix().inverse();
                    });
 
+    m_exclusions = std::vector<std::vector<int>>(m_n_polsites);
+#pragma omp parallel for
     for (int i = 0; i < m_n_polsites; ++i) {
       Potential& pot1        = m_polsites[i];
       m_positions[i * 3 + 0] = pot1.m_x;
       m_positions[i * 3 + 1] = pot1.m_y;
       m_positions[i * 3 + 2] = pot1.m_z;
-      std::vector<int> pot_pols;
       std::vector<int> pot_excludes;
       for (int j = 0; j < m_n_polsites; ++j) {
         Potential& pot2 = m_polsites[j];
         if (pot1.excludes_site(pot2.index)) {
           pot_excludes.push_back(j);
-        } else if (i != j) {
-          pot_pols.push_back(j);
         }
       }
-      m_exclusions.push_back(pot_excludes);
-      m_polmask.push_back(pot_pols);
+      m_exclusions[i] = pot_excludes;
     }
+    std::cout << "bmatrix ctor done" << std::endl;
   }
 
   Eigen::VectorXd apply(const Eigen::VectorXd& induced_moments);
