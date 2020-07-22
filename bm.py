@@ -11,11 +11,11 @@ def print_callback(string):
 
 
 shells = np.arange(10, 65, 5, dtype=int)
-
+print(shells)
 folder = "../fmm_benchmarks/"
 
 ret = {}
-for shell in shells[1:2]:
+for shell in shells:
     res = {}
     xyzfile = os.path.join(folder, f"solvated_{shell}", "pna.xyz")
     with open(xyzfile, "r") as f:
@@ -42,6 +42,7 @@ for shell in shells[1:2]:
 
     with timer.record("static_field_energies"):
         cppe_state.calculate_static_energies_and_fields()
+        print("Static fields done.")
 
     static_fields = cppe_state.static_fields
     res["n_polsites"] = npolsites
@@ -51,10 +52,10 @@ for shell in shells[1:2]:
         indmom = cppe.InducedMoments(potentials, options)
         indmom_exact = indmom.compute_cg(static_fields.flatten())
 
-    with timer.record("bh"):
-        options['summation_induced_fields'] = "bh"
-        indmom = cppe.InducedMoments(potentials, options)
-        indmom_exact = indmom.compute_cg(static_fields.flatten())
+    # with timer.record("bh"):
+    #     options['summation_induced_fields'] = "bh"
+    #     indmom = cppe.InducedMoments(potentials, options)
+    #     indmom_exact = indmom.compute_cg(static_fields.flatten())
 
     with timer.record("fmm"):
         options['summation_induced_fields'] = "fmm"
