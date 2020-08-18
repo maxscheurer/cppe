@@ -82,7 +82,7 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
   if (m_options.summation_induced_fields == "direct") {
     ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
   } else {
-    m_induced_moments = ind.compute_cg(tmp_total_fields);
+    m_induced_moments = ind.compute_cg(tmp_total_fields, m_induced_moments, m_make_guess);
   }
   if (m_make_guess) {
     m_make_guess = false;

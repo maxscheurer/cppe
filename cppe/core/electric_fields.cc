@@ -123,13 +123,19 @@ Eigen::VectorXd MultipoleFields::compute() {
   return mult_fields;
 }
 
-Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs) {
+Eigen::VectorXd InducedMoments::compute_cg(const Eigen::VectorXd& rhs,
+                                           Eigen::VectorXd guess, bool make_guess) {
   // TODO: cleanup, print warning -> outside of solver
   // TODO: probably not entirely correct...
   BMatrix bmat(m_polsites, m_options);
   bool converged = false;
 
-  Eigen::VectorXd x0 = bmat.apply_diagonal_inverse(rhs);
+  Eigen::VectorXd x0;
+  if (make_guess) {
+    x0 = bmat.apply_diagonal_inverse(rhs);
+  } else {
+    x0 = guess;
+  }
   Eigen::VectorXd r0 = rhs - bmat.apply(x0);
   Eigen::VectorXd z0 = bmat.apply_diagonal_inverse(r0);
   Eigen::VectorXd p  = z0;
