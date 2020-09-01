@@ -20,7 +20,6 @@ class BMatrix {
  public:
   BMatrix(std::vector<Potential> polsites, const PeOptions& options)
         : m_polsites(polsites), m_options(options) {
-		std::cout << "bmatrix ctor" << std::endl;
     m_n_polsites = polsites.size();
     m_alpha_inverse.clear();
     m_exclusions.clear();
@@ -47,7 +46,6 @@ class BMatrix {
       }
       m_exclusions[i] = pot_excludes;
     }
-    std::cout << "bmatrix ctor done" << std::endl;
   }
 
   Eigen::VectorXd apply(const Eigen::VectorXd& induced_moments);
