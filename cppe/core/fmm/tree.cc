@@ -5,7 +5,10 @@
 #include<algorithm>
 #include "utils.hh"
 #include "calculate.hh"
-#include "operators.h"
+#include "../math.hh"
+#include "field_m1.hh"
+
+using namespace libcppe;
 
 Cell::Cell(double x, double y, double z, double r, size_t parent, size_t order, size_t level, size_t ncrit) {
     this->x = x;
@@ -127,13 +130,15 @@ void split_cell(std::vector<Cell> &cells, std::vector<Particle> &particles, size
   }
 }
 
-std::shared_ptr<Tree> build_shared_tree(double *pos, double *S, size_t nparticles, size_t ncrit, size_t order, double theta,
+template <int m_order, int osize>
+std::shared_ptr<Tree<m_order, osize>> build_shared_tree(double *pos, double *S, size_t nparticles, size_t ncrit, size_t order, double theta,
                                         std::vector<std::vector<int>> exclusion_lists) {
+  int sourcesize = multipole_components(m_order);
   // Create particles list for convenience
   std::vector<Particle> particles(nparticles);
   for(size_t i = 0; i < nparticles; i++) {
     particles[i].r = &pos[3*i];
-    particles[i].S = &S[FMMGEN_SOURCESIZE*i];
+    particles[i].S = &S[sourcesize*i];
     particles[i].exclusions = exclusion_lists[i];
   }
 
@@ -206,7 +211,7 @@ std::shared_ptr<Tree> build_shared_tree(double *pos, double *S, size_t nparticle
   
   // Now create tree object, and set properties.
   // Choosing a very simple data type here.
-  std::shared_ptr<Tree> tree = std::make_shared<Tree>();
+  std::shared_ptr<Tree<m_order, osize>> tree = std::make_shared<Tree<m_order, osize>>();
   tree->theta = theta;
   tree->ncrit = ncrit;
   tree->order = order;
@@ -214,7 +219,7 @@ std::shared_ptr<Tree> build_shared_tree(double *pos, double *S, size_t nparticle
   tree->particles = particles;
 
   // Create interaction lists, and sort M2L list for cache efficiency.
-  interact_dehnen_lazy(0, 0, tree->cells, particles, theta, order, ncrit, tree->M2L_list, tree->P2P_list);
+  interact_dehnen_lazy<m_order, osize>(0, 0, tree->cells, particles, theta, order, ncrit, tree->M2L_list, tree->P2P_list);
   std::sort(tree->M2L_list.begin(), tree->M2L_list.end(),
          [](std::pair<size_t, size_t> &left, std::pair<size_t, size_t> &right) {
               return left.first < right.first;
@@ -222,44 +227,49 @@ std::shared_ptr<Tree> build_shared_tree(double *pos, double *S, size_t nparticle
          );
 
   // Create memory into which each cell can point for the multipole arrays.
-  tree->M.resize(tree->cells.size() * Msize(order, FMMGEN_SOURCEORDER), 0.0);
-  tree->L.resize(tree->cells.size() * Lsize(order, FMMGEN_SOURCEORDER), 0.0);
+  tree->M.resize(tree->cells.size() * Msize(order, m_order), 0.0);
+  tree->L.resize(tree->cells.size() * Lsize(order, m_order), 0.0);
   for(size_t i = 0; i < tree->cells.size(); i++) {
-    tree->cells[i].M = &tree->M[i*Msize(order, FMMGEN_SOURCEORDER)];
-    tree->cells[i].L = &tree->L[i*Lsize(order, FMMGEN_SOURCEORDER)];
+    tree->cells[i].M = &tree->M[i*Msize(order, m_order)];
+    tree->cells[i].L = &tree->L[i*Lsize(order, m_order)];
   }
   return tree;
 }
 
-void Tree::clear_M() {
+template <int m_order, int osize>
+void Tree<m_order, osize>::clear_M() {
   std::fill(M.begin(), M.end(), 0);
 }
 
-void Tree::clear_L() {
+template <int m_order, int osize>
+void Tree<m_order, osize>::clear_L() {
   std::fill(L.begin(), L.end(), 0);
 }
 
-void Tree::set_sources(double *S) {
+template <int m_order, int osize>
+void Tree<m_order, osize>::set_sources(double *S) {
+    int sourcesize = multipole_components(m_order);
     clear_M();
     clear_L();
     for(size_t i = 0; i < particles.size(); i++) {
-      particles[i].S = &S[FMMGEN_SOURCESIZE*i];
+      particles[i].S = &S[sourcesize*i];
     }
 }
 
-void Tree::compute_field_fmm(double *F) {
+template <int m_order, int osize>
+void Tree<m_order, osize>::compute_field_fmm(double *F) {
     std::cout << "Computing FMM fields." << std::endl;
-  for(size_t i = 0; i < FMMGEN_OUTPUTSIZE*particles.size(); i++) {
+  for(size_t i = 0; i < osize*particles.size(); i++) {
     F[i] = 0.0;
   }
   clear_M();
   clear_L();
   #pragma omp parallel
   {
-    evaluate_P2M(particles, cells, 0, ncrit, order);
+    evaluate_P2M<m_order, osize>(particles, cells, 0, ncrit, order);
   }
 
-  evaluate_M2M(particles, cells, order);
+  evaluate_M2M<m_order, osize>(particles, cells, order);
 	
   #ifdef FMMLIBDEBUG
   M_sanity_check(cells);
@@ -267,41 +277,29 @@ void Tree::compute_field_fmm(double *F) {
 
   #pragma omp parallel
   {
-    evaluate_M2L_lazy(cells, M2L_list, order);
-    evaluate_P2P_lazy(cells, particles,P2P_list, F);
+    evaluate_M2L_lazy<m_order, osize>(cells, M2L_list, order);
+    evaluate_P2P_lazy<m_order, osize>(cells, particles,P2P_list, F);
   }
 
-  evaluate_L2L(cells, order);
+  evaluate_L2L<m_order, osize>(cells, order);
   #pragma omp parallel
   {
-    evaluate_L2P(particles, cells, F, ncrit, order);
+    evaluate_L2P<m_order, osize>(particles, cells, F, ncrit, order);
   }
 }
 
-void Tree::compute_field_bh(double *F) {
-    std::cout << "Computing BH fields." << std::endl;
-  for(size_t i = 0; i < FMMGEN_OUTPUTSIZE*particles.size(); i++) {
-    F[i] = 0.0;
-  }
-  clear_M();
-  #pragma omp parallel
-  {
-    evaluate_P2M(particles, cells, 0, ncrit, order);
-  }
-
-  evaluate_M2M(particles, cells, order);
-
-  #ifdef FMMLIBDEBUG
-  M_sanity_check(cells);
-  #endif
-
-  #pragma omp parallel for schedule(runtime)
-  for (unsigned int i = 0; i < particles.size(); i++) {
-    evaluate_M2P_and_P2P(particles, 0, i, cells, F, ncrit, theta, order);
-  }
-}
-
-void Tree::compute_field_exact(double *F) {
+template <int m_order, int osize>
+void Tree<m_order, osize>::compute_field_exact(double *F) {
     std::cout << "Computing fields exactly." << std::endl;
-  evaluate_direct(particles, F, particles.size());
+  evaluate_direct<m_order, osize>(particles, F, particles.size());
 }
+
+template class Tree<0, 3>;
+template class Tree<1, 3>;
+template class Tree<2, 3>;
+template std::shared_ptr<Tree<0, 3>> build_shared_tree<0, 3>(double *pos, double *S, size_t nparticles, size_t ncrit, size_t order, double theta,
+                                        std::vector<std::vector<int>> exclusion_lists);
+template std::shared_ptr<Tree<1, 3>> build_shared_tree<1, 3>(double *pos, double *S, size_t nparticles, size_t ncrit, size_t order, double theta,
+                                        std::vector<std::vector<int>> exclusion_lists);
+template std::shared_ptr<Tree<2, 3>> build_shared_tree<2, 3>(double *pos, double *S, size_t nparticles, size_t ncrit, size_t order, double theta,
+                                        std::vector<std::vector<int>> exclusion_lists);

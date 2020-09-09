@@ -82,7 +82,7 @@ public:
   }
 };
 
-
+template <int m_order, int osize>
 class Tree {
 public:
   size_t order;
@@ -96,7 +96,6 @@ public:
   std::vector<std::pair<size_t, size_t>> P2P_list;
   void set_sources(double *S);
   void compute_field_fmm(double *F);
-  void compute_field_bh(double *F);
   void compute_field_exact(double *F);
 private:
   void clear_M();
@@ -109,8 +108,6 @@ void add_child(std::vector<Cell> &cells, int octant, size_t p, size_t ncrit, siz
 
 void split_cell(std::vector<Cell> &cells, std::vector<Particle> &particles, size_t p, size_t ncrit, size_t order);
 
-Tree build_tree(double *pos, double *mu, size_t nparticles, size_t ncrit, size_t order, double theta);
-
-std::shared_ptr<Tree> build_shared_tree(double *pos, double *mu, size_t nparticles, size_t ncrit, size_t order, double theta,
-                                        std::vector<std::vector<int>> exclusion_lists);
+template <int m_order, int osize>
+std::shared_ptr<Tree<m_order, osize>> build_shared_tree(double *pos, double *mu, size_t nparticles, size_t ncrit, size_t order, double theta, std::vector<std::vector<int>> exclusion_lists);
 

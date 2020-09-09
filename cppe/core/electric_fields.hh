@@ -37,11 +37,29 @@ class NuclearFields : public ElectricFields {
 class MultipoleFields : public ElectricFields {
  public:
   MultipoleFields(std::vector<Potential> potentials, const PeOptions& options)
-        : ElectricFields(potentials), m_options(options){};
+        : ElectricFields(potentials), m_options(options){
+          m_exclusions.clear();
+          int n_sites = m_potentials.size();
+    m_positions = std::vector<double>(3 * n_sites);
+   m_exclusions = std::vector<std::vector<int>>(n_sites);
+#pragma omp parallel for
+    for (int i = 0; i < n_sites; ++i) {
+      Potential& pot1        = m_potentials[i];
+      m_positions[i * 3 + 0] = pot1.m_x;
+      m_positions[i * 3 + 1] = pot1.m_y;
+      m_positions[i * 3 + 2] = pot1.m_z;
+      m_exclusions[i] = pot1.get_exclusions();
+    } 
+        };
   Eigen::VectorXd compute();
+  Eigen::VectorXd compute_legacy();
+  Eigen::VectorXd compute_tree();
 
  private:
   PeOptions m_options;
+   std::vector<std::vector<int>>
+        m_exclusions;  //!< List for each site with sites that are excluded
+        std::vector<double> m_positions;  //! list of all polarizabile site positions
 };
 
 class InducedMoments {

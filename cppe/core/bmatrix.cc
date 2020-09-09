@@ -59,13 +59,13 @@ Eigen::VectorXd BMatrix::apply_fast_summation(const Eigen::VectorXd& induced_mom
     S[i * 3 + 1]      = s(1);
     S[i * 3 + 2]      = s(2);
   }
-  std::shared_ptr<Tree> tree = build_shared_tree(
+  std::shared_ptr<Tree<1, 3>> tree = build_shared_tree<1, 3>(
         m_positions.data(), S.data(), m_n_polsites, n_crit, order, theta, m_exclusions);
   std::vector<double> induced_fields_v(3 * m_n_polsites);
-  if (scheme == "bh") {
-    tree->compute_field_bh(induced_fields_v.data());
-  } else if (scheme == "fmm") {
+  if (scheme == "fmm") {
     tree->compute_field_fmm(induced_fields_v.data());
+  } else {
+    throw std::runtime_error("No such summation scheme " + scheme);
   }
   Eigen::VectorXd induced_fields =
         Eigen::Map<Eigen::VectorXd>(induced_fields_v.data(), induced_fields_v.size());

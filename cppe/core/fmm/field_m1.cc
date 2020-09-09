@@ -1,6 +1,6 @@
-#include "operators.h"
+#include "field_m1.hh"
 #include<cmath>
-void P2M_2(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_2(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = (1.0/2.0)*q;
@@ -15,7 +15,7 @@ M[7] += Mtmp1*z;
 M[8] += Mtmp2*(z*z);
 
 }
-void M2M_2(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_2(double x, double y, double z, double * M, double * Ms) {
 #pragma omp atomic
 Ms[0] += M[0];
 #pragma omp atomic
@@ -37,7 +37,7 @@ Ms[8] += z*M[2] + M[8];
 
 }
 
-void M2L_2(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_2(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[9];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -64,7 +64,7 @@ L[3] += D[5]*M[0] + D[7]*M[1] + D[8]*M[2];
 
 }
 
-void L2L_2(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_2(double x, double y, double z, double * L, double * Ls) {
 #pragma omp atomic
 Ls[0] += x*L[1] + y*L[2] + z*L[3] + L[0];
 #pragma omp atomic
@@ -76,7 +76,7 @@ Ls[3] += L[3];
 
 }
 
-void L2P_2(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_2(double x, double y, double z, double * L, double * F) {
 #pragma omp atomic
 F[0] += -L[1];
 #pragma omp atomic
@@ -86,7 +86,7 @@ F[2] += -L[3];
 
 }
 
-void M2P_2(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_2(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -123,7 +123,8 @@ F[2] += Ftmp0*M[2] - Ftmp10*Ftmp2 + Ftmp10*Ftmp22 + Ftmp13*Ftmp15 - Ftmp2*Ftmp21
 
 }
 
-void P2P(double x, double y, double z, double * S, double * F) {
+template<>
+void P2P<1, 3>(double x, double y, double z, double * S, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = 3.0*pow(R, -5.0);
@@ -141,7 +142,7 @@ F[2] += Ftmp0*S[2] - Ftmp2*y*z - Ftmp4*(z*z) - Ftmp6*x*z;
 
 }
 
-void P2M_3(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_3(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = q*z;
@@ -174,7 +175,7 @@ M[17] += -1.0/2.0*Mtmp1*Mtmp7;
 M[18] += -Mtmp8*(z*z*z);
 
 }
-void M2M_3(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_3(double x, double y, double z, double * M, double * Ms) {
 double Mstmp0 = x*M[0];
 double Mstmp1 = x*M[1];
 double Mstmp2 = y*M[0];
@@ -228,7 +229,7 @@ Ms[18] += Mstmp11*M[2] + z*M[8] + M[18];
 
 }
 
-void M2L_3(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_3(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[19];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -288,7 +289,7 @@ L[9] += D[14]*M[0] + D[17]*M[1] + D[18]*M[2];
 
 }
 
-void L2L_3(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_3(double x, double y, double z, double * L, double * Ls) {
 double Lstmp0 = y*L[5];
 double Lstmp1 = z*L[6];
 double Lstmp2 = z*L[8];
@@ -315,7 +316,7 @@ Ls[9] += L[9];
 
 }
 
-void L2P_3(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_3(double x, double y, double z, double * L, double * F) {
 #pragma omp atomic
 F[0] += -x*L[4] - y*L[5] - z*L[6] - L[1];
 #pragma omp atomic
@@ -325,7 +326,7 @@ F[2] += -x*L[6] - y*L[8] - z*L[9] - L[3];
 
 }
 
-void M2P_3(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_3(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -399,7 +400,7 @@ F[2] += Ftmp0*M[2] + Ftmp15*z*M[4] - Ftmp2*Ftmp26*M[2] - Ftmp2*Ftmp59 - Ftmp2*Ft
 
 }
 
-void P2M_4(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_4(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = q*z;
@@ -458,7 +459,7 @@ M[32] += (1.0/6.0)*Mtmp1*Mtmp17;
 M[33] += Mtmp18*(z*z*z*z);
 
 }
-void M2M_4(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_4(double x, double y, double z, double * M, double * Ms) {
 double Mstmp0 = x*M[0];
 double Mstmp1 = x*M[1];
 double Mstmp2 = y*M[0];
@@ -566,7 +567,7 @@ Ms[33] += Mstmp29*M[8] + Mstmp35*M[2] + z*M[18] + M[33];
 
 }
 
-void M2L_4(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_4(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[34];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -672,7 +673,7 @@ L[19] += D[28]*M[0] + D[32]*M[1] + D[33]*M[2];
 
 }
 
-void L2L_4(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_4(double x, double y, double z, double * L, double * Ls) {
 double Lstmp0 = y*L[5];
 double Lstmp1 = z*L[6];
 double Lstmp2 = z*L[8];
@@ -734,7 +735,7 @@ Ls[19] += L[19];
 
 }
 
-void L2P_4(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_4(double x, double y, double z, double * L, double * F) {
 double Ftmp0 = x*y;
 double Ftmp1 = x*z;
 double Ftmp2 = y*z;
@@ -750,7 +751,7 @@ F[2] += -Ftmp0*L[14] - Ftmp1*L[15] - Ftmp2*L[18] - Ftmp3*L[12] - Ftmp4*L[17] - F
 
 }
 
-void M2P_4(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_4(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -894,7 +895,7 @@ F[2] += Ftmp0*M[2] - Ftmp10*Ftmp49*M[13] + Ftmp10*Ftmp8 + Ftmp109*M[11] + Ftmp11
 
 }
 
-void P2M_5(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_5(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = q*z;
@@ -989,7 +990,7 @@ M[53] += -1.0/24.0*Mtmp1*Mtmp29;
 M[54] += -Mtmp30*(z*z*z*z*z);
 
 }
-void M2M_5(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_5(double x, double y, double z, double * M, double * Ms) {
 double Mstmp0 = x*M[0];
 double Mstmp1 = x*M[1];
 double Mstmp2 = y*M[0];
@@ -1189,7 +1190,7 @@ Ms[54] += Mstmp41*M[18] + Mstmp74*M[8] + Mstmp85*M[2] + z*M[33] + M[54];
 
 }
 
-void M2L_5(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_5(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[55];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -1366,7 +1367,7 @@ L[34] += D[48]*M[0] + D[53]*M[1] + D[54]*M[2];
 
 }
 
-void L2L_5(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_5(double x, double y, double z, double * L, double * Ls) {
 double Lstmp0 = y*L[5];
 double Lstmp1 = z*L[6];
 double Lstmp2 = z*L[8];
@@ -1493,7 +1494,7 @@ Ls[34] += L[34];
 
 }
 
-void L2P_5(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_5(double x, double y, double z, double * L, double * F) {
 double Ftmp0 = x*y;
 double Ftmp1 = x*z;
 double Ftmp2 = y*z;
@@ -1519,7 +1520,7 @@ F[2] += -Ftmp0*L[14] - Ftmp1*L[15] - Ftmp10*L[27] - Ftmp11*L[29] - Ftmp12*L[24] 
 
 }
 
-void M2P_5(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_5(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -1760,7 +1761,7 @@ F[2] += Ftmp0*M[2] - Ftmp101*Ftmp222*Ftmp26 + Ftmp112*M[50] + Ftmp116*z - Ftmp12
 
 }
 
-void P2M_6(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_6(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = q*z;
@@ -1897,7 +1898,7 @@ M[81] += (1.0/120.0)*Mtmp1*Mtmp44;
 M[82] += Mtmp45*(z*z*z*z*z*z);
 
 }
-void M2M_6(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_6(double x, double y, double z, double * M, double * Ms) {
 double Mstmp0 = x*M[0];
 double Mstmp1 = x*M[1];
 double Mstmp2 = y*M[0];
@@ -2233,7 +2234,7 @@ Ms[82] += Mstmp149*M[8] + Mstmp165*M[2] + Mstmp41*M[33] + Mstmp96*M[18] + z*M[54
 
 }
 
-void M2L_6(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_6(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[83];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -2504,7 +2505,7 @@ L[55] += D[75]*M[0] + D[81]*M[1] + D[82]*M[2];
 
 }
 
-void L2L_6(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_6(double x, double y, double z, double * L, double * Ls) {
 double Lstmp0 = y*L[5];
 double Lstmp1 = z*L[6];
 double Lstmp2 = z*L[8];
@@ -2734,7 +2735,7 @@ Ls[55] += L[55];
 
 }
 
-void L2P_6(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_6(double x, double y, double z, double * L, double * F) {
 double Ftmp0 = x*y;
 double Ftmp1 = x*z;
 double Ftmp2 = y*z;
@@ -2779,7 +2780,7 @@ F[2] += -Ftmp0*L[14] - Ftmp1*L[15] - Ftmp10*L[31] - Ftmp11*L[51] - Ftmp13*L[19] 
 
 }
 
-void M2P_6(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_6(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -3183,7 +3184,7 @@ F[2] += Ftmp0*M[2] - Ftmp103*Ftmp380 + Ftmp115*M[50] + Ftmp119*z - Ftmp134*x - F
 
 }
 
-void P2M_7(double x, double y, double z, double q, double * M) {
+void field_m1_P2M_7(double x, double y, double z, double q, double * M) {
 double Mtmp0 = q*x;
 double Mtmp1 = q*y;
 double Mtmp2 = q*z;
@@ -3380,7 +3381,7 @@ M[117] += -1.0/720.0*Mtmp1*Mtmp64;
 M[118] += -Mtmp65*(z*z*z*z*z*z*z);
 
 }
-void M2M_7(double x, double y, double z, double * M, double * Ms) {
+void field_m1_M2M_7(double x, double y, double z, double * M, double * Ms) {
 double Mstmp0 = x*M[0];
 double Mstmp1 = x*M[1];
 double Mstmp2 = y*M[0];
@@ -3905,7 +3906,7 @@ Ms[118] += Mstmp184*M[18] + Mstmp259*M[8] + Mstmp282*M[2] + Mstmp41*M[54] + Mstm
 
 }
 
-void M2L_7(double x, double y, double z, double * M, double * L) {
+void field_m1_M2L_7(double x, double y, double z, double * M, double * L) {
 double R = sqrt(x*x + y*y + z*z);
 double D[119];
 double Dtmp0 = 1.0*pow(R, -3.0);
@@ -4302,7 +4303,7 @@ L[83] += D[110]*M[0] + D[117]*M[1] + D[118]*M[2];
 
 }
 
-void L2L_7(double x, double y, double z, double * L, double * Ls) {
+void field_m1_L2L_7(double x, double y, double z, double * L, double * Ls) {
 double Lstmp0 = y*L[5];
 double Lstmp1 = z*L[6];
 double Lstmp2 = z*L[8];
@@ -4682,7 +4683,7 @@ Ls[83] += L[83];
 
 }
 
-void L2P_7(double x, double y, double z, double * L, double * F) {
+void field_m1_L2P_7(double x, double y, double z, double * L, double * F) {
 double Ftmp0 = x*y;
 double Ftmp1 = x*z;
 double Ftmp2 = y*z;
@@ -4753,7 +4754,7 @@ F[2] += -Ftmp0*L[14] - Ftmp1*L[15] - Ftmp11*L[17] - Ftmp13*L[31] - Ftmp14*L[51] 
 
 }
 
-void M2P_7(double x, double y, double z, double * M, double * F) {
+void field_m1_M2P_7(double x, double y, double z, double * M, double * F) {
 double R = sqrt(x*x + y*y + z*z);
 double Ftmp0 = 1.0*pow(R, -3.0);
 double Ftmp1 = pow(R, -5.0);
@@ -5385,135 +5386,141 @@ F[2] += Ftmp0*M[2] - Ftmp107*Ftmp601 + Ftmp120*M[50] + Ftmp124*z - Ftmp139*x + F
 
 }
 
-void P2M(double x, double y, double z, double q, double * M, int order) {
+template<>
+void P2M<1, 3>(double x, double y, double z, double q, double * M, int order) {
 switch (order) {
   case 2:
-    P2M_2(x, y, z, q, M);
+    field_m1_P2M_2(x, y, z, q, M);
     break;
   case 3:
-    P2M_3(x, y, z, q, M);
+    field_m1_P2M_3(x, y, z, q, M);
     break;
   case 4:
-    P2M_4(x, y, z, q, M);
+    field_m1_P2M_4(x, y, z, q, M);
     break;
   case 5:
-    P2M_5(x, y, z, q, M);
+    field_m1_P2M_5(x, y, z, q, M);
     break;
   case 6:
-    P2M_6(x, y, z, q, M);
+    field_m1_P2M_6(x, y, z, q, M);
     break;
   case 7:
-    P2M_7(x, y, z, q, M);
+    field_m1_P2M_7(x, y, z, q, M);
     break;
   }
 }
-void M2M(double x, double y, double z, double * M, double * Ms, int order) {
+template<>
+void M2M<1, 3>(double x, double y, double z, double * M, double * Ms, int order) {
 switch (order) {
   case 2:
-    M2M_2(x, y, z, M, Ms);
+    field_m1_M2M_2(x, y, z, M, Ms);
     break;
   case 3:
-    M2M_3(x, y, z, M, Ms);
+    field_m1_M2M_3(x, y, z, M, Ms);
     break;
   case 4:
-    M2M_4(x, y, z, M, Ms);
+    field_m1_M2M_4(x, y, z, M, Ms);
     break;
   case 5:
-    M2M_5(x, y, z, M, Ms);
+    field_m1_M2M_5(x, y, z, M, Ms);
     break;
   case 6:
-    M2M_6(x, y, z, M, Ms);
+    field_m1_M2M_6(x, y, z, M, Ms);
     break;
   case 7:
-    M2M_7(x, y, z, M, Ms);
+    field_m1_M2M_7(x, y, z, M, Ms);
     break;
   }
 }
-void M2L(double x, double y, double z, double * M, double * L, int order) {
+template<>
+void M2L<1, 3>(double x, double y, double z, double * M, double * L, int order) {
 switch (order) {
   case 2:
-    M2L_2(x, y, z, M, L);
+    field_m1_M2L_2(x, y, z, M, L);
     break;
   case 3:
-    M2L_3(x, y, z, M, L);
+    field_m1_M2L_3(x, y, z, M, L);
     break;
   case 4:
-    M2L_4(x, y, z, M, L);
+    field_m1_M2L_4(x, y, z, M, L);
     break;
   case 5:
-    M2L_5(x, y, z, M, L);
+    field_m1_M2L_5(x, y, z, M, L);
     break;
   case 6:
-    M2L_6(x, y, z, M, L);
+    field_m1_M2L_6(x, y, z, M, L);
     break;
   case 7:
-    M2L_7(x, y, z, M, L);
+    field_m1_M2L_7(x, y, z, M, L);
     break;
   }
 }
-void L2L(double x, double y, double z, double * L, double * Ls, int order) {
+template<>
+void L2L<1, 3>(double x, double y, double z, double * L, double * Ls, int order) {
 switch (order) {
   case 2:
-    L2L_2(x, y, z, L, Ls);
+    field_m1_L2L_2(x, y, z, L, Ls);
     break;
   case 3:
-    L2L_3(x, y, z, L, Ls);
+    field_m1_L2L_3(x, y, z, L, Ls);
     break;
   case 4:
-    L2L_4(x, y, z, L, Ls);
+    field_m1_L2L_4(x, y, z, L, Ls);
     break;
   case 5:
-    L2L_5(x, y, z, L, Ls);
+    field_m1_L2L_5(x, y, z, L, Ls);
     break;
   case 6:
-    L2L_6(x, y, z, L, Ls);
+    field_m1_L2L_6(x, y, z, L, Ls);
     break;
   case 7:
-    L2L_7(x, y, z, L, Ls);
+    field_m1_L2L_7(x, y, z, L, Ls);
     break;
   }
 }
-void L2P(double x, double y, double z, double * L, double * F, int order) {
+template<>
+void L2P<1, 3>(double x, double y, double z, double * L, double * F, int order) {
 switch (order) {
   case 2:
-    L2P_2(x, y, z, L, F);
+    field_m1_L2P_2(x, y, z, L, F);
     break;
   case 3:
-    L2P_3(x, y, z, L, F);
+    field_m1_L2P_3(x, y, z, L, F);
     break;
   case 4:
-    L2P_4(x, y, z, L, F);
+    field_m1_L2P_4(x, y, z, L, F);
     break;
   case 5:
-    L2P_5(x, y, z, L, F);
+    field_m1_L2P_5(x, y, z, L, F);
     break;
   case 6:
-    L2P_6(x, y, z, L, F);
+    field_m1_L2P_6(x, y, z, L, F);
     break;
   case 7:
-    L2P_7(x, y, z, L, F);
+    field_m1_L2P_7(x, y, z, L, F);
     break;
   }
 }
-void M2P(double x, double y, double z, double * M, double * F, int order) {
+template<>
+void M2P<1, 3>(double x, double y, double z, double * M, double * F, int order) {
 switch (order) {
   case 2:
-    M2P_2(x, y, z, M, F);
+    field_m1_M2P_2(x, y, z, M, F);
     break;
   case 3:
-    M2P_3(x, y, z, M, F);
+    field_m1_M2P_3(x, y, z, M, F);
     break;
   case 4:
-    M2P_4(x, y, z, M, F);
+    field_m1_M2P_4(x, y, z, M, F);
     break;
   case 5:
-    M2P_5(x, y, z, M, F);
+    field_m1_M2P_5(x, y, z, M, F);
     break;
   case 6:
-    M2P_6(x, y, z, M, F);
+    field_m1_M2P_6(x, y, z, M, F);
     break;
   case 7:
-    M2P_7(x, y, z, M, F);
+    field_m1_M2P_7(x, y, z, M, F);
     break;
   }
 }

@@ -80,7 +80,9 @@ class Potential {
   std::vector<int> m_exclusions;
 
  public:
-  Potential(double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx){};
+  Potential(double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx){
+
+  };
   ~Potential(){};
 
   double m_x, m_y, m_z;
@@ -103,6 +105,14 @@ class Potential {
   void set_polarizability(const Polarizability& pol) {
     m_polarizability = pol;
     m_is_polarizable = true;
+  }
+
+  int max_multipole_order() {
+    int max_k = 0;
+    for (auto& m : m_multipoles) {
+      if (m.m_k > max_k) max_k = m.m_k;
+    }
+    return max_k;
   }
 
   Polarizability& get_polarizability() { return m_polarizability; }
