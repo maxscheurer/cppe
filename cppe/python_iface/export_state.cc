@@ -135,7 +135,8 @@ void export_state(py::module& m) {
              py::arg("options") = py::dict(), py::arg("molecule") = libcppe::Molecule(),
              py::arg("printer") = libcppe::default_printer)
         .def_property_readonly("positions", &libcppe::CppeState::get_positions)
-        .def_property_readonly("positions_polarizable", &libcppe::CppeState::get_positions_polarizable)
+        .def_property_readonly("positions_polarizable",
+                               &libcppe::CppeState::get_positions_polarizable)
         .def("set_potentials", &libcppe::CppeState::set_potentials)
         .def("calculate_static_energies_and_fields",
              &libcppe::CppeState::calculate_static_energies_and_fields)

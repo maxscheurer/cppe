@@ -16,8 +16,8 @@ Eigen::VectorXd BMatrix::apply_direct(const Eigen::VectorXd& induced_moments) {
     double* rety    = &ret[l + 1];
     double* retz    = &ret[l + 2];
     for (int j = 0; j < m_n_polsites; ++j) {
-      int m                = j * 3;
-      Potential& pot2      = m_polsites[j];
+      int m           = j * 3;
+      Potential& pot2 = m_polsites[j];
       if (pot1.excludes_site(pot2.index) || i == j) continue;
       Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
       Eigen::VectorXd T2;
@@ -152,8 +152,8 @@ Eigen::MatrixXd BMatrix::to_dense_matrix() {
     int l           = i * 3;
     Potential& pot1 = m_polsites[i];
     for (int j = 0; j < m_n_polsites; ++j) {
-      int m                = j * 3;
-      Potential& pot2      = m_polsites[j];
+      int m           = j * 3;
+      Potential& pot2 = m_polsites[j];
       if (pot1.excludes_site(pot2.index) || i == j) continue;
       Eigen::Vector3d diff = pot2.get_site_position() - pot1.get_site_position();
       Eigen::VectorXd T2;

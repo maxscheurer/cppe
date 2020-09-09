@@ -2,8 +2,8 @@
 
 #include "bmatrix.hh"
 #include "electric_fields.hh"
-#include "math.hh"
 #include "fmm/tree.hh"
+#include "math.hh"
 #include "tensors.hh"
 #include <iomanip>
 
@@ -75,7 +75,7 @@ Eigen::VectorXd NuclearFields::compute() {
 }
 
 Eigen::VectorXd MultipoleFields::compute_tree() {
-  int n_sites = m_potentials.size(); 
+  int n_sites  = m_potentials.size();
   int n_crit   = m_options.tree_ncrit;
   int order    = m_options.tree_expansion_order;
   double theta = m_options.theta;
@@ -86,19 +86,23 @@ Eigen::VectorXd MultipoleFields::compute_tree() {
   auto scheme = m_options.summation_induced_fields;
 
   int max_multipole_order = m_potentials[0].max_multipole_order();
+  if (max_multipole_order > 2) {
+    throw std::runtime_error(
+          "MultipoleFields::compute_tree only supported up to 2nd order.");
+  }
   for (int i = 0; i < n_sites; ++i) {
     auto ms = m_potentials[i].get_multipoles();
     if (ms.size() == 0) continue;
-    auto qs = ms[0].get_values_vec();
+    auto qs    = ms[0].get_values_vec();
     charges[i] = qs[0];
     if (max_multipole_order > 0) {
-      auto mu = ms[1].get_values_vec();
+      auto mu            = ms[1].get_values_vec();
       dipoles[i * 3 + 0] = mu[0];
       dipoles[i * 3 + 1] = mu[1];
       dipoles[i * 3 + 2] = mu[2];
     }
     if (max_multipole_order > 1) {
-      auto theta = ms[2].get_values_vec();
+      auto theta             = ms[2].get_values_vec();
       quadrupoles[i * 6 + 0] = 0.5 * theta[0];
       quadrupoles[i * 6 + 1] = theta[1];
       quadrupoles[i * 6 + 2] = theta[2];
@@ -115,29 +119,31 @@ Eigen::VectorXd MultipoleFields::compute_tree() {
   if (scheme == "fmm") {
     tree->compute_field_fmm(fields0_v.data());
   } else {
-    tree->compute_field_exact(fields0_v.data()); 
+    tree->compute_field_exact(fields0_v.data());
   }
   mult_fields += Eigen::Map<Eigen::VectorXd>(fields0_v.data(), fields0_v.size());
 
   if (max_multipole_order > 0) {
-    std::shared_ptr<Tree<1, 3>> tree1 = build_shared_tree<1, 3>(
-          m_positions.data(), dipoles.data(), n_sites, n_crit, order, theta, m_exclusions);
+    std::shared_ptr<Tree<1, 3>> tree1 =
+          build_shared_tree<1, 3>(m_positions.data(), dipoles.data(), n_sites, n_crit,
+                                  order, theta, m_exclusions);
     std::vector<double> fields1_v(3 * n_sites);
     if (scheme == "fmm") {
       tree1->compute_field_fmm(fields1_v.data());
     } else {
-      tree1->compute_field_exact(fields1_v.data()); 
+      tree1->compute_field_exact(fields1_v.data());
     }
     mult_fields -= Eigen::Map<Eigen::VectorXd>(fields1_v.data(), fields1_v.size());
   }
   if (max_multipole_order > 1) {
-    std::shared_ptr<Tree<2, 3>> tree2 = build_shared_tree<2, 3>(
-          m_positions.data(), quadrupoles.data(), n_sites, n_crit, order, theta, m_exclusions);
+    std::shared_ptr<Tree<2, 3>> tree2 =
+          build_shared_tree<2, 3>(m_positions.data(), quadrupoles.data(), n_sites, n_crit,
+                                  order, theta, m_exclusions);
     std::vector<double> fields2_v(3 * n_sites);
     if (scheme == "fmm") {
       tree2->compute_field_fmm(fields2_v.data());
     } else {
-      tree2->compute_field_exact(fields2_v.data()); 
+      tree2->compute_field_exact(fields2_v.data());
     }
     mult_fields += Eigen::Map<Eigen::VectorXd>(fields2_v.data(), fields2_v.size());
   }

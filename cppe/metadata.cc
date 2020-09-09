@@ -37,7 +37,9 @@ std::string version::version_string() { return static_version_string; }
 
 std::string __authors__() { return "Maximilian Scheurer"; }
 
-std::string __contributors__() { return "Peter Reinholdt, Michael F. Herbst, Lori A. Burns"; }
+std::string __contributors__() {
+  return "Peter Reinholdt, Michael F. Herbst, Lori A. Burns";
+}
 
 std::string __email__() { return "maximilian.scheurer@iwr.uni-heidelberg.de"; }
 

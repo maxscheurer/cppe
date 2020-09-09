@@ -30,7 +30,6 @@ list(APPEND CPPE_SOURCES
   core/fmm/calculate.cc
   core/fmm/tree.cc
   core/fmm/utils.cc
-  # core/fmm/operators.cc
   core/fmm/field_m0.cc
   core/fmm/field_m1.cc
   core/fmm/field_m2.cc

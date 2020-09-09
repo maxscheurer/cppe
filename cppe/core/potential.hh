@@ -80,9 +80,13 @@ class Potential {
   std::vector<int> m_exclusions;
 
  public:
-  Potential(double x, double y, double z, int idx) : m_x(x), m_y(y), m_z(z), index(idx){
+  Potential(double x, double y, double z, int idx)
+        : m_x(x),
+          m_y(y),
+          m_z(z),
+          index(idx){
 
-  };
+          };
   ~Potential(){};
 
   double m_x, m_y, m_z;
