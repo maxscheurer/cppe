@@ -83,6 +83,8 @@ class CppeState {
   Eigen::VectorXd get_multipole_fields() { return m_multipole_fields; }
 
   std::string get_energy_summary_string();
+  
+  Eigen::MatrixXd induced_moments_eef();
 };
 
 }  // namespace libcppe

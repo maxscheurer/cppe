@@ -141,6 +141,7 @@ void export_state(py::module& m) {
         .def("calculate_static_energies_and_fields",
              &libcppe::CppeState::calculate_static_energies_and_fields)
         .def("get_induced_moments", &libcppe::CppeState::get_induced_moments)
+        .def("induced_moments_eef", &libcppe::CppeState::induced_moments_eef)
         .def_readwrite("energies", &libcppe::CppeState::m_pe_energy)
         .def_property_readonly("total_energy", &libcppe::CppeState::get_total_energy)
         .def("update_induced_moments", &libcppe::CppeState::update_induced_moments)

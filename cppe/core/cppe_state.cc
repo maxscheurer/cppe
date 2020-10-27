@@ -102,6 +102,30 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
   }
 }
 
+Eigen::MatrixXd CppeState::induced_moments_eef() {
+  InducedMoments ind(m_potentials, m_options);
+  ind.set_print_callback(m_printer);
+
+  Eigen::MatrixXd ret = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
+  Eigen::MatrixXd Fdn = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
+  for (int s = 0; s < m_polarizable_sites; ++s) {
+    int l         = 3 * s;
+    Fdn(l, 0)     = 1;
+    Fdn(l + 1, 1) = 1;
+    Fdn(l + 2, 2) = 1;
+  }
+  for (int a = 0; a < 3; ++a) {
+    Eigen::VectorXd ind_mom = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+    if (m_options.summation_induced_fields == "direct") {
+      ind.compute(Fdn.col(a), ind_mom, true);
+      ret.col(a) = ind_mom;
+    } else {
+      ret.col(a) = ind.compute_cg(Fdn.col(a), ind_mom, true);
+    }
+  }
+  return ret;
+}
+
 double CppeState::get_total_energy_for_category(std::string category) {
   auto energy_cat   = m_pe_energy[category];
   double acc_energy = std::accumulate(
