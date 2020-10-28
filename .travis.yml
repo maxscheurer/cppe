@@ -23,6 +23,7 @@ jobs:
           - pip install h5py
           - pip install numba
           - pip install scipy
+          - pip install pandas
           - pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
           - mkdir build
           - cd build

@@ -151,6 +151,7 @@ else:
 sources = glob.glob("cppe/*.cc")
 sources += glob.glob("cppe/core/*.cc")
 sources += glob.glob("cppe/core/tensors/*.cc")
+sources += glob.glob("cppe/core/fmm/*.cc")
 sources += glob.glob("cppe/utils/*.cc")
 sources += glob.glob("cppe/python_iface/*.cc")
 
@@ -193,7 +194,7 @@ setup(
     version=__version__,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU Lesser "
+        "License :: OSI Approved :: GNU Lesser ",
         "General Public License v3 (LGPLv3)",
         "License :: Free For Educational Use",
         "Intended Audience :: Science/Research",
@@ -213,7 +214,7 @@ setup(
     setup_requires=["pybind11 >= 2.2"],
     install_requires=["pybind11 >= 2.2"],
     tests_require=[
-        "pytest", "numpy", "h5py", "numba", "scipy",
+        "pytest", "numpy", "h5py", "numba", "scipy", "pandas"
     ],
     # extras_require={
     #     "build_docs": ["sphinx>=2", "breathe", "sphinxcontrib-bibtex",

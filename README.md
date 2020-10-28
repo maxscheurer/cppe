@@ -2,13 +2,13 @@
 # <img src="https://gist.githubusercontent.com/maxscheurer/43b3dd040ea09ab06546bc6c2c771f56/raw/ced0c420e4840faf203dbca4d719f90cd66ca3fb/cppe_logo.png" height=150>
 
 
-[![Build Status](https://travis-ci.org/maxscheurer/cppe.svg?branch=master)](https://travis-ci.org/maxscheurer/cppe)
+[![Build Status](https://travis-ci.com/maxscheurer/cppe.svg?branch=master)](https://travis-ci.com/maxscheurer/cppe)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
 
 
 CPPE is an open-source, light-weight C++ and Python library for Polarizable Embedding (PE)<sup>1,2</sup>
 calculations.
-It provides an easy-to-use API to implement PE for ground-state self-consistent field
+It provides an easy-to-use API to implement PE for ground-state self-consistent field (SCF)
 calculations and post-SCF methods. A convenient Python interface is also available.
 
 CPPE enables PE calculations in the following programs:

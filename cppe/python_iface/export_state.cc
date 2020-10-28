@@ -43,6 +43,14 @@ libcppe::PeOptions _dict_to_options(py::dict py_options) {
       options.damping_factor_induced = value.cast<double>();
     } else if (key == "damping_factor_multipole") {
       options.damping_factor_multipole = value.cast<double>();
+    } else if (key == "summation_induced_fields") {
+      options.summation_induced_fields = value.cast<std::string>();
+    } else if (key == "tree_ncrit") {
+      options.tree_ncrit = value.cast<int>();
+    } else if (key == "tree_expansion_order") {
+      options.tree_expansion_order = value.cast<int>();
+    } else if (key == "theta") {
+      options.theta = value.cast<double>();
     } else if (key == "pe_border") {
       options.pe_border = value.cast<bool>();
     } else if (key == "border_type") {
@@ -89,6 +97,14 @@ static py::dict _options_to_dict(libcppe::CppeState state) {
       ret[pykey] = py::cast(self.damping_factor_induced);
     } else if (key == "damping_factor_multipole") {
       ret[pykey] = py::cast(self.damping_factor_multipole);
+    } else if (key == "summation_induced_fields") {
+      ret[pykey] = py::cast(self.summation_induced_fields);
+    } else if (key == "tree_expansion_order") {
+      ret[pykey] = py::cast(self.tree_expansion_order);
+    } else if (key == "tree_ncrit") {
+      ret[pykey] = py::cast(self.tree_ncrit);
+    } else if (key == "theta") {
+      ret[pykey] = py::cast(self.theta);
     } else if (key == "pe_border") {
       ret[pykey] = py::cast(self.pe_border);
     } else if (key == "border_type") {
@@ -118,10 +134,14 @@ void export_state(py::module& m) {
              "callback",
              py::arg("options") = py::dict(), py::arg("molecule") = libcppe::Molecule(),
              py::arg("printer") = libcppe::default_printer)
+        .def_property_readonly("positions", &libcppe::CppeState::get_positions)
+        .def_property_readonly("positions_polarizable",
+                               &libcppe::CppeState::get_positions_polarizable)
         .def("set_potentials", &libcppe::CppeState::set_potentials)
         .def("calculate_static_energies_and_fields",
              &libcppe::CppeState::calculate_static_energies_and_fields)
         .def("get_induced_moments", &libcppe::CppeState::get_induced_moments)
+        .def("induced_moments_eef", &libcppe::CppeState::induced_moments_eef)
         .def_readwrite("energies", &libcppe::CppeState::m_pe_energy)
         .def_property_readonly("total_energy", &libcppe::CppeState::get_total_energy)
         .def("update_induced_moments", &libcppe::CppeState::update_induced_moments)

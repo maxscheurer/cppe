@@ -12,7 +12,7 @@
 
 namespace libcppe {
 
-CppeState::CppeState(PeOptions options, Molecule mol, PrintCallback printer)
+CppeState::CppeState(const PeOptions& options, Molecule mol, PrintCallback printer)
       : m_options(options), m_mol(mol), m_printer(printer) {
   m_pe_energy                       = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
@@ -36,6 +36,22 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
   m_polarizable_sites = std::count_if(m_potentials.begin(), m_potentials.end(),
                                       [](Potential p) { return p.is_polarizable(); });
   m_induced_moments   = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+
+  m_positions             = Eigen::MatrixXd::Zero(m_potentials.size(), 3);
+  m_positions_polarizable = Eigen::MatrixXd::Zero(m_polarizable_sites, 3);
+
+  for (int i = 0; i < m_potentials.size(); ++i) {
+    m_positions(i, 0) = m_potentials[i].m_x;
+    m_positions(i, 1) = m_potentials[i].m_y;
+    m_positions(i, 2) = m_potentials[i].m_z;
+  }
+
+  auto m_potentials_polarizable = get_polarizable_sites(m_potentials);
+  for (int i = 0; i < m_polarizable_sites; ++i) {
+    m_positions_polarizable(i, 0) = m_potentials_polarizable[i].m_x;
+    m_positions_polarizable(i, 1) = m_potentials_polarizable[i].m_y;
+    m_positions_polarizable(i, 2) = m_potentials_polarizable[i].m_z;
+  }
 }
 
 void CppeState::calculate_static_energies_and_fields() {
@@ -63,7 +79,11 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
   }
   InducedMoments ind(m_potentials, m_options);
   ind.set_print_callback(m_printer);
-  ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
+  if (m_options.summation_induced_fields == "direct") {
+    ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
+  } else {
+    m_induced_moments = ind.compute_cg(tmp_total_fields, m_induced_moments, m_make_guess);
+  }
   if (m_make_guess) {
     m_make_guess = false;
   }
@@ -80,6 +100,30 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
     m_pe_energy["Polarization"]["Nuclear"]    = epol_nuclear;
     m_pe_energy["Polarization"]["Multipoles"] = epol_multipoles;
   }
+}
+
+Eigen::MatrixXd CppeState::induced_moments_eef() {
+  InducedMoments ind(m_potentials, m_options);
+  ind.set_print_callback(m_printer);
+
+  Eigen::MatrixXd ret = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
+  Eigen::MatrixXd Fdn = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
+  for (int s = 0; s < m_polarizable_sites; ++s) {
+    int l         = 3 * s;
+    Fdn(l, 0)     = 1;
+    Fdn(l + 1, 1) = 1;
+    Fdn(l + 2, 2) = 1;
+  }
+  for (int a = 0; a < 3; ++a) {
+    Eigen::VectorXd ind_mom = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
+    if (m_options.summation_induced_fields == "direct") {
+      ind.compute(Fdn.col(a), ind_mom, true);
+      ret.col(a) = ind_mom;
+    } else {
+      ret.col(a) = ind.compute_cg(Fdn.col(a), ind_mom, true);
+    }
+  }
+  return ret;
 }
 
 double CppeState::get_total_energy_for_category(std::string category) {

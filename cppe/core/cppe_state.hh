@@ -34,6 +34,10 @@ class CppeState {
 
   Eigen::VectorXd m_induced_moments;  //!< Vector with induced moments
 
+  Eigen::MatrixXd m_positions;  //!< Vector with positions of all sites
+  Eigen::MatrixXd
+        m_positions_polarizable;  //!< Vector with positions of all polarizable sites
+
   PeOptions m_options;
 
   bool m_make_guess = true;
@@ -41,16 +45,19 @@ class CppeState {
 
  public:
   CppeState(){};
-  explicit CppeState(PeOptions options, Molecule mol,
+  explicit CppeState(const PeOptions& options, Molecule mol,
                      PrintCallback printer = default_printer);
   ~CppeState(){};
 
-  void set_options(PeOptions options) { m_options = options; }
+  void set_options(const PeOptions& options) { m_options = options; }
   PeOptions get_options() { return m_options; }
   void set_molecule(Molecule mol) { m_mol = mol; }
 
   void set_potentials(std::vector<Potential> potentials);
   std::vector<Potential> get_potentials() { return m_potentials; }
+
+  Eigen::MatrixXd get_positions() { return m_positions; }
+  Eigen::MatrixXd get_positions_polarizable() { return m_positions_polarizable; }
 
   void calculate_static_energies_and_fields();
 
@@ -76,6 +83,8 @@ class CppeState {
   Eigen::VectorXd get_multipole_fields() { return m_multipole_fields; }
 
   std::string get_energy_summary_string();
+  
+  Eigen::MatrixXd induced_moments_eef();
 };
 
 }  // namespace libcppe

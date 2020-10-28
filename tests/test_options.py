@@ -19,6 +19,10 @@ class TestOptions(unittest.TestCase):
         "damp_multipole": False,
         "damping_factor_induced": 2.1304,
         "damping_factor_multipole": 2.1304,
+        "summation_induced_fields": "direct",
+        "tree_expansion_order": 5,
+        "tree_ncrit": 64,
+        "theta": 0.5,
         "pe_border": False,
         "border_type": "remove",
         "border_rmin": 2.2,
@@ -49,6 +53,11 @@ class TestOptions(unittest.TestCase):
             "damp_multipole": True,
             "damping_factor_induced": 213.04,
             "damping_factor_multipole": 213.04,
+            # summation
+            "summation_induced_fields": "fmm",
+            "tree_expansion_order": 4,
+            "tree_ncrit": 12,
+            "theta": 0.2,
             # border
             "pe_border": True,
             "border_type": "redist",

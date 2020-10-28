@@ -64,18 +64,13 @@ class TestSolver(unittest.TestCase):
 
         # Test the matrix apply
         bmatrix_cpp = BMatrix(polsites, options)
-        ret = bmatrix_cpp.compute_apply(static_fields)
+        ret = bmatrix_cpp.apply(static_fields)
         ret_ref = bmat @ static_fields
         np.testing.assert_allclose(ret, ret_ref, atol=1e-12)
 
-        ret1 = bmatrix_cpp.compute_apply_slice(static_fields, 0, 8)
-        ret2 = bmatrix_cpp.compute_apply_slice(static_fields, 8, npolsites)
-        ret_all = ret1 + ret2
-        np.testing.assert_allclose(ret_all, ret_ref, atol=1e-12)
-
         # build the Bmatrix from C++
         A = LinearOperator(2 * (static_fields.size,),
-                           matvec=bmatrix_cpp.compute_apply)
+                           matvec=bmatrix_cpp.apply)
         Afull = A @ np.eye(static_fields.size)
         np.testing.assert_allclose(Afull, bmat, atol=1e-20)
 
@@ -85,7 +80,7 @@ class TestSolver(unittest.TestCase):
                                        induced_moments_direct, decimal=9)
 
         ind_mom = InducedMoments(potentials, options)
-        res_cg = ind_mom.compute_cg(static_fields)
+        res_cg = ind_mom.compute_cg(static_fields, True)
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
 
         binv = bmatrix_cpp.direct_inverse()
@@ -127,18 +122,13 @@ class TestSolver(unittest.TestCase):
 
         # Test the matrix apply
         bmatrix_cpp = BMatrix(polsites, options)
-        ret = bmatrix_cpp.compute_apply(static_fields)
+        ret = bmatrix_cpp.apply(static_fields)
         ret_ref = bmat @ static_fields
         np.testing.assert_allclose(ret, ret_ref, atol=1e-12)
 
-        ret1 = bmatrix_cpp.compute_apply_slice(static_fields, 0, 8)
-        ret2 = bmatrix_cpp.compute_apply_slice(static_fields, 8, npolsites)
-        ret_all = ret1 + ret2
-        np.testing.assert_allclose(ret_all, ret_ref, atol=1e-12)
-
         # build the Bmatrix from C++
         A = LinearOperator(2 * (static_fields.size,),
-                           matvec=bmatrix_cpp.compute_apply)
+                           matvec=bmatrix_cpp.apply)
         Afull = A @ np.eye(static_fields.size)
         np.testing.assert_allclose(Afull, bmat, atol=1e-20)
 
@@ -148,7 +138,7 @@ class TestSolver(unittest.TestCase):
                                        induced_moments_direct, decimal=9)
 
         ind_mom = InducedMoments(potentials, options)
-        res_cg = ind_mom.compute_cg(static_fields)
+        res_cg = ind_mom.compute_cg(static_fields, True)
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
 
         binv = bmatrix_cpp.direct_inverse()

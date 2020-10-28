@@ -21,7 +21,7 @@ double MultipoleExpansion::calculate_interaction_energy() {
             Eigen::Map<Eigen::VectorXd>(std::move(pref.data()), pref.size());
       Eigen::VectorXd mul_v = multipole.get_values_vec();
       for (auto& atom : m_mol) {
-        Eigen::Vector3d core_position = atom.get_pos();
+        Eigen::Vector3d core_position = atom.get_position();
         Eigen::Vector3d diff          = core_position - site_position;
         Eigen::VectorXd Tsm           = tensors::T[multipole.m_k](diff);
         total_energy += pref_v.dot(mul_v.cwiseProduct(Tsm)) * atom.charge;

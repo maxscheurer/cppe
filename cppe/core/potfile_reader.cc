@@ -69,7 +69,7 @@ std::vector<Potential> PotfileReader::read() {
         site.z = stod(temp[3]) * conversion;
         sites.push_back(site);
         // create an empty potential for the site
-        Potential p(site.x, site.y, site.z, i);
+        Potential p(site.x, site.y, site.z, element, i);
         potentials.push_back(p);
       }
     }
@@ -179,27 +179,6 @@ std::vector<Potential> PotfileReader::read() {
     }
   }
   infile.close();
-
-  // DEBUG
-  // int sc = 0;
-  // for (auto& pot : potentials) {
-  //   std::cout << sc << std::endl;
-  //   for (auto ex : pot.get_exclusions()) {
-  //     std::cout << ex << " ";
-  //   }
-  //   std::cout << "Potential at site " << sc << std::endl;
-  //   for (auto& mul : pot) {
-  //     std::cout << "    k = " << mul.m_k << ", x= " << mul.m_x << ", y= " <<
-  //     mul.m_y << ", z= " << mul.m_z << std::endl; std::cout << "       "; for
-  //     (auto& val : mul.get_values()) {
-  //       std::cout << val << " ";
-  //     }
-  //     std::cout << std::endl;
-  //   }
-  //   std::cout << std::endl;
-  //   sc++;
-  // }
-  //
 
   return potentials;
 }
