@@ -28,8 +28,8 @@ struct PeOptions {
   std::string summation_induced_fields{
         "direct"};  ///< Scheme to compute induced fields, "direct", "bh", "fmm"
   int tree_ncrit           = 64;   ///< Maximum number of particles per tree node
-  int tree_expansion_order = 7;    ///< Expansion order for tree-based summation schemes
-  double theta             = 0.3;  ///< opening angle for tree-based summation schemes
+  int tree_expansion_order = 5;    ///< Expansion order for tree-based summation schemes
+  double theta             = 0.5;  ///< opening angle for tree-based summation schemes
 
   bool pe_border = false;             ///< Activate border options for sites in proximity
                                       ///< to the QM/MM border

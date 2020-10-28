@@ -3,9 +3,6 @@
 size_t TriangleNumbers(size_t n) { return (n * (n + 1)) / 2; }
 
 size_t Nterms(size_t p) {
-  if (p < 0) {
-    return 0;
-  }
   size_t result = 0;
   for (size_t i = 0; i < p + 2; i++) {
     result += TriangleNumbers(i);
