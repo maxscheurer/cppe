@@ -80,16 +80,18 @@ class Potential {
   std::vector<int> m_exclusions;
 
  public:
-  Potential(double x, double y, double z, int idx)
+  Potential(double x, double y, double z, std::string element, int idx)
         : m_x(x),
           m_y(y),
           m_z(z),
+          m_element(element),
           index(idx){
 
           };
   ~Potential(){};
 
   double m_x, m_y, m_z;
+  std::string m_element;
   int index;
 
   void add_multipole(Multipole mul) { m_multipoles.push_back(mul); }

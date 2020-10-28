@@ -84,7 +84,7 @@ Eigen::VectorXd BMatrix::apply(const Eigen::VectorXd& induced_moments) {
 }
 
 Eigen::VectorXd BMatrix::apply_diagonal_inverse(const Eigen::VectorXd& in) {
-  Eigen::VectorXd ret = Eigen::VectorXd::Zero(in.size());
+  Eigen::VectorXd ret = Eigen::VectorXd::Zero(3 * m_n_polsites);
 
 #pragma omp parallel for
   for (int i = 0; i < m_n_polsites; ++i) {
@@ -96,7 +96,7 @@ Eigen::VectorXd BMatrix::apply_diagonal_inverse(const Eigen::VectorXd& in) {
 }
 
 Eigen::VectorXd BMatrix::apply_diagonal(const Eigen::VectorXd& in) {
-  Eigen::VectorXd ret = Eigen::VectorXd::Zero(in.size());
+  Eigen::VectorXd ret = Eigen::VectorXd::Zero(3 * m_n_polsites);
 
 #pragma omp parallel for
   for (int i = 0; i < m_n_polsites; ++i) {

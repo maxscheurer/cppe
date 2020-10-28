@@ -26,10 +26,11 @@ void export_multipole(py::module& m) {
 
   // libcppe::Potential
   py::class_<libcppe::Potential> pot(m, "Potential", "Potential (Site)");
-  pot.def(py::init<double, double, double, int>())
+  pot.def(py::init<double, double, double, std::string, int>())
         .def_readwrite("x", &libcppe::Potential::m_x, "x coordinate")
         .def_readwrite("y", &libcppe::Potential::m_y, "y coordinate")
         .def_readwrite("z", &libcppe::Potential::m_z, "z coordinate")
+        .def_readwrite("element", &libcppe::Potential::m_element, "element")
         .def_property_readonly("is_polarizable", &libcppe::Potential::is_polarizable)
         .def("excludes_site", &libcppe::Potential::excludes_site)
         .def_property_readonly("exclusions", &libcppe::Potential::get_exclusions)
