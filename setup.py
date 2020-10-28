@@ -194,7 +194,7 @@ setup(
     version=__version__,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU Lesser "
+        "License :: OSI Approved :: GNU Lesser ",
         "General Public License v3 (LGPLv3)",
         "License :: Free For Educational Use",
         "Intended Audience :: Science/Research",
