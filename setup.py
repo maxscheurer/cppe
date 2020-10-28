@@ -214,7 +214,7 @@ setup(
     setup_requires=["pybind11 >= 2.2"],
     install_requires=["pybind11 >= 2.2"],
     tests_require=[
-        "pytest", "numpy", "h5py", "numba", "scipy",
+        "pytest", "numpy", "h5py", "numba", "scipy", "pandas"
     ],
     # extras_require={
     #     "build_docs": ["sphinx>=2", "breathe", "sphinxcontrib-bibtex",
