@@ -264,7 +264,7 @@ void Tree<m_order, osize>::set_sources(double* S) {
 
 template <int m_order, int osize>
 void Tree<m_order, osize>::compute_field_fmm(double* F) {
-  std::cout << "Computing FMM fields." << std::endl;
+  // std::cout << "Computing FMM fields." << std::endl;
   for (size_t i = 0; i < osize * particles.size(); i++) {
     F[i] = 0.0;
   }
@@ -292,7 +292,7 @@ void Tree<m_order, osize>::compute_field_fmm(double* F) {
 
 template <int m_order, int osize>
 void Tree<m_order, osize>::compute_field_exact(double* F) {
-  std::cout << "Computing fields exactly." << std::endl;
+  // std::cout << "Computing fields exactly." << std::endl;
   evaluate_direct<m_order, osize>(particles, F, particles.size());
 }
 
