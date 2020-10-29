@@ -12,7 +12,6 @@
 #include "tree.hh"
 #include "utils.hh"
 #include <iostream>
-#include <omp.h>
 
 void M_sanity_check(const std::vector<Cell>& cells);
 
