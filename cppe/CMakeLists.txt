@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(cppe-core VERSION 0.2.1 LANGUAGES CXX)
+project(cppe-core VERSION 0.3.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
