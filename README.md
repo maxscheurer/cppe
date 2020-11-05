@@ -81,7 +81,7 @@ DOI: 10.1021/acs.jctc.9b00758
 
 
 ## Literature
-<sup>1</sup> Olsen, J. M., Aidas, K.; Kongsted, J. (2010). Excited States in Solution through Polarizable Embedding. _J. Chem. Theory Comput._, **6** (12), 3721–3734. https://doi.org/10.1021/ct1003803
+<sup>1</sup> Olsen, J. M. H.; Aidas, K.; Kongsted, J. (2010). Excited States in Solution through Polarizable Embedding. _J. Chem. Theory Comput._, **6** (12), 3721–3734. https://doi.org/10.1021/ct1003803
 
 <sup>2</sup> Olsen, J. M. H.; Kongsted, J. (2011). Molecular Properties through Polarizable Embedding. _Advances in Quantum Chemistry_ (Vol. 61). https://doi.org/10.1016/B978-0-12-386013-2.00003-6
 
