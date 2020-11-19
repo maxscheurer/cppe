@@ -57,7 +57,7 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
 void CppeState::calculate_static_energies_and_fields() {
   // Electrostatic energy (nuclei-multipoles)
   MultipoleExpansion mexp(m_mol, m_potentials);
-  double nuc_mul_energy                   = mexp.calculate_interaction_energy();
+  double nuc_mul_energy                   = mexp.interaction_energy();
   m_pe_energy["Electrostatic"]["Nuclear"] = nuc_mul_energy;
 
   // Calculate static fields
