@@ -2,7 +2,7 @@
 # <img src="https://gist.githubusercontent.com/maxscheurer/43b3dd040ea09ab06546bc6c2c771f56/raw/ced0c420e4840faf203dbca4d719f90cd66ca3fb/cppe_logo.png" height=150>
 
 
-[![Build Status](https://travis-ci.com/maxscheurer/cppe.svg?branch=master)](https://travis-ci.com/maxscheurer/cppe)
+![CI](https://github.com/maxscheurer/cppe/workflows/CI/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
 
 
