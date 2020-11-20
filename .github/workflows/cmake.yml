@@ -43,12 +43,12 @@ jobs:
     - name: Configure CMake (Linux)
       if: contains( matrix.os, 'ubuntu')
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=ON
     
     - name: Configure CMake (macos)
       if: contains( matrix.os, 'macos')
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_COMPILER=g++-9
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_COMPILER=g++-9 -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
