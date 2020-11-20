@@ -31,14 +31,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
+
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pytest numpy h5py numba scipy pandas
         pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
-
-    # - name: Create Build Environment
-      # run: cmake -E make_directory $GITHUB_WORKSPACE/build
 
     - name: Configure CMake (Linux)
       if: contains( matrix.os, 'ubuntu')
@@ -48,14 +46,14 @@ jobs:
       if: contains( matrix.os, 'macos')
       run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DPYTHON_EXECUTABLE=$(which python) -DCMAKE_CXX_COMPILER=g++-9 -DENABLE_PYTHON_INTERFACE=ON
 
-    - name: Build
+    - name: Build CMake
       run: cmake --build build --config $BUILD_TYPE
 
     - name: Test CMake
       run: |
         source setup_environment.sh
         py.test
-    
+
     - name: Build and Test Setuptools
       run: |
         rm -rf build
