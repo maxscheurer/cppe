@@ -51,10 +51,13 @@ jobs:
     - name: Build
       run: cmake --build build --config $BUILD_TYPE
 
-    - name: Test
+    - name: Test CMake
       run: |
-        pwd
-        ls
         source setup_environment.sh
         py.test
+    
+    - name: Build and Test Setuptools
+      run: |
+        rm -rf build
+        python setup.py test
 
