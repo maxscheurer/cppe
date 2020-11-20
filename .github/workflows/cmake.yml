@@ -37,25 +37,21 @@ jobs:
         pip install pytest numpy h5py numba scipy pandas
         pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
 
-    - name: Create Build Environment
-      run: cmake -E make_directory ${{runner.workspace}}/build
+    # - name: Create Build Environment
+      # run: cmake -E make_directory $GITHUB_WORKSPACE/build
 
     - name: Configure CMake (Linux)
       if: contains( matrix.os, 'ubuntu')
-      working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=ON
+      run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DPYTHON_EXECUTABLE=$(which python) -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Configure CMake (macos)
       if: contains( matrix.os, 'macos')
-      working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_COMPILER=g++-9 -DENABLE_PYTHON_INTERFACE=ON
+      run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DPYTHON_EXECUTABLE=$(which python) -DCMAKE_CXX_COMPILER=g++-9 -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Build
-      working-directory: ${{runner.workspace}}/build
-      run: cmake --build . --config $BUILD_TYPE
+      run: cmake --build build --config $BUILD_TYPE
 
     - name: Test
-      working-directory: ${{runner.workspace}}
       run: |
         pwd
         ls
