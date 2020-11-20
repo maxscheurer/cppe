@@ -18,6 +18,8 @@ jobs:
           python -m pip install --user setuptools wheel
       - name: Build a source tarball
         run: |
+          pip install pytest numpy h5py numba scipy pandas
+          pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
           python setup.py test
           python setup.py sdist
       - name: Publish distribution 📦 to Test PyPI
