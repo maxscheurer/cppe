@@ -70,6 +70,16 @@ void CppeState::calculate_static_energies_and_fields() {
   m_multipole_fields = mul_fields.compute();
 }
 
+Eigen::MatrixXd CppeState::nuclear_interaction_energy_gradient() {
+  MultipoleExpansion mexp(m_mol, m_potentials);
+  return mexp.nuclear_gradient();
+}
+
+Eigen::MatrixXd CppeState::nuclear_field_gradient() {
+  NuclearFields nfields(m_mol, m_potentials);
+  return nfields.nuclear_gradient();
+}
+
 void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_only) {
   Eigen::VectorXd tmp_total_fields = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
   if (elec_only) {
