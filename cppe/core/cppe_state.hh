@@ -85,6 +85,9 @@ class CppeState {
   std::string get_energy_summary_string();
   
   Eigen::MatrixXd induced_moments_eef();
+
+  Eigen::MatrixXd nuclear_interaction_energy_gradient();
+  Eigen::MatrixXd nuclear_field_gradient();
 };
 
 }  // namespace libcppe

@@ -32,6 +32,7 @@ class NuclearFields : public ElectricFields {
   NuclearFields(Molecule mol, std::vector<Potential> potentials)
         : ElectricFields(potentials), m_mol(mol){};
   Eigen::VectorXd compute();
+  Eigen::MatrixXd nuclear_gradient();
 };
 
 class MultipoleFields : public ElectricFields {

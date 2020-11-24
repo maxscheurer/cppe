@@ -74,6 +74,35 @@ Eigen::VectorXd NuclearFields::compute() {
   return nuc_fields;
 }
 
+Eigen::MatrixXd NuclearFields::nuclear_gradient() {
+  int natoms = m_mol.size();
+  Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(3 * natoms, 3 * m_n_polsites);
+#pragma omp parallel for
+  for (size_t i = 0; i < m_n_polsites; i++) {
+    size_t site_counter           = 3 * i;
+    Potential& potential          = m_polsites[i];
+    Eigen::Vector3d site_position = potential.get_site_position();
+    for (int ai = 0; ai < natoms; ++ai) {
+      auto& atom = m_mol[ai];
+      Eigen::Vector3d core_position = atom.get_position();
+      Eigen::Vector3d diff          = site_position - core_position;
+      Eigen::VectorXd Tms           = tensors::T2(diff);
+      grad(3 * ai + 0, site_counter + 0) = atom.charge * Tms(0);
+      grad(3 * ai + 0, site_counter + 1) = atom.charge * Tms(1);
+      grad(3 * ai + 0, site_counter + 2) = atom.charge * Tms(2);
+
+      grad(3 * ai + 1, site_counter + 0) = atom.charge * Tms(1);
+      grad(3 * ai + 1, site_counter + 1) = atom.charge * Tms(3);
+      grad(3 * ai + 1, site_counter + 2) = atom.charge * Tms(4);
+
+      grad(3 * ai + 2, site_counter + 0) = atom.charge * Tms(2);
+      grad(3 * ai + 2, site_counter + 1) = atom.charge * Tms(4);
+      grad(3 * ai + 2, site_counter + 2) = atom.charge * Tms(5);
+    }
+  }
+  return grad;
+}
+
 Eigen::VectorXd MultipoleFields::compute_tree() {
   int n_sites  = m_potentials.size();
   int n_crit   = m_options.tree_ncrit;

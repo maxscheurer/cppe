@@ -57,7 +57,7 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
 void CppeState::calculate_static_energies_and_fields() {
   // Electrostatic energy (nuclei-multipoles)
   MultipoleExpansion mexp(m_mol, m_potentials);
-  double nuc_mul_energy                   = mexp.calculate_interaction_energy();
+  double nuc_mul_energy                   = mexp.interaction_energy();
   m_pe_energy["Electrostatic"]["Nuclear"] = nuc_mul_energy;
 
   // Calculate static fields
@@ -68,6 +68,16 @@ void CppeState::calculate_static_energies_and_fields() {
   // Multipole fields
   MultipoleFields mul_fields(m_potentials, m_options);
   m_multipole_fields = mul_fields.compute();
+}
+
+Eigen::MatrixXd CppeState::nuclear_interaction_energy_gradient() {
+  MultipoleExpansion mexp(m_mol, m_potentials);
+  return mexp.nuclear_gradient();
+}
+
+Eigen::MatrixXd CppeState::nuclear_field_gradient() {
+  NuclearFields nfields(m_mol, m_potentials);
+  return nfields.nuclear_gradient();
 }
 
 void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_only) {

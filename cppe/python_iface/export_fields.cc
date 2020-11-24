@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 
 #include "../core/electric_fields.hh"
+#include "../core/multipole_expansion.hh"
 #include "../core/molecule.hh"
 #include "../core/pe_options.hh"
 
@@ -34,7 +35,8 @@ void export_fields(py::module& m) {
   py::class_<libcppe::NuclearFields> nuc_fields(m, "NuclearFields",
                                                 "Electric fields created by nuclei");
   nuc_fields.def(py::init<libcppe::Molecule, std::vector<libcppe::Potential>>())
-        .def("compute", &libcppe::NuclearFields::compute);
+        .def("compute", &libcppe::NuclearFields::compute)
+        .def("nuclear_gradient", &libcppe::NuclearFields::nuclear_gradient);
 
   py::class_<libcppe::MultipoleFields, std::shared_ptr<libcppe::MultipoleFields>>
         mul_fields(m, "MultipoleFields", "Electric fields created by multipoles");
@@ -70,6 +72,11 @@ void export_fields(py::module& m) {
         .def("apply_diagonal", &libcppe::BMatrix::apply_diagonal)
         .def("apply_diagonal_inverse", &libcppe::BMatrix::apply_diagonal_inverse);
   bmatrix.def_property_readonly("exclusions", &libcppe::BMatrix::get_exclusions);
+
+  py::class_<libcppe::MultipoleExpansion, std::shared_ptr<libcppe::MultipoleExpansion>> multipole_expansion(m, "MultipoleExpansion");
+  multipole_expansion.def(py::init<libcppe::Molecule, std::vector<libcppe::Potential>>())
+                     .def("interaction_energy", &libcppe::MultipoleExpansion::interaction_energy)
+                     .def("nuclear_gradient", &libcppe::MultipoleExpansion::nuclear_gradient);
 
   m.def("multipole_derivative", &libcppe::multipole_derivative);
 }

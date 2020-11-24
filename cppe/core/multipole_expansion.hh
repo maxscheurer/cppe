@@ -16,9 +16,9 @@ class MultipoleExpansion {
           m_potentials(potentials){
 
           };
-  ~MultipoleExpansion(){};
 
-  double calculate_interaction_energy();
+  double interaction_energy();
+  Eigen::MatrixXd nuclear_gradient();
 };
 
 }  // namespace libcppe
