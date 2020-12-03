@@ -22,8 +22,8 @@ jobs:
           cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=OFF -DCMAKE_INSTALL_PREFIX=stage/cppe
           cmake --build build --config $BUILD_TYPE
           cmake --build build --config $BUILD_TYPE --target install
-          ls build/stage/cppe
-          zip --junk-paths cppe_binary build/stage/cppe
+          ls stage/cppe
+          zip --junk-paths cppe_binary stage/cppe
           ls
       - name: Create Release
         id: create_release
