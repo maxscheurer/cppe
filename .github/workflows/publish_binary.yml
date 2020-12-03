@@ -12,17 +12,30 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest] #, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build CMake (Linux)
+
+      - name: Install gcc on macos
+        if: contains( matrix.os, 'macos')
+        run: brew install gcc@9 || brew upgrade gcc@9 || true
+
+      - name: Configure CMake (Linux)
         if: contains( matrix.os, 'ubuntu')
         run: |
           cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=OFF -DCMAKE_INSTALL_PREFIX=cppe_binary
+      - name: Configure CMake (macOS)
+        if: contains( matrix.os, 'macos')
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=OFF -DCMAKE_INSTALL_PREFIX=cppe_binary -DCMAKE_CXX_COMPILER=g++-9
+
+      - name: Build and Zip
+        run: |
           cmake --build build --config $BUILD_TYPE
           cmake --build build --config $BUILD_TYPE --target install
           zip -r cppe_binary.zip cppe_binary/*
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
