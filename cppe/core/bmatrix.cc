@@ -76,7 +76,7 @@ Eigen::VectorXd BMatrix::apply(const Eigen::VectorXd& induced_moments) {
   auto scheme = m_options.summation_induced_fields;
   if (scheme == "direct") {
     return apply_direct(induced_moments);
-  } else if (scheme == "fmm" or scheme == "bh") {
+  } else if (scheme == "fmm") {
     return apply_fast_summation(induced_moments, scheme);
   } else {
     throw std::invalid_argument("Invalid summation scheme for induced fields provided.");
