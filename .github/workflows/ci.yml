@@ -54,6 +54,7 @@ jobs:
       run: cmake --build build --config $BUILD_TYPE
 
     - name: Test CMake
+      if: contains( matrix.os, 'ubuntu') || contains( matrix.os, 'macos')
       run: |
         source setup_environment.sh
         py.test
