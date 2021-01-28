@@ -48,7 +48,7 @@ jobs:
 
     - name: Configure CMake (Windows)
       if: contains( matrix.os, 'windows')
-      run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_PYTHON_INTERFACE=ON
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Build CMake
       run: cmake --build build --config $BUILD_TYPE
