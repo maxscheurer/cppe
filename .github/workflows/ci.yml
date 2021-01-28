@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [windows-latest] #ubuntu-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -45,6 +45,10 @@ jobs:
     - name: Configure CMake (macos)
       if: contains( matrix.os, 'macos')
       run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DPYTHON_EXECUTABLE=$(which python) -DCMAKE_CXX_COMPILER=g++-9 -DENABLE_PYTHON_INTERFACE=ON
+
+    - name: Configure CMake (Windows)
+      if: contains( matrix.os, 'windows')
+      run: cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DPYTHON_EXECUTABLE=$(which python) -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Build CMake
       run: cmake --build build --config $BUILD_TYPE
