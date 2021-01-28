@@ -62,7 +62,6 @@ jobs:
     - name: Test CMake (Windows)
       if: contains( matrix.os, 'windows')
       run: |
-        setlocal EnableDelayedExpansion
         set PYTHONPATH=build\stage\lib;%PYTHONPATH%
         py.test
 
