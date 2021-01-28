@@ -62,7 +62,7 @@ jobs:
     - name: Test CMake (Windows)
       if: contains( matrix.os, 'windows')
       run: |
-        set PYTHONPATH=build\stage\lib;%PYTHONPATH%
+        set PYTHONPATH="build\stage\lib;%PYTHONPATH%"
         py.test
 
     - name: Build and Test Setuptools (Linux and macOS)
