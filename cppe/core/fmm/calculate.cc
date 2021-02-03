@@ -212,14 +212,14 @@ void evaluate_P2P_lazy(std::vector<Cell>& cells, std::vector<Particle>& particle
     for (size_t i = 0; i < P2P_list.size(); i++) {
       size_t A = P2P_list[i].first;
       size_t B = P2P_list[i].second;
-      P2P_Cells<M, osize>(A, B, cells, particles, F);
+      P2P_Cells_damping<M, osize>(A, B, cells, particles, F, damping);
     }
   } else {
     #pragma omp for
     for (size_t i = 0; i < P2P_list.size(); i++) {
       size_t A = P2P_list[i].first;
       size_t B = P2P_list[i].second;
-      P2P_Cells_damping<M, osize>(A, B, cells, particles, F, damping);
+      P2P_Cells<M, osize>(A, B, cells, particles, F);
     }
   }
 }
