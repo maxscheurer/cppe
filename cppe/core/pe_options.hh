@@ -47,11 +47,6 @@ struct PeOptions {
                                    ///< all higher order moments are removed
   bool border_redist_pol = false;  ///< redistribute polarizabilities? If false,
   ///< polarizabilities are removed (default)
-
-  // TODO: remove these options completely
-  bool do_diis = true;  ///< Use DIIS acceleration to obtain induced moments
-  double diis_start_norm =
-        1.0;  ///< maximal residual norm for which DIIS is being enabled
 };
 
 static const std::vector<std::string> valid_option_keys{"potfile",
