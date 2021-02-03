@@ -80,7 +80,7 @@ class TestSolver(unittest.TestCase):
                                        induced_moments_direct, decimal=9)
 
         ind_mom = InducedMoments(potentials, options)
-        res_cg = ind_mom.compute_cg(static_fields, True)
+        res_cg = ind_mom.compute(static_fields, True)
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
 
         binv = bmatrix_cpp.direct_inverse()
@@ -138,7 +138,7 @@ class TestSolver(unittest.TestCase):
                                        induced_moments_direct, decimal=9)
 
         ind_mom = InducedMoments(potentials, options)
-        res_cg = ind_mom.compute_cg(static_fields, True)
+        res_cg = ind_mom.compute(static_fields, True)
         np.testing.assert_allclose(res_cg, induced_moments_direct, atol=1e-10)
 
         binv = bmatrix_cpp.direct_inverse()

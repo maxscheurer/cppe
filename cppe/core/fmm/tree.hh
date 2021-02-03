@@ -7,12 +7,18 @@
 #include <memory>
 #include <vector>
 
+#include "../pe_options.hh"
+#include "../potential.hh"
+
+using namespace libcppe;
+
 /*! \brief Particle class used to store position and source strength. */
 class Particle {
  public:
   double* r;                    // Address of 3-vector position of the particle
   double* S;                    // Address of q
   std::vector<int> exclusions;  // Exclusion list
+  double alpha;                 // isotropic polarizability (for Thole damping)
 
   bool excludes_particle(int other_particle) {
     return (std::find(exclusions.begin(), exclusions.end(), other_particle) !=
@@ -98,6 +104,9 @@ class Tree {
   void compute_field_fmm(double* F);
   void compute_field_exact(double* F);
 
+  // Thole damping
+  double damping;
+
  private:
   void clear_M();
   void clear_L();
@@ -115,3 +124,8 @@ template <int m_order, int osize>
 std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
       double* pos, double* mu, size_t nparticles, size_t ncrit, size_t order,
       double theta, std::vector<std::vector<int>> exclusion_lists);
+
+template <int m_order, int osize>
+std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
+      std::vector<Potential>& potentials, double* S, size_t ncrit, size_t order,
+      double theta, double damping);

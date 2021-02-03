@@ -8,8 +8,6 @@
 #include <cmath>
 #include <vector>
 
-using namespace libcppe;
-
 Cell::Cell(double x, double y, double z, double r, size_t parent, size_t order,
            size_t level, size_t ncrit) {
   this->x      = x;
@@ -135,6 +133,111 @@ void split_cell(std::vector<Cell>& cells, std::vector<Particle>& particles, size
 
 template <int m_order, int osize>
 std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
+      std::vector<Potential>& potentials, double* S, size_t ncrit, size_t order,
+      double theta, double damping) {
+  int sourcesize = multipole_components(m_order);
+  int nparticles = potentials.size();
+  std::vector<Particle> particles(nparticles);
+  bool damping_enabled = damping > 0.0;
+  for (size_t i = 0; i < nparticles; i++) {
+    particles[i].r          = potentials[i].ptr_position();
+    particles[i].S          = &S[sourcesize * i];
+    particles[i].exclusions = potentials[i].get_exclusions();
+    if (damping_enabled && potentials[i].is_polarizable()) {
+      particles[i].alpha = potentials[i].get_polarizability().get_isotropic_value();
+    }
+  }
+
+  // Now create cells list
+  std::vector<Cell> cells;
+  size_t curr;
+  int octant;
+
+  // Compute average position
+  double xavg = 0;
+  double yavg = 0;
+  double zavg = 0;
+  for (size_t i = 0; i < particles.size(); i++) {
+    xavg += particles[i].r[0];
+    yavg += particles[i].r[1];
+    zavg += particles[i].r[2];
+  }
+
+  xavg /= particles.size();
+  yavg /= particles.size();
+  zavg /= particles.size();
+#ifdef FMMLIBDEBUG
+  std::cout << "Building Tree: Avg pos = (" << xavg << ", " << yavg << ", " << zavg << ")"
+            << std::endl;
+#endif
+  double xmax = 0;
+  double ymax = 0;
+  double zmax = 0;
+
+  for (size_t i = 0; i < particles.size(); i++) {
+    double x = std::abs(particles[i].r[0] - xavg);
+    double y = std::abs(particles[i].r[1] - yavg);
+    double z = std::abs(particles[i].r[2] - zavg);
+
+    if (x > xmax) xmax = x;
+    if (y > ymax) ymax = y;
+    if (z > zmax) zmax = z;
+  }
+
+  double r =
+        (xmax > ymax ? (xmax > zmax ? xmax : zmax) : (ymax > zmax ? ymax : zmax)) * 1.001;
+  auto root = Cell(xavg, yavg, zavg, r, 0, order, 0, ncrit);
+
+  cells.push_back(root);
+  for (size_t i = 0; i < particles.size(); i++) {
+    curr = 0;
+    while (cells[curr].nleaf >= ncrit) {
+      cells[curr].nleaf += 1;
+      octant = (particles[i].r[0] > cells[curr].x) +
+               ((particles[i].r[1] > cells[curr].y) << 1) +
+               ((particles[i].r[2] > cells[curr].z) << 2);
+      if (!(cells[curr].nchild & (1 << octant))) {
+        add_child(cells, octant, curr, ncrit, order);
+      }
+      curr = cells[curr].child[octant];
+    }
+    cells[curr].leaf[cells[curr].nleaf] = i;
+    cells[curr].nleaf += 1;
+    if (cells[curr].nleaf >= ncrit) {
+      split_cell(cells, particles, curr, ncrit, order);
+    }
+  }
+
+  // Now create tree object, and set properties.
+  // Choosing a very simple data type here.
+  std::shared_ptr<Tree<m_order, osize>> tree = std::make_shared<Tree<m_order, osize>>();
+  tree->theta                                = theta;
+  tree->ncrit                                = ncrit;
+  tree->order                                = order;
+  tree->cells                                = cells;
+  tree->particles                            = particles;
+  tree->damping                              = damping;
+
+  // Create interaction lists, and sort M2L list for cache efficiency.
+  interact_dehnen_lazy<m_order, osize>(0, 0, tree->cells, particles, theta, order, ncrit,
+                                       tree->M2L_list, tree->P2P_list);
+  std::sort(tree->M2L_list.begin(), tree->M2L_list.end(),
+            [](std::pair<size_t, size_t>& left, std::pair<size_t, size_t>& right) {
+              return left.first < right.first;
+            });
+
+  // Create memory into which each cell can point for the multipole arrays.
+  tree->M.resize(tree->cells.size() * Msize(order, m_order), 0.0);
+  tree->L.resize(tree->cells.size() * Lsize(order, m_order), 0.0);
+  for (size_t i = 0; i < tree->cells.size(); i++) {
+    tree->cells[i].M = &tree->M[i * Msize(order, m_order)];
+    tree->cells[i].L = &tree->L[i * Lsize(order, m_order)];
+  }
+  return tree;
+}
+
+template <int m_order, int osize>
+std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
       double* pos, double* S, size_t nparticles, size_t ncrit, size_t order, double theta,
       std::vector<std::vector<int>> exclusion_lists) {
   int sourcesize = multipole_components(m_order);
@@ -181,15 +284,6 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
     if (y > ymax) ymax = y;
     if (z > zmax) zmax = z;
   }
-
-  // if xmax > ymax
-  //    then if xmax > zmax, return xmax
-  //         else zmax
-  // else if ymax > zmax, return ymax
-  // else return zmax
-  // * 1.001 so that cell slightly bigger than furthest away particle.
-  // std::cout << "xmax = " << xmax << ", ymax = " << ymax << ", zmax = " << zmax << ",
-  // rmax = " << r << std::endl;
 
   double r =
         (xmax > ymax ? (xmax > zmax ? xmax : zmax) : (ymax > zmax ? ymax : zmax)) * 1.001;
@@ -282,7 +376,7 @@ void Tree<m_order, osize>::compute_field_fmm(double* F) {
 #pragma omp parallel
   {
     evaluate_M2L_lazy<m_order, osize>(cells, M2L_list, order);
-    evaluate_P2P_lazy<m_order, osize>(cells, particles, P2P_list, F);
+    evaluate_P2P_lazy<m_order, osize>(cells, particles, P2P_list, F, damping);
   }
 
   evaluate_L2L<m_order, osize>(cells, order);
@@ -292,8 +386,11 @@ void Tree<m_order, osize>::compute_field_fmm(double* F) {
 
 template <int m_order, int osize>
 void Tree<m_order, osize>::compute_field_exact(double* F) {
-  // std::cout << "Computing fields exactly." << std::endl;
-  evaluate_direct<m_order, osize>(particles, F, particles.size());
+  if (damping > 0.0) {
+    evaluate_direct_damping<m_order, osize>(particles, F, damping);
+  } else {
+    evaluate_direct<m_order, osize>(particles, F);
+  }
 }
 
 template class Tree<0, 3>;
@@ -308,3 +405,13 @@ template std::shared_ptr<Tree<1, 3>> build_shared_tree<1, 3>(
 template std::shared_ptr<Tree<2, 3>> build_shared_tree<2, 3>(
       double* pos, double* S, size_t nparticles, size_t ncrit, size_t order, double theta,
       std::vector<std::vector<int>> exclusion_lists);
+
+template std::shared_ptr<Tree<0, 3>> build_shared_tree<0, 3>(
+      std::vector<Potential>& potentials, double* S, size_t ncrit, size_t order,
+      double theta, double damping);
+template std::shared_ptr<Tree<1, 3>> build_shared_tree<1, 3>(
+      std::vector<Potential>& potentials, double* S, size_t ncrit, size_t order,
+      double theta, double damping);
+template std::shared_ptr<Tree<2, 3>> build_shared_tree<2, 3>(
+      std::vector<Potential>& potentials, double* S, size_t ncrit, size_t order,
+      double theta, double damping);

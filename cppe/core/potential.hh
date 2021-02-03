@@ -78,16 +78,13 @@ class Potential {
   bool m_is_polarizable = false;
   // sites to exclude, 0-based index
   std::vector<int> m_exclusions;
+  std::vector<double> m_R;
 
  public:
   Potential(double x, double y, double z, std::string element, int idx)
-        : m_x(x),
-          m_y(y),
-          m_z(z),
-          m_element(element),
-          index(idx){
-
-          };
+        : m_x(x), m_y(y), m_z(z), m_element(element), index(idx) {
+    m_R = std::vector<double>{m_x, m_y, m_z};
+  };
   ~Potential(){};
 
   double m_x, m_y, m_z;
@@ -126,6 +123,7 @@ class Potential {
   bool is_polarizable() { return m_is_polarizable; }
 
   Eigen::Vector3d get_site_position() { return Eigen::Vector3d(m_x, m_y, m_z); }
+  double* ptr_position() { return m_R.data(); }
 };
 
 }  // namespace libcppe

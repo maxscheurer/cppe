@@ -46,7 +46,7 @@ class TestFMM(unittest.TestCase):
                     "tree_expansion_order": exp_order,
                 }
                 fmuls_tree = cppe.MultipoleFields(potentials, options)
-                fs_tree = fmuls_tree.compute_tree()
+                fs_tree = fmuls_tree.compute()
                 fs = fs.reshape(len(potentials), 3)
                 fs_tree = fs_tree.reshape(fs.shape)
                 err_mu_i = (

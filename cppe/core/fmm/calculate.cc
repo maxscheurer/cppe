@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stack>
 
+#include "../tensors.hh"
+
 using namespace libcppe;
 
 void M_sanity_check(const std::vector<Cell>& cells) {
@@ -30,7 +32,6 @@ void P2P_Cells(size_t A, size_t B, std::vector<Cell>& cells,
   // A - target
   // B - source
   for (size_t p1 = 0; p1 < cells[A].nleaf; p1++) {
-    // double F_p[FMMGEN_OUTPUTSIZE] = {0.0};
     size_t l1 = cells[A].leaf[p1];
     for (size_t p2 = 0; p2 < cells[B].nleaf; p2++) {
       size_t l2 = cells[B].leaf[p2];
@@ -44,42 +45,27 @@ void P2P_Cells(size_t A, size_t B, std::vector<Cell>& cells,
   }
 }
 
-template <int M, int osize>
-void interact_dehnen(size_t A, size_t B, std::vector<Cell>& cells,
-                     std::vector<Particle>& particles, double theta, size_t order,
-                     size_t ncrit, double* F) {
-  double dx = (cells[A].x - cells[B].x);
-  double dy = (cells[A].y - cells[B].y);
-  double dz = (cells[A].z - cells[B].z);
-  double R  = sqrt(dx * dx + dy * dy + dz * dz);
-
-  if (R * theta > (cells[A].rmax + cells[B].rmax)) {
-    M2L<M, osize>(dx, dy, dz, cells[B].M, cells[A].L, order);
-  }
-
-  else if (cells[A].nchild == 0 && cells[B].nchild == 0) {
-    if (cells[B].nleaf >= ncrit) {
-      M2L<M, osize>(dx, dy, dz, cells[B].M, cells[A].L, order);
-    } else {
-      P2P_Cells<M, osize>(A, B, cells, particles, F);
-    }
-  }
-
-  else if (cells[B].nchild == 0 ||
-           (cells[A].rmax >= cells[B].rmax && cells[A].nchild != 0)) {
-    for (int oa = 0; oa < 8; oa++) {
-      if (cells[A].nchild & (1 << oa)) {
-        int a = cells[A].child[oa];
-        interact_dehnen<M, osize>(a, B, cells, particles, theta, order, ncrit, F);
-      }
-    }
-  }
-
-  else {
-    for (int ob = 0; ob < 8; ob++) {
-      if (cells[B].nchild & (1 << ob)) {
-        const int b = cells[B].child[ob];
-        interact_dehnen<M, osize>(A, b, cells, particles, theta, order, ncrit, F);
+template <int m_order, int osize>
+void P2P_Cells_damping(size_t A, size_t B, std::vector<Cell>& cells,
+                       std::vector<Particle>& particles, double* F, double damping) {
+  // A - target
+  // B - source
+  for (size_t p1 = 0; p1 < cells[A].nleaf; p1++) {
+    size_t l1 = cells[A].leaf[p1];
+    for (size_t p2 = 0; p2 < cells[B].nleaf; p2++) {
+      size_t l2 = cells[B].leaf[p2];
+      if (l2 != l1 && !particles[l1].excludes_particle(l2)) {
+        double dx = (particles[l1].r[0] - particles[l2].r[0]);
+        double dy = (particles[l1].r[1] - particles[l2].r[1]);
+        double dz = (particles[l1].r[2] - particles[l2].r[2]);
+        double a1 = particles[l1].alpha;
+        double a2 = particles[l2].alpha;
+        if (a1 > 0.0 && a2 > 0.0) {
+          double v = damping / std::pow(a1 * a2, 1.0 / 6.0);
+          P2P<m_order, osize>(dx, dy, dz, v, particles[l2].S, &F[osize * l1]);
+        } else {
+          P2P<m_order, osize>(dx, dy, dz, particles[l2].S, &F[osize * l1]);
+        }
       }
     }
   }
@@ -218,12 +204,22 @@ void evaluate_M2L_lazy(std::vector<Cell>& cells,
 
 template <int M, int osize>
 void evaluate_P2P_lazy(std::vector<Cell>& cells, std::vector<Particle>& particles,
-                       std::vector<std::pair<size_t, size_t>>& P2P_list, double* F) {
+                       std::vector<std::pair<size_t, size_t>>& P2P_list, double* F,
+                       double damping) {
+
+  if (damping > 0.0) {
 #pragma omp for
-  for (size_t i = 0; i < P2P_list.size(); i++) {
-    size_t A = P2P_list[i].first;
-    size_t B = P2P_list[i].second;
-    P2P_Cells<M, osize>(A, B, cells, particles, F);
+    for (size_t i = 0; i < P2P_list.size(); i++) {
+      size_t A = P2P_list[i].first;
+      size_t B = P2P_list[i].second;
+      P2P_Cells<M, osize>(A, B, cells, particles, F);
+    }
+  } else {
+    for (size_t i = 0; i < P2P_list.size(); i++) {
+      size_t A = P2P_list[i].first;
+      size_t B = P2P_list[i].second;
+      P2P_Cells_damping<M, osize>(A, B, cells, particles, F, damping);
+    }
   }
 }
 
@@ -263,7 +259,8 @@ void evaluate_L2P(std::vector<Particle>& particles, std::vector<Cell>& cells, do
 }
 
 template <int M, int osize>
-void evaluate_direct(std::vector<Particle>& particles, double* F, size_t n) {
+void evaluate_direct(std::vector<Particle>& particles, double* F) {
+  int n = particles.size();
 #pragma omp parallel for schedule(runtime)
   for (size_t i = 0; i < n; i++) {
     for (size_t j = 0; j < n; j++) {
@@ -272,6 +269,30 @@ void evaluate_direct(std::vector<Particle>& particles, double* F, size_t n) {
         double dy = particles[i].r[1] - particles[j].r[1];
         double dz = particles[i].r[2] - particles[j].r[2];
         P2P<M, osize>(dx, dy, dz, particles[j].S, &F[osize * i]);
+      }
+    }
+  }
+}
+
+template <int M, int osize>
+void evaluate_direct_damping(std::vector<Particle>& particles, double* F,
+                             double damping) {
+  int n = particles.size();
+#pragma omp parallel for schedule(runtime)
+  for (size_t i = 0; i < n; i++) {
+    for (size_t j = 0; j < n; j++) {
+      if (i != j && !particles[i].excludes_particle(j)) {
+        double dx = particles[i].r[0] - particles[j].r[0];
+        double dy = particles[i].r[1] - particles[j].r[1];
+        double dz = particles[i].r[2] - particles[j].r[2];
+        double a1 = particles[i].alpha;
+        double a2 = particles[j].alpha;
+        if (std::abs(a1) > 0.0 && std::abs(a2) > 0.0) {
+          double v = damping / std::pow(a1 * a2, 1.0 / 6.0);
+          P2P<M, osize>(dx, dy, dz, v, particles[j].S, &F[osize * i]);
+        } else {
+          P2P<M, osize>(dx, dy, dz, particles[j].S, &F[osize * i]);
+        }
       }
     }
   }
@@ -342,12 +363,9 @@ void evaluate_M2P_and_P2P(std::vector<Particle>& particles, unsigned int p,
                                                    size_t ncrit, size_t exporder);       \
                                                                                          \
   template void evaluate_direct<M_ORDER, OUTPUT_SIZE>(std::vector<Particle> & particles, \
-                                                      double* F, size_t Nparticles);     \
-                                                                                         \
-  template void interact_dehnen<M_ORDER, OUTPUT_SIZE>(                                   \
-        size_t A, size_t B, std::vector<Cell> & cells,                                   \
-        std::vector<Particle> & particles, double theta, size_t order, size_t ncrit,     \
-        double* F);                                                                      \
+                                                      double* F);                        \
+  template void evaluate_direct_damping<M_ORDER, OUTPUT_SIZE>(                           \
+        std::vector<Particle> & particles, double* F, double damping);                   \
                                                                                          \
   template void interact_dehnen_lazy<M_ORDER, OUTPUT_SIZE>(                              \
         const size_t A, const size_t B, const std::vector<Cell>& cells,                  \
@@ -359,13 +377,17 @@ void evaluate_M2P_and_P2P(std::vector<Particle>& particles, unsigned int p,
         size_t A, size_t B, std::vector<Cell> & cells,                                   \
         std::vector<Particle> & particles, double* F);                                   \
                                                                                          \
+  template void P2P_Cells_damping<M_ORDER, OUTPUT_SIZE>(                                 \
+        size_t A, size_t B, std::vector<Cell> & cells,                                   \
+        std::vector<Particle> & particles, double* F, double dampign);                   \
+                                                                                         \
   template void evaluate_M2L_lazy<M_ORDER, OUTPUT_SIZE>(                                 \
         std::vector<Cell> & cells, std::vector<std::pair<size_t, size_t>> & M2L_list,    \
         size_t order);                                                                   \
                                                                                          \
   template void evaluate_P2P_lazy<M_ORDER, OUTPUT_SIZE>(                                 \
         std::vector<Cell> & cells, std::vector<Particle> & particles,                    \
-        std::vector<std::pair<size_t, size_t>> & P2P_list, double* F);                   \
+        std::vector<std::pair<size_t, size_t>> & P2P_list, double* F, double damping);   \
                                                                                          \
   template void evaluate_M2P_and_P2P<M_ORDER, OUTPUT_SIZE>(                              \
         std::vector<Particle> & particles, unsigned int p, unsigned int i,               \
