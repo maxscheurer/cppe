@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from cppe.tensors import T_recursive, xyz2idx, T, T_damp_thole
+from cppe import T_recursive, xyz2idx, T, T_damp_thole
 from cppe import (factorial, prefactors,
                   multipole_components)
 

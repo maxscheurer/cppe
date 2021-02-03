@@ -68,8 +68,8 @@ if(${ENABLE_PYTHON_INTERFACE})
     )
     target_include_directories(pycppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
     set_target_properties(pycppe PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                                            OUTPUT_NAME cppe
-                                            EXPORT_NAME cppe
+                                            OUTPUT_NAME pycppe
+                                            EXPORT_NAME pycppe
                                             SUFFIX "${PYTHON_MODULE_EXTENSION}")
 endif()
 
@@ -94,9 +94,14 @@ install(TARGETS cppe
 if(${ENABLE_PYTHON_INTERFACE})
     install(TARGETS pycppe
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
+        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe)
     
+    install(DIRECTORY "python_iface/"
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/${_f}/cppe
+        FILES_MATCHING PATTERN "*.py"
+    )
+
     # install the Python tests
     install(DIRECTORY "../tests"
         DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe

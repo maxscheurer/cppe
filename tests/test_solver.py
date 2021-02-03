@@ -6,7 +6,7 @@ import numpy as np
 from cppe import CppeState, BMatrix
 
 from cppe import get_polarizable_sites, InducedMoments
-from cppe.tensors import T_recursive
+from cppe import T_recursive
 
 from .test_functionality import print_callback
 from .cache import cache
