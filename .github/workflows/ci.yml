@@ -57,5 +57,6 @@ jobs:
     - name: Build and Test Setuptools
       run: |
         rm -rf build
-        python setup.py test
+        python setup.py install
+        pytest
 

@@ -7,7 +7,6 @@ import glob
 import setuptools
 
 from setuptools import Extension, find_packages, setup
-from setuptools.command.test import test as TestCommand
 from setuptools.command.build_ext import build_ext as BuildCommand
 
 try:
@@ -58,6 +57,7 @@ def has_flag(compiler, flagname, opts=[]):
     the specified compiler.
     """
     import tempfile
+    opts += ['-Wno-unused-command-line-argument']
 
     with tempfile.NamedTemporaryFile("w", suffix=".cpp") as f:
         f.write("int main (int argc, char **argv) { return 0; }")
@@ -107,43 +107,15 @@ class BuildExt(BuildCommand):
 
 
 #
-# Pytest integration
-#
-class PyTest(TestCommand):
-    user_options = [
-        ("pytest-args=", "a", "Arguments to pass to pytest"),
-    ]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_args = ""
-
-    def run_tests(self):
-        import shlex
-
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-
-        args = []
-        args += shlex.split(self.pytest_args)
-        errno = pytest.main(args)
-        sys.exit(errno)
-
-
-#
 # Main setup code
 #
 # Setup RPATH on Linux and MacOS
 if sys.platform == "darwin":
-    extra_link_args = ["-Wl,-rpath,@loader_path",
-                       # "-Wl,-rpath,@loader_path/adcc/lib"
-                       ]
+    extra_link_args = ["-Wl,-rpath,@loader_path",]
     runtime_library_dirs = []
 elif sys.platform == "linux":
     extra_link_args = []
-    runtime_library_dirs = ["$ORIGIN",
-                            # "$ORIGIN/adcc/lib"
-                            ]
+    runtime_library_dirs = ["$ORIGIN",]
 else:
     raise OSError("Unsupported platform: {}".format(sys.platform))
 
@@ -158,7 +130,7 @@ sources += glob.glob("cppe/python_iface/*.cc")
 # Setup build of the libadcc extension
 ext_modules = [
     Extension(
-        "cppe", sources=sources,
+        "cppe.pycppe", sources=sources,
         include_dirs=[
             # Path to pybind11 headers
             GetPyBindInclude(),
@@ -206,6 +178,8 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX :: Linux",
     ],
+    package_dir={'cppe': 'cppe/python_iface'},
+    packages=['cppe'],
     package_data={"": ["LICENSE*"]},
     ext_modules=ext_modules,
     zip_safe=False,
@@ -221,7 +195,6 @@ setup(
     #                    "sphinx-automodapi"],
     # },
     cmdclass={"build_ext": BuildExt,
-              "test": PyTest,
               # "build_docs": BuildDocs,
               },
 )

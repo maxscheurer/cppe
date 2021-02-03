@@ -20,7 +20,8 @@ jobs:
         run: |
           pip install pytest numpy h5py numba scipy pandas
           pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
-          python setup.py test
+          python setup.py install
+          pytest
           python setup.py sdist
       - name: Publish distribution 📦 to Test PyPI
         if: startsWith(github.ref, 'refs/tags')
