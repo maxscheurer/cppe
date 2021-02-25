@@ -245,6 +245,147 @@ void P2P<2, 3>(double x, double y, double z, double* S, double* F) {
           Ftmp14 * Ftmp4 + Ftmp17 * z + Ftmp7 * Ftmp9 + z * (Ftmp10 + Ftmp14) * S[5];
 }
 
+template <>
+void P2P<2, 3>(double x, double y, double z, double a, double* S, double* F) {
+  double R      = sqrt(x * x + y * y + z * z);
+  double Ftmp0  = R * a;
+  double Ftmp1  = Ftmp0 + 1;
+  double Ftmp2  = 2 * Ftmp1;
+  double Ftmp3  = -Ftmp0;
+  double Ftmp4  = exp(Ftmp3);
+  double Ftmp5  = pow(R, -4.0) * a;
+  double Ftmp6  = Ftmp4 * Ftmp5;
+  double Ftmp7  = Ftmp0 + 2;
+  double Ftmp8  = Ftmp4 * Ftmp7 - 2;
+  double Ftmp9  = pow(R, -5.0);
+  double Ftmp10 = 3.0 * Ftmp9;
+  double Ftmp11 = 1.0 / R;
+  double Ftmp12 = pow(R, -3.0);
+  double Ftmp13 = 1.0 * Ftmp12;
+  double Ftmp14 = -Ftmp13;
+  double Ftmp15 = pow(R, -2.0);
+  double Ftmp16 = Ftmp15 * a;
+  double Ftmp17 = 1.0 * Ftmp7;
+  double Ftmp18 = Ftmp16 * Ftmp17;
+  double Ftmp19 = Ftmp4 * (Ftmp13 * Ftmp7 + Ftmp14 - 2.0 * Ftmp16 + Ftmp18);
+  double Ftmp20 = Ftmp19 * a;
+  double Ftmp21 = Ftmp10 * Ftmp8 + Ftmp11 * Ftmp20 + Ftmp2 * Ftmp6;
+  double Ftmp22 = Ftmp21 * S[1];
+  double Ftmp23 = Ftmp21 * z;
+  double Ftmp24 = y * S[4];
+  double Ftmp25 = (a * a);
+  double Ftmp26 = Ftmp25 * Ftmp4;
+  double Ftmp27 = Ftmp26 * Ftmp9;
+  double Ftmp28 = 2.0 * Ftmp27;
+  double Ftmp29 = Ftmp4 * a;
+  double Ftmp30 = Ftmp29 * pow(R, -6.0);
+  double Ftmp31 = 8.0 * Ftmp1 * Ftmp30;
+  double Ftmp32 = 15.0 * pow(R, -7.0);
+  double Ftmp33 = Ftmp2 * Ftmp27;
+  double Ftmp34 = Ftmp11 * Ftmp29;
+  double Ftmp35 = Ftmp12 * Ftmp20 + Ftmp15 * Ftmp19 * Ftmp25 - Ftmp28 -
+                  3.0 * Ftmp30 * (Ftmp3 - 1) + Ftmp31 + Ftmp32 * Ftmp8 + Ftmp33 -
+                  Ftmp34 * (-Ftmp10 * Ftmp7 + Ftmp10 + Ftmp13 * Ftmp25 -
+                            2.0 * Ftmp5 * Ftmp7 + 5.0 * Ftmp5);
+  double Ftmp36 = Ftmp35 * z;
+  double Ftmp37 = Ftmp36 * x;
+  double Ftmp38 = (x * x);
+  double Ftmp39 = Ftmp35 * Ftmp38;
+  double Ftmp40 = y * S[1];
+  double Ftmp41 = -Ftmp10;
+  double Ftmp42 = (y * y);
+  double Ftmp43 = Ftmp32 * Ftmp42;
+  double Ftmp44 = 1.5 * Ftmp9;
+  double Ftmp45 = Ftmp42 * Ftmp44;
+  double Ftmp46 = Ftmp45 * Ftmp7;
+  double Ftmp47 = 0.5 * Ftmp12;
+  double Ftmp48 = Ftmp42 * Ftmp47;
+  double Ftmp49 = Ftmp25 * Ftmp48;
+  double Ftmp50 = 2.5 * Ftmp5;
+  double Ftmp51 = Ftmp42 * Ftmp50;
+  double Ftmp52 = Ftmp17 * Ftmp5;
+  double Ftmp53 = Ftmp42 * Ftmp52;
+  double Ftmp54 = 0.5 * Ftmp16;
+  double Ftmp55 = Ftmp47 * Ftmp7;
+  double Ftmp56 = Ftmp47 + Ftmp54 - Ftmp55;
+  double Ftmp57 = 2 * Ftmp34;
+  double Ftmp58 = Ftmp54 * Ftmp7;
+  double Ftmp59 = 0.5 * Ftmp11;
+  double Ftmp60 = -Ftmp59 * Ftmp7 + Ftmp59;
+  double Ftmp61 = -2 * Ftmp16 * Ftmp42 + 2 * Ftmp42 * Ftmp55 + 2 * Ftmp42 * Ftmp58 -
+                  2 * Ftmp48 + 2 * Ftmp60;
+  double Ftmp62 = Ftmp12 * Ftmp29;
+  double Ftmp63 = Ftmp15 * Ftmp26;
+  double Ftmp64 = Ftmp1 * Ftmp34;
+  double Ftmp65 = -Ftmp28 * Ftmp42 + Ftmp31 * Ftmp42 + Ftmp33 * Ftmp42 + Ftmp61 * Ftmp62 +
+                  Ftmp61 * Ftmp63 + Ftmp64 * (Ftmp10 * Ftmp42 + Ftmp14);
+  double Ftmp66 = (Ftmp57 * (-Ftmp45 + Ftmp46 - Ftmp49 - Ftmp51 + Ftmp53 + Ftmp56) +
+                   Ftmp65 + Ftmp8 * (Ftmp41 + Ftmp43)) *
+                  S[3];
+  double Ftmp67 = (z * z);
+  double Ftmp68 = Ftmp32 * Ftmp67;
+  double Ftmp69 = Ftmp44 * Ftmp67;
+  double Ftmp70 = Ftmp69 * Ftmp7;
+  double Ftmp71 = Ftmp47 * Ftmp67;
+  double Ftmp72 = Ftmp25 * Ftmp71;
+  double Ftmp73 = Ftmp50 * Ftmp67;
+  double Ftmp74 = Ftmp52 * Ftmp67;
+  double Ftmp75 = -2 * Ftmp16 * Ftmp67 + 2 * Ftmp55 * Ftmp67 + 2 * Ftmp58 * Ftmp67 +
+                  2 * Ftmp60 - 2 * Ftmp71;
+  double Ftmp76 = -Ftmp28 * Ftmp67 + Ftmp31 * Ftmp67 + Ftmp33 * Ftmp67 + Ftmp62 * Ftmp75 +
+                  Ftmp63 * Ftmp75 + Ftmp64 * (Ftmp10 * Ftmp67 + Ftmp14);
+  double Ftmp77 = (Ftmp57 * (Ftmp56 - Ftmp69 + Ftmp70 - Ftmp72 - Ftmp73 + Ftmp74) +
+                   Ftmp76 + Ftmp8 * (Ftmp41 + Ftmp68)) *
+                  S[5];
+  double Ftmp78 = -9.0 * Ftmp9;
+  double Ftmp79 = Ftmp32 * Ftmp38;
+  double Ftmp80 = Ftmp38 * Ftmp44;
+  double Ftmp81 = Ftmp38 * Ftmp47;
+  double Ftmp82 = Ftmp25 * Ftmp81;
+  double Ftmp83 = Ftmp38 * Ftmp50;
+  double Ftmp84 = Ftmp7 * Ftmp80;
+  double Ftmp85 = Ftmp38 * Ftmp52;
+  double Ftmp86 = 1.5 * Ftmp12;
+  double Ftmp87 = -2.5 * Ftmp16 + Ftmp18 + Ftmp7 * Ftmp86 - Ftmp86;
+  double Ftmp88 = -4.0 * Ftmp1 * Ftmp6;
+  double Ftmp89 = -2 * Ftmp16 * Ftmp38 + 2 * Ftmp38 * Ftmp55 + 2 * Ftmp38 * Ftmp58 +
+                  2 * Ftmp60 - 2 * Ftmp81;
+  double Ftmp90 = -Ftmp28 * Ftmp38 + Ftmp31 * Ftmp38 + Ftmp33 * Ftmp38 + Ftmp62 * Ftmp89 +
+                  Ftmp63 * Ftmp89 + Ftmp64 * (Ftmp10 * Ftmp38 + Ftmp14);
+  double Ftmp91 = x * S[2];
+  double Ftmp92 = Ftmp35 * Ftmp42;
+  double Ftmp93 = (Ftmp57 * (Ftmp56 - Ftmp80 - Ftmp82 - Ftmp83 + Ftmp84 + Ftmp85) +
+                   Ftmp8 * (Ftmp41 + Ftmp79) + Ftmp90) *
+                  S[0];
+  double Ftmp94 = Ftmp35 * Ftmp67;
+#pragma omp atomic
+  F[0] += (1.0 / 2.0) * Ftmp22 * y + (1.0 / 2.0) * Ftmp23 * S[2] -
+          1.0 / 2.0 * Ftmp24 * Ftmp37 - 1.0 / 2.0 * Ftmp39 * Ftmp40 -
+          1.0 / 2.0 * Ftmp39 * z * S[2] - 1.0 / 2.0 * Ftmp66 * x -
+          1.0 / 2.0 * Ftmp77 * x -
+          1.0 / 2.0 * x *
+                (-Ftmp57 * (Ftmp80 + Ftmp82 + Ftmp83 - Ftmp84 - Ftmp85 + Ftmp87) +
+                 Ftmp8 * (Ftmp78 + Ftmp79) + Ftmp88 + Ftmp90) *
+                S[0];
+#pragma omp atomic
+  F[1] += (1.0 / 2.0) * Ftmp22 * x + (1.0 / 2.0) * Ftmp23 * S[4] -
+          1.0 / 2.0 * Ftmp36 * Ftmp91 * y - 1.0 / 2.0 * Ftmp77 * y -
+          1.0 / 2.0 * Ftmp92 * x * S[1] - 1.0 / 2.0 * Ftmp92 * z * S[4] -
+          1.0 / 2.0 * Ftmp93 * y -
+          1.0 / 2.0 * y *
+                (-Ftmp57 * (Ftmp45 - Ftmp46 + Ftmp49 + Ftmp51 - Ftmp53 + Ftmp87) +
+                 Ftmp65 + Ftmp8 * (Ftmp43 + Ftmp78) + Ftmp88) *
+                S[3];
+#pragma omp atomic
+  F[2] += (1.0 / 2.0) * Ftmp21 * Ftmp24 + (1.0 / 2.0) * Ftmp21 * Ftmp91 -
+          1.0 / 2.0 * Ftmp24 * Ftmp94 - 1.0 / 2.0 * Ftmp37 * Ftmp40 -
+          1.0 / 2.0 * Ftmp66 * z - 1.0 / 2.0 * Ftmp91 * Ftmp94 - 1.0 / 2.0 * Ftmp93 * z -
+          1.0 / 2.0 * z *
+                (-Ftmp57 * (Ftmp69 - Ftmp70 + Ftmp72 + Ftmp73 - Ftmp74 + Ftmp87) +
+                 Ftmp76 + Ftmp8 * (Ftmp68 + Ftmp78) + Ftmp88) *
+                S[5];
+}
+
 void field_m2_P2M_4(double x, double y, double z, double q, double* M) {
   double Mtmp0  = (x * x);
   double Mtmp1  = (1.0 / 2.0) * q;

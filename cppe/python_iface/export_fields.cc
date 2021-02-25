@@ -3,8 +3,8 @@
 #include <pybind11/stl.h>
 
 #include "../core/electric_fields.hh"
-#include "../core/multipole_expansion.hh"
 #include "../core/molecule.hh"
+#include "../core/multipole_expansion.hh"
 #include "../core/pe_options.hh"
 
 #include "../core/bmatrix.hh"
@@ -41,21 +41,13 @@ void export_fields(py::module& m) {
   py::class_<libcppe::MultipoleFields, std::shared_ptr<libcppe::MultipoleFields>>
         mul_fields(m, "MultipoleFields", "Electric fields created by multipoles");
   mul_fields.def(py::init(&_init_multipole_fields))
-        .def("compute", &libcppe::MultipoleFields::compute)
-        .def("compute_legacy", &libcppe::MultipoleFields::compute_legacy)
-        .def("compute_tree", &libcppe::MultipoleFields::compute_tree);
+        .def("compute", &libcppe::MultipoleFields::compute);
 
   py::class_<libcppe::InducedMoments, std::shared_ptr<libcppe::InducedMoments>>
         ind_moments(m, "InducedMoments");
   ind_moments.def(py::init(&_init_indmom))
         .def("compute",
              py::overload_cast<Eigen::VectorXd&, bool>(&libcppe::InducedMoments::compute),
-             "Compute the induced moments solving the classical response "
-             "equation",
-             py::arg("total_fields"), py::arg("make_guess"))
-        .def("compute_cg",
-             py::overload_cast<Eigen::VectorXd&, bool>(
-                   &libcppe::InducedMoments::compute_cg),
              "Compute the induced moments solving the classical response "
              "equation using a CG solver",
              py::arg("total_fields"), py::arg("make_guess"));
@@ -67,16 +59,14 @@ void export_fields(py::module& m) {
         .def("direct_inverse", &libcppe::BMatrix::direct_inverse)
         .def("to_dense_matrix", &libcppe::BMatrix::to_dense_matrix)
         .def("apply", &libcppe::BMatrix::apply)
-        .def("apply_direct", &libcppe::BMatrix::apply_direct)
-        .def("apply_fast_summation", &libcppe::BMatrix::apply_fast_summation)
         .def("apply_diagonal", &libcppe::BMatrix::apply_diagonal)
         .def("apply_diagonal_inverse", &libcppe::BMatrix::apply_diagonal_inverse);
-  bmatrix.def_property_readonly("exclusions", &libcppe::BMatrix::get_exclusions);
 
-  py::class_<libcppe::MultipoleExpansion, std::shared_ptr<libcppe::MultipoleExpansion>> multipole_expansion(m, "MultipoleExpansion");
+  py::class_<libcppe::MultipoleExpansion, std::shared_ptr<libcppe::MultipoleExpansion>>
+        multipole_expansion(m, "MultipoleExpansion");
   multipole_expansion.def(py::init<libcppe::Molecule, std::vector<libcppe::Potential>>())
-                     .def("interaction_energy", &libcppe::MultipoleExpansion::interaction_energy)
-                     .def("nuclear_gradient", &libcppe::MultipoleExpansion::nuclear_gradient);
+        .def("interaction_energy", &libcppe::MultipoleExpansion::interaction_energy)
+        .def("nuclear_gradient", &libcppe::MultipoleExpansion::nuclear_gradient);
 
   m.def("multipole_derivative", &libcppe::multipole_derivative);
 }

@@ -142,8 +142,7 @@ void export_state(py::module& m) {
              &libcppe::CppeState::calculate_static_energies_and_fields)
         .def("nuclear_interaction_energy_gradient",
              &libcppe::CppeState::nuclear_interaction_energy_gradient)
-        .def("nuclear_field_gradient",
-             &libcppe::CppeState::nuclear_field_gradient)
+        .def("nuclear_field_gradient", &libcppe::CppeState::nuclear_field_gradient)
         .def("get_induced_moments", &libcppe::CppeState::get_induced_moments)
         .def("induced_moments_eef", &libcppe::CppeState::induced_moments_eef)
         .def_readwrite("energies", &libcppe::CppeState::m_pe_energy)

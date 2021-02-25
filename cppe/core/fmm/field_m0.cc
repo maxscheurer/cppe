@@ -85,6 +85,23 @@ void P2P<0, 3>(double x, double y, double z, double* S, double* F) {
   F[2] += Ftmp0 * z;
 }
 
+template <>
+void P2P<0, 3>(double x, double y, double z, double a, double* S, double* F) {
+  double R     = sqrt(x * x + y * y + z * z);
+  double Ftmp0 = R * a;
+  double Ftmp1 = exp(-Ftmp0);
+  double Ftmp2 = (1.0 / 2.0) *
+                 (Ftmp1 * pow(R, -2.0) * a * (-1.0 * Ftmp0 - 1.0) -
+                  1.0 * pow(R, -3.0) * (Ftmp1 * (Ftmp0 + 2) - 2)) *
+                 S[0];
+#pragma omp atomic
+  F[0] += Ftmp2 * x;
+#pragma omp atomic
+  F[1] += Ftmp2 * y;
+#pragma omp atomic
+  F[2] += Ftmp2 * z;
+}
+
 void field_m0_P2M_2(double x, double y, double z, double q, double* M) {
   double Mtmp0 = q * x;
   double Mtmp1 = q * y;

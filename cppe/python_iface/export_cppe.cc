@@ -12,7 +12,7 @@ void export_math(py::module&);
 void export_tensors(py::module&);
 void export_fmm(py::module&);
 
-PYBIND11_MODULE(cppe, cppe) {
+PYBIND11_MODULE(pycppe, cppe) {
   cppe.doc()                    = "Python interface for CPPE";
   cppe.attr("__version__")      = libcppe::version::version_string();
   cppe.attr("__build_type__")   = libcppe::version::is_debug() ? "Debug" : "Release";

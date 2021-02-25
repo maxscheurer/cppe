@@ -7,6 +7,8 @@ void field_m2_L2P_3(double x, double y, double z, double* L, double* F);
 void field_m2_M2P_3(double x, double y, double z, double* M, double* F);
 template <int m_order, int osize>
 void P2P(double x, double y, double z, double* S, double* F);
+template <int m_order, int osize>
+void P2P(double x, double y, double z, double a, double* S, double* F);
 void field_m2_P2M_4(double x, double y, double z, double q, double* M);
 void field_m2_M2M_4(double x, double y, double z, double* M, double* Ms);
 void field_m2_M2L_4(double x, double y, double z, double* M, double* L);

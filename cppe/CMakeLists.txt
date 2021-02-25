@@ -6,10 +6,12 @@ include(CMakePackageConfigHelpers)
 include(ExternalProject)
 
 if(ENABLE_OPENMP)
-    find_package(OpenMP REQUIRED)
+    find_package(OpenMP)
     if (OPENMP_FOUND)
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+      set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+    else()
+      message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
     endif()
 endif()
 
@@ -68,8 +70,8 @@ if(${ENABLE_PYTHON_INTERFACE})
     )
     target_include_directories(pycppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
     set_target_properties(pycppe PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                                            OUTPUT_NAME cppe
-                                            EXPORT_NAME cppe
+                                            OUTPUT_NAME pycppe
+                                            EXPORT_NAME pycppe
                                             SUFFIX "${PYTHON_MODULE_EXTENSION}")
 endif()
 
@@ -94,13 +96,18 @@ install(TARGETS cppe
 if(${ENABLE_PYTHON_INTERFACE})
     install(TARGETS pycppe
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR})
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
+        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe)
     
+    install(DIRECTORY "python_iface/"
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/${_f}/cppe
+        FILES_MATCHING PATTERN "*.py"
+    )
+
     # install the Python tests
     install(DIRECTORY "../tests"
         DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
-        FILES_MATCHING PATTERN "*.py" PATTERN "*.pot" PATTERN "*.hdf5")
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.pot" PATTERN "*.hdf5" PATTERN "*.csv")
 endif()
 
 target_compile_definitions(cppe INTERFACE USING_${PN})

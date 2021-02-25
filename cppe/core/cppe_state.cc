@@ -89,11 +89,7 @@ void CppeState::update_induced_moments(Eigen::VectorXd elec_fields, bool elec_on
   }
   InducedMoments ind(m_potentials, m_options);
   ind.set_print_callback(m_printer);
-  if (m_options.summation_induced_fields == "direct") {
-    ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
-  } else {
-    m_induced_moments = ind.compute_cg(tmp_total_fields, m_induced_moments, m_make_guess);
-  }
+  m_induced_moments = ind.compute(tmp_total_fields, m_induced_moments, m_make_guess);
   if (m_make_guess) {
     m_make_guess = false;
   }
@@ -126,12 +122,7 @@ Eigen::MatrixXd CppeState::induced_moments_eef() {
   }
   for (int a = 0; a < 3; ++a) {
     Eigen::VectorXd ind_mom = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
-    if (m_options.summation_induced_fields == "direct") {
-      ind.compute(Fdn.col(a), ind_mom, true);
-      ret.col(a) = ind_mom;
-    } else {
-      ret.col(a) = ind.compute_cg(Fdn.col(a), ind_mom, true);
-    }
+    ret.col(a)              = ind.compute(Fdn.col(a), ind_mom, true);
   }
   return ret;
 }

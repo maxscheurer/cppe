@@ -20,7 +20,7 @@ class TestFMM(unittest.TestCase):
             fs = np.loadtxt(self.fs_file)
         else:
             fmuls = cppe.MultipoleFields(potentials, options)
-            fs = fmuls.compute_tree()
+            fs = fmuls.compute()
             np.savetxt(self.fs_file, fs)
 
         ref = pd.read_csv(os.path.join(self.dirname, "ref_fmm_errors.csv"))
@@ -46,7 +46,7 @@ class TestFMM(unittest.TestCase):
                     "tree_expansion_order": exp_order,
                 }
                 fmuls_tree = cppe.MultipoleFields(potentials, options)
-                fs_tree = fmuls_tree.compute_tree()
+                fs_tree = fmuls_tree.compute()
                 fs = fs.reshape(len(potentials), 3)
                 fs_tree = fs_tree.reshape(fs.shape)
                 err_mu_i = (

@@ -142,6 +142,56 @@ void P2P<1, 3>(double x, double y, double z, double* S, double* F) {
   F[2] += Ftmp0 * S[2] - Ftmp2 * y * z - Ftmp4 * (z * z) - Ftmp6 * x * z;
 }
 
+template <>
+void P2P<1, 3>(double x, double y, double z, double a, double* S, double* F) {
+  double R      = sqrt(x * x + y * y + z * z);
+  double Ftmp0  = R * a;
+  double Ftmp1  = exp(-Ftmp0);
+  double Ftmp2  = Ftmp1 * a;
+  double Ftmp3  = Ftmp2 * pow(R, -4.0) * (-1.0 * Ftmp0 - 1.0);
+  double Ftmp4  = Ftmp0 + 2;
+  double Ftmp5  = Ftmp1 * Ftmp4 - 2;
+  double Ftmp6  = 1.5 * Ftmp5 * pow(R, -5.0);
+  double Ftmp7  = 0.5 * pow(R, -3.0);
+  double Ftmp8  = pow(R, -2.0) * a;
+  double Ftmp9  = Ftmp4 * Ftmp7;
+  double Ftmp10 = 0.5 * Ftmp4;
+  double Ftmp11 = 1.0 / R;
+  double Ftmp12 = Ftmp11 * Ftmp2;
+  double Ftmp13 = Ftmp12 * (-Ftmp10 * Ftmp8 + Ftmp7 + Ftmp8 - Ftmp9) + Ftmp3 - Ftmp6;
+  double Ftmp14 = Ftmp13 * x;
+  double Ftmp15 = Ftmp14 * y;
+  double Ftmp16 = z * S[2];
+  double Ftmp17 = Ftmp5 * Ftmp7;
+  double Ftmp18 = (x * x);
+  double Ftmp19 = Ftmp18 * Ftmp7;
+  double Ftmp20 = Ftmp18 * Ftmp8;
+  double Ftmp21 = 0.5 * Ftmp11;
+  double Ftmp22 = Ftmp21 * Ftmp4 - Ftmp21;
+  double Ftmp23 = Ftmp13 * y;
+  double Ftmp24 = (y * y);
+  double Ftmp25 = Ftmp24 * Ftmp8;
+  double Ftmp26 = (z * z);
+  double Ftmp27 = Ftmp26 * Ftmp8;
+#pragma omp atomic
+  F[0] += -Ftmp14 * Ftmp16 - Ftmp15 * S[1] -
+          (Ftmp12 * (-Ftmp10 * Ftmp20 - Ftmp19 * Ftmp4 + Ftmp19 + Ftmp20 + Ftmp22) +
+           Ftmp17 + Ftmp18 * Ftmp3 - Ftmp18 * Ftmp6) *
+                S[0];
+#pragma omp atomic
+  F[1] +=
+        -Ftmp15 * S[0] - Ftmp16 * Ftmp23 -
+        (Ftmp12 * (-Ftmp10 * Ftmp25 + Ftmp22 + Ftmp24 * Ftmp7 - Ftmp24 * Ftmp9 + Ftmp25) +
+         Ftmp17 + Ftmp24 * Ftmp3 - Ftmp24 * Ftmp6) *
+              S[1];
+#pragma omp atomic
+  F[2] +=
+        -Ftmp14 * z * S[0] - Ftmp23 * z * S[1] -
+        (Ftmp12 * (-Ftmp10 * Ftmp27 + Ftmp22 + Ftmp26 * Ftmp7 - Ftmp26 * Ftmp9 + Ftmp27) +
+         Ftmp17 + Ftmp26 * Ftmp3 - Ftmp26 * Ftmp6) *
+              S[2];
+}
+
 void field_m1_P2M_3(double x, double y, double z, double q, double* M) {
   double Mtmp0  = q * x;
   double Mtmp1  = q * y;
