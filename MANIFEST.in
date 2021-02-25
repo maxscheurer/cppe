@@ -11,3 +11,9 @@ recursive-include cppe *.cc
 
 include external/eigen3/Eigen/*
 recursive-include external/eigen3/Eigen/src *.h
+
+include CMakeLists.txt
+recursive-include cmake *.cmake
+recursive-include cppe *.cmake.in
+recursive-include cppe CMakeLists.txt
+recursive-include external CMakeLists.txt
