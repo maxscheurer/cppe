@@ -20,7 +20,7 @@ class TestFMM(unittest.TestCase):
             fs = np.loadtxt(self.fs_file)
         else:
             fmuls = cppe.MultipoleFields(potentials, options)
-            fs = fmuls.compute_tree()
+            fs = fmuls.compute()
             np.savetxt(self.fs_file, fs)
 
         ref = pd.read_csv(os.path.join(self.dirname, "ref_fmm_errors.csv"))
