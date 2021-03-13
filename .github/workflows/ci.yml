@@ -58,5 +58,5 @@ jobs:
       run: |
         rm -rf build
         python setup.py install
-        pytest --pyargs cppe
+        py.test
 

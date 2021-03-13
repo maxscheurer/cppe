@@ -4,6 +4,10 @@
 
 ![CI](https://github.com/maxscheurer/cppe/workflows/CI/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/maxscheurer/cppe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/maxscheurer/cppe/context:cpp)
+
+![Conda](https://img.shields.io/conda/v/conda-forge/cppe)
+![PyPI](https://img.shields.io/pypi/v/cppe)
 
 
 CPPE is an open-source, light-weight C++ and Python library for Polarizable Embedding (PE)<sup>1,2</sup>
@@ -23,22 +27,28 @@ by the `fmmgen` library.<sup>3</sup>
 __Examples__ for the open-source Python-driven programs can be found [here](https://github.com/maxscheurer/cppe_examples).
 
 ## Installation
-The easiest way to install CPPE is via `pip`:
+### Conda
+The easiest way to install CPPE is via `conda`:
 ```
-pip install cppe
+conda install cppe -c conda-forge
 ```
-Note that CPPE will be built from source and a C++14 compatible compiler is required (see below).
-If the compiler supports OpenMP, it will also be enabled for the CPPE build.
 
+### Build from Source
 Manual builds can be done using CMake by running
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe; mkdir build; cd build
 cmake ..
-make -j4
+make
 ```
 
-Alternatively, CPPE can be installed using the `setup.py` script with
+### pip/setuptools
+Another way to install CPPE is via `pip`:
+```
+pip install cppe
+```
+Note that CPPE will be built from source and a C++14 compatible compiler is required (see below), and OpenMP parallelization is **disabled** in the `setup.py`/`pip` installation.
+Alternatively, CPPE can be built from source using the `setup.py` script with
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe
@@ -68,9 +78,10 @@ for the CMake build.
 
 
 ## Citation
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
-The journal article describing CPPE can be found [here](https://pubs.acs.org/doi/10.1021/acs.jctc.9b00758).
+**Paper:** | [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.9b00758)](https://doi.org/10.1021/acs.jctc.9b00758)
+-----------| --------------------------------------------------------------------------------------------------------
+**Code:**  | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
 
 **CPPE: An Open-Source C++ and Python Library for Polarizable Embedding**</br>
