@@ -16,6 +16,7 @@ PYBIND11_MODULE(pycppe, cppe) {
   cppe.doc()                    = "Python interface for CPPE";
   cppe.attr("__version__")      = libcppe::version::version_string();
   cppe.attr("__build_type__")   = libcppe::version::is_debug() ? "Debug" : "Release";
+  cppe.attr("__parallel__")   = libcppe::version::has_openmp();
   cppe.attr("__authors__")      = libcppe::__authors__();
   cppe.attr("__contributors__") = libcppe::__contributors__();
   cppe.attr("__email__")        = libcppe::__email__();

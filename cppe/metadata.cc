@@ -33,6 +33,14 @@ bool version::is_debug() {
 #endif  // NDEBUG
 }
 
+bool version::has_openmp() {
+#ifdef _OPENMP
+  return true;
+#else
+  return false;
+#endif
+}
+
 std::string version::version_string() { return static_version_string; }
 
 std::string __authors__() { return "Maximilian Scheurer"; }
