@@ -79,7 +79,7 @@ for the CMake build.
 
 ## Citation
 
-**Paper:** | [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.9b00758)](https://doi.org/10.1021/acs.jctc.9b00758)
+**Paper:** | [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.9b00758-blue)](https://doi.org/10.1021/acs.jctc.9b00758)
 -----------| --------------------------------------------------------------------------------------------------------
 **Code:**  | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
