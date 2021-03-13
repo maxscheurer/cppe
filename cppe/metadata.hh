@@ -17,6 +17,9 @@ struct version {
   /** Is the compiled version a Debug version */
   static bool is_debug();
 
+  /** Is the compiled version using OpenMP */
+  static bool has_openmp();
+
   /**  Return the version as a string */
   static std::string version_string();
 };
