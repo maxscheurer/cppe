@@ -6,8 +6,8 @@
 [![Documentation Status](https://readthedocs.org/projects/cppe/badge/?version=latest)](https://cppe.readthedocs.io/en/latest/?badge=latest)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/maxscheurer/cppe.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/maxscheurer/cppe/context:cpp)
 
-![Conda](https://img.shields.io/conda/v/conda-forge/cppe)
-![PyPI](https://img.shields.io/pypi/v/cppe)
+[![Conda](https://img.shields.io/conda/v/conda-forge/cppe)](https://anaconda.org/conda-forge/cppe)
+[![PyPI](https://img.shields.io/pypi/v/cppe)](https://pypi.org/project/cppe/)
 
 
 CPPE is an open-source, light-weight C++ and Python library for Polarizable Embedding (PE)<sup>1,2</sup>
