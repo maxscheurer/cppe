@@ -79,8 +79,8 @@ for the CMake build.
 
 ## Citation
 
-**Paper:** | [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.9b00758-blue)](https://doi.org/10.1021/acs.jctc.9b00758)
------------| --------------------------------------------------------------------------------------------------------
+**Papers:** | [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.9b00758-blue)](https://doi.org/10.1021/acs.jctc.9b00758) [![](https://img.shields.io/badge/DOI-10.1021/acs.jctc.1c00225-blue)](https://pubs.acs.org/doi/10.1021/acs.jctc.1c00225)
+-----------| --------------------------------------------------------------------------------------------------------------------------------------
 **Code:**  | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3345696.svg)](https://doi.org/10.5281/zenodo.3345696)
 
 
@@ -89,6 +89,12 @@ Maximilian Scheurer, Peter Reinholdt, Erik Rosendahl Kjellgren, Jógvan Magnus H
 _Journal of Chemical Theory and Computation_ 2019 15 (11), 6154-6163,
 DOI: 10.1021/acs.jctc.9b00758
 
+If you use the linear-scaling FMM implementation, please also cite:
+
+**Efficient Open-Source Implementations of Linear-Scaling Polarizable Embedding: Use Octrees to Save the Trees**</br>
+Maximilian Scheurer, Peter Reinholdt, Jógvan Magnus Haugaard Olsen, Andreas Dreuw, and Jacob Kongsted;
+_Journal of Chemical Theory and Computation_ 2021,
+DOI: 10.1021/acs.jctc.1c00225
 
 
 ## Literature
