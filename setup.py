@@ -70,15 +70,15 @@ def has_flag(compiler, flagname, opts=None):
 
 
 def cpp_flag(compiler, opts=[]):
-    """Return the -std=c++[11/14] compiler flag.
-    The c++14 is preferred over c++11 (when it is available).
+    """Return the -std=c++[14/17] compiler flag.
+    The c++17 is preferred over c++14 (when it is available).
     """
-    if has_flag(compiler, "-std=c++14", opts):
+    if has_flag(compiler, "-std=c++17", opts):
+        return "-std=c++17"
+    elif has_flag(compiler, "-std=c++14", opts):
         return "-std=c++14"
-    elif has_flag(compiler, "-std=c++11", opts):
-        return "-std=c++11"
     else:
-        raise RuntimeError("Unsupported compiler -- at least C++11 support "
+        raise RuntimeError("Unsupported compiler -- at least C++14 support "
                            "is needed!")
 
 
