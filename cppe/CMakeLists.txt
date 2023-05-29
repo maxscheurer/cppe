@@ -1,8 +1,6 @@
-# define object library for sources common to C library and Python bindings
-add_library(cppe-objs
-  OBJECT
-    metadata.cc
-  )
+# build C++ library
+# we left STATIC/SHARED unspecified such that the setting of BUILD_SHARED_LIBS is honored
+add_library(cppe metadata.cc)
 
 # create empty list of CPPE private header files
 add_subdirectory(utils)
@@ -45,22 +43,27 @@ endif()
 find_package(Eigen3 3.4 CONFIG REQUIRED)
 
 # flags to prepend
-target_compile_options(cppe-objs
+target_compile_options(cppe
   BEFORE
   PRIVATE
     "${CPPE_CXX_FLAGS}"
+  INTERFACE
+    $<BUILD_INTERFACE:${CPPE_CXX_FLAGS}>
+    $<BUILD_INTERFACE:${ARCH_FLAG}>
   PUBLIC
     "${ARCH_FLAG}"
   )
 
 # flags to append
-target_compile_options(cppe-objs
+target_compile_options(cppe
+  INTERFACE
+    $<BUILD_INTERFACE:${EXTRA_CXXFLAGS}>
   PRIVATE
     "${EXTRA_CXXFLAGS}"
   )
 
 if(WIN32)
-  target_compile_definitions(cppe-objs
+  target_compile_definitions(cppe
     PUBLIC
       _USE_MATH_DEFINES
       _CRT_SECURE_NO_WARNINGS
@@ -69,13 +72,13 @@ if(WIN32)
 endif()
 
 if(APPLE)
-  target_link_options(cppe-objs
+  target_link_options(cppe
     PUBLIC
       "SHELL:-undefined dynamic_lookup"
     )
 endif()
 
-target_link_libraries(cppe-objs
+target_link_libraries(cppe
   PUBLIC
     Eigen3::Eigen
     $<$<AND:$<TARGET_EXISTS:OpenMP::OpenMP_CXX>,$<BOOL:${ENABLE_OPENMP}>>:OpenMP::OpenMP_CXX>
@@ -83,10 +86,6 @@ target_link_libraries(cppe-objs
 
 # standard locations of libraries, headers, etc.
 include(GNUInstallDirs)
-
-# build C++ library
-# we left STATIC/SHARED unspecified such that the setting of BUILD_SHARED_LIBS is honored
-add_library(cppe "")
 
 target_compile_definitions(cppe
   INTERFACE
@@ -96,11 +95,6 @@ target_compile_definitions(cppe
 target_include_directories(cppe
   INTERFACE
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  )
-
-target_link_libraries(cppe
-  PRIVATE
-    cppe-objs
   )
 
 set_target_properties(cppe

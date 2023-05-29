@@ -41,11 +41,23 @@ pybind11_add_module(pycppe
 
 target_link_libraries(pycppe
   PRIVATE
-    cppe-objs
+    cppe
 )
+
+# handle RPATH
+file(RELATIVE_PATH _rel ${CMAKE_INSTALL_PREFIX}/${PYMOD_INSTALL_FULLDIR} ${CMAKE_INSTALL_PREFIX})
+if(APPLE)
+  set(_RPATH "@loader_path/${_rel}")
+else()
+  set(_RPATH "\$ORIGIN/${_rel}")
+endif()
 
 set_target_properties(pycppe
   PROPERTIES
+    SKIP_BUILD_RPATH OFF
+    BUILD_WITH_INSTALL_RPATH OFF
+    INSTALL_RPATH "${_RPATH}"
+    INSTALL_RPATH_USE_LINK_PATH ON
     ARCHIVE_OUTPUT_DIRECTORY
       ${PROJECT_BINARY_DIR}/${PYMOD_INSTALL_FULLDIR}
     LIBRARY_OUTPUT_DIRECTORY

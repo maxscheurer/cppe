@@ -1,4 +1,4 @@
-target_sources(cppe-objs
+target_sources(cppe
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/calculate.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/field_m0.cc
