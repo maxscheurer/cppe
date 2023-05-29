@@ -1,6 +1,6 @@
 name: cppe-gha
 channels:
-  conda-forge
+  - conda-forge
 dependencies:
   - cmake
   - cxx-compiler
