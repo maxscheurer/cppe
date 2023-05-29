@@ -4,7 +4,7 @@ channels:
 dependencies:
   - cmake
   - cxx-compiler
-  - eigen3
+  - eigen
   - h5py
   - ninja
   - numpy
