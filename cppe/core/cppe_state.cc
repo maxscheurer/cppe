@@ -13,7 +13,7 @@
 namespace libcppe {
 
 CppeState::CppeState(const PeOptions& options, Molecule mol, PrintCallback printer)
-      : m_options(options), m_mol(mol), m_printer(printer) {
+      : m_mol(mol), m_options(options), m_printer(printer) {
   m_pe_energy                       = PeEnergy{};
   std::vector<Potential> potentials = PotfileReader(m_options.potfile).read();
   auto manip                        = PotManipulator(potentials, m_mol);

@@ -90,7 +90,6 @@ std::vector<Potential> PotfileReader::read() {
           if (site_num != site_before + 1) {
             int diff = site_num - site_before;
             for (size_t d = 1; d < diff; d++) {
-              Site site = sites[site_before + d];
               Multipole mul(order);
               for (size_t vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
@@ -99,7 +98,6 @@ std::vector<Potential> PotfileReader::read() {
             }
           }
 
-          Site site = sites[site_num];
           Multipole mul(order);
           for (size_t vl = 1; vl <= multipole_components(order); vl++) {
             mul.add_value(stod(temp[vl]));
@@ -112,7 +110,6 @@ std::vector<Potential> PotfileReader::read() {
           if ((n_mul == num_multipoles - 1) && site_num != (num_sites - 1)) {
             int diff = num_sites - site_num;
             for (size_t d = 1; d < diff; d++) {
-              Site site = sites[site_num + d];
               Multipole mul(order);
               for (size_t vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
@@ -135,7 +132,6 @@ std::vector<Potential> PotfileReader::read() {
           getline(infile, line);
           temp         = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
-          Site site    = sites[site_num];
           // std::cout << site.x << " " << site.y << " " << site.z << " " <<
           // site_num + 1 << std::endl;
           std::vector<double> pol_tmp;
@@ -160,7 +156,6 @@ std::vector<Potential> PotfileReader::read() {
         getline(infile, line);
         temp         = split(reduce(line), ' ');
         int site_num = stoi(temp[0]) - 1;
-        int excl_site_number;
         int counter = 0;
         for (auto s : temp) {
           if (counter == 0) {
