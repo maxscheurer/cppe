@@ -68,6 +68,13 @@ if(WIN32)
     )
 endif()
 
+if(APPLE)
+  target_link_options(cppe-objs
+    PUBLIC
+      "-undefined dynamic_lookup"
+    )
+endif()
+
 target_link_libraries(cppe-objs
   PUBLIC
     Eigen3::Eigen
