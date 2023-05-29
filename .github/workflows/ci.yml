@@ -70,8 +70,7 @@ jobs:
               -GNinja \
               -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
               -DCMAKE_CXX_COMPILER=${CXX} \
-              -DENABLE_PYTHON_INTERFACE=ON \
-              -DBUILD_SHARED_LIBS=ON
+              -DENABLE_PYTHON_INTERFACE=ON
 
     - name: Build
       run: |
