@@ -128,18 +128,37 @@ install(
     ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
   )
 
-#
-#include(CMakePackageConfigHelpers)
-#set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
-#configure_package_config_file(cmake/${PN}Config.cmake.in
-#                         "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
-#                         INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-#write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
-#                            VERSION ${${PN}_VERSION}
-#                            COMPATIBILITY AnyNewerVersion)
-#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
-#              ${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
-#        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-#install(EXPORT "${PN}Targets"
-#        NAMESPACE "${PN}::"
-#        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+include(CMakePackageConfigHelpers)
+
+set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PROJECT_NAME}")
+
+configure_package_config_file(
+  ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION
+    ${CMAKECONFIG_INSTALL_DIR}
+  )
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  VERSION
+    ${${PROJECT_NAME}_VERSION}
+  COMPATIBILITY AnyNewerVersion
+  )
+
+install(
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  DESTINATION
+    ${CMAKECONFIG_INSTALL_DIR}
+  )
+
+install(
+  EXPORT
+    "${PROJECT_NAME}Targets"
+  NAMESPACE
+    "${PROJECT_NAME}::"
+  DESTINATION
+    ${CMAKECONFIG_INSTALL_DIR}
+  )
