@@ -71,7 +71,7 @@ endif()
 if(APPLE)
   target_link_options(cppe-objs
     PUBLIC
-      "-undefined dynamic_lookup"
+      "SHELL:-undefined dynamic_lookup"
     )
 endif()
 
