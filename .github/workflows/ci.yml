@@ -65,13 +65,13 @@ jobs:
 
     - name: Configure
       run: |
-        cmake --version
         cmake -S. \
               -Bbuild \
               -GNinja \
               -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
               -DCMAKE_CXX_COMPILER=${CXX} \
-              -DENABLE_PYTHON_INTERFACE=ON
+              -DENABLE_PYTHON_INTERFACE=ON \
+              -DBUILD_SHARED_LIBS=ON
 
     - name: Build
       run: |

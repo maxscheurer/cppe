@@ -71,13 +71,6 @@ if(WIN32)
     )
 endif()
 
-if(APPLE)
-  target_link_options(cppe
-    PUBLIC
-      "SHELL:-undefined dynamic_lookup"
-    )
-endif()
-
 target_link_libraries(cppe
   PUBLIC
     Eigen3::Eigen
