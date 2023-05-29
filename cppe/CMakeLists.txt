@@ -1,128 +1,145 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(cppe-core VERSION 0.3.1 LANGUAGES CXX)
+# define object library for sources common to C library and Python bindings
+add_library(cppe-objs
+  OBJECT
+    metadata.cc
+  )
 
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
-include(ExternalProject)
+# create empty list of CPPE private header files
+add_subdirectory(utils)
+add_subdirectory(core)
 
+# OpenMP
 if(ENABLE_OPENMP)
-    find_package(OpenMP)
-    if (OPENMP_FOUND)
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-      set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-    else()
-      message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
-    endif()
+  find_package(OpenMP COMPONENTS CXX)
+  if(NOT TARGET OpenMP::OpenMP_CXX)
+    message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
+  endif()
 endif()
 
-list(APPEND CPPE_SOURCES
-  metadata.cc
-  utils/string_utils.cc
-  core/potfile_reader.cc
-  core/pot_manipulation.cc
-  core/cppe_state.cc
-  core/multipole_expansion.cc
-  core/electric_fields.cc
-  core/math.cc
-  core/bmatrix.cc
-  # tensors
-  core/tensors/tensors_autogen.cc
-  core/tensors/tensors_recursive.cc
-  # fmm
-  core/fmm/calculate.cc
-  core/fmm/tree.cc
-  core/fmm/utils.cc
-  core/fmm/field_m0.cc
-  core/fmm/field_m1.cc
-  core/fmm/field_m2.cc
-)
+# report on compiler flags in use
+message(STATUS "Configuring a ${CMAKE_BUILD_TYPE} build")
+if(BUILD_SHARED_LIBS)
+  message(STATUS "Building a SHARED library.")
+else()
+  message(STATUS "Building a STATIC library.")
+endif()
+string(TOUPPER ${CMAKE_BUILD_TYPE} _cmake_build_type_upper)
 
-add_library(cppe
-  ${CPPE_SOURCES}
-)
+message(STATUS "C++ compiler flags")
+message(STATUS "   From environment       : ${CMAKE_CXX_FLAGS}")
+message(STATUS "   Build-type-specific    : ${CMAKE_CXX_FLAGS_${_cmake_build_type_upper}}")
+message(STATUS "   Vectorization flag     : ${ARCH_FLAG}")
+message(STATUS "   Project defaults       : ${CMAKE_CXX${CMAKE_CXX_STANDARD}_STANDARD_COMPILE_OPTION} ${CPPE_CXX_FLAGS}")
+message(STATUS "   User-appended          : ${EXTRA_CXXFLAGS}")
+if(TARGET OpenMP::OpenMP_CXX AND ENABLE_OPENMP)
+  message(STATUS "   OpenMP parallelization : ${OpenMP_CXX_FLAGS}")
+endif()
 
+# transform CPPE_CXX_FLAGS and EXTRA_CXXFLAGS to ;-separated lists
+string(REPLACE " " ";" CPPE_CXX_FLAGS ${CPPE_CXX_FLAGS})
+if(DEFINED EXTRA_CXXFLAGS)
+  string(REPLACE " " ";" EXTRA_CXXFLAGS ${EXTRA_CXXFLAGS})
+endif()
 
-target_include_directories(cppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
+# Eigen3
+find_package(Eigen3 3.4 CONFIG REQUIRED)
 
-if(${ENABLE_PYTHON_INTERFACE})
-    message(STATUS "Building Python interface for cppe.")
+# flags to prepend
+target_compile_options(cppe-objs
+  BEFORE
+  PRIVATE
+    "${CPPE_CXX_FLAGS}"
+  PUBLIC
+    "${ARCH_FLAG}"
+  )
 
-    if(MSVC)
-      set(PYBIND11_CPP_STANDARD "/std:c++${CMAKE_CXX_STANDARD}")
-    else()
-      set(PYBIND11_CPP_STANDARD "-std=c++${CMAKE_CXX_STANDARD}")
-    endif()
-    find_package(pybind11 CONFIG REQUIRED)
-    message(STATUS "${Cyan}Using pybind11${ColourReset}: ${pybind11_INCLUDE_DIR} (version ${pybind11_VERSION} for Py${PYTHON_VERSION_STRING} and ${PYBIND11_CPP_STANDARD})")
-    message(STATUS "${Cyan}Using Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}${ColourReset}: ${PYTHON_EXECUTABLE}")
+# flags to append
+target_compile_options(cppe-objs
+  PRIVATE
+    "${EXTRA_CXXFLAGS}"
+  )
 
-    pybind11_add_module(pycppe SHARED NO_EXTRAS
-        ${CPPE_SOURCES}
-        python_iface/export_molecule.cc
-        python_iface/export_potential.cc
-        python_iface/export_fields.cc
-        python_iface/export_utils.cc
-        python_iface/export_state.cc
-        python_iface/export_math.cc
-        python_iface/export_tensors.cc
-        python_iface/export_fmm.cc
-        python_iface/export_cppe.cc
+if(WIN32)
+  target_compile_definitions(cppe-objs
+    PUBLIC
+      _USE_MATH_DEFINES
+      _CRT_SECURE_NO_WARNINGS
+      _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
     )
-    target_include_directories(pycppe PUBLIC ${EIGEN3_INCLUDE_DIRS})
-    set_target_properties(pycppe PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                                            OUTPUT_NAME pycppe
-                                            EXPORT_NAME pycppe
-                                            SUFFIX "${PYTHON_MODULE_EXTENSION}")
 endif()
 
-set(PN "cppe")
-#### Installation ####
-if (INSTALL_DEVEL_HEADERS)
-    install(DIRECTORY "core"
-            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}
-            FILES_MATCHING PATTERN "*.hh")
-    install(DIRECTORY "utils"
-            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN}
-            FILES_MATCHING PATTERN "*.hh")
+target_link_libraries(cppe-objs
+  PUBLIC
+    Eigen3::Eigen
+    $<$<AND:$<TARGET_EXISTS:OpenMP::OpenMP_CXX>,$<BOOL:${ENABLE_OPENMP}>>:OpenMP::OpenMP_CXX>
+  )
+
+# standard locations of libraries, headers, etc.
+include(GNUInstallDirs)
+
+# build C++ library
+# we left STATIC/SHARED unspecified such that the setting of BUILD_SHARED_LIBS is honored
+add_library(cppe "")
+
+target_compile_definitions(cppe
+  INTERFACE
+    USING_${PROJECT_NAME}
+  )
+
+target_include_directories(cppe
+  INTERFACE
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  )
+
+target_link_libraries(cppe
+  PRIVATE
+    cppe-objs
+  )
+
+set_target_properties(cppe
+  PROPERTIES
+    VERSION ${cppe_VERSION_MAJOR}
+    SOVERSION ${cppe_VERSION_MAJOR}
+    MACOSX_RPATH ON
+    OUTPUT_NAME "cppe"
+    EXPORT_NAME "cppe"
+    PUBLIC_HEADER "libcppe.hh"
+    PRIVATE_HEADER "metadata.hh"
+  )
+
+if(ENABLE_PYTHON_INTERFACE)
+  add_subdirectory(python_iface)
 endif()
-install(FILES libcppe.hh
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PN})
 
-install(TARGETS cppe
-        EXPORT "${PN}Targets"
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(
+  TARGETS
+    cppe
+  EXPORT
+    "${PROJECT_NAME}Targets"
+  RUNTIME DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION
+    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+  PRIVATE_HEADER DESTINATION
+    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+  )
 
-if(${ENABLE_PYTHON_INTERFACE})
-    install(TARGETS pycppe
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe)
-    
-    install(DIRECTORY "python_iface/"
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/${_f}/cppe
-        FILES_MATCHING PATTERN "*.py"
-    )
-
-    # install the Python tests
-    install(DIRECTORY "../tests"
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cppe
-        FILES_MATCHING PATTERN "*.py" PATTERN "*.pot" PATTERN "*.hdf5" PATTERN "*.csv")
-endif()
-
-target_compile_definitions(cppe INTERFACE USING_${PN})
-target_include_directories(cppe INTERFACE $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-
-set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
-configure_package_config_file(cmake/${PN}Config.cmake.in
-                         "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
-                         INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
-                            VERSION ${${PN}_VERSION}
-                            COMPATIBILITY AnyNewerVersion)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
-              ${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
-        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-install(EXPORT "${PN}Targets"
-        NAMESPACE "${PN}::"
-        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+#
+#include(CMakePackageConfigHelpers)
+#set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
+#configure_package_config_file(cmake/${PN}Config.cmake.in
+#                         "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
+#                         INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+#write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
+#                            VERSION ${${PN}_VERSION}
+#                            COMPATIBILITY AnyNewerVersion)
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
+#              ${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
+#        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+#install(EXPORT "${PN}Targets"
+#        NAMESPACE "${PN}::"
+#        DESTINATION ${CMAKECONFIG_INSTALL_DIR})
