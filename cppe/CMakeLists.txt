@@ -18,11 +18,6 @@ endif()
 
 # report on compiler flags in use
 message(STATUS "Configuring a ${CMAKE_BUILD_TYPE} build")
-if(BUILD_SHARED_LIBS)
-  message(STATUS "Building a SHARED library.")
-else()
-  message(STATUS "Building a STATIC library.")
-endif()
 string(TOUPPER ${CMAKE_BUILD_TYPE} _cmake_build_type_upper)
 
 message(STATUS "C++ compiler flags")
@@ -31,9 +26,7 @@ message(STATUS "   Build-type-specific    : ${CMAKE_CXX_FLAGS_${_cmake_build_typ
 message(STATUS "   Vectorization flag     : ${ARCH_FLAG}")
 message(STATUS "   Project defaults       : ${CMAKE_CXX${CMAKE_CXX_STANDARD}_STANDARD_COMPILE_OPTION} ${CPPE_CXX_FLAGS}")
 message(STATUS "   User-appended          : ${EXTRA_CXXFLAGS}")
-if(TARGET OpenMP::OpenMP_CXX AND ENABLE_OPENMP)
-  message(STATUS "   OpenMP parallelization : ${OpenMP_CXX_FLAGS}")
-endif()
+message(STATUS "   OpenMP parallelization : ${OpenMP_CXX_FLAGS}")
 
 # transform CPPE_CXX_FLAGS and EXTRA_CXXFLAGS to ;-separated lists
 string(REPLACE " " ";" CPPE_CXX_FLAGS ${CPPE_CXX_FLAGS})
@@ -76,87 +69,4 @@ target_link_libraries(cppe-objs
 # standard locations of libraries, headers, etc.
 include(GNUInstallDirs)
 
-# build C++ library
-add_library(cppe SHARED "")
-
-target_compile_definitions(cppe
-  INTERFACE
-    USING_${PROJECT_NAME}
-  )
-
-target_include_directories(cppe
-  INTERFACE
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  )
-
-target_link_libraries(cppe
-  PRIVATE
-    cppe-objs
-  )
-
-set_target_properties(cppe
-  PROPERTIES
-    VERSION ${cppe_VERSION_MAJOR}
-    SOVERSION ${cppe_VERSION_MAJOR}
-    MACOSX_RPATH ON
-    OUTPUT_NAME "cppe"
-    EXPORT_NAME "cppe"
-    PUBLIC_HEADER "libcppe.hh"
-    PRIVATE_HEADER "metadata.hh"
-  )
-
-if(ENABLE_PYTHON_INTERFACE)
-  add_subdirectory(python_iface)
-endif()
-
-install(
-  TARGETS
-    cppe
-  EXPORT
-    "${PROJECT_NAME}Targets"
-  RUNTIME DESTINATION
-    ${CMAKE_INSTALL_BINDIR}
-  LIBRARY DESTINATION
-    ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION
-    ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER DESTINATION
-    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
-  PRIVATE_HEADER DESTINATION
-    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
-  )
-
-include(CMakePackageConfigHelpers)
-
-set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PROJECT_NAME}")
-
-configure_package_config_file(
-  ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  INSTALL_DESTINATION
-    ${CMAKECONFIG_INSTALL_DIR}
-  )
-
-write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-  VERSION
-    ${${PROJECT_NAME}_VERSION}
-  COMPATIBILITY AnyNewerVersion
-  )
-
-install(
-  FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-  DESTINATION
-    ${CMAKECONFIG_INSTALL_DIR}
-  )
-
-install(
-  EXPORT
-    "${PROJECT_NAME}Targets"
-  NAMESPACE
-    "${PROJECT_NAME}::"
-  DESTINATION
-    ${CMAKECONFIG_INSTALL_DIR}
-  )
+add_subdirectory(python_iface)

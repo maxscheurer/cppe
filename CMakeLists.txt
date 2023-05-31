@@ -48,7 +48,6 @@ macro(option_with_default variable msge default)
 endmacro()
 
 option_with_print(ENABLE_OPENMP "Enables OpenMP parallelization" ON)
-option_with_print(ENABLE_PYTHON_INTERFACE "Build the Python interface" OFF)
 
 # included cmake modules
 include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_default_build_paths.cmake)

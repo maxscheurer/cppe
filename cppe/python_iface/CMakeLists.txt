@@ -1,5 +1,3 @@
-message(STATUS "Building Python interface for cppe.")
-
 find_package(Python 3.8 REQUIRED COMPONENTS Interpreter Development)
 
 # figure out where to put the Python module
