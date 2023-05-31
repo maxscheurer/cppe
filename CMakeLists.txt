@@ -54,6 +54,6 @@ include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_default_build_paths.cma
 include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_safeguards.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/compiler_flags/CXXFlags.cmake)
 
-add_subdirectory(cppe)
+add_subdirectory(src)
 
 include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_save_flags.cmake)
