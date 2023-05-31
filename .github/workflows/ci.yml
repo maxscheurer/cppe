@@ -86,7 +86,6 @@ jobs:
     - name: Test
       run: |
         python -m pip install git+https://gitlab.com/robertodr/polarizationsolver.git@master
-        cd build
         PYTHONPATH=$PYTHONPATH:$PWD/lib/python${{ matrix.python-version }}/site-packages pytest --capture=no --log-cli-level=INFO
 
     # TODO move to separate workflow
