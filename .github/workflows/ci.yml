@@ -95,7 +95,7 @@ jobs:
            echo "ls Software/Lib/site-packages/cppe"
            ls Software/Lib/site-packages/cppe
            echo "$PYTHONPATH"
-           export PYTHONPATH=$PYTHONPATH:Software/Lib/site-packages 
+           export PYTHONPATH=Software/Lib/site-packages 
            echo "$PYTHONPATH"
            pytest --capture=no --log-cli-level=INFO --pyargs cppe
         else
