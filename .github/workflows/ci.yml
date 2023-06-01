@@ -90,7 +90,7 @@ jobs:
         if [ "${{ matrix.os }}" == "windows-latest" ]; then
            ls Software
            ls Software/Lib/site-packages
-           ls Software/lib/site-packages
+           ls Software/Lib/site-packages/cppe
            PYTHONPATH=Software/Lib/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO --pyargs cppe
         else
            PYTHONPATH=Software/lib/python${{ matrix.python-version }}/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO --pyargs cppe
