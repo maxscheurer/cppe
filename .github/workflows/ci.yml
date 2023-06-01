@@ -97,9 +97,9 @@ jobs:
            echo "$PYTHONPATH"
            export PYTHONPATH=Software/Lib/site-packages 
            echo "$PYTHONPATH"
-           pytest --capture=no --log-cli-level=INFO --pyargs cppe
+           python -m pytest --capture=no --log-cli-level=INFO --pyargs cppe
         else
-           PYTHONPATH=Software/lib/python${{ matrix.python-version }}/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO --pyargs cppe
+           PYTHONPATH=Software/lib/python${{ matrix.python-version }}/site-packages:$PYTHONPATH python -m pytest --capture=no --log-cli-level=INFO --pyargs cppe
         fi
 
     # TODO move to separate workflow
