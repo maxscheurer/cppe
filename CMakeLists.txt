@@ -15,7 +15,6 @@ endif()
 # options handling utilities
 include(CMakeDependentOption)
 # Macro for printing an option in a consistent manner
-# Written by Lori A. Burns (@loriab) and Ryan M. Richard (@ryanmrichard)
 # Syntax: print_option(<option to print> <was specified>)
 function(print_option variable default)
   if(NOT DEFINED ${variable} OR "${${variable}}" STREQUAL "")
@@ -26,7 +25,6 @@ function(print_option variable default)
 endfunction()
 
 # Wraps an option with default ON/OFF. Adds nice messaging to option()
-# Written by Lori A. Burns (@loriab) and Ryan M. Richard (@ryanmrichard)
 # Syntax: option_with_print(<option name> <description> <default value>)
 macro(option_with_print variable msge default)
   print_option(${variable} ${default})
@@ -34,13 +32,12 @@ macro(option_with_print variable msge default)
 endmacro()
 
 # Wraps an option with a default other than ON/OFF and prints it
-# Written by Lori A. Burns (@loriab) and Ryan M. Richard (@ryanmrichard)
-# NOTE
-#  1. Can't combine with above b/c CMake handles ON/OFF options specially
-#  2. CMake variables are always defined so need to further check for if
-#     they are the NULL string. This is also why we need the force
 # Syntax: option_with_default(<option name> <description> <default value>)
 macro(option_with_default variable msge default)
+  # NOTE
+  #  1. Can't combine with above b/c CMake handles ON/OFF options specially
+  #  2. CMake variables are always defined so need to further check for if
+  #     they are the NULL string. This is also why we need the force
   print_option(${variable} "${default}")
   if(NOT DEFINED ${variable} OR "${${variable}}" STREQUAL "")
     set(${variable} "${default}" CACHE STRING ${msge} FORCE)
