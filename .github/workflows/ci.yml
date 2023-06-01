@@ -86,9 +86,9 @@ jobs:
         python -m pip install git+https://gitlab.com/robertodr/polarizationsolver.git@master
 
         if [ "${{ matrix.os }}" == "windows-latest" ]; then
-           PYTHONPATH=Software/Lib/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO
+           PYTHONPATH=~/Software/Lib/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO
         else
-           PYTHONPATH=Software/lib/python${{ matrix.python-version }}/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO
+           PYTHONPATH=~/Software/lib/python${{ matrix.python-version }}/site-packages:$PYTHONPATH pytest --capture=no --log-cli-level=INFO
         fi
 
     # TODO move to separate workflow
