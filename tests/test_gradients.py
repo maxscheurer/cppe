@@ -7,7 +7,6 @@ from .cache import cache
 
 import cppe
 from cppe import PotfileReader, MultipoleExpansion, NuclearFields
-from polarizationsolver import tensors
 
 
 prefactors_5p = np.array([1.0, -8.0, 8.0, -1.0]) / 12.0

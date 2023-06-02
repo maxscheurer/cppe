@@ -2,7 +2,7 @@ import unittest
 import os
 
 import numpy as np
-from polarizationsolver import fields as polfields
+import pytest
 
 from cppe import CppeState, get_polarizable_sites
 
@@ -30,7 +30,10 @@ class TestFields(unittest.TestCase):
                 ref[i, :] += a.charge * diff / np.linalg.norm(diff)**3
         np.testing.assert_allclose(ref.flatten(), nuclear_fields, atol=1e-14)
 
+    @pytest.mark.needs_polarizationsolver
     def base_multipole_fields(self, options):
+        from polarizationsolver import fields as polfields
+
         mol = cache.molecule["pna"]
         cppe_state = CppeState(options, mol, lambda s: None)
         cppe_state.calculate_static_energies_and_fields()
@@ -65,10 +68,12 @@ class TestFields(unittest.TestCase):
 
         np.testing.assert_allclose(ref.flatten(), multipole_fields, atol=1e-14)
 
+    @pytest.mark.needs_polarizationsolver
     def test_multipole_fields(self):
         options = {"potfile": self.potfile_path}
         self.base_multipole_fields(options)
 
+    @pytest.mark.needs_polarizationsolver
     def test_multipole_fields_damped(self):
         options = {"potfile": self.potfile_path, "damp_multipole": True}
         self.base_multipole_fields(options)

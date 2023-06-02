@@ -1,4 +1,5 @@
 import unittest
+import pytest
 import numpy as np
 from cppe import T_recursive, xyz2idx, T, T_damp_thole
 from cppe import (factorial, prefactors,
@@ -6,9 +7,6 @@ from cppe import (factorial, prefactors,
 
 from cppe import multipole_derivative
 from . import symmetry_helper as symmetry
-
-from polarizationsolver import fields as polfields
-from polarizationsolver import tensors
 
 
 prefs = [
@@ -47,7 +45,10 @@ class TestMath(unittest.TestCase):
             for i, c in enumerate(combinations):
                 assert xyz2idx(*c) == i
 
+    @pytest.mark.needs_polarizationsolver
     def test_T_tensors(self):
+        from polarizationsolver import tensors
+
         for k in range(7):
             R = 2.0 * np.random.random(3) + 1
             ref = tensors.T[k](R)
@@ -67,7 +68,10 @@ class TestMath(unittest.TestCase):
                 err_msg="T tensors do not match. Order = {}".format(k)
             )
 
+    @pytest.mark.needs_polarizationsolver
     def test_T_tensors_damped(self):
+        from polarizationsolver import tensors
+
         for k in range(6):
             R = 2.0 * np.random.random(3) + 1
             damp = 2.0
@@ -91,7 +95,10 @@ class TestMath(unittest.TestCase):
                 err_msg="Damped T tensors do not match. Order = {}".format(k)
             )
 
+    @pytest.mark.needs_polarizationsolver
     def test_multipole_derivative(self):
+        from polarizationsolver import fields as polfields
+
         Rab = 2.0 * np.random.random(3) + 1
         for k in range(6):
             ll = 1  # derivative
