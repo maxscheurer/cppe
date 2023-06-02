@@ -81,7 +81,7 @@ jobs:
     - name: Configure, build, install
       run: |
         echo "CXX is ${CXX}"
-        SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX}" python -m pip install -v .[test]
+        SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX} -GNinja" python -m pip install -v .[test]
 
     #- name: Configure
     #  run: |
