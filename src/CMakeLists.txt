@@ -1,7 +1,7 @@
 # define object library for sources common to C library and Python bindings
 add_library(cppe-objs
   OBJECT
-    metadata.cc
+    ""
   )
 
 # create empty list of CPPE private header files
