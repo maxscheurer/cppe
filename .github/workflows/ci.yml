@@ -80,7 +80,7 @@ jobs:
 
     - name: Configure, build, install
       run: |
-        python -m pip install -vvv .[test]
+        SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX}" python -m pip install -vvv .[test]
 
     #- name: Configure
     #  run: |
@@ -100,10 +100,10 @@ jobs:
         if [ "${{ matrix.os }}" == "windows-latest" ]; then
            #export KMP_DUPLICATE_LIB_OK=TRUE 
            #export PYTHONPATH=Software/Lib/site-packages 
-           python -m pytest --capture=no --color=yes --pyargs cppe
+           python -m pytest --capture=no --color=yes
         else
            #export PYTHONPATH=$PYTHONPATH:Software/lib/python${{ matrix.python-version }}/site-packages
-           python -m pytest --capture=no --color=yes --pyargs cppe
+           python -m pytest --capture=no --color=yes
         fi
 
     # TODO move to separate workflow

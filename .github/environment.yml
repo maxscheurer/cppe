@@ -2,14 +2,6 @@ name: cppe-gha
 channels:
   - conda-forge
 dependencies:
-  - cmake
   - cxx-compiler
   - eigen
-  - h5py
-  - ninja
-  - numpy
-  - pandas
   - pip
-  - pybind11
-  - pytest
-  - scipy
