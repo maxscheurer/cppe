@@ -35,16 +35,6 @@ classifiers = [
 [project.optional-dependencies]
 test = [
   "pytest >=6",
-  "pytest-cov >=3",
-  "numpy",
-  "h5py",
-  "scipy",
-  "pandas",
-  "polarizationsolver @ git+https://gitlab.com/robertodr/polarizationsolver.git",
-]
-dev = [
-  "pytest >=6",
-  "pytest-cov >=3",
   "numpy",
   "h5py",
   "scipy",
@@ -85,14 +75,6 @@ filterwarnings = ["error"]
 log_cli_level = "INFO"
 testpaths = [
   "tests",
-]
-
-[tool.coverage]
-run.source = ["cppe"]
-port.exclude_lines = [
-  'pragma: no cover',
-  '\.\.\.',
-  'if typing.TYPE_CHECKING:',
 ]
 
 [tool.cibuildwheel]
