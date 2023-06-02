@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     ignore:
       # cibuildwheel updates often and cannot be tracked by
       # a major version tag like 'v1'. Mute updates since

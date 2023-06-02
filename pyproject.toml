@@ -34,7 +34,7 @@ classifiers = [
 
 [project.optional-dependencies]
 test = [
-  "pytest >=6",
+  "pytest",
   "numpy",
   "h5py",
   "scipy",
