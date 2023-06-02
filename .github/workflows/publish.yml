@@ -1,31 +1,80 @@
 name: Publish package
 
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - published
+
+env:
+  FORCE_COLOR: 3
 
 jobs:
-  publish:
+  build_sdist:
+    name: Build SDist
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+
+      - name: Build SDist
+        run: pipx run build --sdist
+
+      - name: Check metadata
+        run: pipx run twine check dist/*
+
+      - uses: actions/upload-artifact@v3
         with:
-          python-version: '3.7'
-      - name: Install setuptools and wheel
-        run: |
-          python -m pip install --user setuptools wheel
-      - name: Build a source tarball
-        run: |
-          pip install pytest numpy h5py scipy pandas scikit-build pybind11
-          pip install git+https://gitlab.com/reinholdt/polarizationsolver.git@master
-          python setup.py install
-          pytest --pyargs cppe
-          python setup.py sdist
-      - name: Publish distribution 📦 to Test PyPI
-        if: startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@master
+          path: dist/*.tar.gz
+
+  build_wheels:
+    name: Wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pypa/cibuildwheel@v2.13.0
+        env:
+          # Cross-compile on macOS
+          CIBW_ARCHS_MACOS: x86_64 arm64
+
+      - name: Verify clean directory
+        run: git diff --exit-code
+        shell: bash
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          path: wheelhouse/*.whl
+
+  upload_all:
+    name: Upload if release
+    needs:
+      - build_wheels
+      - build_sdist
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+      - uses: actions/setup-python@v4
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1
         with:
           user: __token__
-          password: ${{ secrets.pypi_password }}
+          password: ${{ secrets.pypi_password }}            
