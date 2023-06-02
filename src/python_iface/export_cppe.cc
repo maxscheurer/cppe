@@ -1,4 +1,3 @@
-#include "../metadata.hh"
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
@@ -13,13 +12,21 @@ void export_tensors(py::module&);
 void export_fmm(py::module&);
 
 PYBIND11_MODULE(pycppe, cppe) {
-  cppe.doc()                    = "Python interface for CPPE";
-  cppe.attr("__version__")      = libcppe::version::version_string();
-  cppe.attr("__build_type__")   = libcppe::version::is_debug() ? "Debug" : "Release";
-  cppe.attr("__parallel__")   = libcppe::version::has_openmp();
-  cppe.attr("__authors__")      = libcppe::__authors__();
-  cppe.attr("__contributors__") = libcppe::__contributors__();
-  cppe.attr("__email__")        = libcppe::__email__();
+  cppe.doc()                  = "Python interface for CPPE";
+  cppe.attr("__build_type__") = [] {
+#ifdef NDEBUG
+    return "Release";
+#else
+    return "Debug";
+#endif
+  }();
+  cppe.attr("__parallel__") = [] {
+#ifdef _OPENMP
+    return true;
+#else
+    return false;
+#endif
+  }();
 
   export_molecule(cppe);
   export_multipole(cppe);

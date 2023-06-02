@@ -4,8 +4,8 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "cppe"
-version = "0.3.1"
-description = "An example minimal project that compiles bindings using nanobind and scikit-build"
+dynamic = ["version"]
+description = "C++ and Python library for Polarizable Embedding"
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
@@ -58,7 +58,6 @@ Source = "https://github.com/maxscheurer/cppe"
 "Bug Tracker" = "https://github.com/maxscheurer/cppe/issues"
 Changelog = "https://github.com/org/maxscheurer/releases"
 
-
 [tool.scikit-build]
 # Protect the configuration against future changes in scikit-build-core
 minimum-version = "0.4"
@@ -68,6 +67,15 @@ build-dir = "build/{wheel_tag}"
 
 # Build stable ABI wheels for CPython 3.12+
 wheel.py-api = "cp312"
+
+cmake.verbose = true
+logging.level = "INFO"
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.exclude = [".github", "scripts"]
+sdist.include = ["src/cppe/_version.py"]
+
+[tool.setuptools_scm]
+write_to = "src/cppe/_version.py"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
