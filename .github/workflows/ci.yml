@@ -73,20 +73,21 @@ jobs:
           channel-priority: strict
           python-version: ${{ matrix.python-version }}
 
-      - name: Select CMake CLI options
-        run: |
-          echo "We are running on ${{ matrix.os }}"
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-             echo "CXX=g++" >> $GITHUB_ENV
-          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-             echo "CXX=clang++" >> $GITHUB_ENV
-          else
-             echo "CXX=clang-cl" >> $GITHUB_ENV
-          fi
+      #- name: Select CMake CLI options
+      #  run: |
+      #    echo "We are running on ${{ matrix.os }}"
+      #    if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+      #       echo "CXX=g++" >> $GITHUB_ENV
+      #    elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+      #       echo "CXX=clang++" >> $GITHUB_ENV
+      #    else
+      #       echo "CXX=clang-cl" >> $GITHUB_ENV
+      #    fi
 
       - name: Configure, build, install
         run: |
-          SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX};-GNinja" python -m pip install -v .[test]
+          #SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX};-GNinja" python -m pip install -v .[test]
+          python -m pip install -v .[test]
 
       - name: Test
         run: |
