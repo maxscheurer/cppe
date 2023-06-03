@@ -73,20 +73,20 @@ jobs:
             yum remove -y curl cmake 
 
           CIBW_ENVIRONMENT_LINUX: >
-            SKBUILD_CMAKE_ARGS = "-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=/usr/local/share/eigen3/cmake"
+            SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=/usr/local/share/eigen3/cmake"
 
           CIBW_BEFORE_ALL_MACOS: >
             brew update &&
             brew install eigen
 
           CIBW_ENVIRONMENT_MACOS: >
-            SKBUILD_CMAKE_ARGS = "-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
+            SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
           CIBW_BEFORE_ALL_WINDOWS: >
             choco install eigen
 
           CIBW_ENVIRONMENT_WINDOWS: >
-            SKBUILD_CMAKE_ARGS = "-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=C:\ProgramData\chocolatey\lib\eigen\share\cmake"
+            SKBUILD_CMAKE_ARGS="-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=C:\ProgramData\chocolatey\lib\eigen\share\cmake"
 
       - name: Verify clean directory
         run: git diff --exit-code
