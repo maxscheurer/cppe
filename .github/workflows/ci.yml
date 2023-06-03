@@ -47,11 +47,11 @@ jobs:
       # this will set the system compiler;
       # This must be done *before* setting up miniconda, see:
       # https://github.com/ilammy/msvc-dev-cmd/issues/34
-      - name: Set Windows env
-        if: matrix.os == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1
-        #env:
-        #  KMP_DUPLICATE_LIB_OK: "TRUE"
+      #- name: Set Windows env
+      #  if: matrix.os == 'windows-latest'
+      #  uses: ilammy/msvc-dev-cmd@v1
+      #  #env:
+      #  #  KMP_DUPLICATE_LIB_OK: "TRUE"
 
       - name: Cache conda
         uses: actions/cache@v3
@@ -91,10 +91,11 @@ jobs:
 
       - name: Test
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-             #export KMP_DUPLICATE_LIB_OK=TRUE 
-             python -m pytest --capture=no --color=yes
-          else
-             python -m pytest --capture=no --color=yes
-          fi
+          python -m pytest --capture=no -vvv
+          #if [ "${{ matrix.os }}" == "windows-latest" ]; then
+          #   #export KMP_DUPLICATE_LIB_OK=TRUE 
+          #   python -m pytest --capture=no -vvv
+          #else
+          #   python -m pytest --capture=no --color=yes
+          #fi
 
