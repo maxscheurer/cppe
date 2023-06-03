@@ -49,6 +49,17 @@ jobs:
           # Cross-compile on macOS
           CIBW_ARCHS_MACOS: x86_64 arm64
 
+          # install Eigen
+          CIBW_BEFORE_ALL_LINUX: >
+            yum install -y eigen3-devel
+
+          CIBW_BEFORE_ALL_MACOS: >
+            brew update
+            brew install eigen
+
+          CIBW_BEFORE_ALL_WINDOWS: >
+            choco install eigen
+
       - name: Verify clean directory
         run: git diff --exit-code
         shell: bash
@@ -64,7 +75,7 @@ jobs:
       - build_wheels
       - build_sdist
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name == "release" && github.event.action == "published"
 
     steps:
       - uses: actions/setup-python@v4
