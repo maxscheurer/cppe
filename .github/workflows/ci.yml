@@ -77,11 +77,11 @@ jobs:
         run: |
           echo "We are running on ${{ matrix.os }}"
           if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-             echo "SKBUILD_CMAKE_ARGS='-DCMAKE_CXX_COMPILER=g++;-GNinja'" >> $GITHUB_ENV
+             echo "SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=g++;-GNinja"" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-             echo "SKBUILD_CMAKE_ARGS='-DCMAKE_CXX_COMPILER=clang++;-GNinja'" >> $GITHUB_ENV
+             echo "SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=clang++;-GNinja"" >> $GITHUB_ENV
           else
-             echo "SKBUILD_CMAKE_ARGS='-DCMAKE_CXX_COMPILER=clang-cl;-GNinja;-DENABLE_OPENMP=OFF'" >> $GITHUB_ENV
+             echo "SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=clang-cl;-GNinja;-DENABLE_OPENMP=OFF"" >> $GITHUB_ENV
           fi
 
       - name: Configure, build, install
