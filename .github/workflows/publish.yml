@@ -44,17 +44,27 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # this will set the system compiler;
+      - name: Set Windows env
+        if: matrix.os == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1
+
       - uses: pypa/cibuildwheel@v2.13.0
         env:
           # Cross-compile on macOS
           CIBW_ARCHS_MACOS: x86_64 arm64
 
+          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
+
+          # Skip 32 bit architectures, musllinux, i686, and s390x
+          CIBW_SKIP: "*-win32 *-musllinux* *_i686 *_s390x"
+
           # install Eigen
           CIBW_BEFORE_ALL_LINUX: >
-            yum install -y eigen3-devel
+            apt-get install -y libeigen3-dev
 
           CIBW_BEFORE_ALL_MACOS: >
-            brew update
+            brew update &&
             brew install eigen
 
           CIBW_BEFORE_ALL_WINDOWS: >
