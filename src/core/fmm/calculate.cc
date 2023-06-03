@@ -14,7 +14,7 @@ using namespace libcppe;
 
 void M_sanity_check(const std::vector<Cell>& cells) {
   double M0 = 0;
-  for (size_t c = 1; c < cells.size(); c++) {
+  for (auto c = 1; c < cells.size(); c++) {
     if (cells[c].nchild == 0) {
       M0 += cells[c].M[0];
     }
@@ -31,9 +31,9 @@ void P2P_Cells(size_t A, size_t B, std::vector<Cell>& cells,
                std::vector<Particle>& particles, double* F) {
   // A - target
   // B - source
-  for (size_t p1 = 0; p1 < cells[A].nleaf; p1++) {
+  for (auto p1 = 0; p1 < cells[A].nleaf; p1++) {
     size_t l1 = cells[A].leaf[p1];
-    for (size_t p2 = 0; p2 < cells[B].nleaf; p2++) {
+    for (auto p2 = 0; p2 < cells[B].nleaf; p2++) {
       size_t l2 = cells[B].leaf[p2];
       if (l2 != l1 && !particles[l1].excludes_particle(l2)) {
         double dx = (particles[l1].r[0] - particles[l2].r[0]);
@@ -50,9 +50,9 @@ void P2P_Cells_damping(size_t A, size_t B, std::vector<Cell>& cells,
                        std::vector<Particle>& particles, double* F, double damping) {
   // A - target
   // B - source
-  for (size_t p1 = 0; p1 < cells[A].nleaf; p1++) {
+  for (auto p1 = 0; p1 < cells[A].nleaf; p1++) {
     size_t l1 = cells[A].leaf[p1];
-    for (size_t p2 = 0; p2 < cells[B].nleaf; p2++) {
+    for (auto p2 = 0; p2 < cells[B].nleaf; p2++) {
       size_t l2 = cells[B].leaf[p2];
       if (l2 != l1 && !particles[l1].excludes_particle(l2)) {
         double dx = (particles[l1].r[0] - particles[l2].r[0]);
@@ -104,7 +104,7 @@ void interact_dehnen_lazy(const size_t A, const size_t B, const std::vector<Cell
 
   else if (cells[B].nchild == 0 ||
            (cells[A].rmax >= cells[B].rmax && cells[A].nchild != 0)) {
-    for (int oa = 0; oa < 8; oa++) {
+    for (auto oa = 0; oa < 8; oa++) {
       // For all 8 children of A, if child exists
       if (cells[A].nchild & (1 << oa)) {
         int a = cells[A].child[oa];
@@ -115,7 +115,7 @@ void interact_dehnen_lazy(const size_t A, const size_t B, const std::vector<Cell
   }
 
   else {
-    for (int ob = 0; ob < 8; ob++) {
+    for (auto ob = 0; ob < 8; ob++) {
       // for all 8 children of B, if child exists:
       if (cells[B].nchild & (1 << ob)) {
         int b = cells[B].child[ob];
@@ -131,21 +131,21 @@ void evaluate_P2M(std::vector<Particle>& particles, std::vector<Cell>& cells, si
                   size_t ncrit, size_t exporder) {
   int sourcesize = multipole_components(m_order);
 #pragma omp for
-  for (size_t c = 0; c < cells.size(); c++) {
+  for (auto c = 0; c < cells.size(); c++) {
     // std::cout << "Cell " << c << std::endl;
     // std::cout << "  Msize = " << Msize(exporder, FMMGEN_SOURCEORDER) << std::endl;
     size_t msize = Msize(exporder, m_order);
     double* M    = new double[msize]();
 
     if (cells[c].nleaf < ncrit) {
-      for (size_t i = 0; i < cells[c].nleaf; i++) {
+      for (auto i = 0; i < cells[c].nleaf; i++) {
         size_t l = cells[c].leaf[i];
         // Walter dehnen's definition:
         // (-1)^m / m! (x_a - z_a)^m
         double dx = (cells[c].x - particles[l].r[0]);
         double dy = (cells[c].y - particles[l].r[1]);
         double dz = (cells[c].z - particles[l].r[2]);
-        for (int k = 0; k < sourcesize; k++) {
+        for (auto k = 0; k < sourcesize; k++) {
           // std::cout << particles[l].S[k] << std::endl;
           M[k] = particles[l].S[k];
         }
@@ -174,7 +174,7 @@ void evaluate_M2M(std::vector<Particle>& particles, std::vector<Cell>& cells,
 
   // Dehnen definition:
   // M_m(z_p) = (z_p - z_c)^n / n! M_{m - n}
-  for (size_t c = cells.size() - 1; c > 0; c--) {
+  for (auto c = cells.size() - 1; c > 0; c--) {
     size_t p  = cells[c].parent;
     double dx = (cells[p].x - cells[c].x);
     double dy = (cells[p].y - cells[c].y);
@@ -187,7 +187,7 @@ template <int m_order, int osize>
 void evaluate_M2L_lazy(std::vector<Cell>& cells,
                        std::vector<std::pair<size_t, size_t>>& M2L_list, size_t order) {
 #pragma omp for
-  for (size_t i = 0; i < M2L_list.size(); i++) {
+  for (auto i = 0; i < M2L_list.size(); i++) {
     size_t B = M2L_list[i].first;
     size_t A = M2L_list[i].second;
     // Dehnen definition:
@@ -209,14 +209,14 @@ void evaluate_P2P_lazy(std::vector<Cell>& cells, std::vector<Particle>& particle
 
   if (damping > 0.0) {
     #pragma omp for
-    for (size_t i = 0; i < P2P_list.size(); i++) {
+    for (auto i = 0; i < P2P_list.size(); i++) {
       size_t A = P2P_list[i].first;
       size_t B = P2P_list[i].second;
       P2P_Cells_damping<M, osize>(A, B, cells, particles, F, damping);
     }
   } else {
     #pragma omp for
-    for (size_t i = 0; i < P2P_list.size(); i++) {
+    for (auto i = 0; i < P2P_list.size(); i++) {
       size_t A = P2P_list[i].first;
       size_t B = P2P_list[i].second;
       P2P_Cells<M, osize>(A, B, cells, particles, F);
@@ -228,8 +228,8 @@ template <int M, int osize>
 void evaluate_L2L(std::vector<Cell>& cells, size_t exporder) {
   // Can't currently go down the tree in parallel!
   // needs to be recursive or summing not correct.
-  for (size_t p = 0; p < cells.size(); p++) {
-    for (int octant = 0; octant < 8; octant++) {
+  for (auto p = 0; p < cells.size(); p++) {
+    for (auto octant = 0; octant < 8; octant++) {
       if (cells[p].nchild & (1 << octant)) {
         // for child c in cell p
         size_t c  = cells[p].child[octant];
@@ -246,9 +246,9 @@ template <int M, int osize>
 void evaluate_L2P(std::vector<Particle>& particles, std::vector<Cell>& cells, double* F,
                   size_t ncrit, size_t exporder) {
 #pragma omp for schedule(runtime)
-  for (size_t i = 0; i < cells.size(); i++) {
+  for (auto i = 0; i < cells.size(); i++) {
     if (cells[i].nleaf < ncrit) {
-      for (size_t p = 0; p < cells[i].nleaf; p++) {
+      for (auto p = 0; p < cells[i].nleaf; p++) {
         size_t k  = cells[i].leaf[p];
         double dx = particles[k].r[0] - cells[i].x;
         double dy = particles[k].r[1] - cells[i].y;
@@ -263,8 +263,8 @@ template <int M, int osize>
 void evaluate_direct(std::vector<Particle>& particles, double* F) {
   int n = particles.size();
 #pragma omp parallel for schedule(runtime)
-  for (size_t i = 0; i < n; i++) {
-    for (size_t j = 0; j < n; j++) {
+  for (auto i = 0; i < n; i++) {
+    for (auto j = 0; j < n; j++) {
       if (i != j && !particles[i].excludes_particle(j)) {
         double dx = particles[i].r[0] - particles[j].r[0];
         double dy = particles[i].r[1] - particles[j].r[1];
@@ -280,8 +280,8 @@ void evaluate_direct_damping(std::vector<Particle>& particles, double* F,
                              double damping) {
   int n = particles.size();
 #pragma omp parallel for schedule(runtime)
-  for (size_t i = 0; i < n; i++) {
-    for (size_t j = 0; j < n; j++) {
+  for (auto i = 0; i < n; i++) {
+    for (auto j = 0; j < n; j++) {
       if (i != j && !particles[i].excludes_particle(j)) {
         double dx = particles[i].r[0] - particles[j].r[0];
         double dy = particles[i].r[1] - particles[j].r[1];

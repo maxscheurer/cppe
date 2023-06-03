@@ -58,7 +58,7 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
 Eigen::VectorXd NuclearFields::compute() {
   Eigen::VectorXd nuc_fields = Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for
-  for (size_t i = 0; i < m_n_polsites; i++) {
+  for (auto i = 0; i < m_n_polsites; i++) {
     size_t site_counter           = 3 * i;
     Potential& potential          = m_polsites[i];
     Eigen::Vector3d site_position = potential.get_site_position();
@@ -78,11 +78,11 @@ Eigen::MatrixXd NuclearFields::nuclear_gradient() {
   int natoms           = m_mol.size();
   Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(3 * natoms, 3 * m_n_polsites);
 #pragma omp parallel for
-  for (size_t i = 0; i < m_n_polsites; i++) {
+  for (auto i = 0; i < m_n_polsites; i++) {
     size_t site_counter           = 3 * i;
     Potential& potential          = m_polsites[i];
     Eigen::Vector3d site_position = potential.get_site_position();
-    for (int ai = 0; ai < natoms; ++ai) {
+    for (auto ai = 0; ai < natoms; ++ai) {
       auto& atom                         = m_mol[ai];
       Eigen::Vector3d core_position      = atom.get_position();
       Eigen::Vector3d diff               = site_position - core_position;
