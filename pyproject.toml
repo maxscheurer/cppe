@@ -39,7 +39,7 @@ test = [
   "h5py",
   "scipy",
   "pandas",
-  "polarizationsolver @ git+https://gitlab.com/robertodr/polarizationsolver.git",
+  "polarizationsolver@git+https://gitlab.com/robertodr/polarizationsolver.git",
 ]
 
 [project.urls]
@@ -89,16 +89,17 @@ test-requires = [
   "h5py",
   "scipy",
   "pandas",
-  "polarizationsolver @ git+https://gitlab.com/robertodr/polarizationsolver.git",
+  "polarizationsolver@git+https://gitlab.com/robertodr/polarizationsolver.git",
 ]
  
-[tool.cibuildwheel.environment]
-NINJA_STATUS = "[Built edge %f of %t in %e sec] "
-SKBUILD_CMAKE_ARGS = "-DENABLE_ARCH_FLAGS=OFF"
+[tool.cibuildwheel.linux.environment]
+SKBUILD_CMAKE_ARGS = "-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=/usr/local/share/eigen3/cmake"
 
 [tool.cibuildwheel.windows.environment]
-SKBUILD_CMAKE_ARGS = "-DCMAKE_CXX_COMPILER=clang-cl;-GNinja"
+NINJA_STATUS = "[Built edge %f of %t in %e sec] "
+SKBUILD_CMAKE_ARGS = "-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
 # Needed for full C++17 support
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "10.14"
+SKBUILD_CMAKE_ARGS = "-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
