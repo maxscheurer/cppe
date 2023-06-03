@@ -86,12 +86,16 @@ jobs:
 
       - name: Configure, build, install
         run: |
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then
+            SKBUILD_CMAKE_ARGS="-DENABLE_OPENMP=OFF" python -m pip install -v .[test]
+          else
+            python -m pip install -v .[test]
+          fi
           #SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=${CXX};-GNinja" python -m pip install -v .[test]
-          python -m pip install -v .[test]
 
       - name: Test
         run: |
-          python -m pytest --capture=no -vvv
+          python -m pytest --capture=no --color=yes -vvv
           #if [ "${{ matrix.os }}" == "windows-latest" ]; then
           #   #export KMP_DUPLICATE_LIB_OK=TRUE 
           #   python -m pytest --capture=no -vvv
