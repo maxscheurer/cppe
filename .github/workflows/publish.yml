@@ -60,8 +60,8 @@ jobs:
 
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
 
-          # Skip 32 bit architectures, musllinux, i686, and s390x
-          CIBW_SKIP: "*-win32 *-musllinux* *_i686 *_s390x"
+          # skip PyPy, windows 32-bit, musllinux, i686, and s390x
+          CIBW_SKIP: "pp* *-win32 *-musllinux* *_i686 *_s390x"
 
           # install Eigen
           CIBW_BEFORE_ALL_LINUX: >
