@@ -66,6 +66,7 @@ sdist.include = ["src/cppe/_version.py"]
 
 [tool.setuptools_scm]
 write_to = "src/cppe/_version.py"
+fallback_version = "0.3.1"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
