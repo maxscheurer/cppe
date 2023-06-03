@@ -65,12 +65,12 @@ jobs:
 
           # install Eigen
           CIBW_BEFORE_ALL_LINUX: >
-            yum install -y curl cmake &&
+            yum install -y cmake &&
             curl -sL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.bz2 | tar xj &&
             cd eigen-3.4.0 &&
             cmake -S. -Bbuild &> /dev/null &&
             cmake --build build --target install &> /dev/null &&
-            yum remove -y curl cmake 
+            yum remove -y cmake 
 
           CIBW_ENVIRONMENT_LINUX: >
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR=/usr/local/share/eigen3/cmake"
