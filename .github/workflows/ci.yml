@@ -48,10 +48,10 @@ jobs:
       # This must be done *before* setting up miniconda, see:
       # https://github.com/ilammy/msvc-dev-cmd/issues/34
       - name: Set Windows env
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == "windows-latest"
         uses: ilammy/msvc-dev-cmd@v1
-      #  #env:
-      #  #  KMP_DUPLICATE_LIB_OK: "TRUE"
+        env:
+          KMP_DUPLICATE_LIB_OK: "TRUE"
 
       - name: Cache conda
         uses: actions/cache@v3
@@ -81,7 +81,7 @@ jobs:
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
              echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=clang++;-GNinja" >> $GITHUB_ENV
           else
-             echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=clang-cl;-GNinja;-DENABLE_OPENMP=OFF" >> $GITHUB_ENV
+             echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=clang-cl;-GNinja" >> $GITHUB_ENV
           fi
 
       - name: Configure, build, install
@@ -91,10 +91,3 @@ jobs:
       - name: Test
         run: |
           python -m pytest --capture=no --color=yes -vvv
-          #if [ "${{ matrix.os }}" == "windows-latest" ]; then
-          #   #export KMP_DUPLICATE_LIB_OK=TRUE 
-          #   python -m pytest --capture=no -vvv
-          #else
-          #   python -m pytest --capture=no --color=yes
-          #fi
-
