@@ -61,7 +61,15 @@ jobs:
 
           # install Eigen
           CIBW_BEFORE_ALL_LINUX: >
-            apt-get install -y libeigen3-dev
+            yum install -y curl cmake &&
+            cd / &&
+            curl -sL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.bz2 | tar xj &&
+            cd eigen-3.4.0 &&
+            cmake -S. -Bbuild &> /dev/null &&
+            cmake --build build --target install &> /dev/null &&
+            cd {package}
+
+          CIBW_ENVIRONMENT_LINUX: Eigen3_DIR=/usr/local/share/eigen3/cmake 
 
           CIBW_BEFORE_ALL_MACOS: >
             brew update &&
