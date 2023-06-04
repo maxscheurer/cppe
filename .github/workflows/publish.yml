@@ -91,10 +91,10 @@ jobs:
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
           CIBW_BEFORE_ALL_WINDOWS: >
-            choco install eigen
-            Get-ChildItem C:\ProgramData\chocolatey\lib
-            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen
-            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share
+            choco install eigen &&
+            Get-ChildItem C:\ProgramData\chocolatey\lib &&
+            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen &&
+            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share &&
             Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share\cmake
 
           CIBW_ENVIRONMENT_WINDOWS: >
