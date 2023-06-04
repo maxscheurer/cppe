@@ -1,4 +1,12 @@
-# define object library for sources common to C library and Python bindings
+# OpenMP
+if(ENABLE_OPENMP)
+  find_package(OpenMP COMPONENTS CXX)
+  if(NOT TARGET OpenMP::OpenMP_CXX)
+    message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
+  endif()
+endif()
+
+# define object library for sources
 add_library(cppe-objs
   OBJECT
     ""
@@ -49,6 +57,14 @@ if(WIN32)
       _CRT_SECURE_NO_WARNINGS
       _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
     )
+endif()
+
+# Eigen3
+message(STATUS "Eigen3_ROOT : $ENV{Eigen3_ROOT}")
+message(STATUS "Eigen3_DIR : $ENV{Eigen3_DIR}")
+find_package(Eigen3 3.4 REQUIRED)
+if(TARGET Eigen3::Eigen)
+  message(STATUS "Using Eigen3: ${EIGEN3_ROOT_DIR} (version ${Eigen3_VERSION})")
 endif()
 
 target_link_libraries(cppe-objs

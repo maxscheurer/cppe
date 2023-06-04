@@ -64,8 +64,8 @@ jobs:
 
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
 
-          # skip windows 32-bit, i686, and s390x
-          CIBW_SKIP: "*-win32 *_i686 *_s390x"
+          # skip windows 32-bit, musllinux, i686, and s390x
+          CIBW_SKIP: "*-win32 *-musllinux* *_i686 *_s390x"
 
           # skip testing PyPy builds
           CIBW_TEST_SKIP: "pp*"
@@ -92,6 +92,10 @@ jobs:
 
           CIBW_BEFORE_ALL_WINDOWS: >
             choco install eigen
+            Get-ChildItem C:\ProgramData\chocolatey\lib
+            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen
+            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share
+            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share\cmake
 
           CIBW_ENVIRONMENT_WINDOWS: >
             Eigen3_ROOT="C:\\ProgramData\\chocolatey\\lib\\eigen\\share\\cmake"
