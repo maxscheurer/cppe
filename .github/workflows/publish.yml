@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # such that setuptools_scm can do its job correctly
 
       - name: Build SDist
         run: pipx run build --sdist
@@ -47,6 +49,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # such that setuptools_scm can do its job correctly
 
       # this will set the system compiler;
       - name: Set Windows env
@@ -60,8 +64,11 @@ jobs:
 
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
 
-          # skip PyPy, windows 32-bit, musllinux, i686, and s390x
-          CIBW_SKIP: "pp* *-win32 *-musllinux* *_i686 *_s390x"
+          # skip windows 32-bit, i686, and s390x
+          CIBW_SKIP: "*-win32 *_i686 *_s390x"
+
+          # skip testing PyPy builds
+          CIBW_TEST_SKIP: "pp*"
 
           # install Eigen
           CIBW_BEFORE_ALL_LINUX: >

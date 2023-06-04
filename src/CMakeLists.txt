@@ -8,14 +8,6 @@ add_library(cppe-objs
 add_subdirectory(utils)
 add_subdirectory(core)
 
-# OpenMP
-if(ENABLE_OPENMP)
-  find_package(OpenMP COMPONENTS CXX)
-  if(NOT TARGET OpenMP::OpenMP_CXX)
-    message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
-  endif()
-endif()
-
 # report on compiler flags in use
 message(STATUS "Configuring a ${CMAKE_BUILD_TYPE} build")
 string(TOUPPER ${CMAKE_BUILD_TYPE} _cmake_build_type_upper)
@@ -35,9 +27,6 @@ endif()
 if(DEFINED EXTRA_CXXFLAGS)
   string(REPLACE " " ";" EXTRA_CXXFLAGS ${EXTRA_CXXFLAGS})
 endif()
-
-# Eigen3
-find_package(Eigen3 3.4 CONFIG REQUIRED)
 
 # flags to prepend
 target_compile_options(cppe-objs
@@ -67,8 +56,5 @@ target_link_libraries(cppe-objs
     Eigen3::Eigen
     $<$<AND:$<TARGET_EXISTS:OpenMP::OpenMP_CXX>,$<BOOL:${ENABLE_OPENMP}>>:OpenMP::OpenMP_CXX>
   )
-
-# standard locations of libraries, headers, etc.
-include(GNUInstallDirs)
 
 add_subdirectory(python_iface)
