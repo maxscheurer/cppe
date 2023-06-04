@@ -73,7 +73,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
         neighbor_list.push_back(std::pair<int, double>(pot.index, dist));
       }
       sort(neighbor_list.begin(), neighbor_list.end(), sortbysec);
-      for (int k = 0; k < nredist; ++k) {
+      for (auto k = 0; k < nredist; ++k) {
         Potential& pot = m_potentials[neighbor_list[k].first];
         if (pot.index == site) continue;
         m_printer("       to neighbor " + std::to_string(pot.index));
@@ -89,7 +89,7 @@ std::vector<Potential> PotManipulator::manipulate_border(const PeOptions& pe_opt
           } else {
             // std::cout << "Before: " << std::endl;
             // std::cout << m.get_values_vec() << std::endl;
-            for (size_t i = 0; i < multipole_components(m.m_k); i++) {
+            for (auto i = 0; i < multipole_components(m.m_k); i++) {
               m.get_values()[i] +=
                     m_potentials[site].get_multipoles()[m_idx].get_values()[i] /
                     static_cast<double>(nredist);

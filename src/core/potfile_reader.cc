@@ -57,7 +57,7 @@ std::vector<Potential> PotfileReader::read() {
         throw std::runtime_error("Invalid unit for potential file.");
       }
 
-      for (size_t i = 0; i < num_sites; i++) {
+      for (auto i = 0; i < num_sites; i++) {
         Site site;
         getline(infile, line);
         std::vector<std::string> temp = split(reduce(line), ' ');
@@ -81,7 +81,7 @@ std::vector<Potential> PotfileReader::read() {
         getline(infile, line);
         int num_multipoles = stoi(line);
         int site_before    = -1;
-        for (size_t n_mul = 0; n_mul < num_multipoles; n_mul++) {
+        for (auto n_mul = 0; n_mul < num_multipoles; n_mul++) {
           getline(infile, line);
           temp         = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
@@ -89,9 +89,9 @@ std::vector<Potential> PotfileReader::read() {
           // fill up the array if values were not defined for all sites
           if (site_num != site_before + 1) {
             int diff = site_num - site_before;
-            for (size_t d = 1; d < diff; d++) {
+            for (auto d = 1; d < diff; d++) {
               Multipole mul(order);
-              for (size_t vl = 1; vl <= multipole_components(order); vl++) {
+              for (auto vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
               }
               potentials[site_before + d].add_multipole(mul);
@@ -99,7 +99,7 @@ std::vector<Potential> PotfileReader::read() {
           }
 
           Multipole mul(order);
-          for (size_t vl = 1; vl <= multipole_components(order); vl++) {
+          for (auto vl = 1; vl <= multipole_components(order); vl++) {
             mul.add_value(stod(temp[vl]));
           }
           mul.remove_trace();
@@ -109,9 +109,9 @@ std::vector<Potential> PotfileReader::read() {
           // check if multipoles at the end of the list are missing
           if ((n_mul == num_multipoles - 1) && site_num != (num_sites - 1)) {
             int diff = num_sites - site_num;
-            for (size_t d = 1; d < diff; d++) {
+            for (auto d = 1; d < diff; d++) {
               Multipole mul(order);
-              for (size_t vl = 1; vl <= multipole_components(order); vl++) {
+              for (auto vl = 1; vl <= multipole_components(order); vl++) {
                 mul.add_value(0.0);
               }
               potentials[site_num + d].add_multipole(mul);
@@ -128,14 +128,14 @@ std::vector<Potential> PotfileReader::read() {
         }
         getline(infile, line);
         int num_polarizabilities = stoi(line);
-        for (size_t n_pol = 0; n_pol < num_polarizabilities; n_pol++) {
+        for (auto n_pol = 0; n_pol < num_polarizabilities; n_pol++) {
           getline(infile, line);
           temp         = split(reduce(line), ' ');
           int site_num = stoi(temp[0]) - 1;
           // std::cout << site.x << " " << site.y << " " << site.z << " " <<
           // site_num + 1 << std::endl;
           std::vector<double> pol_tmp;
-          for (size_t vl = 1; vl <= multipole_components(order1 + order2); vl++) {
+          for (auto vl = 1; vl <= multipole_components(order1 + order2); vl++) {
             pol_tmp.push_back(stod(temp[vl]));
           }
           Polarizability pol{pol_tmp};
@@ -152,7 +152,7 @@ std::vector<Potential> PotfileReader::read() {
       getline(infile, line);
       int num_excl = stoi(split(line, ' ')[0]);
       std::vector<std::string> temp;
-      for (size_t i = 0; i < num_excl; i++) {
+      for (auto i = 0; i < num_excl; i++) {
         getline(infile, line);
         temp         = split(reduce(line), ' ');
         int site_num = stoi(temp[0]) - 1;
