@@ -60,9 +60,7 @@ if(WIN32)
 endif()
 
 # Eigen3
-message(STATUS "Eigen3_ROOT : $ENV{Eigen3_ROOT}")
-message(STATUS "Eigen3_DIR : $ENV{Eigen3_DIR}")
-find_package(Eigen3 3.4 REQUIRED)
+find_package(Eigen3 3.4 REQUIRED CONFIG)
 if(TARGET Eigen3::Eigen)
   message(STATUS "Using Eigen3: ${EIGEN3_ROOT_DIR} (version ${Eigen3_VERSION})")
 endif()
