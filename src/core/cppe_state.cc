@@ -40,14 +40,14 @@ void CppeState::set_potentials(std::vector<Potential> potentials) {
   m_positions             = Eigen::MatrixXd::Zero(m_potentials.size(), 3);
   m_positions_polarizable = Eigen::MatrixXd::Zero(m_polarizable_sites, 3);
 
-  for (int i = 0; i < m_potentials.size(); ++i) {
+  for (auto i = 0; i < m_potentials.size(); ++i) {
     m_positions(i, 0) = m_potentials[i].m_x;
     m_positions(i, 1) = m_potentials[i].m_y;
     m_positions(i, 2) = m_potentials[i].m_z;
   }
 
   auto m_potentials_polarizable = get_polarizable_sites(m_potentials);
-  for (int i = 0; i < m_polarizable_sites; ++i) {
+  for (auto i = 0; i < m_polarizable_sites; ++i) {
     m_positions_polarizable(i, 0) = m_potentials_polarizable[i].m_x;
     m_positions_polarizable(i, 1) = m_potentials_polarizable[i].m_y;
     m_positions_polarizable(i, 2) = m_potentials_polarizable[i].m_z;
@@ -114,13 +114,13 @@ Eigen::MatrixXd CppeState::induced_moments_eef() {
 
   Eigen::MatrixXd ret = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
   Eigen::MatrixXd Fdn = Eigen::MatrixXd::Zero(m_polarizable_sites * 3, 3);
-  for (int s = 0; s < m_polarizable_sites; ++s) {
+  for (auto s = 0; s < m_polarizable_sites; ++s) {
     int l         = 3 * s;
     Fdn(l, 0)     = 1;
     Fdn(l + 1, 1) = 1;
     Fdn(l + 2, 2) = 1;
   }
-  for (int a = 0; a < 3; ++a) {
+  for (auto a = 0; a < 3; ++a) {
     Eigen::VectorXd ind_mom = Eigen::VectorXd::Zero(m_polarizable_sites * 3);
     ret.col(a)              = ind.compute(Fdn.col(a), ind_mom, true);
   }

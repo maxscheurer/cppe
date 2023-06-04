@@ -33,7 +33,7 @@ Eigen::VectorXd mat_to_triangle(Eigen::Matrix3d m) {
 double factorial(int n) {
   if (n < 2) return 1.0;
   double x = 1.0;
-  for (int i = 2; i <= n; i++) x *= double(i);
+  for (auto i = 2; i <= n; i++) x *= double(i);
   return x;
 }
 
@@ -75,7 +75,7 @@ std::vector<double> prefactors(unsigned k) {
   // changed signs here because electron charges are included downstream
   // (integral library)
   std::vector<double> pref = symmetry_factors(k);
-  for (size_t i = 0; i < pref.size(); i++) {
+  for (auto i = 0; i < pref.size(); i++) {
     pref[i] *= taylor;
   }
   return pref;
@@ -90,7 +90,7 @@ std::vector<double> prefactors_nuclei(unsigned k) {
   }
 
   std::vector<double> pf = symmetry_factors(k);
-  for (size_t i = 0; i < pf.size(); i++) {
+  for (auto i = 0; i < pf.size(); i++) {
     pf[i] *= taylor;
   }
   return pf;
