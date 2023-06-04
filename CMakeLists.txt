@@ -71,7 +71,6 @@ endmacro()
 option_with_print(ENABLE_OPENMP "Enables OpenMP parallelization" ON)
 
 # included cmake modules
-include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_default_build_paths.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/downloaded/autocmake_safeguards.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/compiler_flags/CXXFlags.cmake)
 
@@ -79,6 +78,22 @@ find_package(Python 3.8
   REQUIRED COMPONENTS Interpreter Development.Module
   OPTIONAL_COMPONENTS Development.SABIModule
   )
+
+# OpenMP
+if(ENABLE_OPENMP)
+  find_package(OpenMP COMPONENTS CXX)
+  if(NOT TARGET OpenMP::OpenMP_CXX)
+    message(WARNING "Suitable OpenMP could not be found. Building without OpenMP instead.")
+  endif()
+endif()
+
+# Eigen3
+message(STATUS "Eigen3_ROOT : $ENV{Eigen3_ROOT}")
+message(STATUS "Eigen3_DIR : $ENV{Eigen3_DIR}")
+find_package(Eigen3 3.4 REQUIRED)
+if(TARGET Eigen3::Eigen)
+  message(STATUS "Using Eigen3: ${EIGEN3_ROOT_DIR} (version ${Eigen3_VERSION})")
+endif()
 
 add_subdirectory(src)
 
