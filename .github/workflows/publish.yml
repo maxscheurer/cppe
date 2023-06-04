@@ -91,14 +91,10 @@ jobs:
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
           CIBW_BEFORE_ALL_WINDOWS: >
-            choco install eigen &&
-            ls C:\ProgramData\chocolatey\lib &&
-            ls C:\ProgramData\chocolatey\lib\eigen &&
-            ls C:\ProgramData\chocolatey\lib\eigen\share &&
-            ls C:\ProgramData\chocolatey\lib\eigen\share\cmake
+            choco install eigen
 
           CIBW_ENVIRONMENT_WINDOWS: >
-            Eigen3_ROOT="C:\\ProgramData\\chocolatey\\lib\\eigen\\share\\cmake"
+            EIGEN3_ROOT="C:\\ProgramData\\chocolatey\\lib\\eigen\\share\\cmake"
             SKBUILD_CMAKE_ARGS="-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
       - name: Verify clean directory
