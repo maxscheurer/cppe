@@ -92,10 +92,10 @@ jobs:
 
           CIBW_BEFORE_ALL_WINDOWS: >
             choco install eigen &&
-            Get-ChildItem C:\ProgramData\chocolatey\lib &&
-            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen &&
-            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share &&
-            Get-ChildItem C:\ProgramData\chocolatey\lib\eigen\share\cmake
+            ls C:\ProgramData\chocolatey\lib &&
+            ls C:\ProgramData\chocolatey\lib\eigen &&
+            ls C:\ProgramData\chocolatey\lib\eigen\share &&
+            ls C:\ProgramData\chocolatey\lib\eigen\share\cmake
 
           CIBW_ENVIRONMENT_WINDOWS: >
             Eigen3_ROOT="C:\\ProgramData\\chocolatey\\lib\\eigen\\share\\cmake"
