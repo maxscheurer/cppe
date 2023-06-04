@@ -1,8 +1,12 @@
+find_package(Python 3.8
+  REQUIRED COMPONENTS Interpreter Development.Module
+  OPTIONAL_COMPONENTS Development.SABIModule
+  )
+
 find_package(pybind11 2.6 CONFIG REQUIRED)
 
 pybind11_add_module(pycppe
   MODULE
-  THIN_LTO
     export_molecule.cc
     export_potential.cc
     export_fields.cc
