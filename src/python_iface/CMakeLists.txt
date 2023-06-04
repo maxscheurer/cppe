@@ -7,6 +7,7 @@ find_package(pybind11 2.6 CONFIG REQUIRED)
 
 pybind11_add_module(pycppe
   MODULE
+  NO_EXTRAS
     export_molecule.cc
     export_potential.cc
     export_fields.cc
