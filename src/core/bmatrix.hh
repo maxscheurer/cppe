@@ -27,7 +27,7 @@ class BMatrix {
                      return p.get_polarizability().get_matrix().inverse();
                    });
 #pragma omp parallel for
-    for (auto i = 0; i < m_n_polsites; ++i) {
+    for (decltype(m_n_polsites) i = 0; i < m_n_polsites; ++i) {
       Potential& pot1        = m_polsites[i];
       m_positions[i * 3 + 0] = pot1.m_x;
       m_positions[i * 3 + 1] = pot1.m_y;
