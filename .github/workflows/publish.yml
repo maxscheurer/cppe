@@ -94,8 +94,7 @@ jobs:
             choco install eigen
 
           CIBW_ENVIRONMENT_WINDOWS: >
-            Eigen3_ROOT="C:\\ProgramData\\chocolatey\\lib\\eigen"
-            SKBUILD_CMAKE_ARGS="-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF;-DEigen3_DIR="C:\\ProgramData\\chocolatey\\lib\\eigen\\share\\cmake""
+            SKBUILD_CMAKE_ARGS="-GNinja;-DCMAKE_CXX_COMPILER=clang-cl;-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
       - name: Verify clean directory
         run: git diff --exit-code
