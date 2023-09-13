@@ -88,4 +88,4 @@ jobs:
 
       - name: Test
         run: |
-          python -m pytest --capture=no --color=yes -vvv
+          python -m pytest --pyargs cppe -vvv
