@@ -90,4 +90,4 @@ jobs:
 
       - name: Test
         run: |
-          python -m pytest -vvv -k not "fields"
+          python -m pytest -vvv --ignore=tests/test_fields.py
