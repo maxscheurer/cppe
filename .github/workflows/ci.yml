@@ -64,8 +64,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: ${{ matrix.python-version }}
-          mamba-version: "*"
           auto-update-conda: true 
+          auto-activate-base: false
           channels: conda-forge
           channel-priority: true
           activate-environment: cppe-gha
