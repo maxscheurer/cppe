@@ -65,6 +65,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           mamba-version: "*"
+          auto-update-conda: true 
           channels: conda-forge
           channel-priority: true
           activate-environment: cppe-gha
