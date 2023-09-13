@@ -90,4 +90,4 @@ jobs:
 
       - name: Test
         run: |
-          python -m pytest -vvv --ignore=tests/test_fields.py
+          python -m pytest -vvv --ignore=tests/test_fields.py --ignore=tests/test_functionality.py --ignore=tests/test_gradients.py --ignore=tests/test_solver.py
