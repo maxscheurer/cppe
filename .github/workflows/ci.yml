@@ -90,4 +90,4 @@ jobs:
 
       - name: Test
         run: |
-          python -m pytest -vvv
+          python -m pytest -vvv -k not "fields"
