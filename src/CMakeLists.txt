@@ -84,6 +84,7 @@ else()
     )
 
   set(BUILD_TESTING OFF)
+  set(CMAKE_C_COMPILER_WORKS ON)
   FetchContent_MakeAvailable(eigen3)
 endif()
 
