@@ -83,8 +83,10 @@ else()
       ${CMAKE_CURRENT_SOURCE_DIR}/eigen3
     )
 
+  set(CMAKE_POLICY_DEFAULT_CMP0077 NEW) 
   set(BUILD_TESTING OFF)
-  set(CMAKE_C_COMPILER_WORKS ON)
+  #set(CMAKE_C_COMPILER_WORKS ON)
+  #set(CMAKE_Fortran_COMPILER_WORKS ON)
   FetchContent_MakeAvailable(eigen3)
 endif()
 
