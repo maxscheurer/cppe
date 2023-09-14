@@ -60,10 +60,33 @@ if(WIN32)
 endif()
 
 # Eigen3
-find_package(Eigen3 3.4 REQUIRED CONFIG)
+find_package(Eigen3 3.4 CONFIG QUIET)
 if(TARGET Eigen3::Eigen)
   message(STATUS "Using Eigen3: ${EIGEN3_ROOT_DIR} (version ${Eigen3_VERSION})")
+else()
+  message(STATUS "Suitable Eigen3 could not be located. Fetching and building!")
+  include(FetchContent)
+
+  if(NOT SKBUILD_STATE STREQUAL "sdist"
+     AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/eigen3/CMakeLists.txt")
+    message(STATUS "Using integrated Eigen3")
+    set(FETCHCONTENT_FULLY_DISCONNECTED ON)
+  endif()
+
+  FetchContent_Declare(eigen3
+    QUIET
+    GIT_REPOSITORY 
+      https://gitlab.com/libeigen/eigen
+    GIT_TAG 
+      3.4.0
+    SOURCE_DIR 
+      ${CMAKE_CURRENT_SOURCE_DIR}/eigen3
+    )
+
+  set(BUILD_TESTING OFF)
+  FetchContent_MakeAvailable(eigen3)
 endif()
+
 
 target_link_libraries(cppe-objs
   PUBLIC
