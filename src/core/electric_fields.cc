@@ -38,9 +38,9 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
       for (z = k + l; z > -1; z--) {
         if (x + y + z != k + l) continue;
         i = xyz2idx(x, y, z);
-        for (int a = x; a > -1; a--) {
-          for (int b = y; b > -1; b--) {
-            for (int c = z; c > -1; c--) {
+        for (auto a = x; a > -1; a--) {
+          for (auto b = y; b > -1; b--) {
+            for (auto c = z; c > -1; c--) {
               if (a + b + c != k) continue;
               j      = xyz2idx(a, b, c);
               m      = xyz2idx(x - a, y - b, z - c);
@@ -58,7 +58,7 @@ Eigen::VectorXd multipole_derivative(int k, int l, const Eigen::Vector3d& Rji,
 Eigen::VectorXd NuclearFields::compute() {
   Eigen::VectorXd nuc_fields = Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for
-  for (size_t i = 0; i < m_n_polsites; i++) {
+  for (auto i = 0; i < m_n_polsites; i++) {
     size_t site_counter           = 3 * i;
     Potential& potential          = m_polsites[i];
     Eigen::Vector3d site_position = potential.get_site_position();
@@ -78,11 +78,11 @@ Eigen::MatrixXd NuclearFields::nuclear_gradient() {
   int natoms           = m_mol.size();
   Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(3 * natoms, 3 * m_n_polsites);
 #pragma omp parallel for
-  for (size_t i = 0; i < m_n_polsites; i++) {
+  for (auto i = 0; i < m_n_polsites; i++) {
     size_t site_counter           = 3 * i;
     Potential& potential          = m_polsites[i];
     Eigen::Vector3d site_position = potential.get_site_position();
-    for (int ai = 0; ai < natoms; ++ai) {
+    for (auto ai = 0; ai < natoms; ++ai) {
       auto& atom                         = m_mol[ai];
       Eigen::Vector3d core_position      = atom.get_position();
       Eigen::Vector3d diff               = site_position - core_position;
@@ -120,7 +120,7 @@ Eigen::VectorXd MultipoleFields::compute() {
   }
 
   int max_order = 0;
-  for (int i = 0; i < n_sites; ++i) {
+  for (auto i = 0; i < n_sites; ++i) {
     int max_multipole_order = m_potentials[i].max_multipole_order();
     if (max_multipole_order > max_order) {
       max_order = max_multipole_order;
@@ -210,7 +210,7 @@ Eigen::VectorXd InducedMoments::compute(const Eigen::VectorXd& rhs, Eigen::Vecto
   std::vector<Eigen::VectorXd> x{x0};
   std::vector<Eigen::VectorXd> r{r0};
   std::vector<Eigen::VectorXd> z{z0};
-  for (int k = 0; k < m_options.maxiter; ++k) {
+  for (auto k = 0; k < m_options.maxiter; ++k) {
     Eigen::VectorXd Ap = bmat.apply(p);
     alpha_k            = r[k].dot(z[k]) / p.dot(Ap);
     x_k1               = x[k] + alpha_k * p;

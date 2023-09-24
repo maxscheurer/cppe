@@ -13,7 +13,7 @@ Eigen::VectorXd BMatrix::apply(const Eigen::VectorXd& induced_moments) {
   int order    = m_options.tree_expansion_order;
   double theta = m_options.theta;
   std::vector<double> S(3 * m_n_polsites);
-  for (int i = 0; i < m_n_polsites; ++i) {
+  for (decltype(m_n_polsites) i = 0; i < m_n_polsites; ++i) {
     int l             = i * 3;
     Eigen::Vector3d s = induced_moments.segment<3>(l);
     S[i * 3 + 0]      = s(0);
@@ -42,7 +42,7 @@ Eigen::VectorXd BMatrix::apply(const Eigen::VectorXd& induced_moments) {
 Eigen::VectorXd BMatrix::apply_diagonal_inverse(const Eigen::VectorXd& in) {
   Eigen::VectorXd ret = Eigen::VectorXd::Zero(3 * m_n_polsites);
 #pragma omp parallel for
-  for (int i = 0; i < m_n_polsites; ++i) {
+  for (decltype(m_n_polsites) i = 0; i < m_n_polsites; ++i) {
     int l                   = i * 3;
     Polarizability& alpha_i = m_polsites[i].get_polarizability();
     ret.segment<3>(l)       = alpha_i.get_matrix() * in.segment<3>(l);
@@ -54,7 +54,7 @@ Eigen::VectorXd BMatrix::apply_diagonal(const Eigen::VectorXd& in) {
   Eigen::VectorXd ret = Eigen::VectorXd::Zero(3 * m_n_polsites);
 
 #pragma omp parallel for
-  for (int i = 0; i < m_n_polsites; ++i) {
+  for (decltype(m_n_polsites) i = 0; i < m_n_polsites; ++i) {
     int l             = i * 3;
     ret.segment<3>(l) = m_alpha_inverse[i] * in.segment<3>(l);
   }
@@ -64,10 +64,10 @@ Eigen::VectorXd BMatrix::apply_diagonal(const Eigen::VectorXd& in) {
 Eigen::MatrixXd BMatrix::to_dense_matrix() {
   Eigen::MatrixXd B = Eigen::MatrixXd::Zero(m_n_polsites * 3, m_n_polsites * 3);
 #pragma omp parallel for
-  for (int i = 0; i < m_n_polsites; ++i) {
+  for (decltype(m_n_polsites) i = 0; i < m_n_polsites; ++i) {
     int l           = i * 3;
     Potential& pot1 = m_polsites[i];
-    for (int j = 0; j < m_n_polsites; ++j) {
+    for (decltype(m_n_polsites) j = 0; j < m_n_polsites; ++j) {
       int m           = j * 3;
       Potential& pot2 = m_polsites[j];
       if (pot1.excludes_site(pot2.index) || i == j) continue;
