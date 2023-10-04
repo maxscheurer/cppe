@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16...3.20)
 
 # project name
-project(cppe LANGUAGES CXX VERSION 0.3.1)
+project(cppe LANGUAGES CXX VERSION 0.3.2)
 
 # do not rebuild if rules (compiler flags) change
 set(CMAKE_SKIP_RULE_DEPENDENCY TRUE)
