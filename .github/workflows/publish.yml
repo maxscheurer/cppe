@@ -32,7 +32,7 @@ jobs:
       - name: Check metadata
         run: pipx run twine check dist/*
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install cibuildwheel
-        run: pipx install cibuildwheel==2.16.0
+        run: pipx install cibuildwheel==2.19.2
       - id: set-matrix
         run: |
           MATRIX=$(
@@ -88,7 +88,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - uses: pypa/cibuildwheel@v2.16.0
+      - uses: pypa/cibuildwheel@v2.19.2
         env:
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
 
@@ -111,7 +111,7 @@ jobs:
         shell: bash
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: wheelhouse/*.whl
 
@@ -126,7 +126,7 @@ jobs:
     steps:
       - uses: actions/setup-python@v4
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: artifact
           path: dist
