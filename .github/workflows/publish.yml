@@ -60,8 +60,8 @@ jobs:
       CIBW_ARCHS_LINUX: x86_64 aarch64
       CIBW_ARCHS_MACOS: x86_64 arm64
       CIBW_ARCHS_WINDOWS: AMD64
-      # skip CPython 3.12 builds
-      CIBW_SKIP: "cp312-*"
+      # skip musl builds
+      CIBW_SKIP: "*-musllinux_*"
 
   build_wheels:
     name: Build ${{ matrix.only }}
