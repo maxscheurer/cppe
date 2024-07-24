@@ -55,9 +55,11 @@ jobs:
               | jq -nRc '{"only": inputs, "os": "windows-latest"}'
             } | jq -sc
           )
+          echo "Full build matrix"
+          echo "$MATRIX"
           echo "include=$MATRIX" >> $GITHUB_OUTPUT          
     env:
-      CIBW_ARCHS_LINUX: x86_64 aarch64
+      CIBW_ARCHS_LINUX: x86_64 # aarch64  # skipping as h5py stopped providing pre-build wheels for aarch64 on PyPI
       CIBW_ARCHS_MACOS: x86_64 arm64
       CIBW_ARCHS_WINDOWS: AMD64
       # skip musl builds
