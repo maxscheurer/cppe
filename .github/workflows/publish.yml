@@ -19,7 +19,7 @@ env:
 
 jobs:
   build_sdist:
-    name: Build SDist
+    name: Build source distribution
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,11 +29,9 @@ jobs:
       - name: Build SDist
         run: pipx run build --sdist
 
-      - name: Check metadata
-        run: pipx run twine check dist/*
-
       - uses: actions/upload-artifact@v4
         with:
+          name: cibw-sdist
           path: dist/*.tar.gz
 
   generate-wheels-matrix:
@@ -90,8 +88,6 @@ jobs:
 
       - uses: pypa/cibuildwheel@v2.19.2
         env:
-          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
-
           # skip testing PyPy builds
           CIBW_TEST_SKIP: "pp*"
 
@@ -110,28 +106,27 @@ jobs:
         run: git diff --exit-code
         shell: bash
 
-      - name: Upload wheels
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          path: wheelhouse/*.whl
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
 
   upload_all:
     name: Upload if release
     needs:
       - build_wheels
-      - build_sdist
+      - make_sdist
+    environment: pypi
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
-      - uses: actions/setup-python@v4
-
       - uses: actions/download-artifact@v4
         with:
-          name: artifact
+          pattern: cibw-*
           path: dist
+          merge-multiple: true
 
       - uses: pypa/gh-action-pypi-publish@v1
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}            
