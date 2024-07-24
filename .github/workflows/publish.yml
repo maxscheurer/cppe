@@ -62,6 +62,10 @@ jobs:
       CIBW_ARCHS_WINDOWS: AMD64
       # skip musl builds
       CIBW_SKIP: "*-musllinux_*"
+      # disable free-threaded support
+      CIBW_FREE_THREADED_SUPPORT: False
+      # exclude latest Python beta
+      CIBW_PRERELEASE_PYTHONS: False
 
   build_wheels:
     name: Build ${{ matrix.only }}
