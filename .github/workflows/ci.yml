@@ -30,11 +30,11 @@ jobs:
           - windows-latest
         python-version:
           - "3.8"
-          - "3.11"
+          - "3.12"
 
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -el {0}
 
     env:
       NINJA_STATUS: "[Built edge %f of %t in %e sec] "
@@ -54,7 +54,7 @@ jobs:
           KMP_DUPLICATE_LIB_OK: "TRUE"
 
       - name: Cache conda
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           # Increase this value to reset cache if .github/environment.yml has not changed
           CACHE_NUMBER: 2
@@ -63,7 +63,7 @@ jobs:
           key:
             ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/environment.yml') }}
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python-version }}
           auto-update-conda: true 
