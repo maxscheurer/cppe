@@ -75,10 +75,8 @@ else()
 
   FetchContent_Declare(eigen3
     QUIET
-    GIT_REPOSITORY 
-      https://gitlab.com/libeigen/eigen
-    GIT_TAG 
-      3.4.0
+    URL
+      https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
     SOURCE_DIR 
       ${CMAKE_CURRENT_SOURCE_DIR}/eigen3
     )
