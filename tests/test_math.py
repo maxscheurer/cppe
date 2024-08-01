@@ -1,5 +1,6 @@
 import unittest
 import pytest
+import math
 import numpy as np
 from cppe import T_recursive, xyz2idx, T, T_damp_thole
 from cppe import (factorial, prefactors,
@@ -22,7 +23,7 @@ class TestMath(unittest.TestCase):
         # factorial
         rng = np.arange(0, 10, 1)
         for a in rng:
-            assert factorial(a) == np.math.factorial(a)
+            assert factorial(a) == math.factorial(a)
 
     def test_prefactors(self):
         for k in range(3):

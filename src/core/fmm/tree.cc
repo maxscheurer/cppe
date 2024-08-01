@@ -63,20 +63,20 @@ Cell::Cell(Cell&& other) {
 }
 
 void printTreeParticles(std::vector<Cell>& cells, size_t cell, size_t depth) {
-  for (size_t i = 0; i < depth; i++) {
+  for (auto i = 0; i < depth; i++) {
     std::cout << "         ";
   }
   std::cout << cell << " (" << cells[cell].x << "," << cells[cell].y << ","
             << cells[cell].z << ") : (";
   size_t nchild = 0;
-  for (size_t octant = 0; octant < 8; octant++) {
+  for (auto octant = 0; octant < 8; octant++) {
     if (cells[cell].nchild & (1 << octant)) {
       nchild += 1;
     }
   }
 
   if (nchild == 0) {
-    for (size_t i = 0; i < cells[cell].nleaf; i++) {
+    for (auto i = 0; i < cells[cell].nleaf; i++) {
       std::cout << cells[cell].leaf[i];
       if (i != (cells[cell].nleaf - 1)) {
         std::cout << ",";
@@ -84,7 +84,7 @@ void printTreeParticles(std::vector<Cell>& cells, size_t cell, size_t depth) {
     }
   }
   std::cout << ")" << std::endl;
-  for (size_t octant = 0; octant < 8; octant++) {
+  for (auto octant = 0; octant < 8; octant++) {
     if (cells[cell].nchild & (1 << octant)) {
       printTreeParticles(cells, cells[cell].child[octant], depth + 1);
     }
@@ -114,7 +114,7 @@ void split_cell(std::vector<Cell>& cells, std::vector<Particle>& particles, size
   // Do not change octant to size_t - otherwise the calculation
   // of x, y, z position in add_child is not correct!
   int octant;
-  for (size_t i = 0; i < cells[p].leaf.size(); i++) {
+  for (auto i = 0; i < cells[p].leaf.size(); i++) {
     l      = cells[p].leaf[i];
     octant = (particles[l].r[0] > cells[p].x) + ((particles[l].r[1] > cells[p].y) << 1) +
              ((particles[l].r[2] > cells[p].z) << 2);
@@ -139,7 +139,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   int nparticles = potentials.size();
   std::vector<Particle> particles(nparticles);
   bool damping_enabled = damping > 0.0;
-  for (size_t i = 0; i < nparticles; i++) {
+  for (auto i = 0; i < nparticles; i++) {
     particles[i].r          = potentials[i].ptr_position();
     particles[i].S          = &S[sourcesize * i];
     particles[i].exclusions = potentials[i].get_exclusions();
@@ -157,7 +157,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   double xavg = 0;
   double yavg = 0;
   double zavg = 0;
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     xavg += particles[i].r[0];
     yavg += particles[i].r[1];
     zavg += particles[i].r[2];
@@ -174,7 +174,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   double ymax = 0;
   double zmax = 0;
 
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     double x = std::abs(particles[i].r[0] - xavg);
     double y = std::abs(particles[i].r[1] - yavg);
     double z = std::abs(particles[i].r[2] - zavg);
@@ -189,7 +189,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   auto root = Cell(xavg, yavg, zavg, r, 0, order, 0, ncrit);
 
   cells.push_back(root);
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     curr = 0;
     while (cells[curr].nleaf >= ncrit) {
       cells[curr].nleaf += 1;
@@ -229,7 +229,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   // Create memory into which each cell can point for the multipole arrays.
   tree->M.resize(tree->cells.size() * Msize(order, m_order), 0.0);
   tree->L.resize(tree->cells.size() * Lsize(order, m_order), 0.0);
-  for (size_t i = 0; i < tree->cells.size(); i++) {
+  for (auto i = 0; i < tree->cells.size(); i++) {
     tree->cells[i].M = &tree->M[i * Msize(order, m_order)];
     tree->cells[i].L = &tree->L[i * Lsize(order, m_order)];
   }
@@ -243,7 +243,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   int sourcesize = multipole_components(m_order);
   // Create particles list for convenience
   std::vector<Particle> particles(nparticles);
-  for (size_t i = 0; i < nparticles; i++) {
+  for (auto i = 0; i < nparticles; i++) {
     particles[i].r          = &pos[3 * i];
     particles[i].S          = &S[sourcesize * i];
     particles[i].exclusions = exclusion_lists[i];
@@ -258,7 +258,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   double xavg = 0;
   double yavg = 0;
   double zavg = 0;
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     xavg += particles[i].r[0];
     yavg += particles[i].r[1];
     zavg += particles[i].r[2];
@@ -275,7 +275,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   double ymax = 0;
   double zmax = 0;
 
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     double x = std::abs(particles[i].r[0] - xavg);
     double y = std::abs(particles[i].r[1] - yavg);
     double z = std::abs(particles[i].r[2] - zavg);
@@ -290,7 +290,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   auto root = Cell(xavg, yavg, zavg, r, 0, order, 0, ncrit);
 
   cells.push_back(root);
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     curr = 0;
     while (cells[curr].nleaf >= ncrit) {
       cells[curr].nleaf += 1;
@@ -329,7 +329,7 @@ std::shared_ptr<Tree<m_order, osize>> build_shared_tree(
   // Create memory into which each cell can point for the multipole arrays.
   tree->M.resize(tree->cells.size() * Msize(order, m_order), 0.0);
   tree->L.resize(tree->cells.size() * Lsize(order, m_order), 0.0);
-  for (size_t i = 0; i < tree->cells.size(); i++) {
+  for (auto i = 0; i < tree->cells.size(); i++) {
     tree->cells[i].M = &tree->M[i * Msize(order, m_order)];
     tree->cells[i].L = &tree->L[i * Lsize(order, m_order)];
   }
@@ -351,7 +351,7 @@ void Tree<m_order, osize>::set_sources(double* S) {
   int sourcesize = multipole_components(m_order);
   clear_M();
   clear_L();
-  for (size_t i = 0; i < particles.size(); i++) {
+  for (auto i = 0; i < particles.size(); i++) {
     particles[i].S = &S[sourcesize * i];
   }
 }
@@ -359,7 +359,7 @@ void Tree<m_order, osize>::set_sources(double* S) {
 template <int m_order, int osize>
 void Tree<m_order, osize>::compute_field_fmm(double* F) {
   // std::cout << "Computing FMM fields." << std::endl;
-  for (size_t i = 0; i < osize * particles.size(); i++) {
+  for (auto i = 0; i < osize * particles.size(); i++) {
     F[i] = 0.0;
   }
   clear_M();

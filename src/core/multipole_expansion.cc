@@ -12,7 +12,7 @@ double MultipoleExpansion::interaction_energy() {
   int npots           = m_potentials.size();
 
 #pragma omp parallel for reduction(+ : total_energy)
-  for (size_t i = 0; i < npots; i++) {
+  for (auto i = 0; i < npots; i++) {
     Potential& potential          = m_potentials[i];
     Eigen::Vector3d site_position = potential.get_site_position();
     for (auto& multipole : potential.get_multipoles()) {
@@ -38,7 +38,7 @@ Eigen::MatrixXd MultipoleExpansion::nuclear_gradient() {
   Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(natoms, 3);
 
 #pragma omp parallel for
-  for (size_t i = 0; i < npots; i++) {
+  for (auto i = 0; i < npots; i++) {
     Potential& potential          = m_potentials[i];
     Eigen::Vector3d site_position = potential.get_site_position();
     for (auto& multipole : potential.get_multipoles()) {
@@ -47,7 +47,7 @@ Eigen::MatrixXd MultipoleExpansion::nuclear_gradient() {
       Eigen::VectorXd pref_v =
             Eigen::Map<Eigen::VectorXd>(std::move(pref.data()), pref.size());
       Eigen::VectorXd mul_v = multipole.get_values_vec();
-      for (int ai = 0; ai < natoms; ++ai) {
+      for (auto ai = 0; ai < natoms; ++ai) {
         auto& atom                    = m_mol[ai];
         Eigen::Vector3d core_position = atom.get_position();
         Eigen::Vector3d diff          = core_position - site_position;

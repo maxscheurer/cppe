@@ -24,9 +24,9 @@ Eigen::VectorXd T_recursive(int k, const Eigen::Vector3d& Rij, double damping_fa
 int xyz2idx(int x, int y, int z) {
   int idx = 0;
   int k   = x + y + z;
-  for (int a = k; a > -1; a--) {
-    for (int b = k; b > -1; b--) {
-      for (int c = k; c > -1; c--) {
+  for (auto a = k; a > -1; a--) {
+    for (auto b = k; b > -1; b--) {
+      for (auto c = k; c > -1; c--) {
         if (a + b + c != k) continue;
         if (a != x || b != y || c != z) {
           idx++;
@@ -55,11 +55,11 @@ double T(const Eigen::Vector3d& Rij, int x, int y, int z,
     scr_facs = thole_screening_factors(R * damping_factor, k);
   }
 
-  for (size_t l = 0; l <= x; l++) {
+  for (auto l = 0; l <= x; l++) {
     Cx = Cijn[0](x, l) * pow((Rij(0) / R), l);
-    for (size_t m = 0; m <= y; m++) {
+    for (auto m = 0; m <= y; m++) {
       Cy = Cx * Cijn[l + x](y, m) * pow((Rij(1) / R), m);
-      for (size_t n = 0; n <= z; n++) {
+      for (auto n = 0; n <= z; n++) {
         Cz     = Cy * Cijn[l + x + m + y](z, n) * pow((Rij(2) / R), n);
         int kk = l + m + n;
         // Thole damping
@@ -116,7 +116,7 @@ std::vector<double> thole_screening_factors(double v, int k) {
 std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {
   int maxi = 2 * max_order + 3;
   std::vector<Eigen::MatrixXi> Cijn;
-  for (int n = 0; n < maxi; ++n) {
+  for (auto n = 0; n < maxi; ++n) {
     int k;
     Eigen::MatrixXi mat = Eigen::MatrixXi::Zero(max_order + 2, max_order + 2);
     mat(0, 0)           = 1;
@@ -124,13 +124,13 @@ std::vector<Eigen::MatrixXi> Tk_coefficients(int max_order) {
       Cijn.push_back(mat);
       continue;
     }
-    for (size_t i = 1; i <= max_order + 1; i++) {
+    for (auto i = 1; i <= max_order + 1; i++) {
       if (i % 2 != 0) {
         k = i - 1;
       } else if (i % 2 == 0) {
         k = i;
       }
-      for (size_t j = 0; j <= i; j++) {
+      for (auto j = 0; j <= i; j++) {
         if ((i + j) % 2 != 0) continue;
         if (j == 0) {
           mat(i, j) = mat(i - 1, j + 1);

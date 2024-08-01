@@ -1,13 +1,3 @@
-# define object library for sources common to C library and Python bindings
-add_library(cppe-objs
-  OBJECT
-    metadata.cc
-  )
-
-# create empty list of CPPE private header files
-add_subdirectory(utils)
-add_subdirectory(core)
-
 # OpenMP
 if(ENABLE_OPENMP)
   find_package(OpenMP COMPONENTS CXX)
@@ -16,11 +6,21 @@ if(ENABLE_OPENMP)
   endif()
 endif()
 
+# define object library for sources
+add_library(cppe-objs
+  OBJECT
+    ""
+  )
+
+# create empty list of CPPE private header files
+add_subdirectory(utils)
+add_subdirectory(core)
+
 # report on compiler flags in use
 message(STATUS "Configuring a ${CMAKE_BUILD_TYPE} build")
 string(TOUPPER ${CMAKE_BUILD_TYPE} _cmake_build_type_upper)
 
-message(STATUS "C++ compiler flags")
+message(STATUS "Compiler flags for ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS "   From environment       : ${CMAKE_CXX_FLAGS}")
 message(STATUS "   Build-type-specific    : ${CMAKE_CXX_FLAGS_${_cmake_build_type_upper}}")
 message(STATUS "   Vectorization flag     : ${ARCH_FLAG}")
@@ -29,13 +29,12 @@ message(STATUS "   User-appended          : ${EXTRA_CXXFLAGS}")
 message(STATUS "   OpenMP parallelization : ${OpenMP_CXX_FLAGS}")
 
 # transform CPPE_CXX_FLAGS and EXTRA_CXXFLAGS to ;-separated lists
-string(REPLACE " " ";" CPPE_CXX_FLAGS ${CPPE_CXX_FLAGS})
+if(DEFINED CPPE_CXX_FLAGS)
+  string(REPLACE " " ";" CPPE_CXX_FLAGS ${CPPE_CXX_FLAGS})
+endif()
 if(DEFINED EXTRA_CXXFLAGS)
   string(REPLACE " " ";" EXTRA_CXXFLAGS ${EXTRA_CXXFLAGS})
 endif()
-
-# Eigen3
-find_package(Eigen3 3.4 CONFIG REQUIRED)
 
 # flags to prepend
 target_compile_options(cppe-objs
@@ -60,13 +59,40 @@ if(WIN32)
     )
 endif()
 
+# Eigen3
+find_package(Eigen3 3.4 CONFIG QUIET)
+if(TARGET Eigen3::Eigen)
+  message(STATUS "Using Eigen3: ${EIGEN3_ROOT_DIR} (version ${Eigen3_VERSION})")
+else()
+  message(STATUS "Suitable Eigen3 could not be located. Fetching and building!")
+  include(FetchContent)
+
+  if(NOT SKBUILD_STATE STREQUAL "sdist"
+     AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/eigen3/CMakeLists.txt")
+    message(STATUS "Using integrated Eigen3")
+    set(FETCHCONTENT_FULLY_DISCONNECTED ON)
+  endif()
+
+  FetchContent_Declare(eigen3
+    QUIET
+    URL
+      https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+    SOURCE_DIR 
+      ${CMAKE_CURRENT_SOURCE_DIR}/eigen3
+    )
+
+  set(CMAKE_POLICY_DEFAULT_CMP0077 NEW) 
+  set(BUILD_TESTING OFF)
+  set(CMAKE_C_COMPILER_WORKS ON)
+  set(CMAKE_Fortran_COMPILER_WORKS ON)
+  FetchContent_MakeAvailable(eigen3)
+endif()
+
+
 target_link_libraries(cppe-objs
   PUBLIC
     Eigen3::Eigen
     $<$<AND:$<TARGET_EXISTS:OpenMP::OpenMP_CXX>,$<BOOL:${ENABLE_OPENMP}>>:OpenMP::OpenMP_CXX>
   )
-
-# standard locations of libraries, headers, etc.
-include(GNUInstallDirs)
 
 add_subdirectory(python_iface)

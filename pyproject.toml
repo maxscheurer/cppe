@@ -1,3 +1,107 @@
 [build-system]
-requires = ["setuptools", "wheel", "scikit-build", "cmake", "ninja"]
+requires = ["scikit-build-core >=0.8", "pybind11"]
+build-backend = "scikit_build_core.build"
 
+[project]
+name = "cppe"
+dynamic = ["version"]
+description = "C++ and Python library for Polarizable Embedding"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+  { name = "Maximilian Scheurer", email = "maximilian.scheurer@iwr.uni-heidelberg.de" },
+  { name = "Peter Reinholdt" },
+  { name = "Michael F. Herbst" },
+  { name = "Lori A. Burns" },
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: GNU Lesser",
+  "General Public License v3 (LGPLv3)",
+  "License :: Free For Educational Use",
+  "Intended Audience :: Science/Research",
+  "Topic :: Education",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Chemistry",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "numpy",
+  "h5py",
+  "scipy",
+  "pandas",
+  "polarizationsolver@git+https://gitlab.com/robertodr/polarizationsolver.git",
+]
+
+[project.urls]
+Homepage = "https://github.com/maxscheurer/cppe"
+Source = "https://github.com/maxscheurer/cppe"
+"Bug Tracker" = "https://github.com/maxscheurer/cppe/issues"
+Changelog = "https://github.com/org/maxscheurer/releases"
+
+[tool.scikit-build]
+# Protect the configuration against future changes in scikit-build-core
+minimum-version = "0.8"
+
+# Setuptools-style build caching in a local directory
+build-dir = "build/{wheel_tag}"
+
+# Build stable ABI wheels for CPython 3.12+
+wheel.py-api = "cp312"
+
+cmake.verbose = true
+cmake.version = ">=3.16"
+ninja.make-fallback = false
+logging.level = "INFO"
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.cmake = true
+sdist.exclude = [".github", "scripts"]
+sdist.include = [
+  "src/cppe/_version.py",
+  "eigen3",
+]
+
+[tool.setuptools_scm]
+write_to = "src/cppe/_version.py"
+fallback_version = "0.3.2"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+filterwarnings = ["error"]
+log_cli_level = "INFO"
+testpaths = [
+  "tests",
+]
+
+[tool.cibuildwheel]
+# Necessary to see build output from the actual compilation
+build-verbosity = 1
+
+# Run pytest to ensure that the package was correctly built
+test-command = "pytest {project}/tests"
+test-requires = [
+  "pytest",
+  "numpy",
+  "h5py",
+  "scipy",
+  "pandas",
+  "polarizationsolver@git+https://gitlab.com/robertodr/polarizationsolver.git",
+]
+ 
+[tool.cibuildwheel.environment]
+NINJA_STATUS = "[Built edge %f of %t in %e sec] "
+
+# Needed for full C++17 support
+[tool.cibuildwheel.macos.environment]
+MACOSX_DEPLOYMENT_TARGET = "10.14"

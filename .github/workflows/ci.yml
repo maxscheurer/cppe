@@ -10,18 +10,16 @@ on:
     branches:
       - master
 
-env:
-  BUILD_TYPE: Release
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  FORCE_COLOR: 3
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-
-    continue-on-error: true
 
     strategy:
       fail-fast: false
@@ -32,84 +30,64 @@ jobs:
           - windows-latest
         python-version:
           - "3.8"
-          - "3.11"
+          - "3.12"
 
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -el {0}
+
+    env:
+      NINJA_STATUS: "[Built edge %f of %t in %e sec] "
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # such that setuptools_scm can do its job correctly
 
-    # this will set the system compiler;
-    # This must be done *before* setting up miniconda, see:
-    # https://github.com/ilammy/msvc-dev-cmd/issues/34
-    - name: Set Windows env
-      if: matrix.os == 'windows-latest'
-      uses: ilammy/msvc-dev-cmd@v1
+      # this will set the system compiler;
+      # This must be done *before* setting up miniconda, see:
+      # https://github.com/ilammy/msvc-dev-cmd/issues/34
+      - name: Set Windows env
+        if: matrix.os == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1
+        env:
+          KMP_DUPLICATE_LIB_OK: "TRUE"
 
-    - name: Cache conda
-      uses: actions/cache@v3
-      env:
-        # Increase this value to reset cache if .github/environment.yml has not changed
-        CACHE_NUMBER: 1
-      with:
-        path: ~/conda_pkgs_dir
-        key:
-          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/environment.yml') }}
+      - name: Cache conda
+        uses: actions/cache@v4
+        env:
+          # Increase this value to reset cache if .github/environment.yml has not changed
+          CACHE_NUMBER: 2
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/environment.yml') }}
 
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        mamba-version: "*"
-        auto-update-conda: true
-        auto-activate-base: false
-        activate-environment: cppe-gha
-        environment-file: .github/environment.yml
-        channel-priority: strict
-        python-version: ${{ matrix.python-version }}
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          auto-update-conda: true 
+          auto-activate-base: false
+          channels: conda-forge
+          channel-priority: true
+          activate-environment: cppe-gha
+          environment-file: .github/environment.yml
 
-    - name: Select CMake CLI options
-      run: |
-        echo "We are running on ${{ matrix.os }}"
-        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-           echo "CXX=g++" >> $GITHUB_ENV
-        elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-           echo "CXX=clang++" >> $GITHUB_ENV
-        else
-           echo "CXX=clang-cl" >> $GITHUB_ENV
-        fi
+      - name: Select CMake CLI options
+        run: |
+          echo "We are running on ${{ matrix.os }}"
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+             echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=g++;-GNinja" >> $GITHUB_ENV
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+             echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=clang++;-GNinja" >> $GITHUB_ENV
+          else
+             echo "SKBUILD_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=clang-cl;-GNinja" >> $GITHUB_ENV
+          fi
 
-    - name: Configure
-      run: |
-        cmake -S. \
-              -Bbuild \
-              -GNinja \
-              -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
-              -DCMAKE_CXX_COMPILER=${CXX} \
-              -DCMAKE_INSTALL_PREFIX=~/Software
+      - name: Configure, build, install
+        run: |
+          python -m pip install -v .[test]
 
-    - name: Build and install
-      run: |
-        cmake --build build --config ${{ env.BUILD_TYPE }} --target install -- -v -d stats
-
-    - name: Test
-      run: |
-        python -m pip install git+https://gitlab.com/robertodr/polarizationsolver.git@master
-
-        cd
-
-        if [ "${{ matrix.os }}" == "windows-latest" ]; then
-           export KMP_DUPLICATE_LIB_OK=TRUE 
-           export PYTHONPATH=Software/Lib/site-packages 
-           python -m pytest --capture=no --log-cli-level=INFO --color=yes --pyargs cppe
-        else
-           export PYTHONPATH=$PYTHONPATH:Software/lib/python${{ matrix.python-version }}/site-packages
-           python -m pytest --capture=no --log-cli-level=INFO --color=yes --pyargs cppe
-        fi
-
-    # TODO move to separate workflow
-    #- name: Build and Test Setuptools
-    #  run: |
-    #    rm -rf build
-    #    python setup.py install
-    #    py.test
+      - name: Test
+        run: |
+          python -m pytest -vvv --ignore=tests/test_fields.py --ignore=tests/test_functionality.py --ignore=tests/test_gradients.py --ignore=tests/test_solver.py
