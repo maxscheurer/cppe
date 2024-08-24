@@ -16,9 +16,7 @@ authors = [
 ]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
-  "License :: OSI Approved :: GNU Lesser",
-  "General Public License v3 (LGPLv3)",
-  "License :: Free For Educational Use",
+  "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"
   "Intended Audience :: Science/Research",
   "Topic :: Education",
   "Operating System :: OS Independent",
