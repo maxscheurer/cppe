@@ -40,7 +40,7 @@ jobs:
       NINJA_STATUS: "[Built edge %f of %t in %e sec] "
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0  # such that setuptools_scm can do its job correctly
 
