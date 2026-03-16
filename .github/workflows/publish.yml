@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install cibuildwheel
-        run: pipx install cibuildwheel==2.19.2
+        run: pipx install cibuildwheel==3.4.0
       - id: set-matrix
         run: |
           MATRIX=$(
@@ -118,15 +118,18 @@ jobs:
           path: ./wheelhouse/*.whl
 
   upload_all:
-    name: Upload if release
+    name: Upload distributions
     needs:
       - build_wheels
       - build_sdist
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+      || github.event_name == 'release'
     environment: pypi
     permissions:
       id-token: write
     runs-on: ubuntu-latest
-      #if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
       - uses: actions/download-artifact@v4
@@ -135,6 +138,29 @@ jobs:
           path: dist
           merge-multiple: true
 
+      - name: Reject local versions in upload artifacts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          files = [path.name for path in Path("dist").glob("*") if path.is_file()]
+          bad = [name for name in files if "+" in name]
+          if bad:
+              joined = "\n".join(f" - {name}" for name in bad)
+              raise SystemExit(
+                  "Refusing to upload artifacts with local version identifiers:\n"
+                  f"{joined}\n"
+                  "Configure setuptools_scm local_scheme to drop local version suffixes."
+              )
+          print("Artifact version check passed.")
+          PY
+
       - uses: pypa/gh-action-pypi-publish@release/v1
+        if: >-
+          github.event_name == 'workflow_dispatch'
+          || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+          || (github.event_name == 'release' && github.event.release.prerelease)
         with:
           repository-url: https://test.pypi.org/legacy/
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        if: github.event_name == 'release' && !github.event.release.prerelease

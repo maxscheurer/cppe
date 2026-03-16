@@ -42,39 +42,36 @@ cmake ..
 make
 ```
 
-### pip/setuptools
+### pip
 Another way to install CPPE is via `pip`:
 ```
 pip install cppe
 ```
-Note that CPPE will be built from source and a C++14 compatible compiler is required (see below), and OpenMP parallelization is **disabled** in the `setup.py`/`pip` installation.
-Alternatively, CPPE can be built from source using the `setup.py` script with
+If no wheel is available for your platform, CPPE is built from source and a C++14 compatible compiler is required (see below).
+
+To build from a local checkout:
 ```
 git clone https://github.com/maxscheurer/cppe
 cd cppe
-python setup.py install
+python -m pip install .
 ```
 
 ### Python interface
 If the Python interface should be built, specify the CMake option
 `-DENABLE_PYTHON_INTERFACE=ON`. If `pybind11` is not installed, CMake
 will automatically download `pybind11` and install it locally.
-Installing through `setup.py` will always build the Python interface.
+Installing through `pip` will build the Python interface.
 
 ### Dependencies
 - C++ 14 compiler
-- Python >= 3.6 (interpreter and development packages)
+- Python >= 3.8 (interpreter and development packages)
 
 ### Tests
 The tests can be run with
 ```
-python setup.py build_ext -i; python setup.py test
+python -m pip install -e .[test]
+pytest
 ```
-for the `setup.py` build, or
-```
-source setup_environment.sh; py.test
-```
-for the CMake build.
 
 
 ## Citation
