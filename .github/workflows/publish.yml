@@ -16,6 +16,7 @@ concurrency:
 
 env:
   FORCE_COLOR: 3
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build_sdist:
@@ -94,7 +95,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - uses: pypa/cibuildwheel@v2.19.2
+      - uses: pypa/cibuildwheel@v3.4.0
         env:
           CIBW_ENVIRONMENT_LINUX: >
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
