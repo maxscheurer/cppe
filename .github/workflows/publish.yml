@@ -2,7 +2,7 @@ name: Publish package
 
 on:
   workflow_dispatch:
-  pull_request:
+  # pull_request:
   push:
     branches:
       - master
@@ -16,6 +16,7 @@ concurrency:
 
 env:
   FORCE_COLOR: 3
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build_sdist:
@@ -42,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install cibuildwheel
-        run: pipx install cibuildwheel==2.19.2
+        run: pipx install cibuildwheel==3.4.0
       - id: set-matrix
         run: |
           MATRIX=$(
@@ -59,6 +60,8 @@ jobs:
           echo "$MATRIX"
           echo "include=$MATRIX" >> $GITHUB_OUTPUT          
     env:
+      # Build CPython wheels only (3.10-3.13)
+      CIBW_BUILD: "cp310-* cp311-* cp312-* cp313-*"
       CIBW_ARCHS_LINUX: x86_64 # aarch64  # skipping as h5py stopped providing pre-build wheels for aarch64 on PyPI
       CIBW_ARCHS_MACOS: x86_64 arm64
       CIBW_ARCHS_WINDOWS: AMD64
@@ -92,11 +95,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - uses: pypa/cibuildwheel@v2.19.2
+      - uses: pypa/cibuildwheel@v3.4.0
         env:
-          # skip testing PyPy builds
-          CIBW_TEST_SKIP: "pp*"
-
           CIBW_ENVIRONMENT_LINUX: >
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
@@ -118,15 +118,18 @@ jobs:
           path: ./wheelhouse/*.whl
 
   upload_all:
-    name: Upload if release
+    name: Upload distributions
     needs:
       - build_wheels
       - build_sdist
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+      || github.event_name == 'release'
     environment: pypi
     permissions:
       id-token: write
     runs-on: ubuntu-latest
-      #if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
       - uses: actions/download-artifact@v7
@@ -135,6 +138,29 @@ jobs:
           path: dist
           merge-multiple: true
 
+      - name: Reject local versions in upload artifacts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          files = [path.name for path in Path("dist").glob("*") if path.is_file()]
+          bad = [name for name in files if "+" in name]
+          if bad:
+              joined = "\n".join(f" - {name}" for name in bad)
+              raise SystemExit(
+                  "Refusing to upload artifacts with local version identifiers:\n"
+                  f"{joined}\n"
+                  "Configure setuptools_scm local_scheme to drop local version suffixes."
+              )
+          print("Artifact version check passed.")
+          PY
+
       - uses: pypa/gh-action-pypi-publish@release/v1
+        if: >-
+          github.event_name == 'workflow_dispatch'
+          || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+          || (github.event_name == 'release' && github.event.release.prerelease)
         with:
           repository-url: https://test.pypi.org/legacy/
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        if: github.event_name == 'release' && !github.event.release.prerelease
