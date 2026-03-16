@@ -59,6 +59,8 @@ jobs:
           echo "$MATRIX"
           echo "include=$MATRIX" >> $GITHUB_OUTPUT          
     env:
+      # Build CPython wheels only (3.10-3.13)
+      CIBW_BUILD: "cp310-* cp311-* cp312-* cp313-*"
       CIBW_ARCHS_LINUX: x86_64 # aarch64  # skipping as h5py stopped providing pre-build wheels for aarch64 on PyPI
       CIBW_ARCHS_MACOS: x86_64 arm64
       CIBW_ARCHS_WINDOWS: AMD64
@@ -94,9 +96,6 @@ jobs:
 
       - uses: pypa/cibuildwheel@v2.19.2
         env:
-          # skip testing PyPy builds
-          CIBW_TEST_SKIP: "pp*"
-
           CIBW_ENVIRONMENT_LINUX: >
             SKBUILD_CMAKE_ARGS="-DENABLE_ARCH_FLAGS=OFF;-DENABLE_OPENMP=OFF"
 
