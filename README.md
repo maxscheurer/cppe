@@ -73,6 +73,13 @@ python -m pip install -e .[test]
 pytest
 ```
 
+### Benchmarks
+Pytest-based benchmark suites live under `benchmarks/` and can be run with
+```
+python -m pytest benchmarks -m benchmark
+```
+Results are written to `benchmarks/results` as JSON and CSV artifacts.
+
 
 ## Citation
 
