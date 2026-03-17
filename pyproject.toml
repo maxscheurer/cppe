@@ -39,7 +39,6 @@ test = [
   "h5py",
   "scipy",
   "pandas",
-  "polarizationsolver@git+https://gitlab.com/robertodr/polarizationsolver.git",
 ]
 
 [project.urls]
