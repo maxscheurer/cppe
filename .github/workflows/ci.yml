@@ -63,7 +63,7 @@ jobs:
           key:
             ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('.github/environment.yml') }}
 
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: conda-incubator/setup-miniconda@v4
         with:
           python-version: ${{ matrix.python-version }}
           auto-update-conda: true 
