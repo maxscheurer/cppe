@@ -3,11 +3,7 @@
 size_t TriangleNumbers(size_t n) { return (n * (n + 1)) / 2; }
 
 size_t Nterms(size_t p) {
-  size_t result = 0;
-  for (auto i = 0; i < p + 2; i++) {
-    result += TriangleNumbers(i);
-  }
-  return result;
+  return ((p + 1) * (p + 2) * (p + 3)) / 6;
 }
 
 size_t Msize(size_t order, size_t source_order) {
